@@ -24,13 +24,17 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "types": [
-      "vitest/globals"
+      "vitest/globals",
+      "@testing-library/jest-dom",
     ],
   },
   "include": [
     "src",
     // vitest
     "vitest.config.ts",
-    "vitest.setup.ts"
+    "vitest.setup.ts",
+    // playwright
+    "**.spec.ts",
+    "playwright.config.ts"
   ]
 }

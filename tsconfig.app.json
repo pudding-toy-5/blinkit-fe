@@ -26,8 +26,6 @@
     "types": [
       "vitest/globals",
       "@testing-library/jest-dom",
-      "@vitest/browser/providers/playwright",
-      "vitest/browser/matchers"
     ],
   },
   "include": [

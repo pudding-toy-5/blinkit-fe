@@ -8,15 +8,15 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
-    browser: {
-      enabled: true,
-      provider: 'playwright',
-      instances: [
-        {
-          browser: 'chromium',
-        },
-      ],
-    },
+    // browser: {
+    //   enabled: true,
+    //   provider: 'playwright',
+    //   instances: [
+    //     {
+    //       browser: 'chromium',
+    //     },
+    //   ],
+    // },
     coverage: {
       enabled: true,
       provider: 'v8',

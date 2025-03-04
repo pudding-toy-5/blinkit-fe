@@ -1,5 +1,7 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "strictNullChecks": true
+  },
   "include": [
     "e2e"
   ]

@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router';
 
-export default function AboutPage() {
+const AboutPage: React.FC = () => {
   return (
     <div>
       AboutPage
@@ -9,4 +9,6 @@ export default function AboutPage() {
       </div>
     </div>
   );
-}
+};
+
+export default AboutPage;

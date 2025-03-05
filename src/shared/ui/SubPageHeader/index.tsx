@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 
 export interface SubPageHeaderProps {
-  backLink?: string;
+  backLink: string;
   title: string;
 }
 

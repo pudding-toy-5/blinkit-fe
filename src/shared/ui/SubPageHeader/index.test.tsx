@@ -14,7 +14,7 @@ describe('SubPageHeader', () => {
     };
     const { getByText } = renderSubPageHeader(props);
 
-    const titleElement = getByText('테스트 제목');
+    const titleElement = getByText('title');
     expect(titleElement).toBeInTheDocument();
     expect(titleElement.tagName.toLowerCase()).toBe('h1');
   });

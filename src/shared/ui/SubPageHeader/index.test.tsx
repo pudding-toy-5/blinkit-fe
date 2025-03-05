@@ -7,21 +7,27 @@ describe('SubPageHeader', () => {
   const renderSubPageHeader = ({ backLink, title }: SubPageHeaderProps) =>
     render(<SubPageHeader backLink={backLink} title={title} />);
 
-  it('renders title', () => {
+  it('renders the provided title correctly.', () => {
     const props: SubPageHeaderProps = {
-      backLink: undefined,
-      title: '',
+      backLink: '/',
+      title: 'title',
     };
     const { getByText } = renderSubPageHeader(props);
 
-    expect(getByText(props.title)).not.toBeNull();
+    const titleElement = getByText('테스트 제목');
+    expect(titleElement).toBeInTheDocument();
+    expect(titleElement.tagName.toLowerCase()).toBe('h1');
   });
 
-  it('renders button', () => {
+  it(`renders Link with correct aria-label and to attribute(backLink).`, () => {
     const props: SubPageHeaderProps = {
-      backLink: undefined,
+      backLink: '/backLink',
       title: '',
     };
-    const {} = renderSubPageHeader(props);
+    const { getByRole } = renderSubPageHeader(props);
+    const link = getByRole('link', { name: '뒤로가기' });
+
+    expect(link).toHaveAttribute('href', props.backLink);
+    expect(link).toHaveAttribute('aria-label', '뒤로가기');
   });
 });

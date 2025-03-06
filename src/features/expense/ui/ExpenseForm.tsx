@@ -34,7 +34,7 @@ const ExpenseForm: React.FC = () => {
       </div>
       <button
         type='submit'
-        className='mt-auto mb-5 p-3 bg-black text-white rounded-lg'
+        className='mt-auto mb-5 px-3 py-2 bg-black text-white rounded-lg'
       >
         저장
       </button>

@@ -19,12 +19,12 @@ const ExpenseForm: React.FC = () => {
       </div>
       <div>
         <label>메모</label>
-        <input />
+        <input type='text' />
         <p>0/120</p>
       </div>
       <div>
         <label>금액</label>
-        <input />
+        <input type='text' />
       </div>
       <button type='submit'>저장</button>
     </form>

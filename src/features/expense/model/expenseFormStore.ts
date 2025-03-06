@@ -8,7 +8,7 @@ const initialExpenseFormState: ExpenseFormState = {
   amount: 0,
 };
 
-export const useExpenseStore = create<ExpenseFormState & ExpenseFormActions>(
+export const useExpenseFormStore = create<ExpenseFormState & ExpenseFormActions>(
   (set) => ({
     ...initialExpenseFormState,
     setDate: (value) => {

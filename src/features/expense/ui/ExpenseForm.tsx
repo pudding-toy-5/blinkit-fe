@@ -27,7 +27,10 @@ const ExpenseForm: React.FC = () => {
       </div>
       <div className='flex flex-col mt-5'>
         <label>금액</label>
-        <input type='text' />
+        <input
+          type='number'
+          className='h-11 border-box p-3 rounded-md border-1 border-black/10'
+        />
       </div>
       <button
         type='submit'

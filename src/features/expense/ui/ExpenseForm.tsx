@@ -48,7 +48,7 @@ const ExpenseForm: React.FC = () => {
         <label>금액</label>
         <input
           type='number'
-          className='h-11 border-box p-3 rounded-md border-1 border-black/10'
+          className='h-11 border-box p-3 rounded-md border-1 border-black/10 text-right'
         />
       </div>
       <button

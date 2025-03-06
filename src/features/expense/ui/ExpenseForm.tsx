@@ -19,10 +19,7 @@ const ExpenseForm: React.FC = () => {
       </div>
       <div className='flex flex-col mt-5'>
         <label>메모</label>
-        <input
-          type='text'
-          className='my-2 h-38 bg-20 rounded-md border-1 border-black/10'
-        />
+        <textarea className='my-2 h-38 bg-20 rounded-md border-1 border-black/10 text-left p-1 leading-normal resize-none' />
         <p className='ml-auto'>0/120</p>
       </div>
       <div className='flex flex-col mt-5'>

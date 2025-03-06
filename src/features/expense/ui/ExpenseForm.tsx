@@ -3,7 +3,7 @@ import RightArrowIcon from '@/shared/ui/RightArrowIcon';
 const ExpenseForm: React.FC = () => {
   return (
     <form className='flex flex-col mx-4 mt-4 h-screen text-sm'>
-      <div className='flex flex-row '>
+      <div className='flex flex-row'>
         <label>날짜</label>
         <button className='flex flex-row ml-auto'>
           <p className='mr-1'>2025년 2월 28일</p>

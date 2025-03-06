@@ -51,7 +51,7 @@ const ExpenseForm: React.FC = () => {
             type='number'
             className='w-full h-11 auto border-box px-3 pl-2 pr-12 rounded-md border-1 border-black/10 text-right'
           />
-          <span className='absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-700"'>
+          <span className='absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-700'>
             원
           </span>
         </div>

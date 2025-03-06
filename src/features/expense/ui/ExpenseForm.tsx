@@ -13,7 +13,7 @@ const ExpenseForm: React.FC = () => {
       <div>
         <label>금액</label>
       </div>
-      <button type="submit">저장</button>
+      <button type='submit'>저장</button>
     </form>
   );
 };

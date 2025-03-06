@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
 
-import SubPageHeader, { SubPageHeaderProps } from './index';
+import SubPageHeader, { SubPageHeaderProps } from '../SubPageHeader';
 
 describe('SubPageHeader', () => {
   const renderSubPageHeader = ({ backLink, title }: SubPageHeaderProps) =>
@@ -27,6 +27,7 @@ describe('SubPageHeader', () => {
     const { getByRole } = renderSubPageHeader(props);
     const link = getByRole('link', { name: '뒤로가기' });
 
+    expect(link).not.toBeNull();
     expect(link).toHaveAttribute('href', props.backLink);
     expect(link).toHaveAttribute('aria-label', '뒤로가기');
   });

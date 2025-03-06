@@ -5,7 +5,7 @@ function HomePage() {
     <div>
       HomePage
       <div>
-        <NavLink to="/about" end>
+        <NavLink to='/about' end>
           to AboutPage
         </NavLink>
       </div>

@@ -4,7 +4,7 @@ import { ExpenseFormState, ExpenseFormActions } from './types';
 const initialExpenseFormState: ExpenseFormState = {
   category: '',
   date: new Date(),
-  description: '',
+  memo: '',
   amount: 0,
 };
 
@@ -17,8 +17,8 @@ export const useExpenseStore = create<ExpenseFormState & ExpenseFormActions>(
     setCategory: (value) => {
       set({ category: value });
     },
-    setDescription: (value) => {
-      set({ description: value });
+    setMemo: (value) => {
+      set({ memo: value });
     },
     setAmount: (value) => {
       set({ amount: value });

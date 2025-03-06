@@ -13,14 +13,14 @@ export interface Expense extends ExpenseFormState {
 export interface ExpenseFormState {
   date: Date;
   category: string;
-  description: string;
+  memo: string;
   amount: number;
 }
 
 export interface ExpenseFormActions {
   setDate: (value: Date) => void;
   setCategory: (value: string) => void;
-  setDescription: (value: string) => void;
+  setMemo: (value: string) => void;
   setAmount: (value: number) => void;
   resetForm: () => void;
 }

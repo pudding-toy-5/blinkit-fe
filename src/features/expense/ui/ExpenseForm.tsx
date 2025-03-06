@@ -1,6 +1,22 @@
+import React, { ChangeEvent } from 'react';
+
 import RightArrowIcon from '@/shared/ui/RightArrowIcon';
 
+import { EXPENSE_MEMO_MAX_LEN } from '../config';
+
 const ExpenseForm: React.FC = () => {
+  const [memo, setMemo] = React.useState<string>('');
+
+  const handleMemoChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+
+    if (value.length > EXPENSE_MEMO_MAX_LEN) {
+      return;
+    }
+
+    setMemo(value);
+  };
+
   return (
     <form className='flex flex-col mx-4 mt-4 h-screen text-sm'>
       <div className='flex flex-row'>
@@ -19,8 +35,14 @@ const ExpenseForm: React.FC = () => {
       </div>
       <div className='flex flex-col mt-5'>
         <label>메모</label>
-        <textarea className='my-2 h-38 bg-20 rounded-md border-1 border-black/10 text-left p-1 leading-normal resize-none' />
-        <p className='ml-auto'>0/120</p>
+        <textarea
+          value={memo}
+          onChange={handleMemoChange}
+          className='my-2 h-38 bg-20 rounded-md border-1 border-black/10 text-left p-1 leading-normal resize-none'
+        />
+        <p className='ml-auto'>
+          {memo.length}/{EXPENSE_MEMO_MAX_LEN}
+        </p>
       </div>
       <div className='flex flex-col mt-5'>
         <label>금액</label>

@@ -1,7 +1,8 @@
 // expenseStore
 export interface ExpenseState {
+  month: string;
   expenses: Expense[];
-  addExpense: (expense: Expense) => void;
+}
   //  addExpense: (expense: Omit<Expense, 'id'>) => Promise<void>;
 }
 

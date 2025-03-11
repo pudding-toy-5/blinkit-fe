@@ -38,7 +38,7 @@ const ExpenseForm: React.FC = () => {
         <textarea
           value={memo}
           onChange={handleMemoChange}
-          className='my-2 h-38 bg-20 rounded-md border-1 border-black/10 text-left p-1 leading-normal resize-none'
+          className='my-2 h-38 bg-20 rounded-md border border-black/10 text-left p-1 leading-normal resize-none'
         />
         <p className='ml-auto'>
           {memo.length}/{EXPENSE_MEMO_MAX_LEN}

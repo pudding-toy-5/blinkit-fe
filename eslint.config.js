@@ -14,7 +14,7 @@ export default tseslint.config(
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
     ],
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.{ts,tsx}', '**/*.test.{ts,tsx}'],
     languageOptions: {
       parserOptions: {
         project: [

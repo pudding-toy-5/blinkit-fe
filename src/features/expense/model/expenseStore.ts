@@ -1,9 +1,17 @@
 import { create } from 'zustand';
-import { ExpenseState } from './types';
+import { Expense, ExpenseAction, ExpenseState } from './types';
 
-export const useExpenseStore = create<ExpenseState>(() => ({
+const initialExpenseState: ExpenseState = {
+  month: '',
   expenses: [],
-  addExpense: () => {
-    return;
+};
+
+export const useExpenseStore = create<ExpenseState & ExpenseAction>((set) => ({
+  ...initialExpenseState,
+  setMonth: (newMonth: string) => {
+    set({ month: newMonth });
+  },
+  addExpense: async (newExpense: Omit<Expense, 'id'>) => {
+    // const addedExpense = await addExpense(newExpense);
   },
 }));

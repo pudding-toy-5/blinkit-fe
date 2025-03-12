@@ -1,10 +1,16 @@
+import Layout from '@/shared/ui/layout/Layout';
+import MonthSelector from '@/features/expense/ui/MonthSelector';
+
 const ExpensesPage: React.FC = () => {
   return (
-    <div>
+    <Layout>
       <header>
         <h1>ExpensesPage</h1>
       </header>
-    </div>
+      <main>
+        <MonthSelector />
+      </main>
+    </Layout>
   );
 };
 

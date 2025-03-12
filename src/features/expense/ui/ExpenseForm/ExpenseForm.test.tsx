@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest';
 import { render } from '@testing-library/react';
 
-import ExpenseForm from '../ExpenseForm';
+import ExpenseForm from './ExpenseForm';
 
 describe('ExpenseForm', () => {
   const renderExpenseForm = () => render(<ExpenseForm />);

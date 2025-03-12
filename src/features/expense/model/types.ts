@@ -1,8 +1,12 @@
 // expenseStore
 export interface ExpenseState {
+  month: string;
   expenses: Expense[];
-  addExpense: (expense: Expense) => void;
-  //  addExpense: (expense: Omit<Expense, 'id'>) => Promise<void>;
+}
+
+export interface ExpenseAction {
+  setMonth: (newMonth: string) => void;
+  addExpense: (expense: Omit<Expense, 'id'>) => Promise<void>;
 }
 
 export interface Expense extends ExpenseFormState {

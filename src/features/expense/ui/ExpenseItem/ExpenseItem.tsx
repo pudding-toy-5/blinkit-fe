@@ -7,12 +7,14 @@ const ExpenseItem: React.FC<Omit<Expense, 'date'>> = ({
   memo,
 }) => {
   return (
-    <li id={id}>
+    <li id={id} aria-labelledby={`expense-${id}`}>
       <div className='flex flex-row p-4'>
-        <div className='px-6px py-2'>{category}</div>
-        <p>{amount}원</p>
+        <div className='px-6px py-2' aria-label='지출 카테고리'>
+          {category}
+        </div>
+        <p aria-label='지출 금액'>{amount.toLocaleString()}원</p>
       </div>
-      <div>{memo}</div>
+      <div aria-label='메모'>{memo}</div>
     </li>
   );
 };

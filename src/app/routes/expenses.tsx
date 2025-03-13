@@ -20,7 +20,10 @@ export function ExpensesPage() {
         </Button>
       </header>
       <main>
-        <MonthSelector />
+        <div className='px-5 py-4'>
+          <h1 className='text-[22px] mb-4'>기록</h1>
+          <MonthSelector />
+        </div>
       </main>
     </Layout>
   );

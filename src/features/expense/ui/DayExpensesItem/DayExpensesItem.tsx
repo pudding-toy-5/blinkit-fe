@@ -2,13 +2,14 @@ import { DayExpenses, Expense } from '@/features/expense/model/types';
 
 import ExpenseItem from '@/features/expense/ui/ExpenseItem';
 
-const DayExpensesItem: React.FC<DayExpenses> = ({ id, day, expenses }) => {
+const DayExpensesItem: React.FC<DayExpenses> = ({ day, expenses }) => {
   return (
-    <div id={id}>
+    <div>
       <p>{day.toISOString()}일</p>
       <ul>
         {expenses.map(({ id, category, memo, amount }: Expense) => (
           <ExpenseItem
+            key={id}
             id={id}
             category={category}
             amount={amount}

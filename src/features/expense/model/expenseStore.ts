@@ -3,6 +3,7 @@ import { Expense, ExpenseAction, ExpenseState } from './types';
 
 const initialExpenseState: ExpenseState = {
   month: '',
+  totalAmount: 0,
   expenses: [],
 };
 

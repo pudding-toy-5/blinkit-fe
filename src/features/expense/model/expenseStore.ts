@@ -1,10 +1,11 @@
 import { create } from 'zustand';
-import { Expense, ExpenseAction, ExpenseState } from './types';
+import { Expense, DayExpenses, ExpenseAction, ExpenseState } from './types';
 
 const initialExpenseState: ExpenseState = {
   month: '',
   totalAmount: 0,
   expenses: [],
+  dayExpenses: [],
 };
 
 export const useExpenseStore = create<ExpenseState & ExpenseAction>((set) => ({

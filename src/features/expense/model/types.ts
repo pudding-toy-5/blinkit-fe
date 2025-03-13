@@ -1,6 +1,7 @@
 // expenseStore
 export interface ExpenseState {
   month: string;
+  totalAmount: number;
   expenses: Expense[];
 }
 

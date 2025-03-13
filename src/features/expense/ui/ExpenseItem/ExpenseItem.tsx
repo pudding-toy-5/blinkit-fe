@@ -1,12 +1,21 @@
-const ExpenseItem: React.FC = () => {
+import { Expense } from '@/features/expense/model/types';
+
+const ExpenseItem: React.FC<Omit<Expense, 'date'>> = ({
+  id,
+  category,
+  amount,
+  memo,
+}) => {
   return (
-    <li>
-      <div className='flex flex-row p-4'>
-        <div className='px-6px py-2'>tag</div>
-        <p>Amount</p>
-      </div>
-      <div>description</div>
-    </li>
+    <div id={id}>
+      <li>
+        <div className='flex flex-row p-4'>
+          <div className='px-6px py-2'>{category}</div>
+          <p>{amount}원</p>
+        </div>
+        <div>{memo}</div>
+      </li>
+    </div>
   );
 };
 

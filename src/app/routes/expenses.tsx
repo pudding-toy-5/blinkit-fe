@@ -15,8 +15,8 @@ export function ExpensesPage() {
     <Layout>
       <header className='flex flex-row items-center px-5 py-4'>
         <Logo />
-        <Button variant='ghost' className='ml-auto'>
-          <Settings />
+        <Button variant='ghost' className='ml-auto' size='icon'>
+          <Settings className='!size-6' />
         </Button>
       </header>
       <main>

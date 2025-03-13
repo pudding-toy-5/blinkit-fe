@@ -1,11 +1,11 @@
 import { Expense } from '@/features/expense/model/types';
 
-interface DayExpenseProps {
+interface DayExpenseItemProps {
   day: Date;
   expenses: Expense;
 }
 
-const DayExpense: React.FC = () => {
+const DayExpenseItem: React.FC = () => {
   return (
     <div>
       <p></p>
@@ -17,4 +17,4 @@ const DayExpense: React.FC = () => {
   );
 };
 
-export default ExpenseList;
+export default DayExpenseItem;

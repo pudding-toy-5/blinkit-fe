@@ -1,10 +1,14 @@
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 
-const AddExpenseButton: React.FC = () => {
+interface AddExpenseButtonProps {
+  onClick: () => void;
+}
+
+const AddExpenseButton: React.FC<AddExpenseButtonProps> = ({ onClick }) => {
   return (
-    <Button>
-      <Plus></Plus>
+    <Button onClick={onClick} aria-label='지출 추가'>
+      <Plus />
     </Button>
   );
 };

@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 
-import RightArrowIcon from '@/shared/ui/RightArrowIcon';
+import RightArrowIcon from '@/shared/ui/icons/RightArrowIcon';
 
 import { EXPENSE_MEMO_MAX_LEN } from '../../config';
 

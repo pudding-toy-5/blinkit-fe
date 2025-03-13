@@ -14,5 +14,8 @@ export const useExpenseStore = create<ExpenseState & ExpenseAction>((set) => ({
   },
   addExpense: async (newExpense: Omit<Expense, 'id'>) => {
     // const addedExpense = await addExpense(newExpense);
+    set((state) => ({
+      totalAmount: state.totalAmount + newExpense.amount,
+    }));
   },
 }));

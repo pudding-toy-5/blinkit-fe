@@ -1,24 +1,20 @@
-import { Expense } from '@/features/expense/model/types';
+import { DayExpenses, Expense } from '@/features/expense/model/types';
 
 import ExpenseItem from '@/features/expense/ui/ExpenseItem';
 
-interface DayExpensesItemProps {
-  id: string;
-  day: Date;
-  expenses: Expense;
-}
-
-const DayExpensesItem: React.FC<DayExpensesItemProps> = ({
-  id,
-  day,
-  expenses,
-}) => {
+const DayExpensesItem: React.FC<DayExpenses> = ({ id, day, expenses }) => {
   return (
     <div id={id}>
-      <p>{}일</p>
+      <p>{day.toISOString()}일</p>
       <ul>
-        {}
-        <ExpenseItem />
+        {expenses.map(({ id, category, memo, amount }: Expense) => (
+          <ExpenseItem
+            id={id}
+            category={category}
+            amount={amount}
+            memo={memo}
+          />
+        ))}
       </ul>
     </div>
   );

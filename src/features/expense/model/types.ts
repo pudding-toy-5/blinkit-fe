@@ -1,6 +1,9 @@
 // expenseStore
 export interface ExpenseState {
-  month: string;
+  period: {
+    year: number;
+    month: number;
+  };
   totalAmount: number;
   expenses: Expense[];
   dayExpenses: DayExpenses[];

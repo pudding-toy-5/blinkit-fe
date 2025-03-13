@@ -12,7 +12,6 @@ export interface ExpenseAction {
 }
 
 export interface DayExpenses {
-  id: string;
   day: Date;
   expenses: Expense[];
 }

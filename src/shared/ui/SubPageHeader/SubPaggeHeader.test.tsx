@@ -1,9 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
 
-import SubPageHeader, {
-  SubPageHeaderProps,
-} from '../SubPageHeader/SubPageHeader';
+import SubPageHeader, { SubPageHeaderProps } from './SubPageHeader';
 
 describe('SubPageHeader', () => {
   const renderSubPageHeader = ({ backLink, title }: SubPageHeaderProps) =>

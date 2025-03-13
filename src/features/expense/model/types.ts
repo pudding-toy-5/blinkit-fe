@@ -9,8 +9,8 @@ export interface ExpenseState {
   dayExpenses: DayExpenses[];
 }
 
-export interface ExpenseAction {
-  setMonth: (newMonth: string) => void;
+export interface ExpenseActions {
+  setPeriod: (newPeriod: Date) => void;
   addExpense: (expense: Omit<Expense, 'id'>) => Promise<void>;
 }
 

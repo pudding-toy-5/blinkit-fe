@@ -1,21 +1,21 @@
 import { useExpenseStore } from '@/features/expense/model/expenseStore';
-import { DayExpenses } from '@/features/expense/model/types';
 
-import DayExpensesItem from '@/features/expense/ui/DayExpensesList'
+import DayExpensesItem from '@/features/expense/ui/DayExpensesList';
+import { DayExpenses } from '@/features/expense/model/types';
 
 const DayExpensesList = () => {
   // const month = useExpenseStore((state) => state.month);
-  const expenses = useExpenseStore((state) => state.expenses);
+  const dayExpenses: DayExpenses[] = useExpenseStore(
+    (state) => state.dayExpenses
+  );
 
   // const expenseList = ;
 
   return (
     <div className='bg-gray-100'>
-      {
-      expenses.map(({ id, day, expenses }: DayExpenses) => return (
-        <DayExpensesItem id={id} day={day} expenses={expenses}/>
-      ))
-    }
+      {dayExpenses.map(({ id, day, expenses }: DayExpenses) => (
+        <DayExpensesItem id={id} day={day} expenses={expenses} />
+      ))}
     </div>
   );
 };

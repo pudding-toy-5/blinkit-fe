@@ -1,8 +1,18 @@
 {
   "compilerOptions": {
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@test/": [
+        "./test/*"
+      ],
+    }
   },
   "include": [
-    "e2e"
+    "e2e",
+    "test"
   ]
 }

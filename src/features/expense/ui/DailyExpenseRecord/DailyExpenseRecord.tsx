@@ -1,6 +1,6 @@
 import { Expense } from '@/features/expense/model/types';
 
-const ExpenseItem: React.FC<Omit<Expense, 'date'>> = ({
+const DailyExpenseRecord: React.FC<Omit<Expense, 'date'>> = ({
   id,
   category,
   amount,
@@ -19,4 +19,4 @@ const ExpenseItem: React.FC<Omit<Expense, 'date'>> = ({
   );
 };
 
-export default ExpenseItem;
+export default DailyExpenseRecord;

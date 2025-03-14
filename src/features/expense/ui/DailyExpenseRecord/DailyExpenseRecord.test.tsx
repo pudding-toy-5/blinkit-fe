@@ -3,9 +3,9 @@ import { render } from '@testing-library/react';
 
 import { Expense } from '@/features/expense/model/types';
 
-import ExpenseItem from './ExpenseItem';
+import DailyExpenseRecord from './DailyExpenseRecord';
 
-describe('ExpenseItem', () => {
+describe('DailyExpenseRecord', () => {
   const expenseProps: Omit<Expense, 'date'> = {
     id: 'test-id',
     category: 'test-category',
@@ -13,19 +13,24 @@ describe('ExpenseItem', () => {
     memo: 'description',
   };
 
-  const renderExpenseItem = ({
+  const renderDailyExpenseRecord = ({
     id,
     category,
     amount,
     memo,
   }: Omit<Expense, 'date'>) => {
     return render(
-      <ExpenseItem id={id} category={category} amount={amount} memo={memo} />
+      <DailyExpenseRecord
+        id={id}
+        category={category}
+        amount={amount}
+        memo={memo}
+      />
     );
   };
 
   it('renders li tag with id and aria-labelledby.', () => {
-    const { getByRole } = renderExpenseItem({ ...expenseProps });
+    const { getByRole } = renderDailyExpenseRecord({ ...expenseProps });
     const listItem = getByRole('listitem');
 
     expect(listItem).toBeInTheDocument();
@@ -37,7 +42,7 @@ describe('ExpenseItem', () => {
   });
 
   it('renders category with label and text.', () => {
-    const { getByLabelText, getByText } = renderExpenseItem({
+    const { getByLabelText, getByText } = renderDailyExpenseRecord({
       ...expenseProps,
     });
 
@@ -49,7 +54,7 @@ describe('ExpenseItem', () => {
   });
 
   it('renders amount with label and localeString.', () => {
-    const { getByLabelText, getByText } = renderExpenseItem({
+    const { getByLabelText, getByText } = renderDailyExpenseRecord({
       ...expenseProps,
     });
 
@@ -62,7 +67,7 @@ describe('ExpenseItem', () => {
   });
 
   it('renders memo with label and text.', () => {
-    const { getByLabelText, getByText } = renderExpenseItem({
+    const { getByLabelText, getByText } = renderDailyExpenseRecord({
       ...expenseProps,
     });
 

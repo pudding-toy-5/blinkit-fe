@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Expense, DayExpenses, ExpenseActions, ExpenseState } from './types';
+import { Expense, ExpenseActions, ExpenseState } from './types';
 
 const current = new Date();
 const year = current.getFullYear();
@@ -12,7 +12,7 @@ const initialExpenseState: ExpenseState = {
   },
   totalAmount: 0,
   expenses: [],
-  dayExpenses: [],
+  dailyExpenses: [],
 };
 
 export const useExpenseStore = create<ExpenseState & ExpenseActions>((set) => ({

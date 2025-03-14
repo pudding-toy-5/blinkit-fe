@@ -6,7 +6,7 @@ export interface ExpenseState {
   };
   totalAmount: number;
   expenses: Expense[];
-  dayExpenses: DayExpenses[];
+  dailyExpenses: DailyExpense[];
 }
 
 export interface ExpenseActions {
@@ -14,8 +14,8 @@ export interface ExpenseActions {
   addExpense: (expense: Omit<Expense, 'id'>) => Promise<void>;
 }
 
-export interface DayExpenses {
-  day: Date;
+export interface DailyExpense {
+  date: Date;
   expenses: Expense[];
 }
 

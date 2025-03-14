@@ -24,31 +24,52 @@ describe('ExpenseItem', () => {
     );
   };
 
-  it('renders li tag.', () => {
+  it('renders li tag with id and aria-labelledby.', () => {
     const { getByRole } = renderExpenseItem({ ...expenseProps });
     const listItem = getByRole('listitem');
 
     expect(listItem).toBeInTheDocument();
+    expect(listItem).toHaveAttribute('id', expenseProps.id);
+    expect(listItem).toHaveAttribute(
+      'aria-labelledby',
+      `expense-${expenseProps.id}`
+    );
   });
 
-  it('renders category with label.', () => {
-    const { getByLabelText } = renderExpenseItem({ ...expenseProps });
-    const category = getByLabelText('지출 카테고리');
+  it('renders category with label and text.', () => {
+    const { getByLabelText, getByText } = renderExpenseItem({
+      ...expenseProps,
+    });
 
+    const categoryLabel = getByLabelText('지출 카테고리');
+    expect(categoryLabel).toBeInTheDocument();
+
+    const category = getByText(expenseProps.category);
     expect(category).toBeInTheDocument();
   });
 
-  it('renders amount to locale string and label.', () => {
-    const { getByLabelText } = renderExpenseItem({ ...expenseProps });
-    const amount = getByLabelText('지출 금액');
+  it('renders amount with label and localeString.', () => {
+    const { getByLabelText, getByText } = renderExpenseItem({
+      ...expenseProps,
+    });
 
+    const amountLabel = getByLabelText('지출 금액');
+    expect(amountLabel).toBeInTheDocument();
+
+    const amountString = `${expenseProps.amount.toLocaleString()}원`;
+    const amount = getByText(amountString);
     expect(amount).toBeInTheDocument();
   });
 
-  it('renders memo.', () => {
-    const { getByLabelText } = renderExpenseItem({ ...expenseProps });
-    const memo = getByLabelText('메모');
+  it('renders memo with label and text.', () => {
+    const { getByLabelText, getByText } = renderExpenseItem({
+      ...expenseProps,
+    });
 
+    const memoLabel = getByLabelText('메모');
+    expect(memoLabel).toBeInTheDocument();
+
+    const memo = getByText(expenseProps.memo);
     expect(memo).toBeInTheDocument();
   });
 });

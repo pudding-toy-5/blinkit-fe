@@ -132,6 +132,6 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-color: var(--color-gray-100);
+    background-color: var(--color-gray-200);
   }
 }

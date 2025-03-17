@@ -1,4 +1,4 @@
-name: Run Vitest CI
+name: Run Tests
 
 on:
   push:
@@ -16,21 +16,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: latest
+          run_install: false
 
       - name: Install Dependencies
         run: pnpm install
 
       - name: Run Tests
-        run: pnpm test -- --coverage
-
-      - name: Upload Coverage Report
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/clover.xml
-          flags: unit-tests
-          name: codecov-umbrella
+        run: pnpm test:coverage

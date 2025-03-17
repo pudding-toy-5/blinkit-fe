@@ -1,18 +1,21 @@
 // expenseStore
 export interface ExpenseState {
-  month: string;
+  period: {
+    year: number;
+    month: number;
+  };
   totalAmount: number;
   expenses: Expense[];
-  dayExpenses: DayExpenses[];
+  dailyExpenses: DailyExpense[];
 }
 
-export interface ExpenseAction {
-  setMonth: (newMonth: string) => void;
+export interface ExpenseActions {
+  setPeriod: (newPeriod: Date) => void;
   addExpense: (expense: Omit<Expense, 'id'>) => Promise<void>;
 }
 
-export interface DayExpenses {
-  day: Date;
+export interface DailyExpense {
+  date: Date;
   expenses: Expense[];
 }
 

@@ -1,17 +1,30 @@
 import { create } from 'zustand';
-import { Expense, DayExpenses, ExpenseAction, ExpenseState } from './types';
+import { Expense, ExpenseActions, ExpenseState } from './types';
+
+const current = new Date();
+const year = current.getFullYear();
+const month = current.getMonth();
 
 const initialExpenseState: ExpenseState = {
-  month: '',
+  period: {
+    year: year,
+    month: month,
+  },
   totalAmount: 0,
   expenses: [],
-  dayExpenses: [],
+  dailyExpenses: [],
 };
 
-export const useExpenseStore = create<ExpenseState & ExpenseAction>((set) => ({
+export const useExpenseStore = create<ExpenseState & ExpenseActions>((set) => ({
   ...initialExpenseState,
-  setMonth: (newMonth: string) => {
-    set({ month: newMonth });
+  setPeriod: (newPeriod: Date) => {
+    // set({ month: newMonth });
+    set({
+      period: {
+        year: newPeriod.getFullYear(),
+        month: newPeriod.getMonth(),
+      },
+    });
   },
   addExpense: async (newExpense: Omit<Expense, 'id'>) => {
     // const addedExpense = await addExpense(newExpense);

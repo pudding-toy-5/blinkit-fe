@@ -1,3 +1,4 @@
+import { ProvidedCategoryValue } from './ProvidedCategory';
 // expenseStore
 export interface ExpenseState {
   period: {
@@ -5,6 +6,7 @@ export interface ExpenseState {
     month: number;
   };
   totalAmount: number;
+  addedCategories: AddedCategory[];
   expenses: Expense[];
   dailyExpenses: DailyExpense[];
 }
@@ -19,6 +21,10 @@ export interface DailyExpense {
   expenses: Expense[];
 }
 
+export interface AddedCategory {
+  name: string;
+}
+
 export interface Expense extends ExpenseFormState {
   id: string;
 }
@@ -26,7 +32,7 @@ export interface Expense extends ExpenseFormState {
 // expenseFormStore
 export interface ExpenseFormState {
   date: Date;
-  category: string;
+  category: ProvidedCategoryValue | AddedCategory;
   memo: string;
   amount: number;
 }

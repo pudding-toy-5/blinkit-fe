@@ -1,20 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
 
-import { createRoutesStub } from 'react-router';
-
-import AboutPage from '../AboutPage';
+import { AboutPage } from '../about';
 
 describe('AboutPage', () => {
-  const AboutStub = createRoutesStub([
-    {
-      path: '/about',
-      Component: AboutPage,
-    },
-  ]);
-
   it(`renders text 'AboutPage'.`, () => {
-    const { getByText } = render(<AboutStub initialEntries={['/about']} />);
+    const { getByText } = render(<AboutPage />);
 
     expect(getByText('AboutPage')).not.toBeNull();
   });

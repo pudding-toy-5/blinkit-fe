@@ -11,6 +11,7 @@ const initialExpenseState: ExpenseState = {
     month: month,
   },
   totalAmount: 0,
+  addedCategories: [],
   expenses: [],
   dailyExpenses: [],
 };

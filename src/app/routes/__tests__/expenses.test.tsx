@@ -1,20 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
 
-import { createRoutesStub } from 'react-router';
-
-import ExpensesPage from '../ExpensesPage';
+import { ExpensesPage } from '../expenses';
 
 describe('ExpensesPage', () => {
-  const ExpensesStub = createRoutesStub([
-    {
-      path: '/expenses',
-      Component: ExpensesPage,
-    },
-  ]);
-
   it(`renders title.`, () => {
-    const { getByRole } = render(<ExpensesStub initialEntries={['/']} />);
+    const { getByRole } = render(<ExpensesPage />);
     const titleElement = getByRole('h1');
 
     expect(titleElement).toBeInTheDocument();

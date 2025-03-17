@@ -1,7 +1,13 @@
+import { createFileRoute } from '@tanstack/react-router';
+
 import Layout from '@/shared/ui/layout/Layout';
 import MonthSelector from '@/features/expense/ui/MonthSelector';
 
-const ExpensesPage: React.FC = () => {
+export const Route = createFileRoute('/expenses')({
+  component: ExpensesPage,
+});
+
+export function ExpensesPage() {
   return (
     <Layout>
       <header>
@@ -12,6 +18,6 @@ const ExpensesPage: React.FC = () => {
       </main>
     </Layout>
   );
-};
+}
 
 export default ExpensesPage;

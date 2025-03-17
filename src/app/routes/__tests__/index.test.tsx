@@ -1,8 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
 
-import { createRoutesStub } from 'react-router';
-
 import { HomePage } from '../index';
 
 describe('HomePage', () => {

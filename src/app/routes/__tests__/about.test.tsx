@@ -11,7 +11,7 @@ describe('AboutPage', () => {
   });
 
   it(`renders button 'to HomePage'`, () => {
-    const { getByText } = render(<AboutStub initialEntries={['/about']} />);
+    const { getByText } = render(<AboutPage />);
 
     expect(getByText('to HomePage')).not.toBeNull();
 

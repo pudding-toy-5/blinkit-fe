@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Expense, ExpenseActions, ExpenseState } from './types';
+import { Expense, ExpenseActions, ExpenseState } from './types/Expense';
 
 const current = new Date();
 const year = current.getFullYear();
@@ -11,12 +11,11 @@ const initialExpenseState: ExpenseState = {
     month: month,
   },
   totalAmount: 0,
-  addedCategories: [],
   expenses: [],
   dailyExpenses: [],
 };
 
-export const useExpenseStore = create<ExpenseState & ExpenseActions>((set) => ({
+const useExpenseStore = create<ExpenseState & ExpenseActions>((set) => ({
   ...initialExpenseState,
   setPeriod: (newPeriod: Date) => {
     // set({ month: newMonth });
@@ -34,3 +33,5 @@ export const useExpenseStore = create<ExpenseState & ExpenseActions>((set) => ({
     }));
   },
 }));
+
+export default useExpenseStore;

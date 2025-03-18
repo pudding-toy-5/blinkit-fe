@@ -14,9 +14,10 @@ export interface ExpenseState {
 
 export interface ExpenseActions {
   setPeriod: (newPeriod: Date) => void;
-  addExpense: (expense: Omit<Expense, 'id'>) => Promise<void>;
-  updateExpense: (expense: Expense) => Promise<void>;
-  deleteExpense: (id: string) => Promise<void>;
+  setExpenses: (expenses: Expense[]) => void;
+  addExpense: (expense: Omit<Expense, 'id'>) => void;
+  updateExpense: (expense: Expense) => void;
+  deleteExpense: (id: string) => void;
 }
 
 // expenseFormStore

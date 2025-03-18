@@ -8,10 +8,11 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 
-import { useExpenseStore } from '@/features/expense/model/expenseStore';
+import { usePeriod } from '@/features/expense/model/selectors';
 
 const MonthSelector = () => {
-  const month = useExpenseStore((state) => state.month);
+  const period = usePeriod();
+  const { year, month } = period;
 
   return (
     <div className='flex flex-row' aria-label='조회 월 선택'>
@@ -20,7 +21,10 @@ const MonthSelector = () => {
       </Button>
       <Drawer>
         <DrawerTrigger asChild>
-          <Button variant='link'>{month}월</Button>
+          <Button variant='link'>
+            {year !== new Date().getFullYear() && `${year.toString()}년 `}
+            {month}월
+          </Button>
         </DrawerTrigger>
         <DrawerContent className='flex items-center'>
           <DrawerHeader>

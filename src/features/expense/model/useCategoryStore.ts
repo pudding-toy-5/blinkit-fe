@@ -7,9 +7,31 @@ const initialCategoryState: CategoryState = {
 
 const useCategoryStore = create<CategoryState & CategoryActions>((set) => ({
   ...initialCategoryState,
-  addCategory: async (category) => {},
-  updateCategory: async (category) => {},
-  deleteCategory: async (id) => {},
+  setCategories: (categories) => {
+    set(() => ({
+      categories,
+    }));
+  },
+  addCategory: (category) => {
+    set((state) => ({
+      categories: [
+        ...state.categories,
+        { id: new Date().toString(), ...category },
+      ],
+    }));
+  },
+  updateCategory: (category) => {
+    set((state) => ({
+      categories: state.categories.map((c) =>
+        c.id === category.id ? { ...c, ...category } : c
+      ),
+    }));
+  },
+  deleteCategory: (id) => {
+    set((state) => ({
+      categories: state.categories.filter((category) => category.id !== id),
+    }));
+  },
 }));
 
 export default useCategoryStore;

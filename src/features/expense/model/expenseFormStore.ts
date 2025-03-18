@@ -1,19 +1,21 @@
 import { create } from 'zustand';
-import { ExpenseFormState, ExpenseFormActions } from './types';
+import { Expense, ExpenseFormActions } from './types';
 
-const initialExpenseFormState: ExpenseFormState = {
-  category: '',
+const initialExpenseFormState: Omit<Expense, 'id'> = {
   date: new Date(),
   memo: '',
   amount: 0,
 };
 
 export const useExpenseFormStore = create<
-  ExpenseFormState & ExpenseFormActions
+  Omit<Expense, 'id'> & ExpenseFormActions
 >((set) => ({
   ...initialExpenseFormState,
   setDate: (value) => {
     set({ date: value });
+  },
+  setProvidedCategory: (value) => {
+    set({ providedCategory: value });
   },
   setCategory: (value) => {
     set({ category: value });

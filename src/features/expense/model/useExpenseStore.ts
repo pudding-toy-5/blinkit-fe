@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { Expense, ExpenseActions, ExpenseState } from './types/Expense';
+import { ExpenseActions, ExpenseState } from './types/Expense';
+import { providedCategory } from './types/ProvidedCategory';
 
 const current = new Date();
 const year = current.getFullYear();
@@ -11,14 +12,28 @@ const initialExpenseState: ExpenseState = {
     month: month,
   },
   totalAmount: 0,
-  expenses: [],
+  expenses: [
+    {
+      id: 'test-id-1',
+      date: new Date(),
+      providedCategory: providedCategory.atm,
+      memo: 'test memo for test id 1',
+      amount: 10000,
+    },
+    {
+      id: 'test-id-2',
+      date: new Date(),
+      providedCategory: providedCategory.food,
+      memo: 'test memo for test id 2',
+      amount: 20000,
+    },
+  ],
   dailyExpenses: [],
 };
 
 const useExpenseStore = create<ExpenseState & ExpenseActions>((set) => ({
   ...initialExpenseState,
-  setPeriod: (newPeriod: Date) => {
-    // set({ month: newMonth });
+  setPeriod: (newPeriod) => {
     set({
       period: {
         year: newPeriod.getFullYear(),
@@ -26,10 +41,26 @@ const useExpenseStore = create<ExpenseState & ExpenseActions>((set) => ({
       },
     });
   },
-  addExpense: async (newExpense: Omit<Expense, 'id'>) => {
-    // const addedExpense = await addExpense(newExpense);
+  setExpenses: (expenses) => {
+    set(() => ({
+      expenses,
+    }));
+  },
+  addExpense: (expense) => {
     set((state) => ({
-      totalAmount: state.totalAmount + newExpense.amount,
+      expenses: [...state.expenses, { id: new Date().toString(), ...expense }],
+    }));
+  },
+  updateExpense: (expense) => {
+    set((state) => ({
+      expenses: state.expenses.map((e) =>
+        e.id === expense.id ? { ...e, ...expense } : e
+      ),
+    }));
+  },
+  deleteExpense: (id) => {
+    set((state) => ({
+      expenses: state.expenses.filter((expense) => expense.id !== id),
     }));
   },
 }));

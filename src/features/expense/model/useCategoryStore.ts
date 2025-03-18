@@ -7,9 +7,9 @@ const initialCategoryState: CategoryState = {
 
 const useCategoryStore = create<CategoryState & CategoryActions>((set) => ({
   ...initialCategoryState,
-  addCategory: (category) => {},
-  updateCategory: (category) => {},
-  deleteCategory: (id) => {},
+  addCategory: async (category) => {},
+  updateCategory: async (category) => {},
+  deleteCategory: async (id) => {},
 }));
 
 export default useCategoryStore;

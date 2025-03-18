@@ -21,7 +21,7 @@ export interface ExpenseActions {
 
 // expenseFormStore
 export interface ExpenseFormActions {
-  setDate: (value: Date) => void;
+  setPeriod: (value: Date) => void;
   setProvidedCategory: (value: ProvidedCategoryValue) => void;
   setCategory: (value: Category) => void;
   setMemo: (value: string) => void;

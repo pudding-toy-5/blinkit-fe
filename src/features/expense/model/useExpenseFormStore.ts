@@ -10,7 +10,7 @@ const initialExpenseFormState: Omit<Expense, 'id'> = {
 const useExpenseFormStore = create<Omit<Expense, 'id'> & ExpenseFormActions>(
   (set) => ({
     ...initialExpenseFormState,
-    setDate: (value) => {
+    setPeriod: (value) => {
       set({ date: value });
     },
     setProvidedCategory: (value) => {

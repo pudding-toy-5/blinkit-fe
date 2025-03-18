@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 
 import RightArrowIcon from '@/shared/ui/icons/RightArrowIcon';
 
-import { EXPENSE_MEMO_MAX_LEN } from '../../config';
+import { EXPENSE_MEMO_MAX_LEN } from '../../consts';
 
 const ExpenseForm: React.FC = () => {
   const [memo, setMemo] = React.useState<string>('');

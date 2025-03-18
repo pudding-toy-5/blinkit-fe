@@ -1,4 +1,4 @@
-import { useExpenseStore } from '@/features/expense/model/expenseStore';
+import { useExpenseStore } from '@/features/expense/model/useExpenseStore';
 
 const TotalAmount: React.FC = () => {
   const totalAmount = useExpenseStore((state) => state.totalAmount);

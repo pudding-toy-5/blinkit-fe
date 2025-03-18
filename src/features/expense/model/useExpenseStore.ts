@@ -12,22 +12,7 @@ const initialExpenseState: ExpenseState = {
     month: month,
   },
   totalAmount: 0,
-  expenses: [
-    {
-      id: 'test-id-1',
-      date: new Date(),
-      providedCategory: providedCategory.atm,
-      memo: 'test memo for test id 1',
-      amount: 10000,
-    },
-    {
-      id: 'test-id-2',
-      date: new Date(),
-      providedCategory: providedCategory.food,
-      memo: 'test memo for test id 2',
-      amount: 20000,
-    },
-  ],
+  expenses: [],
   dailyExpenses: [],
 };
 

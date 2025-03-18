@@ -6,7 +6,7 @@ export interface ExpenseState {
     month: number;
   };
   totalAmount: number;
-  addedCategories: AddedCategory[];
+  categories: Category[];
   expenses: Expense[];
   dailyExpenses: DailyExpense[];
 }

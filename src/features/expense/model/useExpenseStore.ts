@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { ExpenseActions, ExpenseState } from './types/Expense';
-import { providedCategory } from './types/ProvidedCategory';
 
 const current = new Date();
 const year = current.getFullYear();

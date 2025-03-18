@@ -21,25 +21,24 @@ export interface DailyExpense {
   expenses: Expense[];
 }
 
-export interface AddedCategory {
+export interface Category {
+  id: string;
   name: string;
 }
 
-export interface Expense extends ExpenseFormState {
+export interface Expense {
   id: string;
-}
-
-// expenseFormStore
-export interface ExpenseFormState {
   date: Date;
-  category: ProvidedCategoryValue | AddedCategory;
+  providedCategory?: ProvidedCategoryValue;
+  category?: Category;
   memo: string;
   amount: number;
 }
 
 export interface ExpenseFormActions {
   setDate: (value: Date) => void;
-  setCategory: (value: string) => void;
+  setProvidedCategory: (value: ProvidedCategoryValue) => void;
+  setCategory: (value: Category) => void;
   setMemo: (value: string) => void;
   setAmount: (value: number) => void;
   resetForm: () => void;

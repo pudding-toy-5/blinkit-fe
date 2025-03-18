@@ -7,17 +7,14 @@ import { Settings } from 'lucide-react';
 import MonthSelector from '@/features/expense/ui/MonthSelector';
 import DailyExpenseList from '@/features/expense/ui/DailyExpenseList';
 
-import { useExpenseStore } from '@/features/expense/model/expenseStore';
-import { DailyExpense } from '@/features/expense/model/types';
+import { useDailyExpenses } from '@/features/expense/model/selectors';
 
 export const Route = createFileRoute('/expenses')({
   component: ExpensesPage,
 });
 
 export function ExpensesPage() {
-  const dailyExpenses: DailyExpense[] = useExpenseStore(
-    (state) => state.dailyExpenses
-  );
+  const dailyExpenses = useDailyExpenses();
 
   return (
     <Layout>

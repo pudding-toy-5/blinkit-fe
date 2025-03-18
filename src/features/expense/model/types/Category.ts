@@ -4,9 +4,10 @@ export interface CategoryState {
 }
 
 export interface CategoryActions {
-  addCategory: (category: Omit<Category, 'id'>) => Promise<void>;
-  updateCategory: (category: Category) => Promise<void>;
-  deleteCategory: (id: string) => Promise<void>;
+  setCategories: (categories: Category[]) => void;
+  addCategory: (category: Omit<Category, 'id'>) => void;
+  updateCategory: (category: Category) => void;
+  deleteCategory: (id: string) => void;
 }
 
 export interface Category {

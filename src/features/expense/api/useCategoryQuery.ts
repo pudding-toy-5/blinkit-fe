@@ -1,7 +1,6 @@
 import { createEntityHooks } from '@/features/common/useEntityQuery';
 
 import { Category } from '@/features/expense/model/types/Category';
-import useCategoryStore from '@/features/expense/model/useCategoryStore';
 
 import { queryKeys } from '../consts';
 
@@ -15,21 +14,22 @@ const fetchCategories = async (): Promise<Category[]> => {
   return res.json() as Promise<Category[]>;
 };
 
-const setCategories = useCategoryStore((store) => store.setCategories);
-
 const {
-  useFetchEntities: useFetchEntities,
+  useEntities: useCategoriesQuery,
+  useEntityById: useCategoryById,
   useAddEntity: useAddCategory,
   useUpdateEntity: useUpdateCategory,
   useDeleteEntity: useDeleteCategory,
-} = createEntityHooks<Category>(
-  queryKeys.categories,
-  fetchCategories,
-  setCategories
-);
+} = createEntityHooks<Category>(queryKeys.categories, fetchCategories);
+
+const useCategories = () => {
+  const { data, isLoading, error } = useCategoriesQuery();
+  return { categories: data, isLoading, error };
+};
 
 export {
-  useFetchEntities,
+  useCategories,
+  useCategoryById,
   useAddCategory,
   useUpdateCategory,
   useDeleteCategory,

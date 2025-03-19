@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 
 type Entity = { id: string; [key: string]: any };
 
-export default function fakeApiCall<T>(data: T, delay = 500): Promise<T> {
+function fakeApiCall<T>(data: T, delay = 500): Promise<T> {
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve(data);

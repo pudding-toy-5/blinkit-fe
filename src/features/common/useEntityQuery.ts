@@ -1,5 +1,3 @@
-// src/features/common/useEntityQuery.ts
-import { useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { nanoid } from 'nanoid';
 
@@ -15,22 +13,18 @@ function fakeApiCall<T>(data: T, delay = 500): Promise<T> {
 
 export const createEntityHooks = <T extends Entity>(
   queryKey: string[],
-  fetchFn: () => Promise<T[]>,
-  setEntities: (entities: T[]) => void
+  fetchFn: () => Promise<T[]>
 ) => {
-  const useFetchEntities = () => {
-    const { data, error, isLoading } = useQuery({
-      queryKey: [queryKey],
+  const useEntities = () => {
+    return useQuery({
+      queryKey,
       queryFn: fetchFn,
     });
+  };
 
-    useEffect(() => {
-      if (data) {
-        setEntities(data);
-      }
-    }, [data, setEntities]);
-
-    return { data, error, isLoading };
+  const useEntityById = (id: string | undefined) => {
+    const { data: entities } = useEntities();
+    return entities?.find((entity) => id && entity.id === id);
   };
 
   const useAddEntity = () => {
@@ -93,7 +87,8 @@ export const createEntityHooks = <T extends Entity>(
   };
 
   return {
-    useFetchEntities,
+    useEntities,
+    useEntityById,
     useAddEntity,
     useUpdateEntity,
     useDeleteEntity,

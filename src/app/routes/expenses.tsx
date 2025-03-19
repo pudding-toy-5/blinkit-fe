@@ -19,7 +19,11 @@ export const Route = createFileRoute('/expenses')({
 export function ExpensesPage() {
   const { dailyExpenses, isLoading, error } = useDailyExpenses();
 
-  const [period, setPeriod] = useState<Period>({ year: 2025, month: 3 });
+  const current = new Date();
+  const [period, setPeriod] = useState<Period>({
+    year: current.getFullYear(),
+    month: current.getMonth() + 1,
+  });
 
   useEffect(() => {}, [period, setPeriod]);
 

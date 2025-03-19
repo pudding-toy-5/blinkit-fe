@@ -13,25 +13,28 @@ import Period from '@/features/expense/model/types/Period';
 
 interface MonthSelectorProps {
   period: Period;
-  setPeriod: (period: Period) => void;
+  onSetPeriod: (period: Period) => void;
 }
 
-const MonthSelector: React.FC<MonthSelectorProps> = ({ period, setPeriod }) => {
+const MonthSelector: React.FC<MonthSelectorProps> = ({
+  period,
+  onSetPeriod,
+}) => {
   const { year, month } = period;
 
   const handleClickPrevious = () => {
     if (month === 1) {
-      setPeriod({ year: year - 1, month: 12 });
+      onSetPeriod({ year: year - 1, month: 12 });
     } else {
-      setPeriod({ year, month: month - 1 });
+      onSetPeriod({ year, month: month - 1 });
     }
   };
 
   const handleClickNext = () => {
     if (month === 12) {
-      setPeriod({ year: year + 1, month: 1 });
+      onSetPeriod({ year: year + 1, month: 1 });
     } else {
-      setPeriod({ year, month: month + 1 });
+      onSetPeriod({ year, month: month + 1 });
     }
   };
 

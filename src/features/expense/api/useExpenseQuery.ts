@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 
 import { createEntityHooks } from '@/features/common/useEntityQuery';
 
-import useExpenseStore from '@/features/expense/model/useExpenseStore';
 import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
 
 import { queryKeys } from '../consts';

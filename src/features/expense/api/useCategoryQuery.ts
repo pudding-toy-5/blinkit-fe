@@ -16,7 +16,7 @@ const fetchCategories = async (): Promise<Category[]> => {
 
 const {
   useEntities: useCategoriesQuery,
-  useEntityById: useCategoryById,
+  useEntityByUid: useCategoryByUid,
   useAddEntity: useAddCategory,
   useUpdateEntity: useUpdateCategory,
   useDeleteEntity: useDeleteCategory,
@@ -29,7 +29,7 @@ const useCategories = () => {
 
 export {
   useCategories,
-  useCategoryById,
+  useCategoryByUid,
   useAddCategory,
   useUpdateCategory,
   useDeleteCategory,

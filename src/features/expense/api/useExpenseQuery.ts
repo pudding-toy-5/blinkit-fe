@@ -7,18 +7,19 @@ import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
 import { queryKeys } from '../consts';
 
 const fetchExpenses = async (): Promise<Expense[]> => {
-  const res = await fetch('./mock-expenses.json');
+  const res = await fetch('./src/features/expense/api/mock-expenses.json');
 
   if (!res.ok) {
     throw new Error('Failed to fetch expenses');
   }
 
+  console.log(res);
   return res.json() as Promise<Expense[]>;
 };
 
 const {
   useEntities: useExpensesQuery,
-  useEntityById: useExpenseById,
+  useEntityByUid: useExpenseByUid,
   useAddEntity: useAddExpense,
   useUpdateEntity: useUpdateExpense,
   useDeleteEntity: useDeleteExpense,
@@ -74,7 +75,7 @@ const useTotalAmount = () => {
 export {
   useExpenses,
   useDailyExpenses,
-  useExpenseById,
+  useExpenseByUid,
   useAddExpense,
   useUpdateExpense,
   useDeleteExpense,

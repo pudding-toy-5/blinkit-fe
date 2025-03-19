@@ -1,5 +1,5 @@
 import useExpenseStore from './useExpenseStore';
-import useExpenseFormStore from './useExpenseStore';
+import useExpenseFormStore from './useExpenseFormStore';
 import useCategoryStore from './useCategoryStore';
 
 // expenseStore

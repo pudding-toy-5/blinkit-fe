@@ -1,7 +1,9 @@
+import { useMemo } from 'react';
+
 import { createEntityHooks } from '@/features/common/useEntityQuery';
 
 import useExpenseStore from '@/features/expense/model/useExpenseStore';
-import { Expense } from '@/features/expense/model/types/Expense';
+import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
 
 import { queryKeys } from '../consts';
 
@@ -15,13 +17,67 @@ const fetchExpenses = async (): Promise<Expense[]> => {
   return res.json() as Promise<Expense[]>;
 };
 
-const setExpenses = useExpenseStore((store) => store.setExpenses);
-
 const {
-  useFetchEntities: useFetchExpenses,
+  useEntities: useExpensesQuery,
+  useEntityById: useExpenseById,
   useAddEntity: useAddExpense,
   useUpdateEntity: useUpdateExpense,
   useDeleteEntity: useDeleteExpense,
-} = createEntityHooks<Expense>(queryKeys.expenses, fetchExpenses, setExpenses);
+} = createEntityHooks<Expense>(queryKeys.expenses, fetchExpenses);
 
-export { useFetchExpenses, useAddExpense, useUpdateExpense, useDeleteExpense };
+const useExpenses = () => {
+  const { data = [], isLoading, error } = useExpensesQuery();
+  return {
+    expenses: data,
+    isLoading,
+    error,
+  };
+};
+
+const useDailyExpenses = () => {
+  const { expenses, isLoading, error } = useExpenses();
+
+  const dailyExpenses = useMemo(() => {
+    const groupedByDate: Record<string, DailyExpense> = {};
+
+    expenses.forEach((expense) => {
+      const dateStr = new Date(expense.date).toISOString().split('T')[0];
+
+      if (!groupedByDate[dateStr]) {
+        groupedByDate[dateStr] = {
+          date: new Date(expense.date),
+          expenses: [],
+        };
+      }
+
+      groupedByDate[dateStr].expenses.push(expense);
+    });
+
+    return Object.values(groupedByDate).sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+  }, [expenses]);
+
+  return { dailyExpenses, isLoading, error };
+};
+
+const useTotalAmount = () => {
+  const { expenses, isLoading, error } = useExpenses();
+
+  const totalAmount = useMemo(
+    () => expenses.reduce((sum, expense) => sum + expense.amount, 0),
+    [expenses]
+  );
+
+  return { totalAmount, isLoading, error };
+};
+
+export {
+  useExpenses,
+  useDailyExpenses,
+  useExpenseById,
+  useAddExpense,
+  useUpdateExpense,
+  useDeleteExpense,
+  useTotalAmount,
+};

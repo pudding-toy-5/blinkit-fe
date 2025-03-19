@@ -3,6 +3,8 @@ import { Expense, ExpenseFormActions } from './types/Expense';
 
 const initialExpenseFormState: Omit<Expense, 'id'> = {
   date: new Date(),
+  providedCategory: undefined,
+  category: undefined,
   memo: '',
   amount: 0,
 };

@@ -58,7 +58,7 @@ export const createEntityHooks = <T extends Entity>(
       onSuccess: (updatedEntity) => {
         queryClient.setQueryData(queryKey, (oldData: T[] | undefined) => {
           return oldData?.map((entity) =>
-            entity.id === updatedEntity.id ? updatedEntity : entity
+            entity.uid === updatedEntity.uid ? updatedEntity : entity
           );
         });
       },

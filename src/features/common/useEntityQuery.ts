@@ -4,7 +4,6 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { nanoid } from 'nanoid';
 
 type Entity = { id: string; [key: string]: any };
-type EntityStore<T> = { setEntities: (entities: T[]) => void };
 
 export default function fakeApiCall<T>(data: T, delay = 500): Promise<T> {
   return new Promise((resolve) =>

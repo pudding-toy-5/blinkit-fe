@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { nanoid } from 'nanoid';
 
-type Entity = { id: string; [key: string]: any };
+type Entity = { uid: string; [key: string]: any };
 
 function fakeApiCall<T>(data: T, delay = 500): Promise<T> {
   return new Promise((resolve) =>
@@ -22,18 +22,18 @@ export const createEntityHooks = <T extends Entity>(
     });
   };
 
-  const useEntityById = (id: string | undefined) => {
+  const useEntityByUid = (uid: string | undefined) => {
     const { data: entities } = useEntities();
-    return entities?.find((entity) => id && entity.id === id);
+    return entities?.find((entity) => uid && entity.uid === uid);
   };
 
   const useAddEntity = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-      mutationFn: (entity: Omit<T, 'id'>) => {
+      mutationFn: (entity: Omit<T, 'uid'>) => {
         return fakeApiCall<T>({
-          id: nanoid(),
+          uid: nanoid(),
           ...entity,
         } as T);
       },
@@ -72,12 +72,12 @@ export const createEntityHooks = <T extends Entity>(
     const queryClient = useQueryClient();
 
     return useMutation({
-      mutationFn: (id: string) => {
-        return fakeApiCall<string>(id);
+      mutationFn: (uid: string) => {
+        return fakeApiCall<string>(uid);
       },
-      onSuccess: (id) => {
+      onSuccess: (uid) => {
         queryClient.setQueryData(queryKey, (oldData: T[] | undefined) => {
-          return oldData?.filter((entity) => entity.id !== id);
+          return oldData?.filter((entity) => entity.uid !== uid);
         });
       },
       onError: (error) => {
@@ -88,7 +88,7 @@ export const createEntityHooks = <T extends Entity>(
 
   return {
     useEntities,
-    useEntityById,
+    useEntityByUid,
     useAddEntity,
     useUpdateEntity,
     useDeleteEntity,

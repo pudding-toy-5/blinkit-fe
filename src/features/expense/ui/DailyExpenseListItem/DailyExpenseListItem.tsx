@@ -1,4 +1,4 @@
-import { DailyExpense, Expense } from '@/features/expense/model/types';
+import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
 
 import DailyExpenseRecord from '../DailyExpenseRecord/DailyExpenseRecord';
 

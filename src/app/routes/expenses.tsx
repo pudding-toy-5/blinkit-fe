@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
 import Layout from '@/shared/ui/layout/Layout';
@@ -7,17 +8,24 @@ import { Settings } from 'lucide-react';
 import MonthSelector from '@/features/expense/ui/MonthSelector';
 import DailyExpenseList from '@/features/expense/ui/DailyExpenseList';
 
-import { useExpenseStore } from '@/features/expense/model/expenseStore';
-import { DailyExpense } from '@/features/expense/model/types';
+import { useDailyExpenses } from '@/features/expense/api/useExpenseQuery';
+
+import Period from '@/features/expense/model/types/Period';
 
 export const Route = createFileRoute('/expenses')({
   component: ExpensesPage,
 });
 
 export function ExpensesPage() {
-  const dailyExpenses: DailyExpense[] = useExpenseStore(
-    (state) => state.dailyExpenses
-  );
+  const { dailyExpenses, isLoading, error } = useDailyExpenses();
+
+  const current = new Date();
+  const [period, setPeriod] = useState<Period>({
+    year: current.getFullYear(),
+    month: current.getMonth() + 1,
+  });
+
+  useEffect(() => {}, [period, setPeriod]);
 
   return (
     <Layout>
@@ -30,7 +38,7 @@ export function ExpensesPage() {
       <main className='flex flex-col h-full'>
         <div className='px-5 py-4'>
           <h1 className='text-[22px] mb-4'>기록</h1>
-          <MonthSelector />
+          <MonthSelector period={period} setPeriod={setPeriod} />
         </div>
         <DailyExpenseList dailyExpenses={dailyExpenses} />
       </main>

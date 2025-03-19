@@ -1,0 +1,23 @@
+[
+  {
+    "id": "test-id-1",
+    "date": "2025-03-18",
+    "providedCategory": "food",
+    "memo": "test for test id 1",
+    "amount": 100000000
+  },
+  {
+    "id": "test-id-2",
+    "date": "2025-02-10",
+    "providedCategory": "home",
+    "memo": "주거비 ott",
+    "amount": 20000
+  },
+  {
+    "id": "test-id-3",
+    "date": "2024-12-10",
+    "category": "ott-category-id",
+    "memo": "netflix",
+    "amount": 200
+  }
+]

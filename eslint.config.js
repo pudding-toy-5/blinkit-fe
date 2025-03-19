@@ -1,5 +1,8 @@
 import js from '@eslint/js';
 import globals from 'globals';
+
+import pluginQuery from '@tanstack/eslint-plugin-query';
+
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
@@ -30,6 +33,7 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      '@tanstack/query': pluginQuery,
       prettier,
     },
     rules: {
@@ -38,6 +42,9 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      '@tanstack/query/exhaustive-deps': 'error',
+      '@tanstack/query/prefer-query-object-syntax': 'error',
+      '@tanstack/query/stable-query-client': 'error',
       'prettier/prettier': 'error',
     },
   },

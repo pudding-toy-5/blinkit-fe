@@ -1,35 +1,6 @@
 import { ProvidedCategoryValue } from './ProvidedCategory';
 import { Category } from './Category';
 
-// expenseStore
-export interface ExpenseState {
-  period: {
-    year: number;
-    month: number;
-  };
-  totalAmount: number;
-  expenses: Expense[];
-  dailyExpenses: DailyExpense[];
-}
-
-export interface ExpenseActions {
-  setPeriod: (newPeriod: Date) => void;
-  setExpenses: (expenses: Expense[]) => void;
-  addExpense: (expense: Omit<Expense, 'id'>) => void;
-  updateExpense: (expense: Expense) => void;
-  deleteExpense: (id: string) => void;
-}
-
-// expenseFormStore
-export interface ExpenseFormActions {
-  setPeriod: (value: Date) => void;
-  setProvidedCategory: (value: ProvidedCategoryValue) => void;
-  setCategory: (value: Category) => void;
-  setMemo: (value: string) => void;
-  setAmount: (value: number) => void;
-  resetForm: () => void;
-}
-
 // expense interfaces
 export interface DailyExpense {
   date: Date;
@@ -43,4 +14,14 @@ export interface Expense {
   category?: Category;
   memo: string;
   amount: number;
+}
+
+// expenseFormStore
+export interface ExpenseFormActions {
+  setPeriod: (value: Date) => void;
+  setProvidedCategory: (value: ProvidedCategoryValue) => void;
+  setCategory: (value: Category) => void;
+  setMemo: (value: string) => void;
+  setAmount: (value: number) => void;
+  resetForm: () => void;
 }

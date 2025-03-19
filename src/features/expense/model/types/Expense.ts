@@ -8,7 +8,7 @@ export interface DailyExpense {
 }
 
 export interface Expense {
-  id: string;
+  uid: string;
   date: Date;
   providedCategory?: ProvidedCategoryValue;
   category?: Category;

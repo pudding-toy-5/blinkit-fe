@@ -31,6 +31,11 @@ const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
         type='text'
         placeholder={placeholder}
         value={value}
+        onChange={(e) => {
+          if (!!onChange) {
+            onChange(e.target.value);
+          }
+        }}
       />
     </div>
   );

@@ -9,6 +9,7 @@ export interface LabeledTextInputProps {
   placeholder?: string;
   value?: string;
   onChange?: (newValue: string) => void;
+  maxLength?: number;
 }
 
 const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
@@ -17,6 +18,7 @@ const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
   placeholder,
   value,
   onChange,
+  maxLength,
 }) => {
   const inputRef = React.useRef(null);
 
@@ -31,12 +33,22 @@ const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
         type='text'
         placeholder={placeholder}
         value={value}
+        maxLength={maxLength}
         onChange={(e) => {
-          if (!!onChange) {
+          if (onChange) {
             onChange(e.target.value);
           }
         }}
       />
+      {maxLength && value !== undefined && (
+        <p
+          aria-label={`${id}-length-counter`}
+          id={`${id}-length-counter`}
+          className='ml-auto'
+        >
+          {value.length}/{maxLength}
+        </p>
+      )}
     </div>
   );
 };

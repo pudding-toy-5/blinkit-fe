@@ -10,7 +10,6 @@ describe('LabeledTextInput', () => {
     placeholder: undefined,
     value: undefined,
     onChange: undefined,
-    disabled: undefined,
   };
 
   const renderInput = ({
@@ -19,7 +18,6 @@ describe('LabeledTextInput', () => {
     placeholder,
     value,
     onChange,
-    disabled,
   }: LabeledTextInputProps) =>
     render(
       <LabeledTextInput
@@ -28,7 +26,6 @@ describe('LabeledTextInput', () => {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        disabled={disabled}
       />
     );
 

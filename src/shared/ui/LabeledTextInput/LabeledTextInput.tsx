@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
@@ -24,15 +22,12 @@ const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
   maxLength,
   state,
 }) => {
-  const inputRef = React.useRef(null);
-
   return (
     <div className='flex flex-col items-center gap-1.5'>
       <Label className='mr-auto text-base text-[#222]' htmlFor={id}>
         {label}
       </Label>
       <Input
-        ref={inputRef}
         id={id}
         type='text'
         placeholder={placeholder}

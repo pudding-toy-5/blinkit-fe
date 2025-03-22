@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { Expense, ExpenseFormActions } from './types/Expense';
 
-const initialExpenseFormState: Omit<Expense, 'id'> = {
+const initialExpenseFormState: Omit<Expense, 'uid'> = {
   date: new Date(),
   providedCategory: undefined,
   category: undefined,
@@ -9,7 +9,7 @@ const initialExpenseFormState: Omit<Expense, 'id'> = {
   amount: 0,
 };
 
-const useExpenseFormStore = create<Omit<Expense, 'id'> & ExpenseFormActions>(
+const useExpenseFormStore = create<Omit<Expense, 'uid'> & ExpenseFormActions>(
   (set) => ({
     ...initialExpenseFormState,
     setPeriod: (value) => {

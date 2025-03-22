@@ -47,9 +47,9 @@ const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
         className={cn(
           'text-base text-[#999] border-[#999] ',
           'focus:border-[#222] focus:outlined-none focus:ring-0 focus:text-[#222]',
-          state && state === 'completed' && 'border-[#28a745]',
-          state && state === 'disabled' && 'border-[#ccc]',
-          state && state === 'error' && 'border-[#d32f2f]'
+          state === 'completed' && 'border-[#28a745]',
+          state === 'disabled' && 'border-[#ccc]',
+          state === 'error' && 'border-[#d32f2f]'
         )}
       />
       {maxLength && value !== undefined && (

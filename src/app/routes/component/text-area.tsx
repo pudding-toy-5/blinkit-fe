@@ -3,7 +3,7 @@ import React from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
 import Layout from '@/shared/ui/layout/Layout';
-import LabeledTextarea from '@/shared/ui/LabeledTextArea';
+import LabeledTextarea from '@/shared/ui/LabeledTextarea';
 
 export const Route = createFileRoute('/component/text-area')({
   component: RouteComponent,

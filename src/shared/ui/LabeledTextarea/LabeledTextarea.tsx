@@ -31,6 +31,7 @@ const LabeledTextarea: React.FC<LabeledTextareaProps> = ({
         id={id}
         placeholder={placeholder}
         value={value}
+        maxLength={maxLength}
         onChange={(e) => {
           onChange(e.target.value);
         }}

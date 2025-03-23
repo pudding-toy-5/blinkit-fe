@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest';
+import { describe, it, vi } from 'vitest';
 import { fireEvent, render } from '@testing-library/react';
 
 import LabeledTextarea, { LabeledTextareaProps } from './LabeledTextarea';
@@ -9,7 +9,7 @@ describe('LabeledTextarea', () => {
     label: 'label',
     placeholder: 'placeholder',
     value: '',
-    onChange: vitest.fn(),
+    onChange: vi.fn(),
     state: 'default',
     maxLength: 120,
   };
@@ -66,7 +66,7 @@ describe('LabeledTextarea', () => {
 
   it('when input changes, calls onChange.', () => {
     const inputText = 'asdfasdfasdfasdfas';
-    const handleChange = vitest.fn();
+    const handleChange = vi.fn();
 
     const { getByRole } = renderElement({
       ...props,

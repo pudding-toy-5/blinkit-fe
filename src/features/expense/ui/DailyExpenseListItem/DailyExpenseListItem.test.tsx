@@ -30,14 +30,13 @@ describe('DailyExpenseListItem', () => {
 
   it('renders list item with aria-labelled-by.', () => {
     const date = new Date();
-    const { getByRole } = renderDailyExpenseListItem({
+    const { getAllByRole } = renderDailyExpenseListItem({
       date: date,
       expenses: [{ ...expense }],
     });
-    const listItem = getByRole('listitem');
+    const listItem = getAllByRole('listitem');
 
-    expect(listItem).toBeInTheDocument();
-    expect(listItem).toHaveAttribute(
+    expect(listItem[0]).toHaveAttribute(
       'aria-labelledby',
       `daily-expense-list-item-${date.getDate().toString()}`
     );

@@ -7,10 +7,10 @@ export interface LabeledTextInputProps {
   label: string;
   id: string;
   placeholder?: string;
-  value?: string;
-  onChange?: (newValue: string) => void;
-  maxLength?: number;
-  state?: 'completed' | 'disabled' | 'error';
+  value: string;
+  onChange: (newValue: string) => void;
+  maxLength: number;
+  state: 'default' | 'completed' | 'disabled' | 'error';
 }
 
 const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
@@ -33,7 +33,7 @@ const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
         placeholder={placeholder}
         value={value}
         maxLength={maxLength}
-        disabled={state && state === 'disabled'}
+        disabled={state === 'disabled'}
         onChange={(e) => {
           if (onChange) {
             onChange(e.target.value);
@@ -47,19 +47,20 @@ const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
           state === 'error' && 'border-[#d32f2f]'
         )}
       />
-      {maxLength && value !== undefined && (
-        <span aria-live='polite' className={cn('flex flex-row ml-auto')}>
-          <p
-            className={cn(
-              'text-[#222]',
-              state === 'error' && value.length > maxLength && 'text-[#d32f2f]'
-            )}
-          >
-            {value.length}
-          </p>
-          <p className='text-[#999]'>/{maxLength}</p>
-        </span>
-      )}
+      <span className='flex flex-row ml-auto'>
+        <p
+          aria-label='value length'
+          className={cn(
+            'text-[#222]',
+            state === 'error' && value.length > maxLength && 'text-[#d32f2f]'
+          )}
+        >
+          {value.length.toString()}
+        </p>
+        <p aria-label='max length' className='text-[#999]'>
+          /{maxLength}
+        </p>
+      </span>
     </div>
   );
 };

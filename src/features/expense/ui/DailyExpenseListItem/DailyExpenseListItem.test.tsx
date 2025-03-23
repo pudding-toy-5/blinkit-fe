@@ -1,14 +1,16 @@
 import { describe, it } from 'vitest';
 import { render } from '@testing-library/react';
 
-import { DailyExpense, Expense } from '@/features/expense/model/types';
+import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
+
 import DailyExpenseListItem from './DailyExpenseListItem';
 
 describe('DailyExpenseListItem', () => {
   const expense: Expense = {
-    id: 'expense-test-id',
+    uid: 'expense-test-id',
     date: new Date('2025-03-14T15:20:00'),
-    category: 'test-category',
+    category: undefined,
+    providedCategory: undefined,
     memo: 'test-memo',
     amount: 1234567890,
   };

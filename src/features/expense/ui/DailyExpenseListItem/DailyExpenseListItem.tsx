@@ -13,15 +13,18 @@ const DailyExpenseListItem: React.FC<DailyExpense> = ({ date, expenses }) => {
     >
       <p aria-label=''>{`${date.getDate().toString()}일`}</p>
       <ul>
-        {expenses.map(({ uid, category, memo, amount }: Expense) => (
-          <DailyExpenseRecord
-            key={uid}
-            id={uid}
-            category={category}
-            amount={amount}
-            memo={memo}
-          />
-        ))}
+        {expenses.map(
+          ({ uid, category, providedCategory, memo, amount }: Expense) => (
+            <DailyExpenseRecord
+              key={uid}
+              id={uid}
+              category={category}
+              providedCategory={providedCategory}
+              amount={amount}
+              memo={memo}
+            />
+          )
+        )}
       </ul>
     </li>
   );

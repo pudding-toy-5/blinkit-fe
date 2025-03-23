@@ -17,15 +17,13 @@ export const Route = createFileRoute('/expenses')({
 });
 
 export function ExpensesPage() {
-  const { dailyExpenses, isLoading, error } = useDailyExpenses();
+  const { dailyExpenses } = useDailyExpenses();
 
   const current = new Date();
   const [period, setPeriod] = useState<Period>({
     year: current.getFullYear(),
     month: current.getMonth() + 1,
   });
-
-  useEffect(() => {}, [period, setPeriod]);
 
   return (
     <Layout>
@@ -38,7 +36,7 @@ export function ExpensesPage() {
       <main className='flex flex-col h-full'>
         <div className='px-5 py-4'>
           <h1 className='text-[22px] mb-4'>기록</h1>
-          <MonthSelector period={period} setPeriod={setPeriod} />
+          <MonthSelector period={period} onSetPeriod={setPeriod} />
         </div>
         <DailyExpenseList dailyExpenses={dailyExpenses} />
       </main>

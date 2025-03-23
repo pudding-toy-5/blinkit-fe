@@ -1,1 +1,1 @@
-export { default } from './LabeledTextArea';
+export { default } from './LabeledTextarea';

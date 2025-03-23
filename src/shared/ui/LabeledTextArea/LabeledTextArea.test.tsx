@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
-import LabeledTextarea, { LabeledTextareaProps } from './LabeledTextArea';
+import LabeledTextarea, { LabeledTextareaProps } from './LabeledTextarea';
 
 describe('LabeledTextarea', () => {
   const props: LabeledTextareaProps = {

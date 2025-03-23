@@ -43,7 +43,6 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
       '@tanstack/query/exhaustive-deps': 'error',
-      '@tanstack/query/prefer-query-object-syntax': 'error',
       '@tanstack/query/stable-query-client': 'error',
       'prettier/prettier': 'error',
     },

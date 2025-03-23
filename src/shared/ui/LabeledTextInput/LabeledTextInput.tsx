@@ -35,9 +35,7 @@ const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
         maxLength={maxLength}
         disabled={state === 'disabled'}
         onChange={(e) => {
-          if (onChange) {
-            onChange(e.target.value);
-          }
+          onChange(e.target.value);
         }}
         className={cn(
           'text-base text-[#999] border-[#999] ',

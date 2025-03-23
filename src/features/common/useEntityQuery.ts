@@ -1,7 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { nanoid } from 'nanoid';
 
-type Entity = { uid: string; [key: string]: any };
+interface Entity {
+  uid: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}
 
 function fakeApiCall<T>(data: T, delay = 500): Promise<T> {
   return new Promise((resolve) =>
@@ -53,7 +57,7 @@ export const createEntityHooks = <T extends Entity>(
 
     return useMutation({
       mutationFn: (entity: T) => {
-        return fakeApiCall<T>(entity as T);
+        return fakeApiCall<T>(entity);
       },
       onSuccess: (updatedEntity) => {
         queryClient.setQueryData(queryKey, (oldData: T[] | undefined) => {

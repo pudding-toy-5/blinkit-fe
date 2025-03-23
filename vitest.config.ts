@@ -34,6 +34,8 @@ export default defineConfig({
         // test
         'playwright.config.ts',
         'vitest.config.ts',
+        // e2e
+        'e2e',
         // config
         'eslint.config.js',
         'vite.config.ts',

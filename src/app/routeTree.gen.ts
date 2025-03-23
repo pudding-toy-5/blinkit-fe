@@ -12,7 +12,6 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ExpensesImport } from './routes/expenses'
-import { Route as ComponentTestImport } from './routes/component-test'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as ComponentTextInputImport } from './routes/component/text-input'
@@ -23,12 +22,6 @@ import { Route as ComponentTextAreaImport } from './routes/component/text-area'
 const ExpensesRoute = ExpensesImport.update({
   id: '/expenses',
   path: '/expenses',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ComponentTestRoute = ComponentTestImport.update({
-  id: '/component-test',
-  path: '/component-test',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,13 +67,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
-    '/component-test': {
-      id: '/component-test'
-      path: '/component-test'
-      fullPath: '/component-test'
-      preLoaderRoute: typeof ComponentTestImport
-      parentRoute: typeof rootRoute
-    }
     '/expenses': {
       id: '/expenses'
       path: '/expenses'
@@ -110,7 +96,6 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/component-test': typeof ComponentTestRoute
   '/expenses': typeof ExpensesRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
@@ -119,7 +104,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/component-test': typeof ComponentTestRoute
   '/expenses': typeof ExpensesRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
@@ -129,7 +113,6 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/component-test': typeof ComponentTestRoute
   '/expenses': typeof ExpensesRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
@@ -140,7 +123,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/component-test'
     | '/expenses'
     | '/component/text-area'
     | '/component/text-input'
@@ -148,7 +130,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
-    | '/component-test'
     | '/expenses'
     | '/component/text-area'
     | '/component/text-input'
@@ -156,7 +137,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
-    | '/component-test'
     | '/expenses'
     | '/component/text-area'
     | '/component/text-input'
@@ -166,7 +146,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  ComponentTestRoute: typeof ComponentTestRoute
   ExpensesRoute: typeof ExpensesRoute
   ComponentTextAreaRoute: typeof ComponentTextAreaRoute
   ComponentTextInputRoute: typeof ComponentTextInputRoute
@@ -175,7 +154,6 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  ComponentTestRoute: ComponentTestRoute,
   ExpensesRoute: ExpensesRoute,
   ComponentTextAreaRoute: ComponentTextAreaRoute,
   ComponentTextInputRoute: ComponentTextInputRoute,
@@ -193,7 +171,6 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
-        "/component-test",
         "/expenses",
         "/component/text-area",
         "/component/text-input"
@@ -204,9 +181,6 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
-    },
-    "/component-test": {
-      "filePath": "component-test.tsx"
     },
     "/expenses": {
       "filePath": "expenses.tsx"

@@ -43,12 +43,10 @@ const useDailyExpenses = () => {
     expenses.forEach((expense) => {
       const dateStr = new Date(expense.date).toISOString().split('T')[0];
 
-      if (!groupedByDate[dateStr]) {
-        groupedByDate[dateStr] = {
-          date: new Date(expense.date),
-          expenses: [],
-        };
-      }
+      groupedByDate[dateStr] = {
+        date: new Date(expense.date),
+        expenses: [],
+      };
 
       groupedByDate[dateStr].expenses.push(expense);
     });

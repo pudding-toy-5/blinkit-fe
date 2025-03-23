@@ -8,8 +8,10 @@ describe('LabeledTextInput', () => {
     label: 'default-label',
     id: 'default-id',
     placeholder: undefined,
-    value: undefined,
-    onChange: undefined,
+    value: '',
+    state: 'default',
+    maxLength: 0,
+    onChange: vitest.fn(),
   };
 
   const renderInput = ({
@@ -17,6 +19,8 @@ describe('LabeledTextInput', () => {
     id,
     placeholder,
     value,
+    state,
+    maxLength,
     onChange,
   }: LabeledTextInputProps) =>
     render(
@@ -25,6 +29,8 @@ describe('LabeledTextInput', () => {
         id={id}
         placeholder={placeholder}
         value={value}
+        state={state}
+        maxLength={maxLength}
         onChange={onChange}
       />
     );
@@ -87,47 +93,30 @@ describe('LabeledTextInput', () => {
 
     expect(handleChange).toHaveBeenCalledTimes(1);
     expect(handleChange).toHaveBeenCalledWith(inputText);
-
-    expect(inputElement).toHaveValue(inputText);
   });
 
-  it('if maxLength and value is provided, renders correct character count.', () => {
-    const maxLength = 30;
-    const id = 'test-id';
-    const { getByRole } = renderInput({
+  it('if maxLength and value is provided, renders counter.', () => {
+    const { getByLabelText } = renderInput({
       ...inputProps,
-      id: id,
-      value: '',
-      maxLength: maxLength,
+      id: 'id',
+      label: 'label',
+      placeholder: 'placeholder',
+      value: '333',
+      state: 'default',
+      maxLength: 30,
     });
 
-    const inputElement = getByRole('textbox');
-    const liveRegion = getByRole('status');
+    const valueLength = getByLabelText('value length');
+    expect(valueLength).toBeInTheDocument();
+    expect(valueLength).toHaveTextContent('3');
 
-    expect(liveRegion).toHaveTextContent(`0/${maxLength.toString()}`);
-
-    const firstText = 'Hello';
-    fireEvent.change(inputElement, {
-      target: { value: firstText },
-    });
-
-    expect(liveRegion).toHaveTextContent(
-      `${firstText.length.toString()}/${maxLength.toString()}`
-    );
-
-    const overMaxText =
-      'this text is longer than max length in labeled text input component.';
-    fireEvent.change(inputElement, {
-      target: { value: overMaxText },
-    });
-
-    expect(liveRegion).toHaveTextContent(
-      `${maxLength.toString()}/${maxLength.toString()}`
-    );
+    const maxLength = getByLabelText('max length');
+    expect(maxLength).toBeInTheDocument();
+    expect(maxLength).toHaveTextContent('/30');
   });
 
   describe('state', () => {
-    it('renders with completed state correctly.', () => {
+    it('renders completed.', () => {
       const { getByRole } = renderInput({
         ...inputProps,
         state: 'completed',
@@ -137,7 +126,7 @@ describe('LabeledTextInput', () => {
       expect(inputElement).toHaveClass('border-[#28a745]');
     });
 
-    it('renders with disabled state correctly.', () => {
+    it('renders disabled.', () => {
       const { getByRole } = renderInput({
         ...inputProps,
         state: 'disabled',
@@ -148,7 +137,7 @@ describe('LabeledTextInput', () => {
       expect(inputElement).toHaveClass('border-[#ccc]');
     });
 
-    it('renders with error state correctly.', () => {
+    it('renders error.', () => {
       const { getByRole } = renderInput({
         ...inputProps,
         state: 'error',
@@ -156,19 +145,6 @@ describe('LabeledTextInput', () => {
       const inputElement = getByRole('textbox');
 
       expect(inputElement).toHaveClass('border-[#d32f2f]');
-    });
-  });
-
-  it('handles undefined onChange gracefully.', () => {
-    const { getByRole } = renderInput({
-      ...inputProps,
-      onChange: undefined,
-    });
-    const inputElement = getByRole('textbox');
-
-    // This should not throw an error
-    fireEvent.change(inputElement, {
-      target: { value: 'test value' },
     });
   });
 });

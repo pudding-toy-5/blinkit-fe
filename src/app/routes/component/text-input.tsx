@@ -5,14 +5,16 @@ import { createFileRoute } from '@tanstack/react-router';
 import Layout from '@/shared/ui/layout/Layout';
 import LabeledTextInput from '@/shared/ui/LabeledTextInput';
 
-export const Route = createFileRoute('/component-test')({
+export const Route = createFileRoute('/component/text-input')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const [value, setValue] = React.useState<string>('');
 
-  const handleChange = (newValue: string) => setValue(newValue);
+  const handleChange = (newValue: string) => {
+    setValue(newValue);
+  };
 
   return (
     <Layout>

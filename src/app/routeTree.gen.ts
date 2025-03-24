@@ -12,30 +12,17 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ExpensesImport } from './routes/expenses'
-import { Route as ComponentTestImport } from './routes/component-test'
-import { Route as ButtonsTestImport } from './routes/buttons-test'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as ComponentTextInputImport } from './routes/component/text-input'
 import { Route as ComponentTextAreaImport } from './routes/component/text-area'
+import { Route as ComponentButtonsTestImport } from './routes/component/buttons-test'
 
 // Create/Update Routes
 
 const ExpensesRoute = ExpensesImport.update({
   id: '/expenses',
   path: '/expenses',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ComponentTestRoute = ComponentTestImport.update({
-  id: '/component-test',
-  path: '/component-test',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ButtonsTestRoute = ButtonsTestImport.update({
-  id: '/buttons-test',
-  path: '/buttons-test',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -63,6 +50,12 @@ const ComponentTextAreaRoute = ComponentTextAreaImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ComponentButtonsTestRoute = ComponentButtonsTestImport.update({
+  id: '/component/buttons-test',
+  path: '/component/buttons-test',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -81,25 +74,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
-    '/buttons-test': {
-      id: '/buttons-test'
-      path: '/buttons-test'
-      fullPath: '/buttons-test'
-      preLoaderRoute: typeof ButtonsTestImport
-      parentRoute: typeof rootRoute
-    }
-    '/component-test': {
-      id: '/component-test'
-      path: '/component-test'
-      fullPath: '/component-test'
-      preLoaderRoute: typeof ComponentTestImport
-      parentRoute: typeof rootRoute
-    }
     '/expenses': {
       id: '/expenses'
       path: '/expenses'
       fullPath: '/expenses'
       preLoaderRoute: typeof ExpensesImport
+      parentRoute: typeof rootRoute
+    }
+    '/component/buttons-test': {
+      id: '/component/buttons-test'
+      path: '/component/buttons-test'
+      fullPath: '/component/buttons-test'
+      preLoaderRoute: typeof ComponentButtonsTestImport
       parentRoute: typeof rootRoute
     }
     '/component/text-area': {
@@ -124,9 +110,8 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/buttons-test': typeof ButtonsTestRoute
-  '/component-test': typeof ComponentTestRoute
   '/expenses': typeof ExpensesRoute
+  '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
 }
@@ -134,9 +119,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/buttons-test': typeof ButtonsTestRoute
-  '/component-test': typeof ComponentTestRoute
   '/expenses': typeof ExpensesRoute
+  '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
 }
@@ -145,34 +129,45 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/buttons-test': typeof ButtonsTestRoute
-  '/component-test': typeof ComponentTestRoute
   '/expenses': typeof ExpensesRoute
+  '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/buttons-test' | '/component-test' | '/expenses'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/expenses'
+    | '/component/buttons-test'
+    | '/component/text-area'
+    | '/component/text-input'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/buttons-test' | '/component-test' | '/expenses'
+  to:
+    | '/'
+    | '/about'
+    | '/expenses'
+    | '/component/buttons-test'
+    | '/component/text-area'
+    | '/component/text-input'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/buttons-test'
-    | '/component-test'
     | '/expenses'
+    | '/component/buttons-test'
+    | '/component/text-area'
+    | '/component/text-input'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  ButtonsTestRoute: typeof ButtonsTestRoute
-  ComponentTestRoute: typeof ComponentTestRoute
   ExpensesRoute: typeof ExpensesRoute
+  ComponentButtonsTestRoute: typeof ComponentButtonsTestRoute
   ComponentTextAreaRoute: typeof ComponentTextAreaRoute
   ComponentTextInputRoute: typeof ComponentTextInputRoute
 }
@@ -180,9 +175,8 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  ButtonsTestRoute: ButtonsTestRoute,
-  ComponentTestRoute: ComponentTestRoute,
   ExpensesRoute: ExpensesRoute,
+  ComponentButtonsTestRoute: ComponentButtonsTestRoute,
   ComponentTextAreaRoute: ComponentTextAreaRoute,
   ComponentTextInputRoute: ComponentTextInputRoute,
 }
@@ -199,9 +193,10 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
-        "/buttons-test",
-        "/component-test",
-        "/expenses"
+        "/expenses",
+        "/component/buttons-test",
+        "/component/text-area",
+        "/component/text-input"
       ]
     },
     "/": {
@@ -210,14 +205,11 @@ export const routeTree = rootRoute
     "/about": {
       "filePath": "about.tsx"
     },
-    "/buttons-test": {
-      "filePath": "buttons-test.tsx"
-    },
-    "/component-test": {
-      "filePath": "component-test.tsx"
-    },
     "/expenses": {
       "filePath": "expenses.tsx"
+    },
+    "/component/buttons-test": {
+      "filePath": "component/buttons-test.tsx"
     },
     "/component/text-area": {
       "filePath": "component/text-area.tsx"

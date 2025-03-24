@@ -5,7 +5,7 @@ import SignInButton from '@/features/sign-in/ui/SignInButton';
 import SubmitButton from '@/shared/ui/SubmitButton';
 import AddExpenseButton from '@/features/expense/ui/AddExpenseButton';
 
-export const Route = createFileRoute('/buttons-test')({
+export const Route = createFileRoute('/component/buttons-test')({
   component: RouteComponent,
 });
 

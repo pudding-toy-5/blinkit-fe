@@ -24,7 +24,7 @@ const LabeledTextarea: React.FC<LabeledTextareaProps> = ({
 }) => {
   return (
     <div className='flex flex-col items-center gap-2'>
-      <Label className='mr-auto text-base text-[#222]' htmlFor={id}>
+      <Label className='mr-auto text-[15px] text-[#222]' htmlFor={id}>
         {label}
       </Label>
       <Textarea
@@ -36,7 +36,7 @@ const LabeledTextarea: React.FC<LabeledTextareaProps> = ({
           onChange(e.target.value);
         }}
         className={cn(
-          'h-38 rounded-xl border text-left leading-normal resize-none',
+          'h-38 rounded-xl border text-left leading-normal resize-none text-[15px]',
           'focus:border-[#222]',
           state === 'default' && 'border-[#cccccc]',
           state === 'focus' && 'border-[#555555]',
@@ -47,14 +47,14 @@ const LabeledTextarea: React.FC<LabeledTextareaProps> = ({
       <span className='flex flex-row ml-auto'>
         <p
           className={cn(
-            'text-[#222]',
+            'text-[#222] text-[13px]',
             state === 'error' && value.length > maxLength && 'text-[#d32f2f]'
           )}
           aria-label='value length'
         >
           {value.length.toString()}
         </p>
-        <p aria-label='max length' className='text-[#999]'>
+        <p aria-label='max length' className='text-[#999] text-[13px]'>
           /{maxLength}
         </p>
       </span>

@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as ExpensesImport } from './routes/expenses'
 import { Route as ComponentTestImport } from './routes/component-test'
+import { Route as ButtonsTestImport } from './routes/buttons-test'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
@@ -27,6 +28,12 @@ const ExpensesRoute = ExpensesImport.update({
 const ComponentTestRoute = ComponentTestImport.update({
   id: '/component-test',
   path: '/component-test',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ButtonsTestRoute = ButtonsTestImport.update({
+  id: '/buttons-test',
+  path: '/buttons-test',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -60,6 +67,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/buttons-test': {
+      id: '/buttons-test'
+      path: '/buttons-test'
+      fullPath: '/buttons-test'
+      preLoaderRoute: typeof ButtonsTestImport
+      parentRoute: typeof rootRoute
+    }
     '/component-test': {
       id: '/component-test'
       path: '/component-test'
@@ -82,6 +96,7 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/buttons-test': typeof ButtonsTestRoute
   '/component-test': typeof ComponentTestRoute
   '/expenses': typeof ExpensesRoute
 }
@@ -89,6 +104,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/buttons-test': typeof ButtonsTestRoute
   '/component-test': typeof ComponentTestRoute
   '/expenses': typeof ExpensesRoute
 }
@@ -97,22 +113,30 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/buttons-test': typeof ButtonsTestRoute
   '/component-test': typeof ComponentTestRoute
   '/expenses': typeof ExpensesRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/component-test' | '/expenses'
+  fullPaths: '/' | '/about' | '/buttons-test' | '/component-test' | '/expenses'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/component-test' | '/expenses'
-  id: '__root__' | '/' | '/about' | '/component-test' | '/expenses'
+  to: '/' | '/about' | '/buttons-test' | '/component-test' | '/expenses'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/buttons-test'
+    | '/component-test'
+    | '/expenses'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ButtonsTestRoute: typeof ButtonsTestRoute
   ComponentTestRoute: typeof ComponentTestRoute
   ExpensesRoute: typeof ExpensesRoute
 }
@@ -120,6 +144,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ButtonsTestRoute: ButtonsTestRoute,
   ComponentTestRoute: ComponentTestRoute,
   ExpensesRoute: ExpensesRoute,
 }
@@ -136,6 +161,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+        "/buttons-test",
         "/component-test",
         "/expenses"
       ]
@@ -145,6 +171,9 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/buttons-test": {
+      "filePath": "buttons-test.tsx"
     },
     "/component-test": {
       "filePath": "component-test.tsx"

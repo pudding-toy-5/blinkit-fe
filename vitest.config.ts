@@ -15,6 +15,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
+    exclude: ['e2e', 'node_modules'],
     // browser: {
     //   enabled: true,
     //   provider: 'playwright',
@@ -35,7 +36,7 @@ export default defineConfig({
         'playwright.config.ts',
         'vitest.config.ts',
         // e2e
-        'e2e',
+        'e2e/**',
         // config
         'eslint.config.js',
         'vite.config.ts',

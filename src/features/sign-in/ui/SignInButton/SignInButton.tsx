@@ -5,9 +5,10 @@ import { Google, Naver } from './Icons';
 
 export interface SignInButtonProps {
   service: 'google' | 'naver';
+  onClick: () => void;
 }
 
-const SignInButton: React.FC<SignInButtonProps> = ({ service }) => {
+const SignInButton: React.FC<SignInButtonProps> = ({ service, onClick }) => {
   const getServiceText = (service: string) => {
     switch (service) {
       case 'google':
@@ -21,6 +22,7 @@ const SignInButton: React.FC<SignInButtonProps> = ({ service }) => {
 
   return (
     <Button
+      onClick={onClick}
       className={cn(
         'h-12',
         service === 'google' &&

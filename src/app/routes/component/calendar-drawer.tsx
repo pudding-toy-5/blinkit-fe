@@ -14,7 +14,11 @@ function RouteComponent() {
 
   return (
     <Layout>
-      <CalendarDrawer date={date} setDate={setDate} />
+      <CalendarDrawer
+        triggerText='trigger to open calendar drawer'
+        date={date}
+        setDate={setDate}
+      />
     </Layout>
   );
 }

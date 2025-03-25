@@ -8,7 +8,7 @@ export interface SubPageHeaderProps {
 const SubPageHeader: React.FC<SubPageHeaderProps> = ({ backLink, title }) => {
   return (
     <header className='flex flex-row h-12 px-4 py-3'>
-      <Link className='w-6 h-6' aria-label='뒤로가기' to={backLink}>
+      <Link aria-label='뒤로가기' to={backLink} role='button'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'

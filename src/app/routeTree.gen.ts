@@ -16,6 +16,7 @@ import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as ComponentTextInputImport } from './routes/component/text-input'
 import { Route as ComponentTextAreaImport } from './routes/component/text-area'
+import { Route as ComponentPageHeaderImport } from './routes/component/page-header'
 import { Route as ComponentCalendarDrawerImport } from './routes/component/calendar-drawer'
 import { Route as ComponentButtonsTestImport } from './routes/component/buttons-test'
 
@@ -48,6 +49,12 @@ const ComponentTextInputRoute = ComponentTextInputImport.update({
 const ComponentTextAreaRoute = ComponentTextAreaImport.update({
   id: '/component/text-area',
   path: '/component/text-area',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ComponentPageHeaderRoute = ComponentPageHeaderImport.update({
+  id: '/component/page-header',
+  path: '/component/page-header',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -102,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComponentCalendarDrawerImport
       parentRoute: typeof rootRoute
     }
+    '/component/page-header': {
+      id: '/component/page-header'
+      path: '/component/page-header'
+      fullPath: '/component/page-header'
+      preLoaderRoute: typeof ComponentPageHeaderImport
+      parentRoute: typeof rootRoute
+    }
     '/component/text-area': {
       id: '/component/text-area'
       path: '/component/text-area'
@@ -127,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/expenses': typeof ExpensesRoute
   '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
+  '/component/page-header': typeof ComponentPageHeaderRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
 }
@@ -137,6 +152,7 @@ export interface FileRoutesByTo {
   '/expenses': typeof ExpensesRoute
   '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
+  '/component/page-header': typeof ComponentPageHeaderRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
 }
@@ -148,6 +164,7 @@ export interface FileRoutesById {
   '/expenses': typeof ExpensesRoute
   '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
+  '/component/page-header': typeof ComponentPageHeaderRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
 }
@@ -160,6 +177,7 @@ export interface FileRouteTypes {
     | '/expenses'
     | '/component/buttons-test'
     | '/component/calendar-drawer'
+    | '/component/page-header'
     | '/component/text-area'
     | '/component/text-input'
   fileRoutesByTo: FileRoutesByTo
@@ -169,6 +187,7 @@ export interface FileRouteTypes {
     | '/expenses'
     | '/component/buttons-test'
     | '/component/calendar-drawer'
+    | '/component/page-header'
     | '/component/text-area'
     | '/component/text-input'
   id:
@@ -178,6 +197,7 @@ export interface FileRouteTypes {
     | '/expenses'
     | '/component/buttons-test'
     | '/component/calendar-drawer'
+    | '/component/page-header'
     | '/component/text-area'
     | '/component/text-input'
   fileRoutesById: FileRoutesById
@@ -189,6 +209,7 @@ export interface RootRouteChildren {
   ExpensesRoute: typeof ExpensesRoute
   ComponentButtonsTestRoute: typeof ComponentButtonsTestRoute
   ComponentCalendarDrawerRoute: typeof ComponentCalendarDrawerRoute
+  ComponentPageHeaderRoute: typeof ComponentPageHeaderRoute
   ComponentTextAreaRoute: typeof ComponentTextAreaRoute
   ComponentTextInputRoute: typeof ComponentTextInputRoute
 }
@@ -199,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExpensesRoute: ExpensesRoute,
   ComponentButtonsTestRoute: ComponentButtonsTestRoute,
   ComponentCalendarDrawerRoute: ComponentCalendarDrawerRoute,
+  ComponentPageHeaderRoute: ComponentPageHeaderRoute,
   ComponentTextAreaRoute: ComponentTextAreaRoute,
   ComponentTextInputRoute: ComponentTextInputRoute,
 }
@@ -218,6 +240,7 @@ export const routeTree = rootRoute
         "/expenses",
         "/component/buttons-test",
         "/component/calendar-drawer",
+        "/component/page-header",
         "/component/text-area",
         "/component/text-input"
       ]
@@ -236,6 +259,9 @@ export const routeTree = rootRoute
     },
     "/component/calendar-drawer": {
       "filePath": "component/calendar-drawer.tsx"
+    },
+    "/component/page-header": {
+      "filePath": "component/page-header.tsx"
     },
     "/component/text-area": {
       "filePath": "component/text-area.tsx"

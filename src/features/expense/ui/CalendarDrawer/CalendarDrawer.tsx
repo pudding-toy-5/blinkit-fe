@@ -62,8 +62,8 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
               caption_label: 'font-[17px]',
               head_cell: 'w-[44px] font-normal',
               row: 'flex w-full mt-0',
-              day: 'size-[44px]',
-              day_selected: 'bg-[#89f336] rounded-[22px] text-[#222]',
+              day: 'size-[44px] rounded-full font-[15px] hover:bg-[#89f336]/50',
+              day_selected: 'bg-[#89f336] text-[#222]',
               day_today: 'text-[#28a745]',
               day_disabled: 'text-[#999999]',
             }}

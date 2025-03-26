@@ -4,7 +4,7 @@ import { fireEvent, render } from '@testing-library/react';
 import SelectMonthListItem from './SelectMonthListItem';
 
 describe('SelectMonthListItem', () => {
-  it('renders button with year, month.', () => {
+  it('renders button and listitem with year, month.', () => {
     const handleClick = vi.fn();
     const { getByRole } = render(
       <SelectMonthListItem
@@ -14,6 +14,9 @@ describe('SelectMonthListItem', () => {
         handleClick={handleClick}
       />
     );
+    const listitem = getByRole('listitem');
+    expect(listitem).toBeInTheDocument();
+
     const button = getByRole('button');
     expect(button).toBeInTheDocument();
     expect(button).toHaveTextContent('2025년 1월');

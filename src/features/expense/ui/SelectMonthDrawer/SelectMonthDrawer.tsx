@@ -10,7 +10,8 @@ import {
 } from '@/components/ui/drawer';
 
 import Period from '@/features/expense/model/types/Period';
-import SelectMonthList from './SelectMonthList';
+
+import SelectMonthList from '../SelectMonthList';
 
 export interface SelectMonthDrawerProps {
   trigger: React.ReactNode;

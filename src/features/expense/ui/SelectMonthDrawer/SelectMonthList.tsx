@@ -10,22 +10,32 @@ const SelectMonthList: React.FC<SelectMonthListProps> = ({
   period,
   onSetPeriod,
 }) => {
-  const periods: Period[] = [
-    { year: 2025, month: 3 },
-    { year: 2025, month: 2 },
-    { year: 2025, month: 1 },
-    { year: 2024, month: 12 },
-    { year: 2024, month: 11 },
-    { year: 2024, month: 10 },
-  ];
+  const getPeriodRange = (start: Date, end: Date): Period[] => {
+    const result: Period[] = [];
+    const current = new Date(start.getFullYear(), start.getMonth());
+
+    while (current <= end) {
+      const year = current.getFullYear();
+      const month = current.getMonth() + 1;
+      result.push({ year, month });
+
+      current.setMonth(current.getMonth() + 1);
+    }
+
+    return result;
+  };
+  const today = new Date();
+  const start = new Date(today.getFullYear() - 5, today.getMonth());
+  const end = new Date(today.getFullYear(), today.getMonth());
+  const periods: Period[] = getPeriodRange(start, end);
 
   const handleClickMonth = (newPeriod: Period) => {
     onSetPeriod(newPeriod);
   };
 
   return (
-    <ul className='list-none flex flex-col gap-6'>
-      {periods.map(({ year, month }) => (
+    <ul className='list-none flex flex-col gap-6 max-h-60 overflow-y-auto'>
+      {periods.reverse().map(({ year, month }) => (
         <SelectMonthListItem
           year={year}
           month={month}

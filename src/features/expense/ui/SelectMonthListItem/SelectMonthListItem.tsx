@@ -16,7 +16,7 @@ const SelectMonthListItem: React.FC<SelectMonthListItemProps> = ({
   handleClick,
 }) => {
   return (
-    <li className='w-full h-6' key={`${year.toString()}-${month.toString()}`}>
+    <li className='w-full h-6'>
       <Button
         variant='ghost'
         className='flex flex-row w-full h-full p-0 font-[15px] items-center'

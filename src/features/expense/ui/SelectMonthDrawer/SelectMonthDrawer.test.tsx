@@ -49,4 +49,28 @@ describe('SelectMonthDrawer', () => {
     const closeButton = getByLabelText('close button');
     expect(closeButton.tagName.toLowerCase()).toBe('button');
   });
+
+  it('when month is selected, calls onSetPeriod with selected period.', () => {
+    const onSetPeriod = vi.fn();
+    const { getByRole, getByText } = renderElement({
+      ...props,
+      onSetPeriod: onSetPeriod,
+    });
+
+    const trigger = getByRole('button');
+    fireEvent.click(trigger);
+
+    const today = new Date();
+    const monthButton = getByText(
+      `${today.getFullYear().toString()}년 ${(today.getMonth() + 1).toString()}월`
+    );
+
+    expect(monthButton).toBeInTheDocument();
+    fireEvent.click(monthButton);
+
+    expect(onSetPeriod).toBeCalledWith({
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
+    });
+  });
 });

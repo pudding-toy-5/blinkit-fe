@@ -1,6 +1,7 @@
 import Period from '@/features/expense/model/types/Period';
 
-import SelectMonthListItem from './SelectMonthListItem';
+import SelectMonthListItem from '../SelectMonthListItem';
+
 export interface SelectMonthListProps {
   period: Period;
   onSetPeriod: (newPeriod: Period) => void;

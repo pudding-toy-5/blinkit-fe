@@ -1,5 +1,5 @@
 import { describe, it, vi } from 'vitest';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, getByLabelText, render } from '@testing-library/react';
 
 import SelectMonthDrawer, { SelectMonthDrawerProps } from './SelectMonthDrawer';
 
@@ -32,9 +32,10 @@ describe('SelectMonthDrawer', () => {
 
   it('when trigger button is clicked, renders title and close button.', () => {
     const titleText = '조회 월 선택';
-    const { getByRole, getByText, queryByTitle } = renderElement({
-      ...props,
-    });
+    const { getByRole, getByText, queryByTitle, getByLabelText } =
+      renderElement({
+        ...props,
+      });
 
     expect(queryByTitle(titleText)).not.toBeInTheDocument();
 
@@ -44,5 +45,8 @@ describe('SelectMonthDrawer', () => {
     const title = getByText(titleText);
     expect(title).toBeInTheDocument();
     expect(title.tagName.toLowerCase()).toBe('h2');
+
+    const closeButton = getByLabelText('close button');
+    expect(closeButton.tagName.toLowerCase()).toBe('button');
   });
 });

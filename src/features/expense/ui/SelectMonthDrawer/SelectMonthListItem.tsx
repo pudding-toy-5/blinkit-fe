@@ -27,8 +27,8 @@ const SelectMonthListItem: React.FC<SelectMonthListItemProps> = ({
         <p className='mr-auto p-0'>
           {year}년 {month}월
         </p>
-        <div aria-label='selected icon'>
-          {selected && (
+        {selected && (
+          <div aria-label='selected icon'>
             <svg
               className='size-6 h-full'
               xmlns='http://www.w3.org/2000/svg'
@@ -42,8 +42,8 @@ const SelectMonthListItem: React.FC<SelectMonthListItemProps> = ({
                 fill='#28A745'
               />
             </svg>
-          )}
-        </div>
+          </div>
+        )}
       </Button>
     </li>
   );

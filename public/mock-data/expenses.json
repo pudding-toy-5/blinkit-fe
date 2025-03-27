@@ -1,0 +1,26 @@
+[
+  {
+    "uid": "exp-001",
+    "date": "2025-03-01T00:00:00.000Z",
+    "categories": [{ "id": "food", "name": "Food" }],
+    "memo": "점심 식사",
+    "amount": 12000
+  },
+  {
+    "uid": "exp-002",
+    "date": "2025-03-05T00:00:00.000Z",
+    "categories": [
+      { "id": "transport", "name": "Transport" },
+      { "id": "work", "name": "Work" }
+    ],
+    "memo": "택시비 및 커피",
+    "amount": 8500
+  },
+  {
+    "uid": "exp-003",
+    "date": "2025-03-10T00:00:00.000Z",
+    "categories": [{ "id": "shopping", "name": "Shopping" }],
+    "memo": "온라인 쇼핑",
+    "amount": 45000
+  }
+]

@@ -10,8 +10,8 @@ const DailyExpenseList: React.FC<DailyExpenseListProps> = ({
   dailyExpenses,
 }) => {
   return (
-    <div
-      className='flex flex-1 flex-col h-full overflow-y-auto bg-gray-100 items-center justify-start list-none'
+    <ul
+      className='flex flex-1 flex-col h-full list-none overflow-y-auto justify-start px-5 py-6'
       aria-label='daily-expense-list'
     >
       {dailyExpenses.length === 0 ? (
@@ -25,7 +25,7 @@ const DailyExpenseList: React.FC<DailyExpenseListProps> = ({
           />
         ))
       )}
-    </div>
+    </ul>
   );
 };
 

@@ -7,13 +7,12 @@ import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
 import { queryKeys } from '../consts';
 
 const fetchExpenses = async (): Promise<Expense[]> => {
-  const res = await fetch('./src/features/expense/api/mock-expenses.json');
+  const res = await fetch('/mock-data/expenses.json');
 
   if (!res.ok) {
     throw new Error('Failed to fetch expenses');
   }
 
-  console.log(res);
   return res.json() as Promise<Expense[]>;
 };
 
@@ -43,6 +42,7 @@ const useDailyExpenses = () => {
     expenses.forEach((expense) => {
       const dateStr = new Date(expense.date).toISOString().split('T')[0];
 
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (!groupedByDate[dateStr]) {
         groupedByDate[dateStr] = {
           date: new Date(expense.date),

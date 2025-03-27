@@ -7,17 +7,21 @@ const DailyExpenseListItem: React.FC<DailyExpense> = ({ date, expenses }) => {
     return null;
   }
 
+  const dateString = `${date.getDate().toString()}일 ${date.toLocaleDateString('ko-KR', { weekday: 'long' })}`;
+
   return (
     <li
       aria-labelledby={`daily-expense-list-item-${date.getDate().toString()}`}
     >
-      <p aria-label=''>{`${date.getDate().toString()}일`}</p>
+      <p aria-label={dateString} className='mb-4'>
+        {dateString}
+      </p>
       <ul>
-        {expenses.map(({ id, category, memo, amount }: Expense) => (
+        {expenses.map(({ uid, categories, amount, memo }: Expense) => (
           <DailyExpenseRecord
-            key={id}
-            id={id}
-            category={category}
+            key={uid}
+            uid={uid}
+            categories={categories}
             amount={amount}
             memo={memo}
           />

@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 
+import 'pretendard/dist/web/static/pretendard.css';
 import './index.css';
 
 const router = createRouter({ routeTree });

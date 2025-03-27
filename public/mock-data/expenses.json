@@ -1,26 +1,29 @@
 [
   {
     "uid": "exp-001",
-    "date": "2025-03-01T00:00:00.000Z",
-    "categories": [{ "id": "food", "name": "Food" }],
-    "memo": "점심 식사",
+    "date": "2025-02-28T00:00:00.000Z",
+    "categories": [
+      { "id": "cafe", "name": "카페" },
+      { "id": "friend-birth", "name": "친구 생일선물" }
+    ],
+    "memo": "친구 생일 선물로 베이커리에서 크루아상과 케이크를 샀다. 포장이 예뻐 만족!",
     "amount": 12000
   },
   {
     "uid": "exp-002",
-    "date": "2025-03-05T00:00:00.000Z",
+    "date": "2025-02-28T00:00:00.000Z",
     "categories": [
-      { "id": "transport", "name": "Transport" },
-      { "id": "work", "name": "Work" }
+      { "id": "mart", "name": "마트" },
+      { "id": "food", "name": "식비" }
     ],
-    "memo": "택시비 및 커피",
-    "amount": 8500
+    "memo": "주말전에 마트에서 장을 봤다. 채소, 과일, 우유, 계란을 담고 할인 중이던 냉동 만두도 샀다. 예산보다 조금 더 썼지만 한동안 든든할 듯하다. 다음엔 장바구니를 꼭 챙겨야겠다. 생각보다 지출이 컸지만 만족스럽다.",
+    "amount": 45090
   },
   {
     "uid": "exp-003",
-    "date": "2025-03-10T00:00:00.000Z",
+    "date": "2025-02-22T00:00:00.000Z",
     "categories": [{ "id": "shopping", "name": "Shopping" }],
     "memo": "온라인 쇼핑",
-    "amount": 45000
+    "amount": 12000
   }
 ]

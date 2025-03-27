@@ -1,4 +1,4 @@
-import { DailyExpense } from '@/features/expense/model/types';
+import { DailyExpense } from '@/features/expense/model/types/Expense';
 
 import DailyExpenseItem from '@/features/expense/ui/DailyExpenseListItem';
 
@@ -11,7 +11,7 @@ const DailyExpenseList: React.FC<DailyExpenseListProps> = ({
 }) => {
   return (
     <div
-      className='flex flex-1 overflow-auto align-middle bg-gray-100 items-center justify-center'
+      className='flex flex-1 flex-col h-full overflow-y-auto bg-gray-100 items-center justify-start list-none'
       aria-label='daily-expense-list'
     >
       {dailyExpenses.length === 0 ? (

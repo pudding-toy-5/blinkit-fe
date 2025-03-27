@@ -16,7 +16,7 @@ const DailyExpenseRecord: React.FC<Omit<Expense, 'date'>> = ({
       <p aria-label='메모' className='leading-[150%] mt-2'>
         {memo}
       </p>
-      <div className='flex flex-row gap-1 mt-6'>
+      <div className='flex flex-row flex-wrap gap-x-1 gap-y-1.5 mt-6 w-full'>
         {categories.map((category) => (
           <CategoryTag key={category.uid} tagName={category.name} />
         ))}

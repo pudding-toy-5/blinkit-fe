@@ -1,4 +1,3 @@
-import { ProvidedCategoryValue } from './ProvidedCategory';
 import { Category } from './Category';
 
 // expense interfaces
@@ -11,7 +10,6 @@ export interface Expense {
   uid: string;
   date: Date;
   providedCategory?: ProvidedCategoryValue;
-  category?: Category;
   memo: string;
   amount: number;
 }
@@ -19,7 +17,6 @@ export interface Expense {
 // expenseFormStore
 export interface ExpenseFormActions {
   setPeriod: (value: Date) => void;
-  setProvidedCategory: (value: ProvidedCategoryValue) => void;
   setCategory: (value: Category) => void;
   setMemo: (value: string) => void;
   setAmount: (value: number) => void;

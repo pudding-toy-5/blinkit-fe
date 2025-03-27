@@ -9,7 +9,7 @@ export interface DailyExpense {
 export interface Expense {
   uid: string;
   date: Date;
-  providedCategory?: ProvidedCategoryValue;
+  category: Category;
   memo: string;
   amount: number;
 }

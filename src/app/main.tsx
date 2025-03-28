@@ -9,8 +9,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 
-// shadcn/ui toaster
-import { Toaster } from '@/components/ui/sonner';
+import Toaster from '@/shared/ui/Toaster';
 
 import 'pretendard/dist/web/static/pretendard.css';
 import './index.css';

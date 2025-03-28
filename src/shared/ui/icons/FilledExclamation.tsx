@@ -1,9 +1,10 @@
-const FilledExclamation = () => {
+import IconProps from './types';
+
+const FilledExclamation: React.FC<IconProps> = ({ size = 16 }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      width='20'
-      height='20'
+      style={{ width: size, height: size }}
       viewBox='0 0 20 20'
       fill='none'
     >

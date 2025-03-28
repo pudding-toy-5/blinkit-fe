@@ -1,9 +1,10 @@
-const RightArrowIcon: React.FC = () => {
+import IconProps from './types';
+
+const ArrowRight: React.FC<IconProps> = ({ size = 16 }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      width='16'
-      height='16'
+      style={{ width: size, height: size }}
       viewBox='0 0 16 16'
       fill='none'
     >
@@ -17,4 +18,4 @@ const RightArrowIcon: React.FC = () => {
   );
 };
 
-export default RightArrowIcon;
+export default ArrowRight;

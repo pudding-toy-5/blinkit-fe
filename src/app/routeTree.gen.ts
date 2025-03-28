@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as ExpensesImport } from './routes/expenses'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as ComponentToasterImport } from './routes/component/toaster'
 import { Route as ComponentTextInputImport } from './routes/component/text-input'
 import { Route as ComponentTextAreaImport } from './routes/component/text-area'
 import { Route as ComponentSelectMonthDrawerImport } from './routes/component/select-month-drawer'
@@ -38,6 +39,12 @@ const AboutRoute = AboutImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ComponentToasterRoute = ComponentToasterImport.update({
+  id: '/component/toaster',
+  path: '/component/toaster',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -146,6 +153,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComponentTextInputImport
       parentRoute: typeof rootRoute
     }
+    '/component/toaster': {
+      id: '/component/toaster'
+      path: '/component/toaster'
+      fullPath: '/component/toaster'
+      preLoaderRoute: typeof ComponentToasterImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -161,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/component/select-month-drawer': typeof ComponentSelectMonthDrawerRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
+  '/component/toaster': typeof ComponentToasterRoute
 }
 
 export interface FileRoutesByTo {
@@ -173,6 +188,7 @@ export interface FileRoutesByTo {
   '/component/select-month-drawer': typeof ComponentSelectMonthDrawerRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
+  '/component/toaster': typeof ComponentToasterRoute
 }
 
 export interface FileRoutesById {
@@ -186,6 +202,7 @@ export interface FileRoutesById {
   '/component/select-month-drawer': typeof ComponentSelectMonthDrawerRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
+  '/component/toaster': typeof ComponentToasterRoute
 }
 
 export interface FileRouteTypes {
@@ -200,6 +217,7 @@ export interface FileRouteTypes {
     | '/component/select-month-drawer'
     | '/component/text-area'
     | '/component/text-input'
+    | '/component/toaster'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -211,6 +229,7 @@ export interface FileRouteTypes {
     | '/component/select-month-drawer'
     | '/component/text-area'
     | '/component/text-input'
+    | '/component/toaster'
   id:
     | '__root__'
     | '/'
@@ -222,6 +241,7 @@ export interface FileRouteTypes {
     | '/component/select-month-drawer'
     | '/component/text-area'
     | '/component/text-input'
+    | '/component/toaster'
   fileRoutesById: FileRoutesById
 }
 
@@ -235,6 +255,7 @@ export interface RootRouteChildren {
   ComponentSelectMonthDrawerRoute: typeof ComponentSelectMonthDrawerRoute
   ComponentTextAreaRoute: typeof ComponentTextAreaRoute
   ComponentTextInputRoute: typeof ComponentTextInputRoute
+  ComponentToasterRoute: typeof ComponentToasterRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -247,6 +268,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComponentSelectMonthDrawerRoute: ComponentSelectMonthDrawerRoute,
   ComponentTextAreaRoute: ComponentTextAreaRoute,
   ComponentTextInputRoute: ComponentTextInputRoute,
+  ComponentToasterRoute: ComponentToasterRoute,
 }
 
 export const routeTree = rootRoute
@@ -267,7 +289,8 @@ export const routeTree = rootRoute
         "/component/page-header",
         "/component/select-month-drawer",
         "/component/text-area",
-        "/component/text-input"
+        "/component/text-input",
+        "/component/toaster"
       ]
     },
     "/": {
@@ -296,6 +319,9 @@ export const routeTree = rootRoute
     },
     "/component/text-input": {
       "filePath": "component/text-input.tsx"
+    },
+    "/component/toaster": {
+      "filePath": "component/toaster.tsx"
     }
   }
 }

@@ -13,8 +13,8 @@ const FilledSuccess: React.FC<IconProps> = ({ size }) => {
         fill='#66CDAA'
       />
       <path
-        fill-rule='evenodd'
-        clip-rule='evenodd'
+        fillRule='evenodd'
+        clipRule='evenodd'
         d='M8.71231 11.4853L14.5459 5.65165L15.6066 6.71231L9.24264 13.0763C8.94974 13.3692 8.47487 13.3692 8.18198 13.0763L5 9.89429L6.06066 8.83363L8.71231 11.4853Z'
         fill='white'
       />

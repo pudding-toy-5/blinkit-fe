@@ -10,6 +10,7 @@ export interface SubPageHeaderProps {
   title: string;
   back?: boolean;
   close?: boolean;
+  onClose?: () => void;
 }
 
 const SubPageHeader: React.FC<SubPageHeaderProps> = ({
@@ -44,6 +45,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
             buttonVariants({ variant: 'ghost' }),
             'absolute right-5 size-5'
           )}
+          onClick={onClose}
         >
           <X size={20} />
         </div>

@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 
-import RightArrowIcon from '@/shared/ui/icons/RightArrowIcon';
+import ArrowRight from '@/shared/ui/icons/ArrowRight';
 
 import { EXPENSE_MEMO_MAX_LEN } from '../../consts';
 
@@ -23,14 +23,14 @@ const ExpenseForm: React.FC = () => {
         <label>날짜</label>
         <button className='flex flex-row ml-auto'>
           <p className='mr-1'>2025년 2월 28일</p>
-          <RightArrowIcon />
+          <ArrowRight size={16} />
         </button>
       </div>
       <div className='flex flex-row mt-5'>
         <label>카테고리</label>
         <button className='flex flex-row ml-auto'>
           <p className='mr-1'>식비</p>
-          <RightArrowIcon />
+          <ArrowRight size={16} />
         </button>
       </div>
       <div className='flex flex-col mt-5'>

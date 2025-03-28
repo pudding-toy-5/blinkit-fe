@@ -1,6 +1,6 @@
 import IconProps from './types';
 
-const FilledExclamation: React.FC<IconProps> = ({ size }) => {
+const FilledExclamation: React.FC<IconProps> = ({ size = 16 }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

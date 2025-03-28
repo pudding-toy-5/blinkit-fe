@@ -28,13 +28,13 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
           role='button'
           className={cn(
             buttonVariants({ variant: 'ghost' }),
-            'absolute left-5 size-5'
+            'absolute left-5 size-6'
           )}
           onClick={() => {
             router.history.back();
           }}
         >
-          <ArrowLeft size={20} />
+          <ArrowLeft size={24} />
         </div>
       )}
       <h1 className='ml-2 text-[17px] text-[#222] font-semibold'>{title}</h1>
@@ -43,11 +43,11 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
           role='button'
           className={cn(
             buttonVariants({ variant: 'ghost' }),
-            'absolute right-5 size-5'
+            'absolute right-5 size-6'
           )}
           onClick={onClose}
         >
-          <X size={20} />
+          <X size={24} />
         </div>
       )}
     </header>

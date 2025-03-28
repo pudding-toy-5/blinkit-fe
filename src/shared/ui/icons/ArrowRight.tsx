@@ -1,6 +1,6 @@
 import IconProps from './types';
 
-const RightArrow: React.FC<IconProps> = ({ size = 16 }) => {
+const ArrowRight: React.FC<IconProps> = ({ size = 16 }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -18,4 +18,4 @@ const RightArrow: React.FC<IconProps> = ({ size = 16 }) => {
   );
 };
 
-export default RightArrow;
+export default ArrowRight;

@@ -25,6 +25,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
     <header className='flex flex-row justify-center items-center h-12 px-5 py-4'>
       {back && (
         <div
+          aria-label='back button'
           role='button'
           className={cn(
             buttonVariants({ variant: 'ghost' }),
@@ -40,6 +41,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
       <h1 className='ml-2 text-[17px] text-[#222] font-semibold'>{title}</h1>
       {close && (
         <div
+          aria-label='close button'
           role='button'
           className={cn(
             buttonVariants({ variant: 'ghost' }),

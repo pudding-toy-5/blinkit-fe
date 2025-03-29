@@ -47,7 +47,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
             buttonVariants({ variant: 'ghost' }),
             'absolute right-5 size-6'
           )}
-          onClick={onClose}
+          onClick={() => onClose?.()}
         >
           <X size={24} />
         </div>

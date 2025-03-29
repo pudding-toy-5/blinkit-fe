@@ -17,8 +17,8 @@ import { Route as IndexImport } from './routes/index'
 import { Route as ComponentToasterImport } from './routes/component/toaster'
 import { Route as ComponentTextInputImport } from './routes/component/text-input'
 import { Route as ComponentTextAreaImport } from './routes/component/text-area'
+import { Route as ComponentSubPageHeaderImport } from './routes/component/sub-page-header'
 import { Route as ComponentSelectMonthDrawerImport } from './routes/component/select-month-drawer'
-import { Route as ComponentPageHeaderImport } from './routes/component/page-header'
 import { Route as ComponentIconTestImport } from './routes/component/icon-test'
 import { Route as ComponentCalendarDrawerImport } from './routes/component/calendar-drawer'
 import { Route as ComponentButtonsTestImport } from './routes/component/buttons-test'
@@ -61,6 +61,12 @@ const ComponentTextAreaRoute = ComponentTextAreaImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ComponentSubPageHeaderRoute = ComponentSubPageHeaderImport.update({
+  id: '/component/sub-page-header',
+  path: '/component/sub-page-header',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ComponentSelectMonthDrawerRoute = ComponentSelectMonthDrawerImport.update(
   {
     id: '/component/select-month-drawer',
@@ -68,12 +74,6 @@ const ComponentSelectMonthDrawerRoute = ComponentSelectMonthDrawerImport.update(
     getParentRoute: () => rootRoute,
   } as any,
 )
-
-const ComponentPageHeaderRoute = ComponentPageHeaderImport.update({
-  id: '/component/page-header',
-  path: '/component/page-header',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const ComponentIconTestRoute = ComponentIconTestImport.update({
   id: '/component/icon-test',
@@ -139,18 +139,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComponentIconTestImport
       parentRoute: typeof rootRoute
     }
-    '/component/page-header': {
-      id: '/component/page-header'
-      path: '/component/page-header'
-      fullPath: '/component/page-header'
-      preLoaderRoute: typeof ComponentPageHeaderImport
-      parentRoute: typeof rootRoute
-    }
     '/component/select-month-drawer': {
       id: '/component/select-month-drawer'
       path: '/component/select-month-drawer'
       fullPath: '/component/select-month-drawer'
       preLoaderRoute: typeof ComponentSelectMonthDrawerImport
+      parentRoute: typeof rootRoute
+    }
+    '/component/sub-page-header': {
+      id: '/component/sub-page-header'
+      path: '/component/sub-page-header'
+      fullPath: '/component/sub-page-header'
+      preLoaderRoute: typeof ComponentSubPageHeaderImport
       parentRoute: typeof rootRoute
     }
     '/component/text-area': {
@@ -186,8 +186,8 @@ export interface FileRoutesByFullPath {
   '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
   '/component/icon-test': typeof ComponentIconTestRoute
-  '/component/page-header': typeof ComponentPageHeaderRoute
   '/component/select-month-drawer': typeof ComponentSelectMonthDrawerRoute
+  '/component/sub-page-header': typeof ComponentSubPageHeaderRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
   '/component/toaster': typeof ComponentToasterRoute
@@ -200,8 +200,8 @@ export interface FileRoutesByTo {
   '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
   '/component/icon-test': typeof ComponentIconTestRoute
-  '/component/page-header': typeof ComponentPageHeaderRoute
   '/component/select-month-drawer': typeof ComponentSelectMonthDrawerRoute
+  '/component/sub-page-header': typeof ComponentSubPageHeaderRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
   '/component/toaster': typeof ComponentToasterRoute
@@ -215,8 +215,8 @@ export interface FileRoutesById {
   '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
   '/component/icon-test': typeof ComponentIconTestRoute
-  '/component/page-header': typeof ComponentPageHeaderRoute
   '/component/select-month-drawer': typeof ComponentSelectMonthDrawerRoute
+  '/component/sub-page-header': typeof ComponentSubPageHeaderRoute
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
   '/component/toaster': typeof ComponentToasterRoute
@@ -231,8 +231,8 @@ export interface FileRouteTypes {
     | '/component/buttons-test'
     | '/component/calendar-drawer'
     | '/component/icon-test'
-    | '/component/page-header'
     | '/component/select-month-drawer'
+    | '/component/sub-page-header'
     | '/component/text-area'
     | '/component/text-input'
     | '/component/toaster'
@@ -244,8 +244,8 @@ export interface FileRouteTypes {
     | '/component/buttons-test'
     | '/component/calendar-drawer'
     | '/component/icon-test'
-    | '/component/page-header'
     | '/component/select-month-drawer'
+    | '/component/sub-page-header'
     | '/component/text-area'
     | '/component/text-input'
     | '/component/toaster'
@@ -257,8 +257,8 @@ export interface FileRouteTypes {
     | '/component/buttons-test'
     | '/component/calendar-drawer'
     | '/component/icon-test'
-    | '/component/page-header'
     | '/component/select-month-drawer'
+    | '/component/sub-page-header'
     | '/component/text-area'
     | '/component/text-input'
     | '/component/toaster'
@@ -272,8 +272,8 @@ export interface RootRouteChildren {
   ComponentButtonsTestRoute: typeof ComponentButtonsTestRoute
   ComponentCalendarDrawerRoute: typeof ComponentCalendarDrawerRoute
   ComponentIconTestRoute: typeof ComponentIconTestRoute
-  ComponentPageHeaderRoute: typeof ComponentPageHeaderRoute
   ComponentSelectMonthDrawerRoute: typeof ComponentSelectMonthDrawerRoute
+  ComponentSubPageHeaderRoute: typeof ComponentSubPageHeaderRoute
   ComponentTextAreaRoute: typeof ComponentTextAreaRoute
   ComponentTextInputRoute: typeof ComponentTextInputRoute
   ComponentToasterRoute: typeof ComponentToasterRoute
@@ -286,8 +286,8 @@ const rootRouteChildren: RootRouteChildren = {
   ComponentButtonsTestRoute: ComponentButtonsTestRoute,
   ComponentCalendarDrawerRoute: ComponentCalendarDrawerRoute,
   ComponentIconTestRoute: ComponentIconTestRoute,
-  ComponentPageHeaderRoute: ComponentPageHeaderRoute,
   ComponentSelectMonthDrawerRoute: ComponentSelectMonthDrawerRoute,
+  ComponentSubPageHeaderRoute: ComponentSubPageHeaderRoute,
   ComponentTextAreaRoute: ComponentTextAreaRoute,
   ComponentTextInputRoute: ComponentTextInputRoute,
   ComponentToasterRoute: ComponentToasterRoute,
@@ -309,8 +309,8 @@ export const routeTree = rootRoute
         "/component/buttons-test",
         "/component/calendar-drawer",
         "/component/icon-test",
-        "/component/page-header",
         "/component/select-month-drawer",
+        "/component/sub-page-header",
         "/component/text-area",
         "/component/text-input",
         "/component/toaster"
@@ -334,11 +334,11 @@ export const routeTree = rootRoute
     "/component/icon-test": {
       "filePath": "component/icon-test.tsx"
     },
-    "/component/page-header": {
-      "filePath": "component/page-header.tsx"
-    },
     "/component/select-month-drawer": {
       "filePath": "component/select-month-drawer.tsx"
+    },
+    "/component/sub-page-header": {
+      "filePath": "component/sub-page-header.tsx"
     },
     "/component/text-area": {
       "filePath": "component/text-area.tsx"

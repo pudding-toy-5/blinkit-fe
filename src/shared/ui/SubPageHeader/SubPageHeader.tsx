@@ -38,7 +38,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
           <ArrowLeft size={24} />
         </div>
       )}
-      <h1 className='ml-2 text-[17px] text-[#222] font-semibold'>{title}</h1>
+      <h1 className='text-[17px] text-[#222] font-semibold'>{title}</h1>
       {close && (
         <div
           aria-label='close button'

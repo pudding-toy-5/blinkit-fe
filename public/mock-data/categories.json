@@ -1,0 +1,8 @@
+[
+  { "uid": "cafe", "name": "카페" },
+  { "uid": "friend-birth", "name": "친구 생일선물" },
+  { "uid": "weekend mart", "name": "주말 마트 장보기" },
+  { "uid": "food", "name": "식비" },
+  { "uid": "star-sale", "name": "이마트 창립20주년 스타세일" },
+  { "uid": "shopping", "name": "쇼핑" }
+]

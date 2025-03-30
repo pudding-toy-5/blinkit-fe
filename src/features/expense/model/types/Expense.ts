@@ -1,4 +1,4 @@
-import { Category } from './Category';
+import { Category } from '@/features/category/model/types/Category';
 
 // expense interfaces
 export interface DailyExpense {

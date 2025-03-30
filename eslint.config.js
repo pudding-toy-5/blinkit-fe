@@ -5,8 +5,11 @@ import pluginQuery from '@tanstack/eslint-plugin-query';
 
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import tseslint from 'typescript-eslint';
 import prettier from 'eslint-plugin-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+
+import tseslint from 'typescript-eslint';
+
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default tseslint.config(
@@ -34,6 +37,7 @@ export default tseslint.config(
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       '@tanstack/query': pluginQuery,
+      'simple-import-sort': simpleImportSort,
       prettier,
     },
     rules: {
@@ -44,6 +48,8 @@ export default tseslint.config(
       ],
       '@tanstack/query/exhaustive-deps': 'error',
       '@tanstack/query/stable-query-client': 'error',
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
       'prettier/prettier': 'error',
     },
   },

@@ -1,6 +1,5 @@
+import { Category } from '@/features/category/model/types/Category';
 import { createEntityHooks } from '@/features/common/useEntityQuery';
-
-import { Category } from '@/features/expense/model/types/Category';
 
 import { queryKeys } from '../consts';
 
@@ -28,9 +27,9 @@ const useCategories = () => {
 };
 
 export {
+  useAddCategory,
   useCategories,
   useCategoryByUid,
-  useAddCategory,
-  useUpdateCategory,
   useDeleteCategory,
+  useUpdateCategory,
 };

@@ -1,3 +1,4 @@
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import X from '@/shared/ui/icons/X';
 import { cn } from '@/shared/ui/styles/utils';
@@ -14,9 +15,9 @@ const CategoryTag: React.FC<CategoryTagProps> = ({
   onDelete,
 }) => {
   return (
-    <div
+    <Badge
       className={cn(
-        'bg-[#EAF6EC] text-[#28A745] rounded-full text-[13px]',
+        'flex flex-row items-center bg-[#EAF6EC] text-[#28A745] rounded-full text-[13px]',
         'px-2 py-1',
         size === 'small' && 'px-2 py-1',
         size === 'medium' && 'px-3 py-2',
@@ -24,7 +25,7 @@ const CategoryTag: React.FC<CategoryTagProps> = ({
       )}
       aria-label={`카테고리: ${tagName}`}
     >
-      <p>{tagName}</p>
+      {tagName}
       {onDelete && (
         <Button
           className='ml-1 w-3 h-3'
@@ -35,10 +36,10 @@ const CategoryTag: React.FC<CategoryTagProps> = ({
             onDelete();
           }}
         >
-          <X size={12} />
+          <X size={12} color='#28A745' />
         </Button>
       )}
-    </div>
+    </Badge>
   );
 };
 

@@ -14,12 +14,33 @@ function RouteComponent() {
     '333',
     '1010101010',
     '20202020202020202020',
+    '20202020202020202020',
   ];
   return (
     <Layout>
-      <div className='flex flex-row flex-wrap gap-x-1 gap-y-1.5 mt-6 w-full'>
+      <div className='flex flex-row flex-wrap gap-x-2 gap-y-2 w-full'>
         {texts.map((text) => (
-          <CategoryTag key={text} tagName={text} />
+          <CategoryTag key={text} tagName={text} size='small' />
+        ))}
+      </div>
+      <div className='flex flex-row flex-wrap gap-2 w-full'>
+        {texts.map((text) => (
+          <CategoryTag key={text} tagName={text} size='medium' />
+        ))}
+      </div>
+      <div className='flex flex-row flex-wrap gap-2 w-full'>
+        {texts.map((text) => (
+          <CategoryTag key={text} tagName={text} size='large' />
+        ))}
+      </div>
+      <div className='flex flex-row flex-wrap gap-2 w-full'>
+        {texts.map((text) => (
+          <CategoryTag
+            key={text}
+            tagName={text}
+            size='small'
+            onDelete={() => {}}
+          />
         ))}
       </div>
     </Layout>

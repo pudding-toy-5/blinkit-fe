@@ -1,4 +1,5 @@
 // input-tags.tsx
+// https://github.com/shadcn-ui/ui/issues/3647
 
 'use client';
 

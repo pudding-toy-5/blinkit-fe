@@ -23,16 +23,6 @@ const InputCategoryTags = React.forwardRef<
   InputCategoryTagProps
 >(({ className, value, onChange, placeholder, ...props }, ref) => {
   const [pendingDataPoint, setPendingDataPoint] = React.useState<string>('');
-  React.useEffect(() => {
-    if (pendingDataPoint.includes(',')) {
-      const newDataPoints = new Set([
-        ...value,
-        ...pendingDataPoint.split(',').map((chunk) => chunk.trim()),
-      ]);
-      onChange(Array.from(newDataPoints));
-      setPendingDataPoint('');
-    }
-  }, [pendingDataPoint, onChange, value]);
 
   const addPendingDataPoint = () => {
     if (pendingDataPoint) {

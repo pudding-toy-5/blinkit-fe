@@ -9,17 +9,20 @@ import { type InputProps } from '@/components/ui/input';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import { cn } from '@/shared/ui/styles/utils';
 
-export type InputCategoryTagProps = Omit<InputProps, 'value' | 'onChange'> & {
+export type InputCategoryTagProps = Omit<
+  InputProps,
+  'value' | 'onChange' | 'placeholder'
+> & {
   value: string[];
   onChange: React.Dispatch<React.SetStateAction<string[]>>;
+  placeholder: string;
 };
 
 const InputCategoryTags = React.forwardRef<
   HTMLInputElement,
   InputCategoryTagProps
->(({ className, value, onChange, ...props }, ref) => {
+>(({ className, value, onChange, placeholder, ...props }, ref) => {
   const [pendingDataPoint, setPendingDataPoint] = React.useState<string>('');
-
   React.useEffect(() => {
     if (pendingDataPoint.includes(',')) {
       const newDataPoints = new Set([
@@ -50,7 +53,8 @@ const InputCategoryTags = React.forwardRef<
         className
       )}
     >
-      <div className='flex flex-row flex-wrap gap-2 mr-5 min-w-[70%]'>
+      {/* todo: fix min-w */}
+      <div className={cn('flex flex-row flex-wrap gap-2 mr-5', 'min-w-[70%]')}>
         {value.map((item) => (
           <CategoryTag
             key={item}
@@ -63,7 +67,10 @@ const InputCategoryTags = React.forwardRef<
         ))}
         <input
           className='flex-1 outline-none placeholder:text-[#999] placeholder:text-[15px]'
+          aria-label='카테고리 추가 입력'
           value={pendingDataPoint}
+          placeholder={placeholder}
+          disabled={value.length >= 3}
           onChange={(e) => {
             setPendingDataPoint(e.target.value);
           }}
@@ -74,6 +81,7 @@ const InputCategoryTags = React.forwardRef<
       <Button
         variant='ghost'
         className='h-full p-0 ml-auto disabled:text-[#999] text-[#28A745] hover:text-[#28A745]'
+        aria-label='카테고리 태그 추가 버튼'
         disabled={pendingDataPoint.length === 0}
         onClick={() => {
           if (pendingDataPoint.length > 0) {

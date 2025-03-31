@@ -1,3 +1,5 @@
+// https://github.com/shadcn-ui/ui/issues/3647
+
 'use client';
 
 import * as React from 'react';
@@ -42,12 +44,13 @@ const InputCategoryTags = React.forwardRef<
       className={cn(
         // caveat: :has() variant requires tailwind v3.4 or above: https://tailwindcss.com/blog/tailwindcss-v3-4#new-has-variant
         'has-[:focus-visible]:outline-none has-[:focus-visible]:ring has-[:focus-visible]:ring-[#555] has-[:focus-visible]:ring-offset-2',
-        'min-h-12 flex flex-row w-full gap-2 rounded-md border border-[#ccc] bg-white px-4 py-3 text-sm ring-offset-white',
+        'min-h-12 flex flex-row w-full',
+        'rounded-md border border-[#ccc] bg-white px-4 py-3 text-sm ring-offset-white',
         'disabled:cursor-not-allowed disabled:opacity-50',
         className
       )}
     >
-      <div className='min-h-12 flex flex-row gap-2 w-[calc(100% - 32px - 26px - 20px)]'>
+      <div className='flex flex-row flex-wrap gap-2 mr-5 min-w-[70%]'>
         {value.map((item) => (
           <CategoryTag
             key={item}

@@ -47,8 +47,7 @@ const InputCategoryTags = React.forwardRef<
         className
       )}
     >
-      {/* todo: fix min-w */}
-      <div className={cn('flex flex-row flex-wrap gap-2 mr-5', 'min-w-[70%]')}>
+      <div className={cn('flex flex-row flex-1 flex-wrap gap-2 mr-5')}>
         {value.map((item) => (
           <CategoryTag
             key={item}
@@ -74,7 +73,7 @@ const InputCategoryTags = React.forwardRef<
       </div>
       <Button
         variant='ghost'
-        className='h-full p-0 ml-auto disabled:text-[#999] text-[#28A745] hover:text-[#28A745]'
+        className='h-full p-0 disabled:text-[#999] text-[#28A745] hover:text-[#28A745]'
         aria-label='카테고리 태그 추가 버튼'
         disabled={pendingDataPoint.length === 0}
         onClick={() => {

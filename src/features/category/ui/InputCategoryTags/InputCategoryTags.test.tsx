@@ -21,7 +21,7 @@ describe('InputCategoryTags', () => {
       />
     );
 
-  it('renders input tag with correct aria-label, placeholder.', () => {
+  it('renders input tag with correct aria-label.', () => {
     const placeholder = 'placeholder-test-text';
     const { getByLabelText } = renderElement({ placeholder: placeholder });
     const input = getByLabelText('카테고리 추가 입력');
@@ -29,6 +29,40 @@ describe('InputCategoryTags', () => {
     expect(input).toHaveAttribute('placeholder', placeholder);
     expect(input.tagName.toLowerCase()).toBe('input');
   });
+
+  it('when value has more than one item, renders CategoryTags with value item.', () => {
+    const values = ['first', 'second', 'third'];
+    const { getByText } = renderElement({ value: values });
+    const items = values.map((item) => getByText(item));
+
+    items.forEach((item) => {
+      expect(item).toBeInTheDocument();
+    });
+  });
+
+  it('when CategoryTag delete button is clicked, calls onChange with removed values, removes clicked CategoryTag', () => {
+    const first = 'first';
+    const values: string[] = [first, 'second', 'third'];
+    const onChange = vi.fn();
+    const { getByText } = renderElement({
+      value: values,
+      onChange,
+    });
+    const firstItem = getByText(first);
+
+    expect(firstItem).toBeInTheDocument();
+    expect(firstItem.firstElementChild).not.toBeNull();
+
+    if (firstItem.firstElementChild !== null) {
+      const deleteButton = firstItem.firstElementChild;
+      expect(deleteButton.tagName.toLowerCase()).toBe('button');
+
+      fireEvent.click(deleteButton);
+
+      expect(onChange).toBeCalledWith(values.filter((item) => item !== first));
+    }
+  });
+
 
   describe('add-button', () => {
     it('renders add-button with correct aria-label attribute.', () => {

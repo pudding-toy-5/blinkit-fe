@@ -22,6 +22,10 @@ const InputCategoryTags = React.forwardRef<
   HTMLInputElement,
   InputCategoryTagProps
 >(({ className, value, onChange, placeholder, ...props }, ref) => {
+  if (value.length > 3) {
+    throw new Error('InputCategoryTags > value > has more than three items');
+  }
+
   const [pendingDataPoint, setPendingDataPoint] = React.useState<string>('');
 
   const addPendingDataPoint = () => {

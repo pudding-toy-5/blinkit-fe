@@ -63,6 +63,26 @@ describe('InputCategoryTags', () => {
     }
   });
 
+  describe('input placeholder', () => {
+    it('when value is empty, renders input tag with placeholder.', () => {
+      const placeholder = 'placeholder-test-text';
+      const { getByPlaceholderText } = renderElement({
+        placeholder: placeholder,
+      });
+      const input = getByPlaceholderText(placeholder);
+
+      expect(input).toBeInTheDocument();
+      expect(input.tagName.toLowerCase()).toBe('input');
+    });
+
+    it('when value is not empty, renders input tag without placeholder.', () => {
+      const { getByRole } = renderElement({ value: ['not-empty'] });
+      const input = getByRole('textbox');
+
+      expect(input).toBeInTheDocument();
+      expect(input).not.toHaveAttribute('placeholder');
+    });
+  });
 
   describe('add-button', () => {
     it('renders add-button with correct aria-label attribute.', () => {

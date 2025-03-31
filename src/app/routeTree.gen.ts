@@ -19,6 +19,7 @@ import { Route as ComponentTextInputImport } from './routes/component/text-input
 import { Route as ComponentTextAreaImport } from './routes/component/text-area'
 import { Route as ComponentSubPageHeaderImport } from './routes/component/sub-page-header'
 import { Route as ComponentSelectMonthDrawerImport } from './routes/component/select-month-drawer'
+import { Route as ComponentInputCategoryTagsImport } from './routes/component/input-category-tags'
 import { Route as ComponentIconTestImport } from './routes/component/icon-test'
 import { Route as ComponentCategoryTagsImport } from './routes/component/category-tags'
 import { Route as ComponentCalendarDrawerImport } from './routes/component/calendar-drawer'
@@ -72,6 +73,14 @@ const ComponentSelectMonthDrawerRoute = ComponentSelectMonthDrawerImport.update(
   {
     id: '/component/select-month-drawer',
     path: '/component/select-month-drawer',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
+
+const ComponentInputCategoryTagsRoute = ComponentInputCategoryTagsImport.update(
+  {
+    id: '/component/input-category-tags',
+    path: '/component/input-category-tags',
     getParentRoute: () => rootRoute,
   } as any,
 )
@@ -153,6 +162,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComponentIconTestImport
       parentRoute: typeof rootRoute
     }
+    '/component/input-category-tags': {
+      id: '/component/input-category-tags'
+      path: '/component/input-category-tags'
+      fullPath: '/component/input-category-tags'
+      preLoaderRoute: typeof ComponentInputCategoryTagsImport
+      parentRoute: typeof rootRoute
+    }
     '/component/select-month-drawer': {
       id: '/component/select-month-drawer'
       path: '/component/select-month-drawer'
@@ -201,6 +217,7 @@ export interface FileRoutesByFullPath {
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
   '/component/category-tags': typeof ComponentCategoryTagsRoute
   '/component/icon-test': typeof ComponentIconTestRoute
+  '/component/input-category-tags': typeof ComponentInputCategoryTagsRoute
   '/component/select-month-drawer': typeof ComponentSelectMonthDrawerRoute
   '/component/sub-page-header': typeof ComponentSubPageHeaderRoute
   '/component/text-area': typeof ComponentTextAreaRoute
@@ -216,6 +233,7 @@ export interface FileRoutesByTo {
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
   '/component/category-tags': typeof ComponentCategoryTagsRoute
   '/component/icon-test': typeof ComponentIconTestRoute
+  '/component/input-category-tags': typeof ComponentInputCategoryTagsRoute
   '/component/select-month-drawer': typeof ComponentSelectMonthDrawerRoute
   '/component/sub-page-header': typeof ComponentSubPageHeaderRoute
   '/component/text-area': typeof ComponentTextAreaRoute
@@ -232,6 +250,7 @@ export interface FileRoutesById {
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
   '/component/category-tags': typeof ComponentCategoryTagsRoute
   '/component/icon-test': typeof ComponentIconTestRoute
+  '/component/input-category-tags': typeof ComponentInputCategoryTagsRoute
   '/component/select-month-drawer': typeof ComponentSelectMonthDrawerRoute
   '/component/sub-page-header': typeof ComponentSubPageHeaderRoute
   '/component/text-area': typeof ComponentTextAreaRoute
@@ -249,6 +268,7 @@ export interface FileRouteTypes {
     | '/component/calendar-drawer'
     | '/component/category-tags'
     | '/component/icon-test'
+    | '/component/input-category-tags'
     | '/component/select-month-drawer'
     | '/component/sub-page-header'
     | '/component/text-area'
@@ -263,6 +283,7 @@ export interface FileRouteTypes {
     | '/component/calendar-drawer'
     | '/component/category-tags'
     | '/component/icon-test'
+    | '/component/input-category-tags'
     | '/component/select-month-drawer'
     | '/component/sub-page-header'
     | '/component/text-area'
@@ -277,6 +298,7 @@ export interface FileRouteTypes {
     | '/component/calendar-drawer'
     | '/component/category-tags'
     | '/component/icon-test'
+    | '/component/input-category-tags'
     | '/component/select-month-drawer'
     | '/component/sub-page-header'
     | '/component/text-area'
@@ -293,6 +315,7 @@ export interface RootRouteChildren {
   ComponentCalendarDrawerRoute: typeof ComponentCalendarDrawerRoute
   ComponentCategoryTagsRoute: typeof ComponentCategoryTagsRoute
   ComponentIconTestRoute: typeof ComponentIconTestRoute
+  ComponentInputCategoryTagsRoute: typeof ComponentInputCategoryTagsRoute
   ComponentSelectMonthDrawerRoute: typeof ComponentSelectMonthDrawerRoute
   ComponentSubPageHeaderRoute: typeof ComponentSubPageHeaderRoute
   ComponentTextAreaRoute: typeof ComponentTextAreaRoute
@@ -308,6 +331,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComponentCalendarDrawerRoute: ComponentCalendarDrawerRoute,
   ComponentCategoryTagsRoute: ComponentCategoryTagsRoute,
   ComponentIconTestRoute: ComponentIconTestRoute,
+  ComponentInputCategoryTagsRoute: ComponentInputCategoryTagsRoute,
   ComponentSelectMonthDrawerRoute: ComponentSelectMonthDrawerRoute,
   ComponentSubPageHeaderRoute: ComponentSubPageHeaderRoute,
   ComponentTextAreaRoute: ComponentTextAreaRoute,
@@ -332,6 +356,7 @@ export const routeTree = rootRoute
         "/component/calendar-drawer",
         "/component/category-tags",
         "/component/icon-test",
+        "/component/input-category-tags",
         "/component/select-month-drawer",
         "/component/sub-page-header",
         "/component/text-area",
@@ -359,6 +384,9 @@ export const routeTree = rootRoute
     },
     "/component/icon-test": {
       "filePath": "component/icon-test.tsx"
+    },
+    "/component/input-category-tags": {
+      "filePath": "component/input-category-tags.tsx"
     },
     "/component/select-month-drawer": {
       "filePath": "component/select-month-drawer.tsx"

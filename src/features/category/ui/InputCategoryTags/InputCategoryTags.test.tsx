@@ -45,8 +45,9 @@ describe('InputCategoryTags', () => {
     it('when input is empty, add-button is disabled.', () => {
       const { getByRole } = renderElement({});
       const addButton = getByRole('button', { name: /추가/i });
+      const input = getByRole('textbox');
 
-      expect(addButton).toBeInTheDocument();
+      fireEvent.change(input, { target: { value: '' } });
       expect(addButton).toBeDisabled();
     });
 
@@ -54,15 +55,12 @@ describe('InputCategoryTags', () => {
       const onChange = vi.fn();
       const placeholder = 'placeholder-test';
       const inputValue = 'input-value-test';
-      const { getByRole, getByPlaceholderText } = renderElement({
+      const { getByRole } = renderElement({
         placeholder: placeholder,
         onChange: onChange,
       });
       const addButton = getByRole('button', { name: /추가/i });
-      const input = getByPlaceholderText(placeholder);
-
-      expect(addButton).toBeInTheDocument();
-      expect(addButton).toBeDisabled();
+      const input = getByRole('textbox');
 
       expect(input).toHaveValue('');
 

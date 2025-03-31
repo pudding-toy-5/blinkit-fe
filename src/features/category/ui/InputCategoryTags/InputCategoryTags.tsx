@@ -59,7 +59,7 @@ const InputCategoryTags = React.forwardRef<
           className='flex-1 outline-none placeholder:text-[#999] placeholder:text-[15px]'
           aria-label='카테고리 추가 입력'
           value={pendingDataPoint}
-          placeholder={placeholder}
+          placeholder={value.length === 0 ? placeholder : undefined}
           disabled={value.length >= 3}
           onChange={(e) => {
             setPendingDataPoint(e.target.value);

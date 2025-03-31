@@ -21,44 +21,60 @@ describe('InputCategoryTags', () => {
       />
     );
 
-  it('renders input tag with correct aria-label.', () => {
-    const { getByLabelText } = renderElement({});
+  it('renders input tag with correct aria-label, placeholder.', () => {
+    const placeholder = 'placeholder-test-text';
+    const { getByLabelText } = renderElement({ placeholder: placeholder });
     const input = getByLabelText('카테고리 추가 입력');
     expect(input).toBeInTheDocument();
+    expect(input).toHaveAttribute('placeholder', placeholder);
     expect(input.tagName.toLowerCase()).toBe('input');
   });
 
-  it('renders 추가 button with correct aria-label attribute.', () => {
-    const { getByRole } = renderElement({});
-    const addButton = getByRole('button', { name: /추가/i });
+  describe('add-button', () => {
+    it('renders add-button with correct aria-label attribute.', () => {
+      const { getByRole } = renderElement({});
+      const addButton = getByRole('button', { name: /추가/i });
 
-    expect(addButton).toBeInTheDocument();
-    expect(addButton).toHaveAttribute('aria-label', '카테고리 태그 추가 버튼');
-  });
-
-  it('when input is empty, add button is disabled.', () => {
-    const { getByRole } = renderElement({});
-    const addButton = getByRole('button', { name: /추가/i });
-
-    expect(addButton).toBeInTheDocument();
-    expect(addButton).toBeDisabled();
-  });
-
-  it('when input is not empty, add button is not disabled.', () => {
-    const placeholder = 'placeholder-test';
-    const { getByRole, getByPlaceholderText } = renderElement({
-      placeholder: placeholder,
+      expect(addButton).toBeInTheDocument();
+      expect(addButton).toHaveAttribute(
+        'aria-label',
+        '카테고리 태그 추가 버튼'
+      );
     });
-    const addButton = getByRole('button', { name: /추가/i });
-    const input = getByPlaceholderText(placeholder);
 
-    expect(addButton).toBeInTheDocument();
-    expect(addButton).toBeDisabled();
+    it('when input is empty, add-button is disabled.', () => {
+      const { getByRole } = renderElement({});
+      const addButton = getByRole('button', { name: /추가/i });
 
-    expect(input).toHaveTextContent('');
+      expect(addButton).toBeInTheDocument();
+      expect(addButton).toBeDisabled();
+    });
 
-    fireEvent.change(input, { target: { value: 'aaa' } });
+    it('when add-button is clicked, calls onChange with input value, changes input value to empty.', () => {
+      const onChange = vi.fn();
+      const placeholder = 'placeholder-test';
+      const inputValue = 'input-value-test';
+      const { getByRole, getByPlaceholderText } = renderElement({
+        placeholder: placeholder,
+        onChange: onChange,
+      });
+      const addButton = getByRole('button', { name: /추가/i });
+      const input = getByPlaceholderText(placeholder);
 
-    expect(input).toHaveValue('aaa');
+      expect(addButton).toBeInTheDocument();
+      expect(addButton).toBeDisabled();
+
+      expect(input).toHaveValue('');
+
+      fireEvent.change(input, { target: { value: inputValue } });
+
+      expect(input).toHaveValue(inputValue);
+
+      fireEvent.click(addButton);
+
+      expect(onChange).toBeCalledWith([inputValue]);
+      expect(input).toHaveValue('');
+      expect(addButton).toBeDisabled();
+    });
   });
 });

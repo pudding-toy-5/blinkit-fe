@@ -27,15 +27,15 @@ export function ExpensesPage() {
   });
 
   // scroll event
-  const [hideDivs, setHideDivs] = React.useState<boolean>(false);
+  const [isCollapsed, setIsCollapsed] = React.useState<boolean>(false);
   const [prevScrollTop, setPrevScrollTop] = React.useState<number>(0);
 
   const handleScroll = (e: React.UIEvent<HTMLUListElement>) => {
     const currentScrollTop = e.currentTarget.scrollTop;
     if (currentScrollTop > prevScrollTop) {
-      setHideDivs(true);
+      setIsCollapsed(true);
     } else {
-      setHideDivs(false);
+      setIsCollapsed(false);
     }
 
     setPrevScrollTop(currentScrollTop);
@@ -47,7 +47,7 @@ export function ExpensesPage() {
 
   return (
     <Layout>
-      {!hideDivs && (
+      {!isCollapsed && (
         <header className='flex flex-row items-center px-5 py-4'>
           <Logo />
           <Button variant='ghost' className='ml-auto size-6'>
@@ -56,7 +56,9 @@ export function ExpensesPage() {
         </header>
       )}
       <div className='px-5 py-4'>
-        {!hideDivs && <h1 className='text-[22px] font-semibold mb-4'>기록</h1>}
+        {!isCollapsed && (
+          <h1 className='text-[22px] font-semibold mb-4'>기록</h1>
+        )}
         <MonthSelector period={period} onSetPeriod={setPeriod} />
         <div className='flex flex-col mt-4'>
           <p className='text-[15px] text-[#555] font-semibold'>총 소비 내역</p>

@@ -1,7 +1,8 @@
 import { ko } from 'date-fns/locale';
-
 import { X } from 'lucide-react';
 
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Drawer,
   DrawerClose,
@@ -11,19 +12,16 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-
 import SubmitButton from '@/shared/ui/SubmitButton';
 
 export interface CalendarDrawerProps {
-  triggerText: string;
+  trigger: React.ReactNode;
   date: Date | undefined;
   setDate: (newDate: Date | undefined) => void;
 }
 
 const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
-  triggerText,
+  trigger,
   date,
   setDate,
 }) => {
@@ -35,7 +33,7 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
   );
   return (
     <Drawer>
-      <DrawerTrigger>{triggerText}</DrawerTrigger>
+      <DrawerTrigger>{trigger}</DrawerTrigger>
       <DrawerContent className='w-full max-w-sm mx-auto p-6'>
         <DrawerHeader className='flex flex-row items-center justify-between rounded-t-full p-0'>
           <div className='flex-1' />

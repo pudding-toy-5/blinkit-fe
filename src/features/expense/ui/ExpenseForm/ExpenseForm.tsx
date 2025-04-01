@@ -16,7 +16,7 @@ const ExpenseForm: React.FC = () => {
   });
 
   return (
-    <form className='flex flex-col pt-6 px-4 h-screen'>
+    <form className='flex flex-col gap-6 h-screen pt-6 px-5'>
       <div className='flex flex-row items-center'>
         <Label id='date' className='text-[15px] font-semibold text-[#222] p-0'>
           날짜
@@ -25,17 +25,10 @@ const ExpenseForm: React.FC = () => {
           <p className='mr-1 text-[15px] text-[#28a745]'>
             {form.date.toLocaleDateString()}
           </p>
-          <Button id='date' variant='ghost' className='w-6 h-4 p-0'>
+          <Button id='date' variant='ghost' className='w-4 h-4 p-0 ml-auto'>
             <ArrowRight size={16} color='#28a745' />
           </Button>
         </div>
-      </div>
-      <div className='flex flex-row mt-5'>
-        <label>카테고리</label>
-        <button className='flex flex-row ml-auto'>
-          <p className='mr-1'>식비</p>
-          <ArrowRight size={16} />
-        </button>
       </div>
       <LabeledTextarea
         label='메모'

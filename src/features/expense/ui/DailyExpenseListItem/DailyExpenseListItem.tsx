@@ -16,7 +16,7 @@ const DailyExpenseListItem: React.FC<DailyExpense> = ({ date, expenses }) => {
       <p aria-label={dateString} className='mb-4'>
         {dateString}
       </p>
-      <ul>
+      <ul className='flex flex-col gap-2'>
         {expenses.map(({ uid, categories, amount, memo }: Expense) => (
           <DailyExpenseRecord
             key={uid}

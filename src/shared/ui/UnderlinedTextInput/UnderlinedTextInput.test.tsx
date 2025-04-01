@@ -13,7 +13,6 @@ describe('UnderlinedTextInput', () => {
     placeholder = undefined,
     guideText = undefined,
     maxLength = undefined,
-    state = undefined,
   }: UnderlinedTextInputProps) =>
     render(
       <UnderlinedTextInput
@@ -22,7 +21,6 @@ describe('UnderlinedTextInput', () => {
         placeholder={placeholder}
         guideText={guideText}
         maxLength={maxLength}
-        state={state}
       />
     );
 

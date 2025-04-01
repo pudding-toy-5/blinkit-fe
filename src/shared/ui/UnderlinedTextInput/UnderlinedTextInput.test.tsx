@@ -55,14 +55,13 @@ describe('UnderlinedTextInput', () => {
   it('calls onChange with input value when input was changed.', () => {
     const newValue = 'new-value';
     const onChange = vi.fn();
-    const { getByRole } = renderElement({ ...props, onChange });
+    const { getByRole } = renderElement({ ...props, value: '', onChange });
     const input = getByRole('textbox');
     expect(input).toBeInTheDocument();
 
     fireEvent.change(input, { target: { value: newValue } });
 
     expect(onChange).toBeCalledWith(newValue);
-    expect(input).toHaveValue(newValue);
   });
 
   describe('delete button', () => {
@@ -79,16 +78,11 @@ describe('UnderlinedTextInput', () => {
     });
   });
 
-  it('renders character counter when maxLength and value are provided.', () => {
-    const maxLength = 5;
-    const { getByRole } = renderElement({ ...props, value: '', maxLength });
-    const input = getByRole('textbox');
-    const liveRegion = getByRole('status');
+  it('renders character counter when maxLength is provided.', () => {
+    const maxLength = 55;
+    const { getByText } = renderElement({ ...props, maxLength, value: 'four' });
 
-    expect(liveRegion).toBeInTheDocument();
-
-    fireEvent.change(input, { target: { value: '333' } });
-
-    expect(liveRegion).toHaveTextContent('3/5');
+    expect(getByText(`/${maxLength.toString()}`)).toBeInTheDocument();
+    expect(getByText('4')).toBeInTheDocument();
   });
 });

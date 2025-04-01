@@ -7,6 +7,7 @@ import {
   useTotalAmount,
 } from '@/features/expense/api/useExpenseQuery';
 import Period from '@/features/expense/model/types/Period';
+import AddExpenseButton from '@/features/expense/ui/AddExpenseButton';
 import DailyExpenseList from '@/features/expense/ui/DailyExpenseList';
 import MonthSelector from '@/features/expense/ui/MonthSelector';
 import Logo from '@/shared/ui/icons/Logo';
@@ -65,6 +66,7 @@ export function ExpensesPage() {
         </div>
       </div>
       <DailyExpenseList dailyExpenses={dailyExpenses} onScroll={handleScroll} />
+      <AddExpenseButton onClick={() => {}} />
     </Layout>
   );
 }

@@ -14,7 +14,7 @@ import Logo from '@/shared/ui/icons/Logo';
 import Setting from '@/shared/ui/icons/Setting';
 import Layout from '@/shared/ui/layout/Layout';
 
-export const Route = createFileRoute('/expenses')({
+export const Route = createFileRoute('/expenses/')({
   component: ExpensesPage,
 });
 

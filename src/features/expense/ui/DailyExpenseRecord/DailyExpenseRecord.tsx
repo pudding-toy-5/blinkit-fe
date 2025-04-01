@@ -1,6 +1,5 @@
-import { Expense } from '@/features/expense/model/types/Expense';
-
 import CategoryTag from '@/features/category/ui/CategoryTag';
+import { Expense } from '@/features/expense/model/types/Expense';
 
 const DailyExpenseRecord: React.FC<Omit<Expense, 'date'>> = ({
   uid,
@@ -9,7 +8,10 @@ const DailyExpenseRecord: React.FC<Omit<Expense, 'date'>> = ({
   memo,
 }) => {
   return (
-    <li aria-labelledby={`expense-${uid}`} className='flex flex-col p-4'>
+    <li
+      aria-labelledby={`expense-${uid}`}
+      className='flex flex-col p-4 rounded-xl bg-white'
+    >
       <p aria-label='지출 금액' className='font-[15px] font-semibold'>
         {amount.toLocaleString()}원
       </p>

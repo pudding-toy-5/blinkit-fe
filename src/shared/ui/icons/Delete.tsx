@@ -13,8 +13,8 @@ const Delete: React.FC<IconProps> = ({ size, color = 'black' }) => {
         fill={color}
       />
       <path
-        fill-rule='evenodd'
-        clip-rule='evenodd'
+        fillRule='evenodd'
+        clipRule='evenodd'
         d='M8.00001 8.94286L10.1953 11.1381L11.1381 10.1953L8.94282 8.00004L11.1381 5.80476L10.1953 4.86194L8.00001 7.05722L5.80475 4.86194L4.86194 5.80476L7.0572 8.00004L4.86194 10.1953L5.80475 11.1381L8.00001 8.94286Z'
         fill='white'
       />

@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as ExpensesImport } from './routes/expenses'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as ComponentUnderlinedTextInputImport } from './routes/component/underlined-text-input'
 import { Route as ComponentToasterImport } from './routes/component/toaster'
 import { Route as ComponentTextInputImport } from './routes/component/text-input'
 import { Route as ComponentTextAreaImport } from './routes/component/text-area'
@@ -44,6 +45,13 @@ const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
+
+const ComponentUnderlinedTextInputRoute =
+  ComponentUnderlinedTextInputImport.update({
+    id: '/component/underlined-text-input',
+    path: '/component/underlined-text-input',
+    getParentRoute: () => rootRoute,
+  } as any)
 
 const ComponentToasterRoute = ComponentToasterImport.update({
   id: '/component/toaster',
@@ -204,6 +212,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComponentToasterImport
       parentRoute: typeof rootRoute
     }
+    '/component/underlined-text-input': {
+      id: '/component/underlined-text-input'
+      path: '/component/underlined-text-input'
+      fullPath: '/component/underlined-text-input'
+      preLoaderRoute: typeof ComponentUnderlinedTextInputImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -223,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
   '/component/toaster': typeof ComponentToasterRoute
+  '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
 }
 
 export interface FileRoutesByTo {
@@ -239,6 +255,7 @@ export interface FileRoutesByTo {
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
   '/component/toaster': typeof ComponentToasterRoute
+  '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
 }
 
 export interface FileRoutesById {
@@ -256,6 +273,7 @@ export interface FileRoutesById {
   '/component/text-area': typeof ComponentTextAreaRoute
   '/component/text-input': typeof ComponentTextInputRoute
   '/component/toaster': typeof ComponentToasterRoute
+  '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
 }
 
 export interface FileRouteTypes {
@@ -274,6 +292,7 @@ export interface FileRouteTypes {
     | '/component/text-area'
     | '/component/text-input'
     | '/component/toaster'
+    | '/component/underlined-text-input'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -289,6 +308,7 @@ export interface FileRouteTypes {
     | '/component/text-area'
     | '/component/text-input'
     | '/component/toaster'
+    | '/component/underlined-text-input'
   id:
     | '__root__'
     | '/'
@@ -304,6 +324,7 @@ export interface FileRouteTypes {
     | '/component/text-area'
     | '/component/text-input'
     | '/component/toaster'
+    | '/component/underlined-text-input'
   fileRoutesById: FileRoutesById
 }
 
@@ -321,6 +342,7 @@ export interface RootRouteChildren {
   ComponentTextAreaRoute: typeof ComponentTextAreaRoute
   ComponentTextInputRoute: typeof ComponentTextInputRoute
   ComponentToasterRoute: typeof ComponentToasterRoute
+  ComponentUnderlinedTextInputRoute: typeof ComponentUnderlinedTextInputRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -337,6 +359,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComponentTextAreaRoute: ComponentTextAreaRoute,
   ComponentTextInputRoute: ComponentTextInputRoute,
   ComponentToasterRoute: ComponentToasterRoute,
+  ComponentUnderlinedTextInputRoute: ComponentUnderlinedTextInputRoute,
 }
 
 export const routeTree = rootRoute
@@ -361,7 +384,8 @@ export const routeTree = rootRoute
         "/component/sub-page-header",
         "/component/text-area",
         "/component/text-input",
-        "/component/toaster"
+        "/component/toaster",
+        "/component/underlined-text-input"
       ]
     },
     "/": {
@@ -402,6 +426,9 @@ export const routeTree = rootRoute
     },
     "/component/toaster": {
       "filePath": "component/toaster.tsx"
+    },
+    "/component/underlined-text-input": {
+      "filePath": "component/underlined-text-input.tsx"
     }
   }
 }

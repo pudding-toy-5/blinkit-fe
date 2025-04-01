@@ -1,11 +1,30 @@
 import React from 'react';
 
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { EXPENSE_MEMO_MAX_LEN } from '@/features/expense/consts';
 import { Expense } from '@/features/expense/model/types/Expense';
+import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import LabeledTextarea from '@/shared/ui/LabeledTextarea';
+import { cn } from '@/shared/ui/styles/utils';
+
+const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
+  return (
+    <div
+      className={cn(
+        'flex flex-row items-center ml-auto',
+        buttonVariants({ variant: 'ghost' })
+      )}
+    >
+      <p className='mr-1 text-[15px] font-normal text-[#28a745]'>
+        {date.toLocaleDateString()}
+      </p>
+      <ArrowRight size={16} color='#28a745' />
+    </div>
+  );
+};
 
 const ExpenseForm: React.FC = () => {
   const [form, setForm] = React.useState<Omit<Expense, 'uid'>>({
@@ -15,19 +34,24 @@ const ExpenseForm: React.FC = () => {
     amount: 0,
   });
 
+  const handleChangeDate = (newDate: Date | undefined) => {
+    if (newDate !== undefined) {
+      setForm({ ...form, date: newDate });
+    }
+  };
+
   return (
     <form className='flex flex-col gap-6 h-screen pt-6 px-5'>
       <div className='flex flex-row items-center'>
         <Label id='date' className='text-[15px] font-semibold text-[#222] p-0'>
           날짜
         </Label>
-        <div className='flex flex-row ml-auto items-center'>
-          <p className='mr-1 text-[15px] text-[#28a745]'>
-            {form.date.toLocaleDateString()}
-          </p>
-          <Button id='date' variant='ghost' className='w-4 h-4 p-0 ml-auto'>
-            <ArrowRight size={16} color='#28a745' />
-          </Button>
+        <div className='ml-auto'>
+          <CalendarDrawer
+            trigger={<CalendarDrawerTrigger date={form.date} />}
+            date={form.date}
+            setDate={handleChangeDate}
+          />
         </div>
       </div>
       <LabeledTextarea
@@ -43,10 +67,10 @@ const ExpenseForm: React.FC = () => {
         state='default'
         maxLength={EXPENSE_MEMO_MAX_LEN}
       />
-      <div className='flex flex-col mt-5'>
+      <div className='flex flex-col gap-2'>
         <label>금액</label>
-        <div className='relative mt-2'>
-          <input
+        <div className='relative'>
+          <Input
             type='number'
             className='w-full h-11 auto border-box px-3 pl-2 pr-12 rounded-md border-1 border-black/10 text-right'
           />

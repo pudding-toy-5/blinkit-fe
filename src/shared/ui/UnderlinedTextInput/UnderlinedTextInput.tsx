@@ -22,7 +22,7 @@ const UnderlinedTextInput: React.FC<UnderlinedTextInputProps> = ({
   maxLength,
 }) => {
   return (
-    <div className='flex flex-col w-full p-4'>
+    <div className='group flex flex-col w-full p-4'>
       <div className='flex flex-row items-center'>
         <Input
           type='text'
@@ -52,7 +52,7 @@ const UnderlinedTextInput: React.FC<UnderlinedTextInputProps> = ({
       </div>
       <div
         className={cn(
-          'h-0 border w-full my-1 border-[#999] group-focus:border-[#222]'
+          'h-0 border w-full my-1 border-[#999] group-focus-within:border-[#222]'
         )}
       />
       <div className='flex flex-row'>

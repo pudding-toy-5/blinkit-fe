@@ -12,7 +12,6 @@ export interface UnderlinedTextInputProps {
   placeholder?: string;
   guideText?: string;
   maxLength?: number;
-  state?: 'default' | 'focused';
 }
 
 const UnderlinedTextInput: React.FC<UnderlinedTextInputProps> = ({
@@ -21,7 +20,6 @@ const UnderlinedTextInput: React.FC<UnderlinedTextInputProps> = ({
   placeholder,
   guideText,
   maxLength,
-  state,
 }) => {
   return (
     <div className='flex flex-col w-full p-4'>
@@ -37,12 +35,10 @@ const UnderlinedTextInput: React.FC<UnderlinedTextInputProps> = ({
           className={cn(
             'w-full !h-5 !text-[17px] p-0',
             ' focus-visible:text-[#222] text-[#999]',
-            'shadow-none focus-visible:ring-0 focus-visible:outline-none border-0',
-            state && state === 'default' && 'text-[#999]',
-            state && state === 'focused' && 'text-[#222]'
+            'shadow-none focus-visible:ring-0 focus-visible:outline-none border-0 rounded-none'
           )}
         />
-        {value && value.length > 0 && (
+        {value.length > 0 && (
           <Button
             className='size-4 ml-auto'
             variant='ghost'
@@ -56,9 +52,7 @@ const UnderlinedTextInput: React.FC<UnderlinedTextInputProps> = ({
       </div>
       <div
         className={cn(
-          'h-0 border w-full my-1 bg-[#222]',
-          state && state === 'default' && 'bg-[#999]',
-          state && state === 'focused' && 'bg-[#222]'
+          'h-0 border w-full my-1 border-[#999] group-focus:border-[#222]'
         )}
       />
       <div className='flex flex-row'>
@@ -66,11 +60,11 @@ const UnderlinedTextInput: React.FC<UnderlinedTextInputProps> = ({
           <span className='text-[13px] text-[#555]'>{guideText}</span>
         )}
         {maxLength && (
-          <span aria-live='polite' className={cn('flex flex-row ml-auto')}>
+          <span className={cn('flex flex-row ml-auto')}>
             <p
               className={cn(
-                'text-[#222]',
-                value.length > maxLength && 'text-[#d32f2f]'
+                'text-[#222]'
+                // value.length > maxLength && 'text-[#d32f2f]'
               )}
             >
               {value.length}

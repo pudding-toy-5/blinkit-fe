@@ -23,7 +23,10 @@ const LabeledTextarea: React.FC<LabeledTextareaProps> = ({
 }) => {
   return (
     <div className='flex flex-col items-center gap-2'>
-      <Label className='mr-auto text-[15px] text-[#222]' htmlFor={id}>
+      <Label
+        className='mr-auto text-[15px] text-[#222] font-semibold'
+        htmlFor={id}
+      >
         {label}
       </Label>
       <Textarea

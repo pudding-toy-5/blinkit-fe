@@ -1,30 +1,34 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { EXPENSE_MEMO_MAX_LEN } from '@/features/expense/consts';
+import { Expense } from '@/features/expense/model/types/Expense';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
-
-import { EXPENSE_MEMO_MAX_LEN } from '../../consts';
+import LabeledTextarea from '@/shared/ui/LabeledTextarea';
 
 const ExpenseForm: React.FC = () => {
-  const [memo, setMemo] = React.useState<string>('');
-
-  const handleMemoChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
-
-    if (value.length > EXPENSE_MEMO_MAX_LEN) {
-      return;
-    }
-
-    setMemo(value);
-  };
+  const [form, setForm] = React.useState<Omit<Expense, 'uid'>>({
+    date: new Date(),
+    categories: [],
+    memo: '',
+    amount: 0,
+  });
 
   return (
-    <form className='flex flex-col mx-4 mt-4 h-screen text-sm'>
-      <div className='flex flex-row'>
-        <label>날짜</label>
-        <button className='flex flex-row ml-auto'>
-          <p className='mr-1'>2025년 2월 28일</p>
-          <ArrowRight size={16} />
-        </button>
+    <form className='flex flex-col pt-6 px-4 h-screen'>
+      <div className='flex flex-row items-center'>
+        <Label id='date' className='text-[15px] font-semibold text-[#222] p-0'>
+          날짜
+        </Label>
+        <div className='flex flex-row ml-auto items-center'>
+          <p className='mr-1 text-[15px] text-[#28a745]'>
+            {form.date.toLocaleDateString()}
+          </p>
+          <Button id='date' variant='ghost' className='w-6 h-4 p-0'>
+            <ArrowRight size={16} color='#28a745' />
+          </Button>
+        </div>
       </div>
       <div className='flex flex-row mt-5'>
         <label>카테고리</label>
@@ -33,17 +37,19 @@ const ExpenseForm: React.FC = () => {
           <ArrowRight size={16} />
         </button>
       </div>
-      <div className='flex flex-col mt-5'>
-        <label>메모</label>
-        <textarea
-          value={memo}
-          onChange={handleMemoChange}
-          className='my-2 h-38 bg-20 rounded-md border border-black/10 text-left p-1 leading-normal resize-none'
-        />
-        <p className='ml-auto'>
-          {memo.length}/{EXPENSE_MEMO_MAX_LEN}
-        </p>
-      </div>
+      <LabeledTextarea
+        label='메모'
+        id='memo'
+        placeholder={`어디서, 무엇을 결제하셨나요?\r\n그때 기분은 어땠나요?`}
+        value={form.memo}
+        onChange={(e) => {
+          if (e.target.value > EXPENSE_MEMO_MAX_LEN) {
+            setForm({ ...form, memo: e.target.value });
+          }
+        }}
+        state='default'
+        maxLength={EXPENSE_MEMO_MAX_LEN}
+      />
       <div className='flex flex-col mt-5'>
         <label>금액</label>
         <div className='relative mt-2'>
@@ -56,12 +62,12 @@ const ExpenseForm: React.FC = () => {
           </span>
         </div>
       </div>
-      <button
+      <Button
         type='submit'
-        className='mt-auto mb-5 px-3 py-2 bg-black text-white rounded-lg'
+        className='h-13 text-[15px] font-semibold mt-auto mb-5 rounded-full'
       >
         저장
-      </button>
+      </Button>
     </form>
   );
 };

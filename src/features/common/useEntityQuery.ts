@@ -11,37 +11,37 @@ export const createEntityHooks = <T extends Entity>(
   queryKey: string[],
   baseUrl: string
 ) => {
-  const fetchEntities = async (): Promise<T[]> => {
+  const fetchEntities = async (): Promise<Entity[]> => {
     const res = await axios.get(baseUrl);
 
     if (res.status !== 200) {
       throw new Error('error on fetch entities');
     }
 
-    return res.data as T[];
+    return res.data as Entity[];
   };
 
-  const fetchEntityByUid = async (uid: string): Promise<T> => {
+  const fetchEntityByUid = async (uid: string): Promise<Entity> => {
     const res = await axios.get(baseUrl + uid);
 
     if (res.status !== 200) {
       throw new Error('error on fetch entity by uid:' + uid);
     }
 
-    return res.data as T;
+    return res.data as Entity;
   };
 
-  const addEntity = async (entity: Omit<T, 'uid'>): Promise<T> => {
+  const addEntity = async (entity: Omit<Entity, 'uid'>): Promise<Entity> => {
     const res = await axios.post(baseUrl, { entity });
 
     if (res.status !== 201) {
       throw new Error('error on add entity');
     }
 
-    return res.data as T;
+    return res.data as Entity;
   };
 
-  const updateEntity = async (entity: Partial<T>): Promise<T> => {
+  const updateEntity = async (entity: Partial<Entity>): Promise<Entity> => {
     if (!entity.uid) {
       throw new Error('error on update entity: no uid');
     }
@@ -52,7 +52,7 @@ export const createEntityHooks = <T extends Entity>(
       throw new Error('error on update entity' + res.statusText);
     }
 
-    return res.data as T;
+    return res.data as Entity;
   };
 
   const deleteEntity = async (uid: string) => {
@@ -66,14 +66,14 @@ export const createEntityHooks = <T extends Entity>(
   };
 
   const useEntities = () => {
-    return useQuery<T[]>({
+    return useQuery<Entity[]>({
       queryKey,
       queryFn: fetchEntities,
     });
   };
 
   const useEntityByUid = (uid: string) => {
-    return useQuery<T>({
+    return useQuery<Entity>({
       queryKey: [...queryKey, uid],
       queryFn: () => fetchEntityByUid(uid),
       enabled: Boolean(uid),
@@ -84,7 +84,7 @@ export const createEntityHooks = <T extends Entity>(
     const queryClient = useQueryClient();
 
     return useMutation({
-      mutationFn: (entity: Omit<T, 'uid'>) => addEntity({ ...entity }),
+      mutationFn: (entity: Omit<Entity, 'uid'>) => addEntity({ ...entity }),
       onSuccess: (newEntity) => {
         queryClient.setQueryData(queryKey, (oldData: T[] | undefined) => {
           return oldData ? [...oldData, newEntity] : [newEntity];
@@ -100,7 +100,7 @@ export const createEntityHooks = <T extends Entity>(
     const queryClient = useQueryClient();
 
     return useMutation({
-      mutationFn: (entity: Partial<T>) => updateEntity(entity),
+      mutationFn: (entity: Partial<Entity>) => updateEntity(entity),
       onSuccess: (updatedEntity) => {
         queryClient.setQueryData(queryKey, (oldData: T[] | undefined) => {
           return oldData?.map((entity) =>

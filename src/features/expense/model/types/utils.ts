@@ -9,7 +9,7 @@ export const convertExpenseToServerExpense = (
     uid: uid ?? '',
     expended_at: date ? date.toISOString() : new Date().toISOString(),
     memo: memo ?? '',
-    amount: amount ? amount.toString() : '0',
+    amount: amount !== undefined ? amount.toString() : '0',
     categories: categories ?? [],
   };
 
@@ -25,7 +25,7 @@ export const convertServerExpenseToExpense = (
 
   return {
     uid,
-    date: isNaN(parsedDate) ? new Date() : parsedDate,
+    date: isNaN(parsedDate.getTime()) ? new Date() : parsedDate,
     memo,
     amount: isNaN(parsedAmount) ? 0 : parsedAmount,
     categories,

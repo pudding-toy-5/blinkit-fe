@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useMemo } from 'react';
 
 import { createEntityHooks } from '@/features/common/useEntityQuery';
@@ -6,15 +7,11 @@ import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
 import { queryKeys } from '../consts';
 
 const fetchExpenses = async (): Promise<Expense[]> => {
-  const res = await fetch(
-    `${import.meta.env.VITE_API_URL}/expense/expense/expenses/`
+  const res = await axios.get(
+    `${import.meta.env.VITE_API_URL}/expense/expenses/`
   );
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch expenses');
-  }
-
-  return res.json() as Promise<Expense[]>;
+  return res.data as Expense[];
 };
 
 const {

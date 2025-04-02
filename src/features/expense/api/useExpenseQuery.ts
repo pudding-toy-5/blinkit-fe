@@ -6,7 +6,9 @@ import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
 import { queryKeys } from '../consts';
 
 const fetchExpenses = async (): Promise<Expense[]> => {
-  const res = await fetch('http://api.blink-it.me/expense/expense/expenses/');
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/expense/expense/expenses/`
+  );
 
   if (!res.ok) {
     throw new Error('Failed to fetch expenses');

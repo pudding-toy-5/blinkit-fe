@@ -9,7 +9,7 @@ import Ellipsis from '@/shared/ui/icons/Ellipsis';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
-export const Route = createFileRoute('/categories')({
+export const Route = createFileRoute('/expenses/$uid/categories')({
   component: RouteComponent,
 });
 
@@ -34,7 +34,11 @@ function RouteComponent() {
           {values.map((value) => (
             <li className='flex flex-row items-center'>
               <CategoryTag tagName={value} size='medium' />
-              <Button variant='ghost' className='size-6 p-0 ml-auto'>
+              <Button
+                variant='ghost'
+                className='size-6 p-0 ml-auto'
+                // onClick={}
+              >
                 <Ellipsis size={24} color='#555' />
               </Button>
             </li>

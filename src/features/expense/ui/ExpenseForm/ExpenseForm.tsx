@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { NumericFormat } from 'react-number-format';
+import { NumberFormatValues, NumericFormat } from 'react-number-format';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -11,6 +11,10 @@ import {
   FormLabel,
 } from '@/components/ui/form';
 import CategoryTag from '@/features/category/ui/CategoryTag';
+import {
+  useAddExpense,
+  useUpdateExpense,
+} from '@/features/expense/api/useExpenseQuery';
 import { EXPENSE_MEMO_MAX_LEN } from '@/features/expense/consts';
 import { Expense } from '@/features/expense/model/types/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
@@ -37,31 +41,45 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
 
 export interface ExpenseFormProps {
   submitButtonText?: string;
+  expense?: Expense;
 }
 
-const ExpenseForm: React.FC<ExpenseFormProps> = ({ submitButtonText }) => {
+const ExpenseForm: React.FC<ExpenseFormProps> = ({
+  submitButtonText,
+  expense,
+}) => {
+  const updateExpense = useUpdateExpense();
+  const addExpense = useAddExpense();
+
   const form = useForm<Omit<Expense, 'uid'>>({
-    defaultValues: {
-      date: new Date(),
-      categories: [
-        { uid: '1', name: '세글자' },
-        { uid: '2', name: '열글자열글자열글자열' },
-        { uid: '3', name: '스무글자스무글자스무글자스무글자' },
-      ],
-      memo: '',
-      amount: 0,
-    },
+    defaultValues:
+      expense !== undefined
+        ? { ...expense }
+        : {
+            date: new Date(),
+            categories: [
+              { uid: '1', name: '세글자' },
+              { uid: '2', name: '열글자열글자열글자열' },
+              { uid: '3', name: '스무글자스무글자스무글자스무글자' },
+            ],
+            memo: '',
+            amount: 0,
+          },
   });
 
-  const onSubmit = (values: Omit<Expense, 'uid'>) => {
-    console.log(values);
+  const handleOnSubmit = (values: Omit<Expense, 'uid'>) => {
+    if (expense) {
+      updateExpense.mutate({ uid: expense.uid, ...values });
+    } else {
+      addExpense.mutate({ ...values });
+    }
   };
 
   return (
     <Form {...form}>
       <form
         className='flex flex-col gap-6 h-screen pt-6 px-5'
-        onSubmit={() => form.handleSubmit(onSubmit)}
+        onSubmit={() => form.handleSubmit(handleOnSubmit)}
       >
         <FormField
           control={form.control}
@@ -149,8 +167,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ submitButtonText }) => {
                 <NumericFormat
                   inputMode='numeric'
                   value={field.value}
-                  onChange={(e) => {
-                    field.onChange(parseInt(e.target.value));
+                  onValueChange={(values: NumberFormatValues) => {
+                    field.onChange(values.value);
                   }}
                   allowNegative={false}
                   thousandSeparator=','

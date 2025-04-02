@@ -54,9 +54,16 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ submitButtonText }) => {
     },
   });
 
+  const onSubmit = (values: Omit<Expense, 'uid'>) => {
+    console.log(values);
+  };
+
   return (
     <Form {...form}>
-      <form className='flex flex-col gap-6 h-screen pt-6 px-5'>
+      <form
+        className='flex flex-col gap-6 h-screen pt-6 px-5'
+        onSubmit={() => form.handleSubmit(onSubmit)}
+      >
         <FormField
           control={form.control}
           name='date'

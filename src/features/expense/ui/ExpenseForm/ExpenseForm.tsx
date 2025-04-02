@@ -45,8 +45,14 @@ const ExpenseForm: React.FC = () => {
     }
   };
 
-  const handleChangeMemo = (newMemo: string) => {
-    if (newMemo.length <= EXPENSE_MEMO_MAX_LEN) {
+  const handleChangeMemo = ({
+    newMemo,
+    maxLength = EXPENSE_MEMO_MAX_LEN,
+  }: {
+    newMemo: string;
+    maxLength?: number | undefined;
+  }) => {
+    if (newMemo.length <= maxLength) {
       setForm({ ...form, memo: newMemo });
     }
   };
@@ -71,7 +77,7 @@ const ExpenseForm: React.FC = () => {
         placeholder={`어디서, 무엇을 결제하셨나요?\r\n그때 기분은 어땠나요?`}
         value={form.memo}
         onChange={(e) => {
-          handleChangeMemo(e);
+          handleChangeMemo({ newMemo: e });
         }}
         state='default'
         maxLength={EXPENSE_MEMO_MAX_LEN}

@@ -84,7 +84,7 @@ export const createEntityHooks = <T extends Entity>(
     const queryClient = useQueryClient();
 
     return useMutation({
-      mutationFn: (entity: Omit<Entity, 'uid'>) => addEntity({ ...entity }),
+      mutationFn: (entity: Omit<T, 'uid'>) => addEntity({ ...entity }),
       onSuccess: (newEntity) => {
         queryClient.setQueryData(queryKey, (oldData: T[] | undefined) => {
           return oldData ? [...oldData, newEntity] : [newEntity];
@@ -100,7 +100,7 @@ export const createEntityHooks = <T extends Entity>(
     const queryClient = useQueryClient();
 
     return useMutation({
-      mutationFn: (entity: Partial<Entity>) => updateEntity(entity),
+      mutationFn: (entity: Partial<T>) => updateEntity(entity),
       onSuccess: (updatedEntity) => {
         queryClient.setQueryData(queryKey, (oldData: T[] | undefined) => {
           return oldData?.map((entity) =>

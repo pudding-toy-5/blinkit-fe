@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { nanoid } from 'nanoid';
 
 interface Entity {
@@ -26,7 +26,7 @@ export const createEntityHooks = <T extends Entity>(
     });
   };
 
-  const useEntityByUid = (uid: string | undefined) => {
+  const useEntityByUid = (uid: string) => {
     const { data: entities } = useEntities();
     return entities?.find((entity) => uid && entity.uid === uid);
   };

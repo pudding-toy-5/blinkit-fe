@@ -238,7 +238,7 @@ export interface FileRoutesByFullPath {
   '/component/toaster': typeof ComponentToasterRoute;
   '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute;
   '/expenses/new': typeof ExpensesNewRoute;
-  '/expenses': typeof ExpensesIndexRoute;
+  '/expenses/': typeof ExpensesIndexRoute;
 }
 
 export interface FileRoutesByTo {

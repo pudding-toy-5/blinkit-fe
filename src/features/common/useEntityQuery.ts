@@ -34,7 +34,9 @@ export const createEntityHooks = <T extends Entity>(
   const addEntity = async (entity: Omit<T, 'uid'>): Promise<T> => {
     const res = await axios.post(baseUrl, { entity });
 
-    if (res.status !== 200) {
+    // 200 - category
+    // 201 - expense
+    if (res.status !== 200 && res.status !== 201) {
       throw new Error('error on add entity');
     }
 

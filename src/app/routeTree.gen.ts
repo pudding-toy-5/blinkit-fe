@@ -11,9 +11,9 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as ExpensesImport } from './routes/expenses'
-import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as ExpensesIndexImport } from './routes/expenses.index'
+import { Route as ExpensesNewImport } from './routes/expenses.new'
 import { Route as ComponentUnderlinedTextInputImport } from './routes/component/underlined-text-input'
 import { Route as ComponentToasterImport } from './routes/component/toaster'
 import { Route as ComponentTextInputImport } from './routes/component/text-input'
@@ -28,21 +28,21 @@ import { Route as ComponentButtonsTestImport } from './routes/component/buttons-
 
 // Create/Update Routes
 
-const ExpensesRoute = ExpensesImport.update({
-  id: '/expenses',
-  path: '/expenses',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AboutRoute = AboutImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ExpensesIndexRoute = ExpensesIndexImport.update({
+  id: '/expenses/',
+  path: '/expenses/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ExpensesNewRoute = ExpensesNewImport.update({
+  id: '/expenses/new',
+  path: '/expenses/new',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -128,20 +128,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
-    }
-    '/expenses': {
-      id: '/expenses'
-      path: '/expenses'
-      fullPath: '/expenses'
-      preLoaderRoute: typeof ExpensesImport
-      parentRoute: typeof rootRoute
-    }
     '/component/buttons-test': {
       id: '/component/buttons-test'
       path: '/component/buttons-test'
@@ -219,6 +205,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComponentUnderlinedTextInputImport
       parentRoute: typeof rootRoute
     }
+    '/expenses/new': {
+      id: '/expenses/new'
+      path: '/expenses/new'
+      fullPath: '/expenses/new'
+      preLoaderRoute: typeof ExpensesNewImport
+      parentRoute: typeof rootRoute
+    }
+    '/expenses/': {
+      id: '/expenses/'
+      path: '/expenses'
+      fullPath: '/expenses'
+      preLoaderRoute: typeof ExpensesIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -226,8 +226,6 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/expenses': typeof ExpensesRoute
   '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
   '/component/category-tags': typeof ComponentCategoryTagsRoute
@@ -239,12 +237,12 @@ export interface FileRoutesByFullPath {
   '/component/text-input': typeof ComponentTextInputRoute
   '/component/toaster': typeof ComponentToasterRoute
   '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
+  '/expenses/new': typeof ExpensesNewRoute
+  '/expenses': typeof ExpensesIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/expenses': typeof ExpensesRoute
   '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
   '/component/category-tags': typeof ComponentCategoryTagsRoute
@@ -256,13 +254,13 @@ export interface FileRoutesByTo {
   '/component/text-input': typeof ComponentTextInputRoute
   '/component/toaster': typeof ComponentToasterRoute
   '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
+  '/expenses/new': typeof ExpensesNewRoute
+  '/expenses': typeof ExpensesIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/expenses': typeof ExpensesRoute
   '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
   '/component/category-tags': typeof ComponentCategoryTagsRoute
@@ -274,14 +272,14 @@ export interface FileRoutesById {
   '/component/text-input': typeof ComponentTextInputRoute
   '/component/toaster': typeof ComponentToasterRoute
   '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
+  '/expenses/new': typeof ExpensesNewRoute
+  '/expenses/': typeof ExpensesIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
-    | '/expenses'
     | '/component/buttons-test'
     | '/component/calendar-drawer'
     | '/component/category-tags'
@@ -293,11 +291,11 @@ export interface FileRouteTypes {
     | '/component/text-input'
     | '/component/toaster'
     | '/component/underlined-text-input'
+    | '/expenses/new'
+    | '/expenses'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about'
-    | '/expenses'
     | '/component/buttons-test'
     | '/component/calendar-drawer'
     | '/component/category-tags'
@@ -309,11 +307,11 @@ export interface FileRouteTypes {
     | '/component/text-input'
     | '/component/toaster'
     | '/component/underlined-text-input'
+    | '/expenses/new'
+    | '/expenses'
   id:
     | '__root__'
     | '/'
-    | '/about'
-    | '/expenses'
     | '/component/buttons-test'
     | '/component/calendar-drawer'
     | '/component/category-tags'
@@ -325,13 +323,13 @@ export interface FileRouteTypes {
     | '/component/text-input'
     | '/component/toaster'
     | '/component/underlined-text-input'
+    | '/expenses/new'
+    | '/expenses/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  ExpensesRoute: typeof ExpensesRoute
   ComponentButtonsTestRoute: typeof ComponentButtonsTestRoute
   ComponentCalendarDrawerRoute: typeof ComponentCalendarDrawerRoute
   ComponentCategoryTagsRoute: typeof ComponentCategoryTagsRoute
@@ -343,12 +341,12 @@ export interface RootRouteChildren {
   ComponentTextInputRoute: typeof ComponentTextInputRoute
   ComponentToasterRoute: typeof ComponentToasterRoute
   ComponentUnderlinedTextInputRoute: typeof ComponentUnderlinedTextInputRoute
+  ExpensesNewRoute: typeof ExpensesNewRoute
+  ExpensesIndexRoute: typeof ExpensesIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  ExpensesRoute: ExpensesRoute,
   ComponentButtonsTestRoute: ComponentButtonsTestRoute,
   ComponentCalendarDrawerRoute: ComponentCalendarDrawerRoute,
   ComponentCategoryTagsRoute: ComponentCategoryTagsRoute,
@@ -360,6 +358,8 @@ const rootRouteChildren: RootRouteChildren = {
   ComponentTextInputRoute: ComponentTextInputRoute,
   ComponentToasterRoute: ComponentToasterRoute,
   ComponentUnderlinedTextInputRoute: ComponentUnderlinedTextInputRoute,
+  ExpensesNewRoute: ExpensesNewRoute,
+  ExpensesIndexRoute: ExpensesIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -373,8 +373,6 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about",
-        "/expenses",
         "/component/buttons-test",
         "/component/calendar-drawer",
         "/component/category-tags",
@@ -385,17 +383,13 @@ export const routeTree = rootRoute
         "/component/text-area",
         "/component/text-input",
         "/component/toaster",
-        "/component/underlined-text-input"
+        "/component/underlined-text-input",
+        "/expenses/new",
+        "/expenses/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/about": {
-      "filePath": "about.tsx"
-    },
-    "/expenses": {
-      "filePath": "expenses.tsx"
     },
     "/component/buttons-test": {
       "filePath": "component/buttons-test.tsx"
@@ -429,6 +423,12 @@ export const routeTree = rootRoute
     },
     "/component/underlined-text-input": {
       "filePath": "component/underlined-text-input.tsx"
+    },
+    "/expenses/new": {
+      "filePath": "expenses.new.tsx"
+    },
+    "/expenses/": {
+      "filePath": "expenses.index.tsx"
     }
   }
 }

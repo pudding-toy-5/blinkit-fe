@@ -2,17 +2,15 @@ import axios from 'axios';
 import { useMemo } from 'react';
 
 import { createEntityHooks } from '@/features/common/useEntityQuery';
-import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
+import { queryKeys } from '@/features/expense/consts';
+import {
+  DailyExpense,
+  Expense,
+  ServerExpense,
+} from '@/features/expense/model/types/Expense';
+import { convertServerExpenseToExpense } from '@/features/expense/model/types/utils';
 
-import { queryKeys } from '../consts';
-
-const fetchExpenses = async (): Promise<Expense[]> => {
-  const res = await axios.get(
-    `${import.meta.env.VITE_API_URL}/expense/expenses/`
-  );
-
-  return res.data as Expense[];
-};
+const baseUrl = `${import.meta.env.VITE_API_URL}/expense/expenses/`;
 
 const {
   useEntities: useExpensesQuery,
@@ -20,7 +18,7 @@ const {
   useAddEntity: useAddExpense,
   useUpdateEntity: useUpdateExpense,
   useDeleteEntity: useDeleteExpense,
-} = createEntityHooks<Expense>(queryKeys.expenses, fetchExpenses);
+} = createEntityHooks<Expense>(queryKeys.expenses, baseUrl);
 
 const useExpenses = () => {
   const { data = [], isLoading, error } = useExpensesQuery();

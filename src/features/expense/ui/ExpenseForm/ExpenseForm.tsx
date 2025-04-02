@@ -119,7 +119,10 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ submitButtonText }) => {
                 <FormLabel className='text-[15px] font-semibold text-[#222]'>
                   카테고리
                 </FormLabel>
-                <Button className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'>
+                <Button
+                  aria-label='카테고리 설정 버튼'
+                  className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'
+                >
                   설정
                 </Button>
               </div>

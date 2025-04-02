@@ -11,48 +11,48 @@ export const createEntityHooks = <T extends Entity>(
   queryKey: string[],
   baseUrl: string
 ) => {
-  const fetchEntities = async (): Promise<Entity[]> => {
+  const fetchEntities = async (): Promise<T[]> => {
     const res = await axios.get(baseUrl);
 
     if (res.status !== 200) {
       throw new Error('error on fetch entities');
     }
 
-    return res.data as Entity[];
+    return res.data as T[];
   };
 
-  const fetchEntityByUid = async (uid: string): Promise<Entity> => {
+  const fetchEntityByUid = async (uid: string): Promise<T> => {
     const res = await axios.get(baseUrl + uid);
 
     if (res.status !== 200) {
       throw new Error('error on fetch entity by uid:' + uid);
     }
 
-    return res.data as Entity;
+    return res.data as T;
   };
 
-  const addEntity = async (entity: Omit<Entity, 'uid'>): Promise<Entity> => {
+  const addEntity = async (entity: Omit<T, 'uid'>): Promise<T> => {
     const res = await axios.post(baseUrl, { entity });
 
-    if (res.status !== 201) {
+    if (res.status !== 200) {
       throw new Error('error on add entity');
     }
 
-    return res.data as Entity;
+    return res.data as T;
   };
 
-  const updateEntity = async (entity: Partial<Entity>): Promise<Entity> => {
+  const updateEntity = async (entity: Partial<T>): Promise<T> => {
     if (!entity.uid) {
       throw new Error('error on update entity: no uid');
     }
 
-    const res = await axios.patch(`${baseUrl}/${entity.uid}`, { entity });
+    const res = await axios.patch(baseUrl + entity.uid, { entity });
 
     if (res.status !== 200) {
       throw new Error('error on update entity' + res.statusText);
     }
 
-    return res.data as Entity;
+    return res.data as T;
   };
 
   const deleteEntity = async (uid: string) => {

@@ -57,14 +57,4 @@ describe('SubPageHeader', () => {
     expect(closeButton).toBeInTheDocument();
     expect(closeButton).toHaveAttribute('role', 'button');
   });
-
-  it('renders provided close.', () => {
-    const { getByLabelText } = renderSubPageHeader({
-      ...props,
-      close: true,
-    });
-
-    const closeButton = getByLabelText('close button');
-    expect(closeButton).toBeInTheDocument();
-  });
 });

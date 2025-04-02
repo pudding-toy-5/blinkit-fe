@@ -1,9 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-
 import { useState } from 'react';
 
-import Layout from '@/shared/ui/layout/Layout';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
+import Layout from '@/shared/ui/layout/Layout';
 
 export const Route = createFileRoute('/component/calendar-drawer')({
   component: RouteComponent,
@@ -15,7 +14,7 @@ function RouteComponent() {
   return (
     <Layout>
       <CalendarDrawer
-        triggerText='trigger to open calendar drawer'
+        trigger='trigger to open calendar drawer'
         date={date}
         setDate={setDate}
       />

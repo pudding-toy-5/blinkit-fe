@@ -30,7 +30,11 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
 const ExpenseForm: React.FC = () => {
   const [form, setForm] = React.useState<Omit<Expense, 'uid'>>({
     date: new Date(),
-    categories: [],
+    categories: [
+      { uid: '1', name: '세글자' },
+      { uid: '2', name: '열글자열글자열글자열' },
+      { uid: '3', name: '스무글자스무글자스무글자스무글자' },
+    ],
     memo: '',
     amount: 0,
   });
@@ -84,7 +88,7 @@ const ExpenseForm: React.FC = () => {
             설정
           </Button>
         </div>
-        <div>
+        <div className='flex flex-row gap-2 flex-wrap'>
           {form.categories.map((category) => (
             <CategoryTag key={category.uid} tagName={category.name} />
           ))}

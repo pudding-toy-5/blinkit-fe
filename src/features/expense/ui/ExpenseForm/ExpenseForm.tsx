@@ -1,6 +1,5 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -16,7 +15,6 @@ import CategoryTag from '@/features/category/ui/CategoryTag';
 import { EXPENSE_MEMO_MAX_LEN } from '@/features/expense/consts';
 import { Expense } from '@/features/expense/model/types/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
-import { ExpenseForm } from '@/features/expense/ui/ExpenseForm';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import LabeledTextarea from '@/shared/ui/LabeledTextarea';
 import { cn } from '@/shared/ui/styles/utils';
@@ -114,10 +112,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ submitButtonText }) => {
                 <FormLabel className='text-[15px] font-semibold text-[#222]'>
                   카테고리
                 </FormLabel>
-                <Button
-                  variant='ghost'
-                  className='h-auto text-[13px] ml-auto py-1 px-2'
-                >
+                <Button className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'>
                   설정
                 </Button>
               </div>

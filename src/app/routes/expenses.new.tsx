@@ -12,7 +12,7 @@ export function AboutPage() {
   return (
     <Layout>
       <SubPageHeader title='지출 내역 추가' back />
-      <ExpenseForm submitButtonText='저장' />
+      <ExpenseForm />
     </Layout>
   );
 }

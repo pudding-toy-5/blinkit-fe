@@ -1,5 +1,6 @@
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
+import DOMPurify from 'dompurify';
 import * as React from 'react';
 import {
   Controller,
@@ -135,7 +136,11 @@ function FormDescription({ className, ...props }: React.ComponentProps<'p'>) {
 
 function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   const { error, formMessageId } = useFormField();
-  const body = error ? String(error.message ?? '') : props.children;
+  const sanitizedMessage = error?.message
+    ? DOMPurify.sanitize(String(error.message))
+    : '';
+
+  const body = error ? sanitizedMessage : props.children;
 
   if (!body) {
     return null;

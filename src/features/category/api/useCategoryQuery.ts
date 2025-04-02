@@ -4,6 +4,9 @@ import { createEntityHooks } from '@/features/common/useEntityQuery';
 
 import { queryKeys } from '../consts';
 
+if (!apiUrl) {
+  throw new Error('API URL이 설정되지 않았습니다.');
+}
 const baseUrl = apiUrl + '/expense/categories';
 
 const {

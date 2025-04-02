@@ -1,6 +1,5 @@
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-
 import { cn } from '@/shared/ui/styles/utils';
 
 export interface LabeledTextareaProps {
@@ -24,7 +23,10 @@ const LabeledTextarea: React.FC<LabeledTextareaProps> = ({
 }) => {
   return (
     <div className='flex flex-col items-center gap-2'>
-      <Label className='mr-auto text-[15px] text-[#222]' htmlFor={id}>
+      <Label
+        className='mr-auto text-[15px] text-[#222] font-semibold'
+        htmlFor={id}
+      >
         {label}
       </Label>
       <Textarea
@@ -38,6 +40,7 @@ const LabeledTextarea: React.FC<LabeledTextareaProps> = ({
         className={cn(
           'h-38 rounded-xl border text-left leading-normal resize-none text-[15px]',
           'focus:border-[#222]',
+          'placeholder:whitespace-pre-line',
           state === 'default' && 'border-[#cccccc]',
           state === 'focus' && 'border-[#555555]',
           state === 'completed' && 'border-[#28a745]',

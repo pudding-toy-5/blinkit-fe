@@ -1,10 +1,9 @@
 import { useRouter } from '@tanstack/react-router';
 
+import { buttonVariants } from '@/components/ui/button';
 import ArrowLeft from '@/shared/ui/icons/ArrowLeft';
 import X from '@/shared/ui/icons/X';
-
-import { buttonVariants } from '@/components/ui/button';
-import { cn } from '../styles/utils';
+import { cn } from '@/shared/ui/styles/utils';
 
 export interface SubPageHeaderProps {
   title: string;

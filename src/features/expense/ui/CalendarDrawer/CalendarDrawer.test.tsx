@@ -1,25 +1,24 @@
-import { describe, it, vi } from 'vitest';
 import { fireEvent, render } from '@testing-library/react';
+import { describe, it, vi } from 'vitest';
 
 import CalendarDrawer, { CalendarDrawerProps } from './CalendarDrawer';
 
 describe('CalendarDrawer', () => {
   const props: CalendarDrawerProps = {
-    triggerText: 'trigger-text',
+    trigger: 'trigger',
     date: new Date(),
     setDate: vi.fn(),
   };
 
-  const renderElement = ({ triggerText, date, setDate }: CalendarDrawerProps) =>
-    render(
-      <CalendarDrawer triggerText={triggerText} date={date} setDate={setDate} />
-    );
+  const renderElement = ({ trigger, date, setDate }: CalendarDrawerProps) =>
+    render(<CalendarDrawer trigger={trigger} date={date} setDate={setDate} />);
 
   it('renders drawer trigger.', () => {
     const { getByRole } = renderElement({ ...props });
 
-    const trigger = getByRole('button', { name: props.triggerText });
+    const trigger = getByRole('button');
     expect(trigger).toBeInTheDocument();
+    expect(trigger.innerHTML).toBe(props.trigger);
   });
 
   describe('when trigger button is clicked.', () => {

@@ -134,18 +134,26 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ submitButtonText }) => {
             </FormItem>
           )}
         />
-        <div className='flex flex-col gap-2'>
-          <label>금액</label>
-          <div className='relative'>
-            <Input
-              type='number'
-              className='w-full h-11 auto border-box px-3 pl-2 pr-12 rounded-md border-1 border-black/10 text-right'
-            />
-            <span className='absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-700'>
-              원
-            </span>
-          </div>
-        </div>
+        <FormField
+          control={form.control}
+          name='amount'
+          render={() => (
+            <FormItem className='flex flex-col gap-2'>
+              <FormLabel>금액</FormLabel>
+              <FormControl>
+                <div className='relative'>
+                  <Input
+                    type='number'
+                    className='w-full h-11 auto border-box px-3 pl-2 pr-12 rounded-md border-1 border-black/10 text-right'
+                  />
+                  <span className='absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-700'>
+                    원
+                  </span>
+                </div>
+              </FormControl>
+            </FormItem>
+          )}
+        />
         <Button
           type='submit'
           className='h-13 text-[15px] font-semibold mt-auto mb-5 rounded-full'

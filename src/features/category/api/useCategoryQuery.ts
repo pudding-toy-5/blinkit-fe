@@ -4,7 +4,9 @@ import { createEntityHooks } from '@/features/common/useEntityQuery';
 import { queryKeys } from '../consts';
 
 const fetchCategories = async (): Promise<Category[]> => {
-  const res = await fetch('http://api.blink-it.me/expense/expense/categories/');
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/expense/categories/`
+  );
 
   if (!res.ok) {
     throw new Error('Failed on fetch categories');

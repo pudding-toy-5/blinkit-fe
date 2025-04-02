@@ -13,7 +13,6 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as ExpensesIndexImport } from './routes/expenses.index'
-import { Route as ExpensesNewImport } from './routes/expenses.new'
 import { Route as ComponentUnderlinedTextInputImport } from './routes/component/underlined-text-input'
 import { Route as ComponentToasterImport } from './routes/component/toaster'
 import { Route as ComponentTextInputImport } from './routes/component/text-input'
@@ -26,7 +25,9 @@ import { Route as ComponentCategoryTagsImport } from './routes/component/categor
 import { Route as ComponentCalendarDrawerImport } from './routes/component/calendar-drawer'
 import { Route as ComponentButtonsTestImport } from './routes/component/buttons-test'
 import { Route as CategoriesUidImport } from './routes/categories.$uid'
+import { Route as ExpensesNewIndexImport } from './routes/expenses.new.index'
 import { Route as ExpensesUidCategoriesImport } from './routes/expenses.$uid.categories'
+import { Route as ExpensesNewCategoriesIndexImport } from './routes/expenses.new.categories.index'
 
 // Create/Update Routes
 
@@ -39,12 +40,6 @@ const IndexRoute = IndexImport.update({
 const ExpensesIndexRoute = ExpensesIndexImport.update({
   id: '/expenses/',
   path: '/expenses/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ExpensesNewRoute = ExpensesNewImport.update({
-  id: '/expenses/new',
-  path: '/expenses/new',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -125,11 +120,25 @@ const CategoriesUidRoute = CategoriesUidImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ExpensesNewIndexRoute = ExpensesNewIndexImport.update({
+  id: '/expenses/new/',
+  path: '/expenses/new/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ExpensesUidCategoriesRoute = ExpensesUidCategoriesImport.update({
   id: '/expenses/$uid/categories',
   path: '/expenses/$uid/categories',
   getParentRoute: () => rootRoute,
 } as any)
+
+const ExpensesNewCategoriesIndexRoute = ExpensesNewCategoriesIndexImport.update(
+  {
+    id: '/expenses/new/categories/',
+    path: '/expenses/new/categories/',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -226,13 +235,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComponentUnderlinedTextInputImport
       parentRoute: typeof rootRoute
     }
-    '/expenses/new': {
-      id: '/expenses/new'
-      path: '/expenses/new'
-      fullPath: '/expenses/new'
-      preLoaderRoute: typeof ExpensesNewImport
-      parentRoute: typeof rootRoute
-    }
     '/expenses/': {
       id: '/expenses/'
       path: '/expenses'
@@ -245,6 +247,20 @@ declare module '@tanstack/react-router' {
       path: '/expenses/$uid/categories'
       fullPath: '/expenses/$uid/categories'
       preLoaderRoute: typeof ExpensesUidCategoriesImport
+      parentRoute: typeof rootRoute
+    }
+    '/expenses/new/': {
+      id: '/expenses/new/'
+      path: '/expenses/new'
+      fullPath: '/expenses/new'
+      preLoaderRoute: typeof ExpensesNewIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/expenses/new/categories/': {
+      id: '/expenses/new/categories/'
+      path: '/expenses/new/categories'
+      fullPath: '/expenses/new/categories'
+      preLoaderRoute: typeof ExpensesNewCategoriesIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -266,9 +282,10 @@ export interface FileRoutesByFullPath {
   '/component/text-input': typeof ComponentTextInputRoute
   '/component/toaster': typeof ComponentToasterRoute
   '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
-  '/expenses/new': typeof ExpensesNewRoute
   '/expenses': typeof ExpensesIndexRoute
   '/expenses/$uid/categories': typeof ExpensesUidCategoriesRoute
+  '/expenses/new': typeof ExpensesNewIndexRoute
+  '/expenses/new/categories': typeof ExpensesNewCategoriesIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -285,9 +302,10 @@ export interface FileRoutesByTo {
   '/component/text-input': typeof ComponentTextInputRoute
   '/component/toaster': typeof ComponentToasterRoute
   '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
-  '/expenses/new': typeof ExpensesNewRoute
   '/expenses': typeof ExpensesIndexRoute
   '/expenses/$uid/categories': typeof ExpensesUidCategoriesRoute
+  '/expenses/new': typeof ExpensesNewIndexRoute
+  '/expenses/new/categories': typeof ExpensesNewCategoriesIndexRoute
 }
 
 export interface FileRoutesById {
@@ -305,9 +323,10 @@ export interface FileRoutesById {
   '/component/text-input': typeof ComponentTextInputRoute
   '/component/toaster': typeof ComponentToasterRoute
   '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
-  '/expenses/new': typeof ExpensesNewRoute
   '/expenses/': typeof ExpensesIndexRoute
   '/expenses/$uid/categories': typeof ExpensesUidCategoriesRoute
+  '/expenses/new/': typeof ExpensesNewIndexRoute
+  '/expenses/new/categories/': typeof ExpensesNewCategoriesIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -326,9 +345,10 @@ export interface FileRouteTypes {
     | '/component/text-input'
     | '/component/toaster'
     | '/component/underlined-text-input'
-    | '/expenses/new'
     | '/expenses'
     | '/expenses/$uid/categories'
+    | '/expenses/new'
+    | '/expenses/new/categories'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -344,9 +364,10 @@ export interface FileRouteTypes {
     | '/component/text-input'
     | '/component/toaster'
     | '/component/underlined-text-input'
-    | '/expenses/new'
     | '/expenses'
     | '/expenses/$uid/categories'
+    | '/expenses/new'
+    | '/expenses/new/categories'
   id:
     | '__root__'
     | '/'
@@ -362,9 +383,10 @@ export interface FileRouteTypes {
     | '/component/text-input'
     | '/component/toaster'
     | '/component/underlined-text-input'
-    | '/expenses/new'
     | '/expenses/'
     | '/expenses/$uid/categories'
+    | '/expenses/new/'
+    | '/expenses/new/categories/'
   fileRoutesById: FileRoutesById
 }
 
@@ -382,9 +404,10 @@ export interface RootRouteChildren {
   ComponentTextInputRoute: typeof ComponentTextInputRoute
   ComponentToasterRoute: typeof ComponentToasterRoute
   ComponentUnderlinedTextInputRoute: typeof ComponentUnderlinedTextInputRoute
-  ExpensesNewRoute: typeof ExpensesNewRoute
   ExpensesIndexRoute: typeof ExpensesIndexRoute
   ExpensesUidCategoriesRoute: typeof ExpensesUidCategoriesRoute
+  ExpensesNewIndexRoute: typeof ExpensesNewIndexRoute
+  ExpensesNewCategoriesIndexRoute: typeof ExpensesNewCategoriesIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -401,9 +424,10 @@ const rootRouteChildren: RootRouteChildren = {
   ComponentTextInputRoute: ComponentTextInputRoute,
   ComponentToasterRoute: ComponentToasterRoute,
   ComponentUnderlinedTextInputRoute: ComponentUnderlinedTextInputRoute,
-  ExpensesNewRoute: ExpensesNewRoute,
   ExpensesIndexRoute: ExpensesIndexRoute,
   ExpensesUidCategoriesRoute: ExpensesUidCategoriesRoute,
+  ExpensesNewIndexRoute: ExpensesNewIndexRoute,
+  ExpensesNewCategoriesIndexRoute: ExpensesNewCategoriesIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -429,9 +453,10 @@ export const routeTree = rootRoute
         "/component/text-input",
         "/component/toaster",
         "/component/underlined-text-input",
-        "/expenses/new",
         "/expenses/",
-        "/expenses/$uid/categories"
+        "/expenses/$uid/categories",
+        "/expenses/new/",
+        "/expenses/new/categories/"
       ]
     },
     "/": {
@@ -473,14 +498,17 @@ export const routeTree = rootRoute
     "/component/underlined-text-input": {
       "filePath": "component/underlined-text-input.tsx"
     },
-    "/expenses/new": {
-      "filePath": "expenses.new.tsx"
-    },
     "/expenses/": {
       "filePath": "expenses.index.tsx"
     },
     "/expenses/$uid/categories": {
       "filePath": "expenses.$uid.categories.tsx"
+    },
+    "/expenses/new/": {
+      "filePath": "expenses.new.index.tsx"
+    },
+    "/expenses/new/categories/": {
+      "filePath": "expenses.new.categories.index.tsx"
     }
   }
 }

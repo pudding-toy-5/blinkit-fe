@@ -1,18 +1,16 @@
+import axios from 'axios';
+
 import { Category } from '@/features/category/model/types/Category';
 import { createEntityHooks } from '@/features/common/useEntityQuery';
 
 import { queryKeys } from '../consts';
 
 const fetchCategories = async (): Promise<Category[]> => {
-  const res = await fetch(
+  const res = await axios.get(
     `${import.meta.env.VITE_API_URL}/expense/categories/`
   );
 
-  if (!res.ok) {
-    throw new Error('Failed on fetch categories');
-  }
-
-  return res.json() as Promise<Category[]>;
+  return res.data as Category[];
 };
 
 const {

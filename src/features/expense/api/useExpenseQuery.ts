@@ -1,16 +1,12 @@
 import axios from 'axios';
 import { useMemo } from 'react';
 
+import { apiUrl } from '@/features/common/consts';
 import { createEntityHooks } from '@/features/common/useEntityQuery';
 import { queryKeys } from '@/features/expense/consts';
-import {
-  DailyExpense,
-  Expense,
-  ServerExpense,
-} from '@/features/expense/model/types/Expense';
-import { convertServerExpenseToExpense } from '@/features/expense/model/types/utils';
+import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
 
-const baseUrl = `${import.meta.env.VITE_API_URL}/expense/expenses/`;
+const baseUrl = apiUrl + '/expense/expenses/';
 
 const {
   useEntities: useExpensesQuery,

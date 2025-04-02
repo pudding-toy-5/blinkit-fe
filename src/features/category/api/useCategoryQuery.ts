@@ -1,10 +1,10 @@
 import { Category } from '@/features/category/model/types/Category';
+import { apiUrl } from '@/features/common/consts';
 import { createEntityHooks } from '@/features/common/useEntityQuery';
 
 import { queryKeys } from '../consts';
 
-// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-const baseUrl = `${import.meta.env.VITE_API_URL}/expense/categories`;
+const baseUrl = apiUrl + '/expense/categories';
 
 const {
   useEntities: useCategoriesQuery,

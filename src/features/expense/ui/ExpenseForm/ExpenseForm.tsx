@@ -24,8 +24,9 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
   return (
     <div
       className={cn(
-        'flex flex-row items-center ml-auto',
-        buttonVariants({ variant: 'ghost' })
+        buttonVariants({ variant: 'ghost' }),
+        'has-[>svg]:p-0',
+        'flex flex-row items-center h-auto w-auto ml-auto p-0'
       )}
     >
       <p className='mr-1 text-[15px] font-normal text-[#28a745]'>

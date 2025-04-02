@@ -3,6 +3,7 @@ import React from 'react';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import CategoryTag from '@/features/category/ui/CategoryTag';
 import { EXPENSE_MEMO_MAX_LEN } from '@/features/expense/consts';
 import { Expense } from '@/features/expense/model/types/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
@@ -40,6 +41,12 @@ const ExpenseForm: React.FC = () => {
     }
   };
 
+  const handleChangeMemo = (newMemo: string) => {
+    if (newMemo.length <= EXPENSE_MEMO_MAX_LEN) {
+      setForm({ ...form, memo: newMemo });
+    }
+  };
+
   return (
     <form className='flex flex-col gap-6 h-screen pt-6 px-5'>
       <div className='flex flex-row items-center'>
@@ -60,13 +67,29 @@ const ExpenseForm: React.FC = () => {
         placeholder={`어디서, 무엇을 결제하셨나요?\r\n그때 기분은 어땠나요?`}
         value={form.memo}
         onChange={(e) => {
-          if (e.target.value > EXPENSE_MEMO_MAX_LEN) {
-            setForm({ ...form, memo: e.target.value });
-          }
+          handleChangeMemo(e);
         }}
         state='default'
         maxLength={EXPENSE_MEMO_MAX_LEN}
       />
+      <div className='flex flex-col gap-2'>
+        <div className='flex flex-row'>
+          <Label className='text-[15px] font-semibold text-[#222]'>
+            카테고리
+          </Label>
+          <Button
+            variant='ghost'
+            className='h-auto text-[13px] ml-auto py-1 px-2'
+          >
+            설정
+          </Button>
+        </div>
+        <div>
+          {form.categories.map((category) => (
+            <CategoryTag key={category.uid} tagName={category.name} />
+          ))}
+        </div>
+      </div>
       <div className='flex flex-col gap-2'>
         <label>금액</label>
         <div className='relative'>

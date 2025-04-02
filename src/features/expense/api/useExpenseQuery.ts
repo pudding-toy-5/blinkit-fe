@@ -6,7 +6,7 @@ import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
 import { queryKeys } from '../consts';
 
 const fetchExpenses = async (): Promise<Expense[]> => {
-  const res = await fetch('/mock-data/expenses.json');
+  const res = await fetch('http://api.blink-it.me/expense/expense/expenses/');
 
   if (!res.ok) {
     throw new Error('Failed to fetch expenses');

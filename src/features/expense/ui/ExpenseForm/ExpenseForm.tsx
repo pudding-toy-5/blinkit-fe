@@ -69,8 +69,8 @@ const ExpenseForm: React.FC = () => {
                 <CalendarDrawer
                   trigger={<CalendarDrawerTrigger date={field.value} />}
                   date={field.value}
-                  setDate={() => {
-                    field.onChange(field.value);
+                  setDate={(newDate) => {
+                    field.onChange(newDate);
                   }}
                 />
               </div>

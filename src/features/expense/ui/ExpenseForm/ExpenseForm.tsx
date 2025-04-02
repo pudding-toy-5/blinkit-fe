@@ -10,7 +10,6 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form';
-import { Label } from '@/components/ui/label';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import { EXPENSE_MEMO_MAX_LEN } from '@/features/expense/consts';
 import { Expense } from '@/features/expense/model/types/Expense';
@@ -69,21 +68,23 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ submitButtonText }) => {
           name='date'
           render={({ field }) => (
             <FormItem className='flex flex-row items-center'>
-              <Label
-                id='date'
+              <FormLabel
+                htmlFor='date'
                 className='text-[15px] font-semibold text-[#222] p-0'
               >
                 날짜
-              </Label>
-              <div className='ml-auto'>
+              </FormLabel>
+              <FormControl className='ml-auto'>
                 <CalendarDrawer
+                  id='date'
                   trigger={<CalendarDrawerTrigger date={field.value} />}
                   date={field.value}
                   setDate={(newDate) => {
                     field.onChange(newDate);
                   }}
+                  {...field}
                 />
-              </div>
+              </FormControl>
             </FormItem>
           )}
         />
@@ -116,10 +117,14 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ submitButtonText }) => {
           render={({ field }) => (
             <FormItem>
               <div className='flex flex-row items-center'>
-                <FormLabel className='text-[15px] font-semibold text-[#222]'>
+                <FormLabel
+                  htmlFor='categories'
+                  className='text-[15px] font-semibold text-[#222]'
+                >
                   카테고리
                 </FormLabel>
                 <Button
+                  id='categories'
                   aria-label='카테고리 설정 버튼'
                   className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'
                 >

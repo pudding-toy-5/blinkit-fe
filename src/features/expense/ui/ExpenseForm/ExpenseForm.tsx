@@ -75,7 +75,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
     <Form {...form}>
       <form
         className='flex flex-col gap-6 h-screen pt-6 px-5'
-        onSubmit={() => form.handleSubmit(handleOnSubmit)}
+        onSubmit={form.handleSubmit(handleOnSubmit)}
       >
         <FormField
           control={form.control}

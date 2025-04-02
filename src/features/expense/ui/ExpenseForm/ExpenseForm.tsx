@@ -147,10 +147,14 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ submitButtonText }) => {
               <FormLabel>금액</FormLabel>
               <FormControl>
                 <NumericFormat
+                  inputMode='numeric'
                   value={field.value}
                   onChange={(e) => {
-                    field.onChange(e.target.value);
+                    field.onChange(parseInt(e.target.value));
                   }}
+                  allowNegative={false}
+                  thousandSeparator=','
+                  suffix='원'
                   placeholder='금액을 입력해주세요.'
                   className='h-12 w-full p-4 rounded-md border border-black/10 text-[15px] text-[#222]'
                 />

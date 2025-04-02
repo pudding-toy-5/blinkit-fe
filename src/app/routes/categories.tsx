@@ -28,7 +28,7 @@ function RouteComponent() {
           placeholder='카테고리명을 입력해주세요. (예: 카페)'
         />
       </div>
-      <div className='flex flex-col px-5 pt-5 h-screen'>
+      <div className='flex flex-col px-5 pt-9 pb-6 h-screen'>
         <p className='text-[13px] font-semibold text-[#999]'>카테고리 선택</p>
         <ul className='flex flex-col gap-4 list-none overflow-y-scroll scroll mt-4'>
           {values.map((value) => (
@@ -40,9 +40,7 @@ function RouteComponent() {
             </li>
           ))}
         </ul>
-        <Button className='h-13 rounded-full text-[15px] mt-auto mb-5'>
-          완료
-        </Button>
+        <Button className='h-13 rounded-full text-[15px] mt-auto'>완료</Button>
       </div>
     </Layout>
   );

@@ -7,14 +7,6 @@ interface Entity {
   [key: string]: any;
 }
 
-function fakeApiCall<T>(data: T, delay = 500): Promise<T> {
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      resolve(data);
-    }, delay)
-  );
-}
-
 export const createEntityHooks = <T extends Entity>(
   queryKey: string[],
   fetchFn: () => Promise<T[]>

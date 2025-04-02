@@ -105,15 +105,17 @@ const ExpenseForm: React.FC = () => {
           name='categories'
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='text-[15px] font-semibold text-[#222]'>
-                카테고리
-              </FormLabel>
-              <Button
-                variant='ghost'
-                className='h-auto text-[13px] ml-auto py-1 px-2'
-              >
-                설정
-              </Button>
+              <div className='flex flex-row items-center'>
+                <FormLabel className='text-[15px] font-semibold text-[#222]'>
+                  카테고리
+                </FormLabel>
+                <Button
+                  variant='ghost'
+                  className='h-auto text-[13px] ml-auto py-1 px-2'
+                >
+                  설정
+                </Button>
+              </div>
               <div className='flex flex-row gap-2 flex-wrap'>
                 {field.value.map((category) => (
                   <CategoryTag key={category.uid} tagName={category.name} />

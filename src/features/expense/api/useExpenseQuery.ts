@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useMemo } from 'react';
 
 import { apiUrl } from '@/features/common/consts';
@@ -6,6 +5,9 @@ import { createEntityHooks } from '@/features/common/useEntityQuery';
 import { queryKeys } from '@/features/expense/consts';
 import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
 
+if (!apiUrl) {
+  throw new Error('API URL이 설정되지 않았습니다.');
+}
 const baseUrl = apiUrl + '/expense/expenses/';
 
 const {

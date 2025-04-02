@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { NumericFormat } from 'react-number-format';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -9,7 +10,6 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import { EXPENSE_MEMO_MAX_LEN } from '@/features/expense/consts';
@@ -137,19 +137,18 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ submitButtonText }) => {
         <FormField
           control={form.control}
           name='amount'
-          render={() => (
+          render={({ field }) => (
             <FormItem className='flex flex-col gap-2'>
               <FormLabel>금액</FormLabel>
               <FormControl>
-                <div className='relative'>
-                  <Input
-                    type='number'
-                    className='w-full h-11 auto border-box px-3 pl-2 pr-12 rounded-md border-1 border-black/10 text-right'
-                  />
-                  <span className='absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-700'>
-                    원
-                  </span>
-                </div>
+                <NumericFormat
+                  value={field.value}
+                  onChange={(e) => {
+                    field.onChange(e.target.value);
+                  }}
+                  placeholder='금액을 입력해주세요.'
+                  className='h-12 w-full p-4 rounded-md border border-black/10 text-[15px] text-[#222]'
+                />
               </FormControl>
             </FormItem>
           )}

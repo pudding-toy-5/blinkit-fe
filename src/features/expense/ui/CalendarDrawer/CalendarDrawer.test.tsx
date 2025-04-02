@@ -5,13 +5,16 @@ import CalendarDrawer, { CalendarDrawerProps } from './CalendarDrawer';
 
 describe('CalendarDrawer', () => {
   const props: CalendarDrawerProps = {
+    id: 'base-id',
     trigger: 'trigger',
     date: new Date(),
     setDate: vi.fn(),
   };
 
-  const renderElement = ({ trigger, date, setDate }: CalendarDrawerProps) =>
-    render(<CalendarDrawer trigger={trigger} date={date} setDate={setDate} />);
+  const renderElement = ({ id, trigger, date, setDate }: CalendarDrawerProps) =>
+    render(
+      <CalendarDrawer id={id} trigger={trigger} date={date} setDate={setDate} />
+    );
 
   it('renders drawer trigger.', () => {
     const { getByRole } = renderElement({ ...props });

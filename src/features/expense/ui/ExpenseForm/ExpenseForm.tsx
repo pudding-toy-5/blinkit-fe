@@ -40,14 +40,10 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
 };
 
 export interface ExpenseFormProps {
-  submitButtonText?: string;
   expense?: Expense;
 }
 
-const ExpenseForm: React.FC<ExpenseFormProps> = ({
-  submitButtonText,
-  expense,
-}) => {
+const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
   const updateExpense = useUpdateExpense();
   const addExpense = useAddExpense();
 
@@ -184,7 +180,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
           type='submit'
           className='h-13 text-[15px] font-semibold mt-auto mb-5 rounded-full'
         >
-          {submitButtonText}
+          {expense ? '저장' : '추가'}
         </Button>
       </form>
     </Form>

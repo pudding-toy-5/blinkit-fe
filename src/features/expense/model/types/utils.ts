@@ -20,11 +20,12 @@ export const convertServerExpenseToExpense = (
   serverExpense: ServerExpense
 ): Expense => {
   const { uid, expended_at, memo, amount, categories } = serverExpense;
+  const parsedDate = new Date(expended_at);
   const parsedAmount = parseInt(amount);
 
   return {
     uid,
-    date: new Date(expended_at),
+    date: isNaN(parsedDate) ? new Date() : parsedDate,
     memo,
     amount: isNaN(parsedAmount) ? 0 : parsedAmount,
     categories,

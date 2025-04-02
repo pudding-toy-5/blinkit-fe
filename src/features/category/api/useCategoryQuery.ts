@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import { Category } from '@/features/category/model/types/Category';
 import { createEntityHooks } from '@/features/common/useEntityQuery';
 

@@ -16,6 +16,7 @@ import CategoryTag from '@/features/category/ui/CategoryTag';
 import { EXPENSE_MEMO_MAX_LEN } from '@/features/expense/consts';
 import { Expense } from '@/features/expense/model/types/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
+import { ExpenseForm } from '@/features/expense/ui/ExpenseForm';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import LabeledTextarea from '@/shared/ui/LabeledTextarea';
 import { cn } from '@/shared/ui/styles/utils';
@@ -37,7 +38,11 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
   );
 };
 
-const ExpenseForm: React.FC = () => {
+export interface ExpenseFormProps {
+  submitButtonText?: string;
+}
+
+const ExpenseForm: React.FC<ExpenseFormProps> = ({ submitButtonText }) => {
   const form = useForm<Omit<Expense, 'uid'>>({
     defaultValues: {
       date: new Date(),
@@ -140,7 +145,7 @@ const ExpenseForm: React.FC = () => {
           type='submit'
           className='h-13 text-[15px] font-semibold mt-auto mb-5 rounded-full'
         >
-          저장
+          {submitButtonText}
         </Button>
       </form>
     </Form>

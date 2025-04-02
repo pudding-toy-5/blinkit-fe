@@ -15,12 +15,14 @@ import {
 import SubmitButton from '@/shared/ui/SubmitButton';
 
 export interface CalendarDrawerProps {
+  id: string;
   trigger: React.ReactNode;
   date: Date | undefined;
   setDate: (newDate: Date | undefined) => void;
 }
 
 const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
+  id,
   trigger,
   date,
   setDate,
@@ -33,7 +35,7 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
   );
   return (
     <Drawer>
-      <DrawerTrigger>{trigger}</DrawerTrigger>
+      <DrawerTrigger id={id}>{trigger}</DrawerTrigger>
       <DrawerContent className='w-full max-w-sm mx-auto p-6'>
         <DrawerHeader className='flex flex-row items-center justify-between rounded-t-full p-0'>
           <div className='flex-1' />

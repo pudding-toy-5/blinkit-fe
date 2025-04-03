@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 interface Entity {
   uid: string;
@@ -12,59 +12,66 @@ export const createEntityHooks = <T extends Entity>(
   baseUrl: string
 ) => {
   const fetchEntities = async (): Promise<T[]> => {
-    const res = await axios.get(baseUrl);
-
-    if (res.status !== 200) {
-      throw new Error('error on fetch entities');
+    try {
+      const res = await axios.get(baseUrl);
+      return res.data as T[];
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw new Error(`엔티티 목록 조회 실패:  ${error.message}`);
+      }
+      throw error;
     }
-
-    return res.data as T[];
   };
 
   const fetchEntityByUid = async (uid: string): Promise<T> => {
-    const res = await axios.get(`${baseUrl}/${uid}`);
-
-    if (res.status !== 200) {
-      throw new Error('error on fetch entity by uid:' + uid);
+    try {
+      const res = await axios.get(`${baseUrl}/${uid}`);
+      return res.data as T;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw new Error(`엔티티 - ${uid} 목록 조회 실패: ${error.message}`);
+      }
+      throw error;
     }
-
-    return res.data as T;
   };
 
   const addEntity = async (entity: Omit<T, 'uid'>): Promise<T> => {
-    const res = await axios.post(baseUrl, { entity });
-
-    // 200 - category
-    // 201 - expense
-    if (res.status !== 200 && res.status !== 201) {
-      throw new Error('error on add entity');
+    try {
+      const res = await axios.post(baseUrl, { entity });
+      return res.data as T;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw new Error(`엔티티 추가 실패: ${error.message}`);
+      }
+      throw error;
     }
-
-    return res.data as T;
   };
 
   const updateEntity = async (entity: Partial<T>): Promise<T> => {
-    if (!entity.uid) {
-      throw new Error('error on update entity: no uid');
+    try {
+      if (entity.uid !== undefined) {
+        throw new Error('error on update entity - no uid in entity');
+      }
+      const res = await axios.patch(`${baseUrl}/${entity.uid}`, { entity });
+      return res.data as T;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw new Error(`앤티티 업데이트 실패: ${error.message}`);
+      }
+      throw error;
     }
-
-    const res = await axios.patch(`${baseUrl}/${entity.uid}`, { entity });
-
-    if (res.status !== 200) {
-      throw new Error('error on update entity: ' + res.statusText);
-    }
-
-    return res.data as T;
   };
 
-  const deleteEntity = async (uid: string) => {
-    const res = await axios.delete(`${baseUrl}/${uid}`);
-
-    if (res.status !== 204) {
-      throw new Error('error on delete entity - uid:' + uid);
+  const deleteEntity = async (uid: string): Promise<string> => {
+    try {
+      await axios.delete(`${baseUrl}/${uid}`);
+      return uid;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw new Error(`엔티티 - ${uid} 삭제 실패: ${error.message}`);
+      }
+      throw error;
     }
-
-    return uid;
   };
 
   const useEntities = () => {

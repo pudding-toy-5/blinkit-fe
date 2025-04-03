@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 
 import { Category } from '@/features/category/model/types/Category';
 import { apiUrl } from '@/features/common/consts';
-import { createEntityHooks } from '@/features/common/useEntityQuery';
 import { queryKeys } from '@/features/expense/consts';
 import {
   DailyExpense,

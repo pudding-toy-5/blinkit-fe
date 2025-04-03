@@ -33,8 +33,12 @@ function RouteComponent() {
         }}
       />
       <div className='flex flex-row gap-2 mt-auto mb-0'>
-        <Button>삭제</Button>
-        <Button>저장</Button>
+        <Button className='rounded-full h-13 text-[15px] text-[#222] bg-[#efefef]'>
+          삭제
+        </Button>
+        <Button className='rounded-full h-13 text-[15px] text-white bg-[#222]'>
+          저장
+        </Button>
       </div>
     </Layout>
   );

@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router';
+import { Link, useRouterState } from '@tanstack/react-router';
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -6,6 +6,7 @@ import {
   useAddCategory,
   useCategories,
 } from '@/features/category/api/useCategoryQuery';
+import { Category } from '@/features/category/model/types/Category';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import InputCategoryTags from '@/features/category/ui/InputCategoryTags';
 import { useNewExpense } from '@/features/expense/api/useExpenseQuery';
@@ -14,30 +15,40 @@ import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 const CategoriesRoute: React.FC = () => {
+  const router = useRouterState();
   const addCategory = useAddCategory();
   const { categories } = useCategories();
   const { newExpense, updateExpenseCategories } = useNewExpense();
 
   const [inputCategories, setInputCategories] = React.useState<string[]>([]);
 
+  const location = router.location.pathname;
+
   React.useEffect(() => {
     setInputCategories(newExpense.categories.map((category) => category.name));
+  }, [newExpense.categories]);
 
-    inputCategories.forEach((inputCategory) => {
-      categories.forEach((category) => {
-        if (category.name !== inputCategory) {
-          addCategory.mutate({ name: inputCategory });
-        }
-      });
+  React.useEffect(() => {
+    const newCategories = inputCategories.filter((inputCategory) =>
+      categories !== undefined
+        ? categories.some((category) => category.name === inputCategory)
+        : true
+    );
+
+    // create newCategories
+    newCategories.forEach((newCategory) => {
+      addCategory.mutate({ name: newCategory });
     });
-  }, [
-    newExpense,
-    addCategory,
-    categories,
-    inputCategories,
-    setInputCategories,
-    updateExpenseCategories,
-  ]);
+
+    // updateExpenseCategories
+    const newExpenseCategories: Category[] = [];
+    categories?.forEach((category) => {
+      if (inputCategories.includes(category.name)) {
+        newExpenseCategories.push(category);
+      }
+    });
+    updateExpenseCategories(newExpenseCategories);
+  }, [inputCategories, categories, addCategory]);
 
   return (
     <Layout>
@@ -51,37 +62,32 @@ const CategoriesRoute: React.FC = () => {
       </div>
       <div className='flex flex-col px-5 pt-9 pb-6 h-screen'>
         <p className='text-[13px] font-semibold text-[#999]'>카테고리 선택</p>
-        {
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          categories === undefined ? (
-            <p className='text-[13px] text-[#999] mt-47.5 mx-auto'>
-              아직 추가한 카테고리가 없어요.
-            </p>
-          ) : (
-            <ul className='flex flex-col gap-4 items-center list-none overflow-y-scroll scroll mt-4'>
-              {categories.map((category) => (
-                <li className='flex flex-row items-center' key={category.uid}>
-                  <CategoryTag tagName={category.name} size='medium' />
-                  <Button
-                    variant='ghost'
-                    className='size-6 p-0 ml-auto'
-                    asChild
+        {categories === undefined ? (
+          <p className='text-[13px] text-[#999] mt-47.5 mx-auto'>
+            아직 추가한 카테고리가 없어요.
+          </p>
+        ) : (
+          <ul className='flex flex-col gap-4 items-center list-none overflow-y-scroll scroll mt-4'>
+            {categories.map((category) => (
+              <li className='flex flex-row items-center' key={category.uid}>
+                <CategoryTag tagName={category.name} size='medium' />
+                <Button variant='ghost' className='size-6 p-0 ml-auto' asChild>
+                  {/* <Link to={router.location.pathname === '' '/categories/$uid'} params={{ uid }}> */}
+                  <Link
+                    to={
+                      location === '/expenses/new/categories'
+                        ? '/expenses/new/categories/$uid'
+                        : '/expenses/$uid/categories/$uid'
+                    }
+                    params={{ uid }}
                   >
-                    <Link
-                      to='/categories/$uid'
-                      params={(prev: { uid?: string }) => ({
-                        ...prev,
-                        uid: category.uid,
-                      })}
-                    >
-                      <Ellipsis size={24} color='#555' />
-                    </Link>
-                  </Button>
-                </li>
-              ))}
-            </ul>
-          )
-        }
+                    <Ellipsis size={24} color='#555' />
+                  </Link>
+                </Button>
+              </li>
+            ))}
+          </ul>
+        )}
         <Button className='h-13 rounded-full text-[15px] mt-auto'>완료</Button>
       </div>
     </Layout>

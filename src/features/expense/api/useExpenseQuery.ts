@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import axios, { AxiosError } from 'axios';
 import { useMemo } from 'react';
 
 import { Category } from '@/features/category/model/types/Category';
@@ -13,24 +14,47 @@ if (!apiUrl) {
 const baseUrl = apiUrl + '/expense/expenses/';
 
 const {
-  useEntities: useExpensesQuery,
-  useEntityByUid: useExpenseByUid,
   useAddEntity: useAddExpense,
   useUpdateEntity: useUpdateExpense,
   useDeleteEntity: useDeleteExpense,
 } = createEntityHooks<Expense>(queryKeys.expenses, baseUrl);
 
 const useExpenses = () => {
-  const { data = [], isLoading, error } = useExpensesQuery();
-  return {
-    expenses: data as Expense[],
-    isLoading,
-    error,
-  };
+  return useQuery<Expense[]>({
+    queryKey: queryKeys.expenses,
+    queryFn: async () => {
+      try {
+        const res = await axios.get(baseUrl);
+        return res.data as Expense[];
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error('지출 목록 조회 실패: ' + error.message);
+        }
+        throw error;
+      }
+    },
+  });
+};
+
+const useExpenseByUid = (uid: string) => {
+  return useQuery<Expense>({
+    queryKey: [...queryKeys.expenses, uid],
+    queryFn: async () => {
+      try {
+        const res = await axios.get(`${baseUrl}/${uid}`);
+        return res.data as Expense;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error('지출 조회 실패 - uid: ' + uid + error.message);
+        }
+        throw error;
+      }
+    },
+  });
 };
 
 const useDailyExpenses = () => {
-  const { expenses, isLoading, error } = useExpenses();
+  const { data: expenses = [], isLoading, error } = useExpenses();
 
   const dailyExpenses = useMemo(() => {
     const groupedByDate: Record<string, DailyExpense> = {};
@@ -58,7 +82,7 @@ const useDailyExpenses = () => {
 };
 
 const useTotalAmount = () => {
-  const { expenses, isLoading, error } = useExpenses();
+  const { data: expenses = [], isLoading, error } = useExpenses();
 
   const totalAmount = useMemo(
     () => expenses.reduce((sum, expense) => sum + expense.amount, 0),

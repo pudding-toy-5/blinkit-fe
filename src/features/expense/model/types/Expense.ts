@@ -6,6 +6,14 @@ export interface DailyExpense {
   expenses: Expense[];
 }
 
+export interface ServerExpense {
+  uid: string;
+  expended_at: string;
+  categories: Category[];
+  memo: string;
+  amount: string;
+}
+
 export interface Expense {
   uid: string;
   date: Date;

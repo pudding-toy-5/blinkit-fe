@@ -9,16 +9,22 @@ export interface SubPageHeaderProps {
   title: string;
   back?: boolean;
   close?: boolean;
-  onClose?: () => void;
 }
 
 const SubPageHeader: React.FC<SubPageHeaderProps> = ({
   title,
   back,
   close,
-  onClose,
 }) => {
   const router = useRouter();
+
+  const handleClickBack = () => {
+    router.history.back();
+  };
+
+  const handleClickClose = () => {
+    router.history.back();
+  };
 
   return (
     <header className='flex flex-row justify-center items-center h-12 px-5 py-4'>
@@ -31,7 +37,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
             'absolute left-5 size-6'
           )}
           onClick={() => {
-            router.history.back();
+            handleClickBack();
           }}
         >
           <ArrowLeft size={24} />
@@ -46,7 +52,9 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
             buttonVariants({ variant: 'ghost' }),
             'absolute right-5 size-6'
           )}
-          onClick={() => onClose?.()}
+          onClick={() => {
+            handleClickClose();
+          }}
         >
           <X size={24} />
         </div>

@@ -4,11 +4,11 @@ import ExpenseForm from '@/features/expense/ui/ExpenseForm';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
-export const Route = createFileRoute('/expenses/new')({
-  component: AboutPage,
+export const Route = createFileRoute('/expenses/new/')({
+  component: RouteComponent,
 });
 
-export function AboutPage() {
+export function RouteComponent() {
   return (
     <Layout>
       <SubPageHeader title='지출 내역 추가' back />
@@ -17,4 +17,4 @@ export function AboutPage() {
   );
 }
 
-export default AboutPage;
+export default RouteComponent;

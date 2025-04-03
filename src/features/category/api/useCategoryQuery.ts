@@ -1,29 +1,32 @@
 import { Category } from '@/features/category/model/types/Category';
+import { apiUrl } from '@/features/common/consts';
 import { createEntityHooks } from '@/features/common/useEntityQuery';
 
 import { queryKeys } from '../consts';
 
-const fetchCategories = async (): Promise<Category[]> => {
-  const res = await fetch('./mock-categories.json');
-
-  if (!res.ok) {
-    throw new Error('Failed on fetch categories');
-  }
-
-  return res.json() as Promise<Category[]>;
-};
+if (!apiUrl) {
+  throw new Error('API URL이 설정되지 않았습니다.');
+}
+const baseUrl = apiUrl + '/expense/categories';
 
 const {
   useEntities: useCategoriesQuery,
-  useEntityByUid: useCategoryByUid,
+  useEntityByUid: useCategoryByUidQuery,
   useAddEntity: useAddCategory,
   useUpdateEntity: useUpdateCategory,
   useDeleteEntity: useDeleteCategory,
-} = createEntityHooks<Category>(queryKeys.categories, fetchCategories);
+} = createEntityHooks<Category>(queryKeys.categories, baseUrl);
 
 const useCategories = () => {
   const { data, isLoading, error } = useCategoriesQuery();
-  return { categories: data, isLoading, error };
+  const categories = data as Category[];
+  return { categories, isLoading, error };
+};
+
+const useCategoryByUid = (uid: string) => {
+  const { data, isLoading, error } = useCategoryByUidQuery(uid);
+  const category = data as Category;
+  return { category, isLoading, error };
 };
 
 export {

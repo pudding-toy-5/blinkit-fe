@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from 'vitest';
 import { fireEvent, render } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
 // mock react-router useRouter().history.back()
 const mockBack = vi.fn();
@@ -20,23 +20,10 @@ describe('SubPageHeader', () => {
     title: 'sub page title',
     back: undefined,
     close: undefined,
-    onClose: undefined,
   };
 
-  const renderSubPageHeader = ({
-    title,
-    back,
-    close,
-    onClose,
-  }: SubPageHeaderProps) =>
-    render(
-      <SubPageHeader
-        title={title}
-        back={back}
-        close={close}
-        onClose={onClose}
-      />
-    );
+  const renderSubPageHeader = ({ title, back, close }: SubPageHeaderProps) =>
+    render(<SubPageHeader title={title} back={back} close={close} />);
 
   it('renders the provided title correctly.', () => {
     const { getByText } = renderSubPageHeader({ ...props });
@@ -69,20 +56,5 @@ describe('SubPageHeader', () => {
     const closeButton = getByLabelText('close button');
     expect(closeButton).toBeInTheDocument();
     expect(closeButton).toHaveAttribute('role', 'button');
-  });
-
-  it('renders provided onClose with close.', () => {
-    const onClose = vi.fn();
-    const { getByLabelText } = renderSubPageHeader({
-      ...props,
-      close: true,
-      onClose: onClose,
-    });
-
-    const closeButton = getByLabelText('close button');
-    expect(closeButton).toBeInTheDocument();
-
-    fireEvent.click(closeButton);
-    expect(onClose).toBeCalledTimes(1);
   });
 });

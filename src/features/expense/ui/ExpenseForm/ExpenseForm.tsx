@@ -53,11 +53,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
         ? { ...expense }
         : {
             date: new Date(),
-            categories: [
-              { uid: '1', name: '세글자' },
-              { uid: '2', name: '열글자열글자열글자열' },
-              { uid: '3', name: '스무글자스무글자스무글자스무글자' },
-            ],
+            categories: [],
             memo: '',
             amount: 0,
           },

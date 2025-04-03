@@ -1,21 +1,16 @@
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
+import { Category } from '@/features/category/model/types/Category';
+import { apiUrl } from '@/features/common/consts';
 import { createEntityHooks } from '@/features/common/useEntityQuery';
+import { queryKeys } from '@/features/expense/consts';
 import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
 
-import { queryKeys } from '../consts';
-
-const fetchExpenses = async (): Promise<Expense[]> => {
-  const res = await fetch(
-    `${import.meta.env.VITE_API_URL}/expense/expense/expenses/`
-  );
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch expenses');
-  }
-
-  return res.json() as Promise<Expense[]>;
-};
+if (!apiUrl) {
+  throw new Error('API URL이 설정되지 않았습니다.');
+}
+const baseUrl = apiUrl + '/expense/expenses/';
 
 const {
   useEntities: useExpensesQuery,
@@ -23,12 +18,12 @@ const {
   useAddEntity: useAddExpense,
   useUpdateEntity: useUpdateExpense,
   useDeleteEntity: useDeleteExpense,
-} = createEntityHooks<Expense>(queryKeys.expenses, fetchExpenses);
+} = createEntityHooks<Expense>(queryKeys.expenses, baseUrl);
 
 const useExpenses = () => {
   const { data = [], isLoading, error } = useExpensesQuery();
   return {
-    expenses: data,
+    expenses: data as Expense[],
     isLoading,
     error,
   };
@@ -73,12 +68,69 @@ const useTotalAmount = () => {
   return { totalAmount, isLoading, error };
 };
 
+const initialOmittedExpense: Omit<Expense, 'uid'> = {
+  date: new Date(),
+  memo: '',
+  categories: [],
+  amount: 0,
+};
+
+const useNewExpense = () => {
+  const queryClient = useQueryClient();
+
+  const { data: newExpense } = useQuery<Omit<Expense, 'uid'>>({
+    queryKey: ['newExpense'],
+    queryFn: () => Promise.resolve(initialOmittedExpense),
+    enabled: false,
+    initialData: initialOmittedExpense,
+  });
+
+  const updateExpenseField = <K extends keyof Omit<Expense, 'uid'>>(
+    key: K,
+    value: Omit<Expense, 'uid'>[K]
+  ) => {
+    queryClient.setQueryData<Omit<Expense, 'uid'>>(
+      ['newExpense'],
+      (oldExpense) => {
+        return oldExpense !== undefined
+          ? { ...oldExpense, [key]: value }
+          : { ...initialOmittedExpense, [key]: value };
+      }
+    );
+  };
+
+  const updateExpenseDate = (date: Date) => {
+    updateExpenseField('date', date);
+  };
+
+  const updateExpenseMemo = (memo: string) => {
+    updateExpenseField('memo', memo);
+  };
+
+  const updateExpenseCategories = (categories: Category[]) => {
+    updateExpenseField('categories', categories);
+  };
+
+  const updateExpenseAmount = (amount: number) => {
+    updateExpenseField('amount', amount);
+  };
+
+  return {
+    newExpense,
+    updateExpenseDate,
+    updateExpenseMemo,
+    updateExpenseCategories,
+    updateExpenseAmount,
+  };
+};
+
 export {
   useAddExpense,
   useDailyExpenses,
   useDeleteExpense,
   useExpenseByUid,
   useExpenses,
+  useNewExpense,
   useTotalAmount,
   useUpdateExpense,
 };

@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -68,11 +68,9 @@ export function ExpensesPage() {
         </div>
       </div>
       <DailyExpenseList dailyExpenses={dailyExpenses} onScroll={handleScroll} />
-      <AddExpenseButton
-        onClick={() => {
-          // todo: 지출 추가 페이지로 이동하는 기능 구현
-        }}
-      />
+      <Link to='/expenses/new'>
+        <AddExpenseButton />
+      </Link>
     </Layout>
   );
 }

@@ -8,12 +8,12 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
   createRoute,
   createRouter,
+  Outlet,
   RouterProvider,
 } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import ReactDom from 'react-dom/client';
 
-import AgreementsLayout from '@/pages/about/agreements';
 import PrivacyPage from '@/pages/about/agreements/PrivacyPage';
 import TermsPage from '@/pages/about/agreements/TermsPage';
 import Toaster from '@/shared/ui/Toaster';
@@ -23,7 +23,7 @@ import { routeTree } from './routeTree.gen';
 const agreementsRoute = createRoute({
   getParentRoute: () => routeTree,
   path: 'about/agreements',
-  component: AgreementsLayout,
+  component: Outlet,
 });
 
 const termsRoute = createRoute({

@@ -87,7 +87,6 @@ const CategoriesRoute: React.FC = () => {
                     className='size-6 p-0 ml-auto'
                     asChild
                   >
-                    {/* <Link to={router.location.pathname === '' '/categories/$uid'} params={{ uid }}> */}
                     <Link
                       to={
                         location === '/expenses/new/categories'

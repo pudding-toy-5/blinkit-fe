@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
@@ -139,8 +140,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
                   id='categories'
                   aria-label='카테고리 설정 버튼'
                   className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'
+                  asChild
                 >
-                  설정
+                  <Link to='/expenses/new/categories'>설정</Link>
                 </Button>
               </div>
               <div className='flex flex-row gap-2 flex-wrap'>

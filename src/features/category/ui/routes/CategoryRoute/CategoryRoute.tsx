@@ -1,3 +1,4 @@
+import { useParams } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -13,20 +14,23 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { useCategoryByUid } from '@/features/category/api/useCategoryQuery';
 import Layout from '@/shared/ui/layout/Layout';
 import { cn } from '@/shared/ui/styles/utils';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
 
 const CategoryRoute: React.FC = () => {
-  const [input, setInput] = React.useState<string>('');
+  const { category_uid } = useParams({ strict: false });
+  const uid = category_uid as string;
+  const { category } = useCategoryByUid(uid);
 
   const form = useForm<{ categoryName: string }>({
     defaultValues: { categoryName: '' },
   });
 
   const onSubmit = (values: { categoryName: string }) => {
-    console.log(value);
+    console.log(values);
   };
 
   return (

@@ -204,6 +204,8 @@ const initialOmittedExpense: Omit<Expense, 'uid'> = {
 };
 
 const useNewExpense = () => {
+  const queryClient = useQueryClient();
+
   const { data: newExpense } = useQuery<Omit<Expense, 'uid'>>({
     queryKey: ['newExpense'],
     queryFn: () => Promise.resolve(initialOmittedExpense),
@@ -215,9 +217,6 @@ const useNewExpense = () => {
     key: K,
     value: Omit<Expense, 'uid'>[K]
   ) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const queryClient = useQueryClient();
-
     return queryClient.setQueryData<Omit<Expense, 'uid'>>(
       ['newExpense'],
       (oldExpense) => {

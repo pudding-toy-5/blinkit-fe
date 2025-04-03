@@ -22,7 +22,7 @@ import { routeTree } from './routeTree.gen';
 
 const agreementsRoute = createRoute({
   getParentRoute: () => routeTree,
-  path: 'about/agreements',
+  path: '/about/agreements',
   component: Outlet,
 });
 

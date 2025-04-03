@@ -77,24 +77,31 @@ const CategoriesRoute: React.FC = () => {
           </p>
         ) : (
           <ul className='flex flex-col gap-4 items-center list-none overflow-y-scroll scroll mt-4'>
-            {categories.map((category) => (
-              <li className='flex flex-row items-center' key={category.uid}>
-                <CategoryTag tagName={category.name} size='medium' />
-                <Button variant='ghost' className='size-6 p-0 ml-auto' asChild>
-                  {/* <Link to={router.location.pathname === '' '/categories/$uid'} params={{ uid }}> */}
-                  <Link
-                    to={
-                      location === '/expenses/new/categories'
-                        ? '/expenses/new/categories/$uid'
-                        : '/expenses/$uid/categories/$uid'
-                    }
-                    params={{ uid }}
+            {categories.map((category) => {
+              const category_uid = category.uid;
+              return (
+                <li className='flex flex-row items-center' key={category.uid}>
+                  <CategoryTag tagName={category.name} size='medium' />
+                  <Button
+                    variant='ghost'
+                    className='size-6 p-0 ml-auto'
+                    asChild
                   >
-                    <Ellipsis size={24} color='#555' />
-                  </Link>
-                </Button>
-              </li>
-            ))}
+                    {/* <Link to={router.location.pathname === '' '/categories/$uid'} params={{ uid }}> */}
+                    <Link
+                      to={
+                        location === '/expenses/new/categories'
+                          ? '/expenses/new/categories/$category_uid'
+                          : '/expenses/$uid/categories/$category_uid'
+                      }
+                      params={{ category_uid }}
+                    >
+                      <Ellipsis size={24} color='#555' />
+                    </Link>
+                  </Button>
+                </li>
+              );
+            })}
           </ul>
         )}
         <Button className='h-13 rounded-full text-[15px] mt-auto'>완료</Button>

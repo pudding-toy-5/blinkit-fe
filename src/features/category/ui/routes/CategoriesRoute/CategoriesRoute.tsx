@@ -57,7 +57,7 @@ const CategoriesRoute: React.FC = () => {
       inputCategories
     );
     updateExpenseCategories(newExpenseCategories);
-  }, [inputCategories, categories, addCategory, updateExpenseCategories]);
+  }, [inputCategories, categories, addCategory]);
 
   return (
     <Layout>

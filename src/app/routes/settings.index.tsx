@@ -1,5 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 
+import { Button } from '@/components/ui/button';
+import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
@@ -18,13 +20,13 @@ interface SettingGroup {
 }
 
 function RouteComponent() {
-  const settingGroups: SettingItemGroup[] = [
+  const settingGroups: SettingGroup[] = [
     {
       text: '계정 정보',
       settingItems: [
         {
           text: '내 정보 수정',
-          to: '',
+          to: '/settings/account',
         },
       ],
     },
@@ -33,11 +35,11 @@ function RouteComponent() {
       settingItems: [
         {
           text: '서비스 이용약관',
-          to: '',
+          to: '/about/agreements/terms.html',
         },
         {
           text: '개인정보 처리방침',
-          to: '',
+          to: '/about/agreements/privacy.html',
         },
       ],
     },
@@ -54,6 +56,33 @@ function RouteComponent() {
   return (
     <Layout>
       <SubPageHeader title='설정' back />
+      <ul className='flex flex-col list-none gap-6 pt-6 px-5'>
+        {settingGroups.map((settingGroup) => (
+          <li className='flex flex-col gap-4'>
+            <p className='text-[13px] text-[#999] font-semibold'>
+              {settingGroup.text}
+            </p>
+            <ul className='flex flex-col gap-2 list-none'>
+              {settingGroup.settingItems.map(({ text, to }) => (
+                <li className='flex flex-row items-center py-[9px]'>
+                  <p className='text-[15px] text-[#222]'>{text}</p>
+                  {to && (
+                    <Button
+                      variant='ghost'
+                      className='w-4 h-4 ml-auto p-0 has-[>svg]:p-0 rounded-none'
+                      asChild
+                    >
+                      <Link to={to}>
+                        <ArrowRight size={16} />
+                      </Link>
+                    </Button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
     </Layout>
   );
 }

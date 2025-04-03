@@ -16,13 +16,8 @@ export const Route = createFileRoute('/categories/$uid')({
 function RouteComponent() {
   const updateCategory = useUpdateCategory();
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { uid } = Route.useParams();
-  const category = useCategoryByUid(uid);
-
-  if (category === undefined) {
-    return;
-  }
+  const { category } = useCategoryByUid(uid);
 
   const onChangeCategory = (name: string) => {
     updateCategory.mutate({ uid, name });

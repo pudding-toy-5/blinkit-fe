@@ -24,31 +24,40 @@ const CategoriesRoute: React.FC = () => {
 
   const location = router.location.pathname;
 
+  const filterNewCategories = (
+    inputCats: string[],
+    existingCats?: Category[]
+  ) => {
+    return inputCats.filter(
+      (inputCat) => !existingCats?.some((cat) => cat.name === inputCat)
+    );
+  };
+
+  const filterExpenseCategories = (
+    allCats?: Category[],
+    selectedNames: string[] = []
+  ) => {
+    return allCats?.filter((cat) => selectedNames.includes(cat.name)) || [];
+  };
+
   React.useEffect(() => {
     setInputCategories(newExpense.categories.map((category) => category.name));
   }, [newExpense.categories]);
 
   React.useEffect(() => {
-    const newCategories = inputCategories.filter((inputCategory) =>
-      categories !== undefined
-        ? categories.some((category) => category.name === inputCategory)
-        : true
-    );
-
-    // create newCategories
+    // addCategory
+    const newCategories = filterNewCategories(inputCategories, categories);
     newCategories.forEach((newCategory) => {
       addCategory.mutate({ name: newCategory });
     });
 
     // updateExpenseCategories
-    const newExpenseCategories: Category[] = [];
-    categories?.forEach((category) => {
-      if (inputCategories.includes(category.name)) {
-        newExpenseCategories.push(category);
-      }
-    });
+    const newExpenseCategories: Category[] = filterExpenseCategories(
+      categories,
+      inputCategories
+    );
     updateExpenseCategories(newExpenseCategories);
-  }, [inputCategories, categories, addCategory]);
+  }, [inputCategories, categories, addCategory, updateExpenseCategories]);
 
   return (
     <Layout>

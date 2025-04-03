@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Drawer,
   DrawerClose,
@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/drawer';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import Layout from '@/shared/ui/layout/Layout';
+import { cn } from '@/shared/ui/styles/utils';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
 
@@ -57,26 +58,33 @@ const CategoryRoute: React.FC = () => {
           />
           <div className='flex flex-row w-full gap-2 mt-auto'>
             <Drawer>
-              <DrawerTrigger>
-                <Button
-                  className='flex-1 rounded-full h-13 text-[15px] text-[#222] bg-[#efefef] hover:bg-[#efefef]/80'
-                  asChild
-                >
-                  삭제
-                </Button>
+              <DrawerTrigger
+                className={cn(
+                  buttonVariants({ variant: 'default' }),
+                  'flex-1 rounded-full h-13 text-[15px] text-[#222] bg-[#efefef] hover:bg-[#efefef]/80'
+                )}
+              >
+                삭제
               </DrawerTrigger>
-              <DrawerContent>
-                <DrawerHeader>
-                  <DrawerTitle>카테고리를 삭제할까요?</DrawerTitle>
-                  <DrawerDescription>
+              <DrawerContent className='w-full max-w-sm mx-auto py-8 px-5 rounded-t-[20px]'>
+                <DrawerHeader className='p-0'>
+                  <DrawerTitle className='text-[19px] text-[#222] font-semibold'>
+                    카테고리를 삭제할까요?
+                  </DrawerTitle>
+                  <DrawerDescription className='text-15px text-[#555]'>
                     카테고리를 삭제하면, 연결된 지출 내역의 친구 생일선물 태그도
                     함께 삭제돼요.
                   </DrawerDescription>
                 </DrawerHeader>
-                <DrawerFooter>
-                  <Button className='rounded-full'>Submit</Button>
+                <DrawerFooter className='p-0 mt-9'>
+                  <Button className='h-13 rounded-full'>삭제</Button>
                   <DrawerClose>
-                    <Button variant='ghost'>취소</Button>
+                    <Button
+                      variant='ghost'
+                      className='h-13 w-full rounded-full'
+                    >
+                      취소
+                    </Button>
                   </DrawerClose>
                 </DrawerFooter>
               </DrawerContent>

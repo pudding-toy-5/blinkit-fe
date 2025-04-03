@@ -14,7 +14,11 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
-import { useCategoryByUid } from '@/features/category/api/useCategoryQuery';
+import {
+  useCategoryByUid,
+  useDeleteCategory,
+  useUpdateCategory,
+} from '@/features/category/api/useCategoryQuery';
 import Layout from '@/shared/ui/layout/Layout';
 import { cn } from '@/shared/ui/styles/utils';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
@@ -22,9 +26,13 @@ import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
 
 const CategoryRoute: React.FC = () => {
   const router = useRouter();
-  const { category_uid } = useParams({ strict: false });
-  const uid = category_uid as string;
+  const updateCategory = useUpdateCategory();
+  const deleteCategory = useDeleteCategory();
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { category_uid } = useParams({ strict: false });
+
+  const uid = category_uid as string;
   const { category, error } = useCategoryByUid(uid);
 
   if (error) {
@@ -33,11 +41,15 @@ const CategoryRoute: React.FC = () => {
   }
 
   const form = useForm<{ categoryName: string }>({
-    defaultValues: { categoryName: '' },
+    defaultValues: { categoryName: category.name },
   });
 
   const onSubmit = (values: { categoryName: string }) => {
-    console.log(values);
+    updateCategory.mutate({ uid, name: values.categoryName });
+  };
+
+  const onDelete = () => {
+    deleteCategory.mutate(uid);
   };
 
   return (
@@ -88,12 +100,7 @@ const CategoryRoute: React.FC = () => {
                   </DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter className='p-0 mt-9'>
-                  <Button
-                    className='h-13 rounded-full'
-                    onClick={() => {
-                      console.log('on delete', category_uid);
-                    }}
-                  >
+                  <Button className='h-13 rounded-full' onClick={onDelete}>
                     삭제
                   </Button>
                   <DrawerClose>

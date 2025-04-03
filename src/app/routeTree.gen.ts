@@ -24,10 +24,10 @@ import { Route as ComponentIconTestImport } from './routes/component/icon-test'
 import { Route as ComponentCategoryTagsImport } from './routes/component/category-tags'
 import { Route as ComponentCalendarDrawerImport } from './routes/component/calendar-drawer'
 import { Route as ComponentButtonsTestImport } from './routes/component/buttons-test'
-import { Route as CategoriesUidImport } from './routes/categories.$uid'
 import { Route as ExpensesNewIndexImport } from './routes/expenses.new.index'
 import { Route as ExpensesUidCategoriesImport } from './routes/expenses.$uid.categories'
 import { Route as ExpensesNewCategoriesIndexImport } from './routes/expenses.new.categories.index'
+import { Route as ExpensesNewCategoriesCategoryuidImport } from './routes/expenses.new.categories.$category_uid'
 
 // Create/Update Routes
 
@@ -114,12 +114,6 @@ const ComponentButtonsTestRoute = ComponentButtonsTestImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const CategoriesUidRoute = CategoriesUidImport.update({
-  id: '/categories/$uid',
-  path: '/categories/$uid',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const ExpensesNewIndexRoute = ExpensesNewIndexImport.update({
   id: '/expenses/new/',
   path: '/expenses/new/',
@@ -140,6 +134,13 @@ const ExpensesNewCategoriesIndexRoute = ExpensesNewCategoriesIndexImport.update(
   } as any,
 )
 
+const ExpensesNewCategoriesCategoryuidRoute =
+  ExpensesNewCategoriesCategoryuidImport.update({
+    id: '/expenses/new/categories/$category_uid',
+    path: '/expenses/new/categories/$category_uid',
+    getParentRoute: () => rootRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -149,13 +150,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/categories/$uid': {
-      id: '/categories/$uid'
-      path: '/categories/$uid'
-      fullPath: '/categories/$uid'
-      preLoaderRoute: typeof CategoriesUidImport
       parentRoute: typeof rootRoute
     }
     '/component/buttons-test': {
@@ -256,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExpensesNewIndexImport
       parentRoute: typeof rootRoute
     }
+    '/expenses/new/categories/$category_uid': {
+      id: '/expenses/new/categories/$category_uid'
+      path: '/expenses/new/categories/$category_uid'
+      fullPath: '/expenses/new/categories/$category_uid'
+      preLoaderRoute: typeof ExpensesNewCategoriesCategoryuidImport
+      parentRoute: typeof rootRoute
+    }
     '/expenses/new/categories/': {
       id: '/expenses/new/categories/'
       path: '/expenses/new/categories'
@@ -270,7 +271,6 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/categories/$uid': typeof CategoriesUidRoute
   '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
   '/component/category-tags': typeof ComponentCategoryTagsRoute
@@ -285,12 +285,12 @@ export interface FileRoutesByFullPath {
   '/expenses': typeof ExpensesIndexRoute
   '/expenses/$uid/categories': typeof ExpensesUidCategoriesRoute
   '/expenses/new': typeof ExpensesNewIndexRoute
+  '/expenses/new/categories/$category_uid': typeof ExpensesNewCategoriesCategoryuidRoute
   '/expenses/new/categories': typeof ExpensesNewCategoriesIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/categories/$uid': typeof CategoriesUidRoute
   '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
   '/component/category-tags': typeof ComponentCategoryTagsRoute
@@ -305,13 +305,13 @@ export interface FileRoutesByTo {
   '/expenses': typeof ExpensesIndexRoute
   '/expenses/$uid/categories': typeof ExpensesUidCategoriesRoute
   '/expenses/new': typeof ExpensesNewIndexRoute
+  '/expenses/new/categories/$category_uid': typeof ExpensesNewCategoriesCategoryuidRoute
   '/expenses/new/categories': typeof ExpensesNewCategoriesIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/categories/$uid': typeof CategoriesUidRoute
   '/component/buttons-test': typeof ComponentButtonsTestRoute
   '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
   '/component/category-tags': typeof ComponentCategoryTagsRoute
@@ -326,6 +326,7 @@ export interface FileRoutesById {
   '/expenses/': typeof ExpensesIndexRoute
   '/expenses/$uid/categories': typeof ExpensesUidCategoriesRoute
   '/expenses/new/': typeof ExpensesNewIndexRoute
+  '/expenses/new/categories/$category_uid': typeof ExpensesNewCategoriesCategoryuidRoute
   '/expenses/new/categories/': typeof ExpensesNewCategoriesIndexRoute
 }
 
@@ -333,7 +334,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/categories/$uid'
     | '/component/buttons-test'
     | '/component/calendar-drawer'
     | '/component/category-tags'
@@ -348,11 +348,11 @@ export interface FileRouteTypes {
     | '/expenses'
     | '/expenses/$uid/categories'
     | '/expenses/new'
+    | '/expenses/new/categories/$category_uid'
     | '/expenses/new/categories'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/categories/$uid'
     | '/component/buttons-test'
     | '/component/calendar-drawer'
     | '/component/category-tags'
@@ -367,11 +367,11 @@ export interface FileRouteTypes {
     | '/expenses'
     | '/expenses/$uid/categories'
     | '/expenses/new'
+    | '/expenses/new/categories/$category_uid'
     | '/expenses/new/categories'
   id:
     | '__root__'
     | '/'
-    | '/categories/$uid'
     | '/component/buttons-test'
     | '/component/calendar-drawer'
     | '/component/category-tags'
@@ -386,13 +386,13 @@ export interface FileRouteTypes {
     | '/expenses/'
     | '/expenses/$uid/categories'
     | '/expenses/new/'
+    | '/expenses/new/categories/$category_uid'
     | '/expenses/new/categories/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CategoriesUidRoute: typeof CategoriesUidRoute
   ComponentButtonsTestRoute: typeof ComponentButtonsTestRoute
   ComponentCalendarDrawerRoute: typeof ComponentCalendarDrawerRoute
   ComponentCategoryTagsRoute: typeof ComponentCategoryTagsRoute
@@ -407,12 +407,12 @@ export interface RootRouteChildren {
   ExpensesIndexRoute: typeof ExpensesIndexRoute
   ExpensesUidCategoriesRoute: typeof ExpensesUidCategoriesRoute
   ExpensesNewIndexRoute: typeof ExpensesNewIndexRoute
+  ExpensesNewCategoriesCategoryuidRoute: typeof ExpensesNewCategoriesCategoryuidRoute
   ExpensesNewCategoriesIndexRoute: typeof ExpensesNewCategoriesIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CategoriesUidRoute: CategoriesUidRoute,
   ComponentButtonsTestRoute: ComponentButtonsTestRoute,
   ComponentCalendarDrawerRoute: ComponentCalendarDrawerRoute,
   ComponentCategoryTagsRoute: ComponentCategoryTagsRoute,
@@ -427,6 +427,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExpensesIndexRoute: ExpensesIndexRoute,
   ExpensesUidCategoriesRoute: ExpensesUidCategoriesRoute,
   ExpensesNewIndexRoute: ExpensesNewIndexRoute,
+  ExpensesNewCategoriesCategoryuidRoute: ExpensesNewCategoriesCategoryuidRoute,
   ExpensesNewCategoriesIndexRoute: ExpensesNewCategoriesIndexRoute,
 }
 
@@ -441,7 +442,6 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/categories/$uid",
         "/component/buttons-test",
         "/component/calendar-drawer",
         "/component/category-tags",
@@ -456,14 +456,12 @@ export const routeTree = rootRoute
         "/expenses/",
         "/expenses/$uid/categories",
         "/expenses/new/",
+        "/expenses/new/categories/$category_uid",
         "/expenses/new/categories/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/categories/$uid": {
-      "filePath": "categories.$uid.tsx"
     },
     "/component/buttons-test": {
       "filePath": "component/buttons-test.tsx"
@@ -506,6 +504,9 @@ export const routeTree = rootRoute
     },
     "/expenses/new/": {
       "filePath": "expenses.new.index.tsx"
+    },
+    "/expenses/new/categories/$category_uid": {
+      "filePath": "expenses.new.categories.$category_uid.tsx"
     },
     "/expenses/new/categories/": {
       "filePath": "expenses.new.categories.index.tsx"

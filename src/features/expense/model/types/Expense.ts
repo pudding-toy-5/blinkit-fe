@@ -9,7 +9,8 @@ export interface DailyExpense {
 export interface ServerExpense {
   uid: string;
   expended_at: string;
-  categories: Category[];
+  categories?: Category[];
+  category_uids?: string[];
   memo: string;
   amount: string;
 }

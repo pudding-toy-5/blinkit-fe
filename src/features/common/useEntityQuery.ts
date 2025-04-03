@@ -58,7 +58,7 @@ export const createEntityHooks = <T extends Entity>(
   };
 
   const deleteEntity = async (uid: string) => {
-    const res = await axios.delete(baseUrl + uid);
+    const res = await axios.delete(`${baseUrl}/${uid}`);
 
     if (res.status !== 204) {
       throw new Error('error on delete entity - uid:' + uid);

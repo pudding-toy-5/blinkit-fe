@@ -22,7 +22,7 @@ export const createEntityHooks = <T extends Entity>(
   };
 
   const fetchEntityByUid = async (uid: string): Promise<T> => {
-    const res = await axios.get(baseUrl + uid);
+    const res = await axios.get(`${baseUrl}/${uid}`);
 
     if (res.status !== 200) {
       throw new Error('error on fetch entity by uid:' + uid);

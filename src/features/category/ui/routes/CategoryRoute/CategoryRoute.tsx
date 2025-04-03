@@ -1,4 +1,4 @@
-import { useParams } from '@tanstack/react-router';
+import { useParams, useRouter } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -21,9 +21,16 @@ import SubPageHeader from '@/shared/ui/SubPageHeader';
 import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
 
 const CategoryRoute: React.FC = () => {
+  const router = useRouter();
   const { category_uid } = useParams({ strict: false });
   const uid = category_uid as string;
-  const { category } = useCategoryByUid(uid);
+
+  const { category, error } = useCategoryByUid(uid);
+
+  if (error) {
+    // handle on category is undefined
+    router.history.back();
+  }
 
   const form = useForm<{ categoryName: string }>({
     defaultValues: { categoryName: '' },
@@ -81,7 +88,14 @@ const CategoryRoute: React.FC = () => {
                   </DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter className='p-0 mt-9'>
-                  <Button className='h-13 rounded-full'>삭제</Button>
+                  <Button
+                    className='h-13 rounded-full'
+                    onClick={() => {
+                      console.log('on delete', category_uid);
+                    }}
+                  >
+                    삭제
+                  </Button>
                   <DrawerClose>
                     <Button
                       variant='ghost'

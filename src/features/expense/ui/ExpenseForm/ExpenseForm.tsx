@@ -77,24 +77,26 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
           control={form.control}
           name='date'
           render={({ field }) => (
-            <FormItem className='flex flex-row items-center'>
+            <FormItem className='flex flex-row'>
               <FormLabel
                 htmlFor='date'
                 className='text-[15px] font-semibold text-[#222] p-0'
               >
                 날짜
               </FormLabel>
-              <FormControl className='ml-auto'>
-                <CalendarDrawer
-                  id='date'
-                  trigger={<CalendarDrawerTrigger date={field.value} />}
-                  date={field.value}
-                  setDate={(newDate) => {
-                    field.onChange(newDate);
-                  }}
-                  {...field}
-                />
-              </FormControl>
+              <div className='ml-auto items-center'>
+                <FormControl>
+                  <CalendarDrawer
+                    id='date'
+                    trigger={<CalendarDrawerTrigger date={field.value} />}
+                    date={field.value}
+                    setDate={(newDate) => {
+                      field.onChange(newDate);
+                    }}
+                    {...field}
+                  />
+                </FormControl>
+              </div>
             </FormItem>
           )}
         />

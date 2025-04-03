@@ -48,10 +48,10 @@ export const createEntityHooks = <T extends Entity>(
       throw new Error('error on update entity: no uid');
     }
 
-    const res = await axios.patch(baseUrl + entity.uid, { entity });
+    const res = await axios.patch(`${baseUrl}/${entity.uid}`, { entity });
 
     if (res.status !== 200) {
-      throw new Error('error on update entity' + res.statusText);
+      throw new Error('error on update entity: ' + res.statusText);
     }
 
     return res.data as T;

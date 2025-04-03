@@ -11,7 +11,7 @@ const baseUrl = apiUrl + '/expense/categories';
 
 const {
   useEntities: useCategoriesQuery,
-  useEntityByUid: useCategoryByUid,
+  useEntityByUid: useCategoryByUidQuery,
   useAddEntity: useAddCategory,
   useUpdateEntity: useUpdateCategory,
   useDeleteEntity: useDeleteCategory,
@@ -19,7 +19,14 @@ const {
 
 const useCategories = () => {
   const { data, isLoading, error } = useCategoriesQuery();
-  return { categories: data, isLoading, error };
+  const categories = data as Category[];
+  return { categories, isLoading, error };
+};
+
+const useCategoryByUid = (uid: string) => {
+  const { data, isLoading, error } = useCategoryByUidQuery(uid);
+  const category = data as Category;
+  return { category, isLoading, error };
 };
 
 export {

@@ -107,7 +107,10 @@ const CategoryRoute: React.FC = () => {
                 </DrawerFooter>
               </DrawerContent>
             </Drawer>
-            <Button className='flex-1 rounded-full h-13 text-[15px] text-white bg-[#222] hover:bg-[#222]/80'>
+            <Button
+              type='submit'
+              className='flex-1 rounded-full h-13 text-[15px] text-white bg-[#222] hover:bg-[#222]/80'
+            >
               저장
             </Button>
           </div>

@@ -58,13 +58,13 @@ function RouteComponent() {
       <SubPageHeader title='설정' back />
       <ul className='flex flex-col list-none gap-6 pt-6 px-5'>
         {settingGroups.map((settingGroup) => (
-          <li className='flex flex-col gap-4'>
+          <li className='flex flex-col gap-4' key={settingGroup.text}>
             <p className='text-[13px] text-[#999] font-semibold'>
               {settingGroup.text}
             </p>
             <ul className='flex flex-col gap-2 list-none'>
               {settingGroup.settingItems.map(({ text, to }) => (
-                <li className='flex flex-row items-center py-[9px]'>
+                <li className='flex flex-row items-center py-[9px]' key={text}>
                   <p className='text-[15px] text-[#222]'>{text}</p>
                   {to && (
                     <Button

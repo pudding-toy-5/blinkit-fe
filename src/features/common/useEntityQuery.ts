@@ -49,9 +49,10 @@ export const createEntityHooks = <T extends Entity>(
 
   const updateEntity = async (entity: Partial<T>): Promise<T> => {
     try {
-      if (entity.uid !== undefined) {
+      if (entity.uid === undefined) {
         throw new Error('error on update entity - no uid in entity');
       }
+
       const res = await axios.patch(`${baseUrl}/${entity.uid}`, { entity });
       return res.data as T;
     } catch (error) {

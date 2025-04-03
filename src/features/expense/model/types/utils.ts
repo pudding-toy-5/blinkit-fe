@@ -10,7 +10,7 @@ export const convertExpenseToServerExpense = (
     expended_at: date ? date.toISOString() : new Date().toISOString(),
     memo: memo ?? '',
     amount: amount !== undefined ? amount.toString() : '0',
-    categories: categories ?? [],
+    category_uids: categories ? categories.map((category) => category.uid) : [],
   };
 
   return serverExpense;

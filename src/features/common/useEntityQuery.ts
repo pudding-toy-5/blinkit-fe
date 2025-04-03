@@ -37,7 +37,7 @@ export const createEntityHooks = <T extends Entity>(
 
   const addEntity = async (entity: Omit<T, 'uid'>): Promise<T> => {
     try {
-      const res = await axios.post(baseUrl, { entity });
+      const res = await axios.post(baseUrl, entity);
       return res.data as T;
     } catch (error) {
       if (error instanceof AxiosError) {

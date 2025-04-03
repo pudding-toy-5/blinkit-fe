@@ -1,36 +1,165 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import axios, { AxiosError } from 'axios';
 import { useMemo } from 'react';
 
 import { Category } from '@/features/category/model/types/Category';
 import { apiUrl } from '@/features/common/consts';
-import { createEntityHooks } from '@/features/common/useEntityQuery';
 import { queryKeys } from '@/features/expense/consts';
-import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
+import {
+  DailyExpense,
+  Expense,
+  ServerExpense,
+} from '@/features/expense/model/types/Expense';
+
+import {
+  convertExpenseToServerExpense,
+  convertServerExpenseToExpense,
+} from '../model/types/utils';
 
 if (!apiUrl) {
   throw new Error('API URL이 설정되지 않았습니다.');
 }
 const baseUrl = apiUrl + '/expense/expenses/';
 
-const {
-  useEntities: useExpensesQuery,
-  useEntityByUid: useExpenseByUid,
-  useAddEntity: useAddExpense,
-  useUpdateEntity: useUpdateExpense,
-  useDeleteEntity: useDeleteExpense,
-} = createEntityHooks<Expense>(queryKeys.expenses, baseUrl);
-
 const useExpenses = () => {
-  const { data = [], isLoading, error } = useExpensesQuery();
-  return {
-    expenses: data as Expense[],
-    isLoading,
-    error,
-  };
+  return useQuery<Expense[]>({
+    queryKey: queryKeys.expenses,
+    queryFn: async () => {
+      try {
+        const res = await axios.get(baseUrl);
+        const serverExpenses = res.data as ServerExpense[];
+        const expenses = serverExpenses.map((serverExpense) =>
+          convertServerExpenseToExpense(serverExpense)
+        );
+        return expenses;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error('지출 목록 조회 실패: ' + error.message);
+        }
+        throw error;
+      }
+    },
+  });
+};
+
+const useExpenseByUid = (uid: string) => {
+  return useQuery<Expense>({
+    queryKey: [...queryKeys.expenses, uid],
+    queryFn: async () => {
+      try {
+        const res = await axios.get(`${baseUrl}/${uid}`);
+        const serverExpense = res.data as ServerExpense;
+        return convertServerExpenseToExpense(serverExpense);
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error('지출 조회 실패 - uid: ' + uid + error.message);
+        }
+        throw error;
+      }
+    },
+  });
+};
+
+const useAddExpense = (expense: Omit<Expense, 'uid'>) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      try {
+        const res = await axios.post(
+          baseUrl,
+          convertExpenseToServerExpense(expense)
+        );
+        const serverExpense = res.data as ServerExpense;
+        return convertServerExpenseToExpense(serverExpense);
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error('지출 추가 실패: ' + error.message);
+        }
+        throw error;
+      }
+    },
+    onSuccess: (newExpense) => {
+      queryClient.setQueryData(
+        queryKeys.expenses,
+        (oldExpenses: Expense[] | undefined) => {
+          return oldExpenses ? [...oldExpenses, newExpense] : [newExpense];
+        }
+      );
+    },
+    onError: (error) => {
+      console.error('지출 추가 실패: ', error);
+    },
+  });
+};
+
+const useUpdateExpense = (expense: Partial<Expense>) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      try {
+        if (expense.uid === undefined) {
+          throw new Error('UpdateExpense - uid undefined');
+        }
+
+        const res = await axios.patch(
+          `${baseUrl}/${expense.uid}`,
+          convertExpenseToServerExpense(expense)
+        );
+        const serverExpense = res.data as ServerExpense;
+        return convertServerExpenseToExpense(serverExpense);
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error('지출 업데이트 실패: ' + error.message);
+        }
+        throw error;
+      }
+    },
+    onSuccess: (updatedExpense) => {
+      queryClient.setQueryData(
+        queryKeys.expenses,
+        (oldExpenses: Expense[] | undefined) => {
+          return oldExpenses?.map((expense) =>
+            expense.uid === updatedExpense.uid ? updatedExpense : expense
+          );
+        }
+      );
+    },
+    onError: (error) => {
+      console.error('지출 내역 업데이트 실패: ', error);
+    },
+  });
+};
+
+const useDeleteExpense = (uid: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      try {
+        await axios.delete(`${baseUrl}/${uid}`);
+        return uid;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error(`지출 내역 제거 실패 uid: ${uid}. ` + error.message);
+        }
+        throw error;
+      }
+    },
+    onSuccess: (uid) => {
+      queryClient.setQueryData(
+        queryKeys.expenses,
+        (oldExpenses: Expense[] | undefined) => {
+          return oldExpenses?.filter((expense) => expense.uid !== uid);
+        }
+      );
+    },
+  });
 };
 
 const useDailyExpenses = () => {
-  const { expenses, isLoading, error } = useExpenses();
+  const { data: expenses = [], isLoading, error } = useExpenses();
 
   const dailyExpenses = useMemo(() => {
     const groupedByDate: Record<string, DailyExpense> = {};
@@ -58,7 +187,7 @@ const useDailyExpenses = () => {
 };
 
 const useTotalAmount = () => {
-  const { expenses, isLoading, error } = useExpenses();
+  const { data: expenses = [], isLoading, error } = useExpenses();
 
   const totalAmount = useMemo(
     () => expenses.reduce((sum, expense) => sum + expense.amount, 0),

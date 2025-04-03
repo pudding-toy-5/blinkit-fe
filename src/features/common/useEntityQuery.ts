@@ -68,14 +68,14 @@ export const createEntityHooks = <T extends Entity>(
   };
 
   const useEntities = () => {
-    return useQuery<Entity[]>({
+    return useQuery<T[]>({
       queryKey,
       queryFn: fetchEntities,
     });
   };
 
   const useEntityByUid = (uid: string) => {
-    return useQuery<Entity>({
+    return useQuery<T>({
       queryKey: [...queryKey, uid],
       queryFn: () => fetchEntityByUid(uid),
       enabled: Boolean(uid),

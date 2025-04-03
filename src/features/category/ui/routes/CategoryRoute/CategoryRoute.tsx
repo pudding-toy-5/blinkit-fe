@@ -25,7 +25,6 @@ import SubPageHeader from '@/shared/ui/SubPageHeader';
 import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
 
 const CategoryRoute: React.FC = () => {
-  const router = useRouter();
   const updateCategory = useUpdateCategory();
   const deleteCategory = useDeleteCategory();
 
@@ -35,13 +34,15 @@ const CategoryRoute: React.FC = () => {
   const uid = category_uid as string;
   const { category, error } = useCategoryByUid(uid);
 
-  if (error) {
-    // handle on category is undefined
-    router.history.back();
+  if (category === undefined || error) {
+    // handle Error when category_uid is not found
   }
 
   const form = useForm<{ categoryName: string }>({
-    defaultValues: { categoryName: category.name },
+    // defaultValues: { categoryName: category.name },
+    defaultValues: {
+      categoryName: category !== undefined ? category.name : '',
+    },
   });
 
   const onSubmit = (values: { categoryName: string }) => {

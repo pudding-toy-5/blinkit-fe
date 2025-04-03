@@ -10,11 +10,10 @@ import {
   Expense,
   ServerExpense,
 } from '@/features/expense/model/types/Expense';
-
 import {
   convertExpenseToServerExpense,
   convertServerExpenseToExpense,
-} from '../model/types/utils';
+} from '@/features/expense/model/types/utils';
 
 if (!apiUrl) {
   throw new Error('API URL이 설정되지 않았습니다.');
@@ -218,7 +217,7 @@ const useNewExpense = () => {
     key: K,
     value: Omit<Expense, 'uid'>[K]
   ) => {
-    queryClient.setQueryData<Omit<Expense, 'uid'>>(
+    return queryClient.setQueryData<Omit<Expense, 'uid'>>(
       ['newExpense'],
       (oldExpense) => {
         return oldExpense !== undefined
@@ -229,19 +228,19 @@ const useNewExpense = () => {
   };
 
   const updateExpenseDate = (date: Date) => {
-    updateExpenseField('date', date);
+    return updateExpenseField('date', date);
   };
 
   const updateExpenseMemo = (memo: string) => {
-    updateExpenseField('memo', memo);
+    return updateExpenseField('memo', memo);
   };
 
   const updateExpenseCategories = (categories: Category[]) => {
-    updateExpenseField('categories', categories);
+    return updateExpenseField('categories', categories);
   };
 
   const updateExpenseAmount = (amount: number) => {
-    updateExpenseField('amount', amount);
+    return updateExpenseField('amount', amount);
   };
 
   return {

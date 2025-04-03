@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
@@ -77,24 +78,26 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
           control={form.control}
           name='date'
           render={({ field }) => (
-            <FormItem className='flex flex-row items-center'>
+            <FormItem className='flex flex-row'>
               <FormLabel
                 htmlFor='date'
                 className='text-[15px] font-semibold text-[#222] p-0'
               >
                 날짜
               </FormLabel>
-              <FormControl className='ml-auto'>
-                <CalendarDrawer
-                  id='date'
-                  trigger={<CalendarDrawerTrigger date={field.value} />}
-                  date={field.value}
-                  setDate={(newDate) => {
-                    field.onChange(newDate);
-                  }}
-                  {...field}
-                />
-              </FormControl>
+              <div className='ml-auto items-center'>
+                <FormControl>
+                  <CalendarDrawer
+                    id='date'
+                    trigger={<CalendarDrawerTrigger date={field.value} />}
+                    date={field.value}
+                    setDate={(newDate) => {
+                      field.onChange(newDate);
+                    }}
+                    {...field}
+                  />
+                </FormControl>
+              </div>
             </FormItem>
           )}
         />
@@ -137,8 +140,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
                   id='categories'
                   aria-label='카테고리 설정 버튼'
                   className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'
+                  asChild
                 >
-                  설정
+                  <Link to='/expenses/new/categories'>설정</Link>
                 </Button>
               </div>
               <div className='flex flex-row gap-2 flex-wrap'>

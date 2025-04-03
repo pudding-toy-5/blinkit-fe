@@ -25,9 +25,10 @@ import { Route as ComponentCategoryTagsImport } from './routes/component/categor
 import { Route as ComponentCalendarDrawerImport } from './routes/component/calendar-drawer'
 import { Route as ComponentButtonsTestImport } from './routes/component/buttons-test'
 import { Route as ExpensesNewIndexImport } from './routes/expenses.new.index'
-import { Route as ExpensesUidCategoriesImport } from './routes/expenses.$uid.categories'
 import { Route as ExpensesNewCategoriesIndexImport } from './routes/expenses.new.categories.index'
-import { Route as ExpensesNewCategoriesCategoryuidImport } from './routes/expenses.new.categories.$category_uid'
+import { Route as ExpensesUidCategoriesIndexImport } from './routes/expenses.$uid.categories.index'
+import { Route as ExpensesNewCategoriesCategoryuidIndexImport } from './routes/expenses.new.categories.$category_uid.index'
+import { Route as ExpensesUidCategoriesCategoryuidIndexImport } from './routes/expenses.$uid.categories.$category_uid.index'
 
 // Create/Update Routes
 
@@ -120,12 +121,6 @@ const ExpensesNewIndexRoute = ExpensesNewIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ExpensesUidCategoriesRoute = ExpensesUidCategoriesImport.update({
-  id: '/expenses/$uid/categories',
-  path: '/expenses/$uid/categories',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const ExpensesNewCategoriesIndexRoute = ExpensesNewCategoriesIndexImport.update(
   {
     id: '/expenses/new/categories/',
@@ -134,10 +129,25 @@ const ExpensesNewCategoriesIndexRoute = ExpensesNewCategoriesIndexImport.update(
   } as any,
 )
 
-const ExpensesNewCategoriesCategoryuidRoute =
-  ExpensesNewCategoriesCategoryuidImport.update({
-    id: '/expenses/new/categories/$category_uid',
-    path: '/expenses/new/categories/$category_uid',
+const ExpensesUidCategoriesIndexRoute = ExpensesUidCategoriesIndexImport.update(
+  {
+    id: '/expenses/$uid/categories/',
+    path: '/expenses/$uid/categories/',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
+
+const ExpensesNewCategoriesCategoryuidIndexRoute =
+  ExpensesNewCategoriesCategoryuidIndexImport.update({
+    id: '/expenses/new/categories/$category_uid/',
+    path: '/expenses/new/categories/$category_uid/',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const ExpensesUidCategoriesCategoryuidIndexRoute =
+  ExpensesUidCategoriesCategoryuidIndexImport.update({
+    id: '/expenses/$uid/categories/$category_uid/',
+    path: '/expenses/$uid/categories/$category_uid/',
     getParentRoute: () => rootRoute,
   } as any)
 
@@ -236,13 +246,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExpensesIndexImport
       parentRoute: typeof rootRoute
     }
-    '/expenses/$uid/categories': {
-      id: '/expenses/$uid/categories'
-      path: '/expenses/$uid/categories'
-      fullPath: '/expenses/$uid/categories'
-      preLoaderRoute: typeof ExpensesUidCategoriesImport
-      parentRoute: typeof rootRoute
-    }
     '/expenses/new/': {
       id: '/expenses/new/'
       path: '/expenses/new'
@@ -250,11 +253,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExpensesNewIndexImport
       parentRoute: typeof rootRoute
     }
-    '/expenses/new/categories/$category_uid': {
-      id: '/expenses/new/categories/$category_uid'
-      path: '/expenses/new/categories/$category_uid'
-      fullPath: '/expenses/new/categories/$category_uid'
-      preLoaderRoute: typeof ExpensesNewCategoriesCategoryuidImport
+    '/expenses/$uid/categories/': {
+      id: '/expenses/$uid/categories/'
+      path: '/expenses/$uid/categories'
+      fullPath: '/expenses/$uid/categories'
+      preLoaderRoute: typeof ExpensesUidCategoriesIndexImport
       parentRoute: typeof rootRoute
     }
     '/expenses/new/categories/': {
@@ -262,6 +265,20 @@ declare module '@tanstack/react-router' {
       path: '/expenses/new/categories'
       fullPath: '/expenses/new/categories'
       preLoaderRoute: typeof ExpensesNewCategoriesIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/expenses/$uid/categories/$category_uid/': {
+      id: '/expenses/$uid/categories/$category_uid/'
+      path: '/expenses/$uid/categories/$category_uid'
+      fullPath: '/expenses/$uid/categories/$category_uid'
+      preLoaderRoute: typeof ExpensesUidCategoriesCategoryuidIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/expenses/new/categories/$category_uid/': {
+      id: '/expenses/new/categories/$category_uid/'
+      path: '/expenses/new/categories/$category_uid'
+      fullPath: '/expenses/new/categories/$category_uid'
+      preLoaderRoute: typeof ExpensesNewCategoriesCategoryuidIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -283,10 +300,11 @@ export interface FileRoutesByFullPath {
   '/component/toaster': typeof ComponentToasterRoute
   '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
   '/expenses': typeof ExpensesIndexRoute
-  '/expenses/$uid/categories': typeof ExpensesUidCategoriesRoute
   '/expenses/new': typeof ExpensesNewIndexRoute
-  '/expenses/new/categories/$category_uid': typeof ExpensesNewCategoriesCategoryuidRoute
+  '/expenses/$uid/categories': typeof ExpensesUidCategoriesIndexRoute
   '/expenses/new/categories': typeof ExpensesNewCategoriesIndexRoute
+  '/expenses/$uid/categories/$category_uid': typeof ExpensesUidCategoriesCategoryuidIndexRoute
+  '/expenses/new/categories/$category_uid': typeof ExpensesNewCategoriesCategoryuidIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -303,10 +321,11 @@ export interface FileRoutesByTo {
   '/component/toaster': typeof ComponentToasterRoute
   '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
   '/expenses': typeof ExpensesIndexRoute
-  '/expenses/$uid/categories': typeof ExpensesUidCategoriesRoute
   '/expenses/new': typeof ExpensesNewIndexRoute
-  '/expenses/new/categories/$category_uid': typeof ExpensesNewCategoriesCategoryuidRoute
+  '/expenses/$uid/categories': typeof ExpensesUidCategoriesIndexRoute
   '/expenses/new/categories': typeof ExpensesNewCategoriesIndexRoute
+  '/expenses/$uid/categories/$category_uid': typeof ExpensesUidCategoriesCategoryuidIndexRoute
+  '/expenses/new/categories/$category_uid': typeof ExpensesNewCategoriesCategoryuidIndexRoute
 }
 
 export interface FileRoutesById {
@@ -324,10 +343,11 @@ export interface FileRoutesById {
   '/component/toaster': typeof ComponentToasterRoute
   '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
   '/expenses/': typeof ExpensesIndexRoute
-  '/expenses/$uid/categories': typeof ExpensesUidCategoriesRoute
   '/expenses/new/': typeof ExpensesNewIndexRoute
-  '/expenses/new/categories/$category_uid': typeof ExpensesNewCategoriesCategoryuidRoute
+  '/expenses/$uid/categories/': typeof ExpensesUidCategoriesIndexRoute
   '/expenses/new/categories/': typeof ExpensesNewCategoriesIndexRoute
+  '/expenses/$uid/categories/$category_uid/': typeof ExpensesUidCategoriesCategoryuidIndexRoute
+  '/expenses/new/categories/$category_uid/': typeof ExpensesNewCategoriesCategoryuidIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -346,10 +366,11 @@ export interface FileRouteTypes {
     | '/component/toaster'
     | '/component/underlined-text-input'
     | '/expenses'
-    | '/expenses/$uid/categories'
     | '/expenses/new'
-    | '/expenses/new/categories/$category_uid'
+    | '/expenses/$uid/categories'
     | '/expenses/new/categories'
+    | '/expenses/$uid/categories/$category_uid'
+    | '/expenses/new/categories/$category_uid'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -365,10 +386,11 @@ export interface FileRouteTypes {
     | '/component/toaster'
     | '/component/underlined-text-input'
     | '/expenses'
-    | '/expenses/$uid/categories'
     | '/expenses/new'
-    | '/expenses/new/categories/$category_uid'
+    | '/expenses/$uid/categories'
     | '/expenses/new/categories'
+    | '/expenses/$uid/categories/$category_uid'
+    | '/expenses/new/categories/$category_uid'
   id:
     | '__root__'
     | '/'
@@ -384,10 +406,11 @@ export interface FileRouteTypes {
     | '/component/toaster'
     | '/component/underlined-text-input'
     | '/expenses/'
-    | '/expenses/$uid/categories'
     | '/expenses/new/'
-    | '/expenses/new/categories/$category_uid'
+    | '/expenses/$uid/categories/'
     | '/expenses/new/categories/'
+    | '/expenses/$uid/categories/$category_uid/'
+    | '/expenses/new/categories/$category_uid/'
   fileRoutesById: FileRoutesById
 }
 
@@ -405,10 +428,11 @@ export interface RootRouteChildren {
   ComponentToasterRoute: typeof ComponentToasterRoute
   ComponentUnderlinedTextInputRoute: typeof ComponentUnderlinedTextInputRoute
   ExpensesIndexRoute: typeof ExpensesIndexRoute
-  ExpensesUidCategoriesRoute: typeof ExpensesUidCategoriesRoute
   ExpensesNewIndexRoute: typeof ExpensesNewIndexRoute
-  ExpensesNewCategoriesCategoryuidRoute: typeof ExpensesNewCategoriesCategoryuidRoute
+  ExpensesUidCategoriesIndexRoute: typeof ExpensesUidCategoriesIndexRoute
   ExpensesNewCategoriesIndexRoute: typeof ExpensesNewCategoriesIndexRoute
+  ExpensesUidCategoriesCategoryuidIndexRoute: typeof ExpensesUidCategoriesCategoryuidIndexRoute
+  ExpensesNewCategoriesCategoryuidIndexRoute: typeof ExpensesNewCategoriesCategoryuidIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -425,10 +449,13 @@ const rootRouteChildren: RootRouteChildren = {
   ComponentToasterRoute: ComponentToasterRoute,
   ComponentUnderlinedTextInputRoute: ComponentUnderlinedTextInputRoute,
   ExpensesIndexRoute: ExpensesIndexRoute,
-  ExpensesUidCategoriesRoute: ExpensesUidCategoriesRoute,
   ExpensesNewIndexRoute: ExpensesNewIndexRoute,
-  ExpensesNewCategoriesCategoryuidRoute: ExpensesNewCategoriesCategoryuidRoute,
+  ExpensesUidCategoriesIndexRoute: ExpensesUidCategoriesIndexRoute,
   ExpensesNewCategoriesIndexRoute: ExpensesNewCategoriesIndexRoute,
+  ExpensesUidCategoriesCategoryuidIndexRoute:
+    ExpensesUidCategoriesCategoryuidIndexRoute,
+  ExpensesNewCategoriesCategoryuidIndexRoute:
+    ExpensesNewCategoriesCategoryuidIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -454,10 +481,11 @@ export const routeTree = rootRoute
         "/component/toaster",
         "/component/underlined-text-input",
         "/expenses/",
-        "/expenses/$uid/categories",
         "/expenses/new/",
-        "/expenses/new/categories/$category_uid",
-        "/expenses/new/categories/"
+        "/expenses/$uid/categories/",
+        "/expenses/new/categories/",
+        "/expenses/$uid/categories/$category_uid/",
+        "/expenses/new/categories/$category_uid/"
       ]
     },
     "/": {
@@ -499,17 +527,20 @@ export const routeTree = rootRoute
     "/expenses/": {
       "filePath": "expenses.index.tsx"
     },
-    "/expenses/$uid/categories": {
-      "filePath": "expenses.$uid.categories.tsx"
-    },
     "/expenses/new/": {
       "filePath": "expenses.new.index.tsx"
     },
-    "/expenses/new/categories/$category_uid": {
-      "filePath": "expenses.new.categories.$category_uid.tsx"
+    "/expenses/$uid/categories/": {
+      "filePath": "expenses.$uid.categories.index.tsx"
     },
     "/expenses/new/categories/": {
       "filePath": "expenses.new.categories.index.tsx"
+    },
+    "/expenses/$uid/categories/$category_uid/": {
+      "filePath": "expenses.$uid.categories.$category_uid.index.tsx"
+    },
+    "/expenses/new/categories/$category_uid/": {
+      "filePath": "expenses.new.categories.$category_uid.index.tsx"
     }
   }
 }

@@ -19,13 +19,13 @@ const {
 
 const useCategories = () => {
   const { data, isLoading, error } = useCategoriesQuery();
-  const categories = data!;
+  const categories = data;
   return { categories, isLoading, error };
 };
 
 const useCategoryByUid = (uid: string) => {
   const { data, isLoading, error } = useCategoryByUidQuery(uid);
-  const category = data!;
+  const category = data;
   return { category, isLoading, error };
 };
 

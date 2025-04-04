@@ -1,56 +1,43 @@
-import { render } from '@testing-library/react';
+import { getByRole, render } from '@testing-library/react';
 import { describe, it } from 'vitest';
 
-import { Expense } from '@/features/expense/model/types';
+import { Expense } from '@/features/expense/model/types/Expense';
 
 import DailyExpenseRecord from './DailyExpenseRecord';
 
 describe('DailyExpenseRecord', () => {
   const expenseProps: Omit<Expense, 'date'> = {
-    id: 'test-id',
-    category: 'test-category',
+    uid: 'test-id',
+    categories: [],
     amount: 1234567890,
     memo: 'description',
   };
 
   const renderDailyExpenseRecord = ({
-    id,
-    category,
+    uid,
+    categories,
     amount,
     memo,
   }: Omit<Expense, 'date'>) => {
     return render(
       <DailyExpenseRecord
-        id={id}
-        category={category}
+        uid={uid}
+        categories={categories}
         amount={amount}
         memo={memo}
       />
     );
   };
 
-  it('renders li tag with id and aria-labelledby.', () => {
+  it('renders listitem with aria-labelledby.', () => {
     const { getByRole } = renderDailyExpenseRecord({ ...expenseProps });
-    const listItem = getByRole('listitem');
+    const listitem = getByRole('listitem');
 
-    expect(listItem).toBeInTheDocument();
-    expect(listItem).toHaveAttribute('id', expenseProps.id);
-    expect(listItem).toHaveAttribute(
+    expect(listitem).toBeInTheDocument();
+    expect(listitem).toHaveAttribute(
       'aria-labelledby',
-      `expense-${expenseProps.id}`
+      'expense-' + expenseProps.uid
     );
-  });
-
-  it('renders category with label and text.', () => {
-    const { getByLabelText, getByText } = renderDailyExpenseRecord({
-      ...expenseProps,
-    });
-
-    const categoryLabel = getByLabelText('지출 카테고리');
-    expect(categoryLabel).toBeInTheDocument();
-
-    const category = getByText(expenseProps.category);
-    expect(category).toBeInTheDocument();
   });
 
   it('renders amount with label and localeString.', () => {

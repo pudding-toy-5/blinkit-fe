@@ -44,4 +44,5 @@ function Badge({
 }
 
 export { Badge };
-export type { badgeVariants };
+// eslint-disable-next-line react-refresh/only-export-components
+export { badgeVariants };

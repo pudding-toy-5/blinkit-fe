@@ -178,26 +178,22 @@ export default function SocialAuth({ service, onClick }: SocialAuthProps) {
         </div>
       ) : (
         !isLoading && (
-          <div className='flex flex-col gap-4'>
-            <div className='text-center'>
-              <Button
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                onClick={handleLogin}
-                className={cn(
-                  'flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors',
-                  service === 'google' &&
-                    'bg-white text-[#222] text-[15px] border-[#ccc] hover:bg-white/90',
-                  service === 'naver' &&
-                    'bg-[#03C75A] text-white text-[15px] border-none hover:bg-[#03C75A]/90'
-                )}
-                disabled={isLoading}
-              >
-                {service === 'google' && <Google />}
-                {service === 'naver' && <Naver />}
-                {getServiceText(service)} 계정으로 시작하기
-              </Button>
-            </div>
-          </div>
+          <Button
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            onClick={handleLogin}
+            className={cn(
+              'flex h-12 w-full items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors',
+              service === 'google' &&
+                'bg-white text-[#222] text-[15px] border-[#ccc] hover:bg-white/90',
+              service === 'naver' &&
+                'bg-[#03C75A] text-white text-[15px] border-none hover:bg-[#03C75A]/90'
+            )}
+            disabled={isLoading}
+          >
+            {service === 'google' && <Google />}
+            {service === 'naver' && <Naver />}
+            {getServiceText(service)} 계정으로 시작하기
+          </Button>
         )
       )}
     </div>

@@ -54,7 +54,7 @@ function RouteComponent() {
   ];
 
   return (
-    <Layout>
+    <Layout guarded>
       <SubPageHeader title='설정' back />
       <ul className='flex flex-col list-none gap-6 pt-6 px-5'>
         {settingGroups.map((settingGroup) => (

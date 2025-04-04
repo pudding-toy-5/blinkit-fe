@@ -10,7 +10,7 @@ export const Route = createFileRoute('/expenses/new/')({
 
 export function RouteComponent() {
   return (
-    <Layout>
+    <Layout guarded>
       <SubPageHeader title='지출 내역 추가' back />
       <ExpenseForm />
     </Layout>

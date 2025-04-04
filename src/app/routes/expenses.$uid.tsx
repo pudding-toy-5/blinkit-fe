@@ -16,7 +16,7 @@ export function RouteComponent() {
 
   if (isLoading) {
     return (
-      <Layout>
+      <Layout guarded>
         <SubPageHeader title='지출 내역 수정' back />
         <div className='flex flex-1 justify-center items-center'>
           <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-[#222]' />
@@ -34,7 +34,7 @@ export function RouteComponent() {
   }
 
   return (
-    <Layout>
+    <Layout guarded>
       <SubPageHeader title='지출 내역 수정' back />
       <ExpenseForm expense={expense} />
     </Layout>

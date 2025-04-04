@@ -46,7 +46,7 @@ export function ExpensesPage() {
   const { totalAmount } = useTotalAmount();
 
   return (
-    <Layout>
+    <Layout guarded>
       {!isCollapsed && (
         <header className='flex flex-row items-center px-5 py-4'>
           <Logo />

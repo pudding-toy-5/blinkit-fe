@@ -11,7 +11,6 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form';
-import { Category } from '@/features/category/model/types/Category';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import {
   useAddExpense,
@@ -51,9 +50,11 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
   const addExpense = useAddExpense();
   const { updateNewExpense } = useNewExpense();
 
-  if (expense) {
-    updateNewExpense(expense);
-  }
+  React.useEffect(() => {
+    if (expense) {
+      updateNewExpense(expense);
+    }
+  }, [expense, updateNewExpense]);
 
   const form = useForm<Omit<Expense, 'uid'>>({
     defaultValues:
@@ -79,6 +80,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
     <Form {...form}>
       <form
         className='flex flex-col gap-6 h-screen pt-6 px-5'
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={form.handleSubmit(handleOnSubmit)}
       >
         <FormField

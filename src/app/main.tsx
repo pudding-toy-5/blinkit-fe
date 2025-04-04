@@ -11,7 +11,7 @@ import ReactDom from 'react-dom/client';
 
 import Toaster from '@/shared/ui/Toaster';
 
-import { routeTree } from './routeTree.gen';
+import { routeTree } from './routes.custom';
 
 const router = createRouter({ routeTree });
 const queryClient = new QueryClient();

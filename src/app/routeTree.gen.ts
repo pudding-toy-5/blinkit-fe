@@ -16,6 +16,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as SettingsIndexImport } from './routes/settings.index'
 import { Route as ExpensesIndexImport } from './routes/expenses.index'
 import { Route as ExpensesUidImport } from './routes/expenses.$uid'
+import { Route as AccountSettingsImport } from './routes/account.settings'
 import { Route as ExpensesNewIndexImport } from './routes/expenses.new.index'
 import { Route as ExpensesNewCategoriesIndexImport } from './routes/expenses.new.categories.index'
 import { Route as ExpensesUidCategoriesIndexImport } from './routes/expenses.$uid.categories.index'
@@ -51,6 +52,12 @@ const ExpensesIndexRoute = ExpensesIndexImport.update({
 const ExpensesUidRoute = ExpensesUidImport.update({
   id: '/expenses/$uid',
   path: '/expenses/$uid',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AccountSettingsRoute = AccountSettingsImport.update({
+  id: '/account/settings',
+  path: '/account/settings',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -99,6 +106,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/account/settings': {
+      id: '/account/settings'
+      path: '/account/settings'
+      fullPath: '/account/settings'
+      preLoaderRoute: typeof AccountSettingsImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -186,6 +200,7 @@ const ExpensesUidRouteWithChildren = ExpensesUidRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/account/settings': typeof AccountSettingsRoute
   '/login': typeof LoginRoute
   '/expenses/$uid': typeof ExpensesUidRouteWithChildren
   '/expenses': typeof ExpensesIndexRoute
@@ -199,6 +214,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/account/settings': typeof AccountSettingsRoute
   '/login': typeof LoginRoute
   '/expenses/$uid': typeof ExpensesUidRouteWithChildren
   '/expenses': typeof ExpensesIndexRoute
@@ -213,6 +229,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/account/settings': typeof AccountSettingsRoute
   '/login': typeof LoginRoute
   '/expenses/$uid': typeof ExpensesUidRouteWithChildren
   '/expenses/': typeof ExpensesIndexRoute
@@ -228,6 +245,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/account/settings'
     | '/login'
     | '/expenses/$uid'
     | '/expenses'
@@ -240,6 +258,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/account/settings'
     | '/login'
     | '/expenses/$uid'
     | '/expenses'
@@ -252,6 +271,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/account/settings'
     | '/login'
     | '/expenses/$uid'
     | '/expenses/'
@@ -266,6 +286,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccountSettingsRoute: typeof AccountSettingsRoute
   LoginRoute: typeof LoginRoute
   ExpensesUidRoute: typeof ExpensesUidRouteWithChildren
   ExpensesIndexRoute: typeof ExpensesIndexRoute
@@ -277,6 +298,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccountSettingsRoute: AccountSettingsRoute,
   LoginRoute: LoginRoute,
   ExpensesUidRoute: ExpensesUidRouteWithChildren,
   ExpensesIndexRoute: ExpensesIndexRoute,
@@ -298,6 +320,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/account/settings",
         "/login",
         "/expenses/$uid",
         "/expenses/",
@@ -309,6 +332,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/account/settings": {
+      "filePath": "account.settings.tsx"
     },
     "/login": {
       "filePath": "login.tsx"

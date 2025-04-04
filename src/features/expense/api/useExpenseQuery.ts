@@ -213,7 +213,16 @@ const useNewExpense = () => {
     initialData: initialOmittedExpense,
   });
 
-  const updateExpenseField = <K extends keyof Omit<Expense, 'uid'>>(
+  const updateNewExpense = (expense: Omit<Expense, 'uid'>) => {
+    return queryClient.setQueryData<Omit<Expense, 'uid'>>(
+      ['newExpense'],
+      () => {
+        return expense;
+      }
+    );
+  };
+
+  const updateNewExpenseField = <K extends keyof Omit<Expense, 'uid'>>(
     key: K,
     value: Omit<Expense, 'uid'>[K]
   ) => {
@@ -227,28 +236,29 @@ const useNewExpense = () => {
     );
   };
 
-  const updateExpenseDate = (date: Date) => {
-    return updateExpenseField('date', date);
+  const updateNewExpenseDate = (date: Date) => {
+    return updateNewExpenseField('date', date);
   };
 
-  const updateExpenseMemo = (memo: string) => {
-    return updateExpenseField('memo', memo);
+  const updateNewExpenseMemo = (memo: string) => {
+    return updateNewExpenseField('memo', memo);
   };
 
-  const updateExpenseCategories = (categories: Category[]) => {
-    return updateExpenseField('categories', categories);
+  const updateNewExpenseCategories = (categories: Category[]) => {
+    return updateNewExpenseField('categories', categories);
   };
 
-  const updateExpenseAmount = (amount: number) => {
-    return updateExpenseField('amount', amount);
+  const updateNewExpenseAmount = (amount: number) => {
+    return updateNewExpenseField('amount', amount);
   };
 
   return {
     newExpense,
-    updateExpenseDate,
-    updateExpenseMemo,
-    updateExpenseCategories,
-    updateExpenseAmount,
+    updateNewExpense,
+    updateNewExpenseDate,
+    updateNewExpenseMemo,
+    updateNewExpenseCategories,
+    updateNewExpenseAmount,
   };
 };
 

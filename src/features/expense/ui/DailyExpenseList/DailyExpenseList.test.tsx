@@ -1,5 +1,5 @@
-import { describe } from 'vitest';
 import { render } from '@testing-library/react';
+import { describe } from 'vitest';
 
 import DailyExpenseList, { DailyExpenseListProps } from './DailyExpenseList';
 

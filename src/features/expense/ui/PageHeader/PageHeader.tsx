@@ -1,5 +1,5 @@
-import Logo from '@/shared/ui/icons/Logo';
 import IconButton from '@/shared/ui/IconButton/IconButton';
+import Logo from '@/shared/ui/icons/Logo';
 import Setting from '@/shared/ui/icons/Setting';
 
 const PageHeader: React.FC = () => {

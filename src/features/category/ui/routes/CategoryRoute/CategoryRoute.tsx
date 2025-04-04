@@ -28,10 +28,9 @@ const CategoryRoute: React.FC = () => {
   const updateCategory = useUpdateCategory();
   const deleteCategory = useDeleteCategory();
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { category_uid } = useParams({ strict: false });
 
-  const uid = category_uid as string;
+  const uid = category_uid!;
   const { category, error } = useCategoryByUid(uid);
 
   if (category === undefined || error) {

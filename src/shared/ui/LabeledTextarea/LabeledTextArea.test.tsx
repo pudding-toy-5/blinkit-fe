@@ -1,5 +1,5 @@
-import { describe, it } from 'vitest';
 import { fireEvent, render } from '@testing-library/react';
+import { describe, it } from 'vitest';
 
 import LabeledTextarea, { LabeledTextareaProps } from './LabeledTextarea';
 

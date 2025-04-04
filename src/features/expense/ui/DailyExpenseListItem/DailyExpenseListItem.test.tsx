@@ -1,7 +1,8 @@
-import { describe, it } from 'vitest';
 import { render } from '@testing-library/react';
+import { describe, it } from 'vitest';
 
 import { DailyExpense, Expense } from '@/features/expense/model/types';
+
 import DailyExpenseListItem from './DailyExpenseListItem';
 
 describe('DailyExpenseListItem', () => {

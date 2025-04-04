@@ -42,8 +42,8 @@ agreementsRoute.addChildren([termsRoute, privacyRoute]);
 
 // 확장된 라우트를 기존 routeTree에 추가
 
-// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-const existingChildren = routeTree.children || [];
-routeTree.children = [...existingChildren, agreementsRoute];
+const existingChildrenArray = Object.values(routeTree.children ?? {});
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+routeTree.addChildren([...existingChildrenArray, agreementsRoute]);
 
 export { routeTree };

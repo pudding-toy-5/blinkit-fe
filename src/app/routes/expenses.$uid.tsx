@@ -20,7 +20,14 @@ export function RouteComponent() {
   } = useExpenseByUid(uid as string);
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return (
+      <Layout>
+        <SubPageHeader title='지출 내역 수정' back />
+        <div className='flex flex-1 justify-center items-center'>
+          <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-[#222]' />
+        </div>
+      </Layout>
+    );
   }
 
   if (isError) {

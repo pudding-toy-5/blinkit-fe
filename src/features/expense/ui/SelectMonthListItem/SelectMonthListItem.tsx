@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-
 import Period from '@/features/expense/model/types/Period';
 
 export interface SelectMonthListItemProps {

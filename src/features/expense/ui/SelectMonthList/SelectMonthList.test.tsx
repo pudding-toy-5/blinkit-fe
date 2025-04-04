@@ -1,5 +1,6 @@
-import { describe, it, vi } from 'vitest';
 import { render } from '@testing-library/react';
+import { describe, it, vi } from 'vitest';
+
 import SelectMonthList from './SelectMonthList';
 
 describe('SelectMonthList', () => {

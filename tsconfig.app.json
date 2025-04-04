@@ -42,5 +42,8 @@
     // playwright
     "**.spec.ts",
     "playwright.config.ts"
+  ],
+  "exclude": [
+    "e2e"
   ]
 }

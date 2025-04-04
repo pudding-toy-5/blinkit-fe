@@ -166,5 +166,7 @@ export {
   FormItem,
   FormLabel,
   FormMessage,
-  useFormField,
 };
+
+// eslint-disable-next-line react-refresh/only-export-components
+export { useFormField };

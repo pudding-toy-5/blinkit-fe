@@ -1,20 +1,23 @@
-import { describe, it } from 'vitest';
 import { render } from '@testing-library/react';
+import { describe, it } from 'vitest';
 
-import { DailyExpense, Expense } from '@/features/expense/model/types';
+import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
+
 import DailyExpenseListItem from './DailyExpenseListItem';
 
 describe('DailyExpenseListItem', () => {
   const expense: Expense = {
-    id: 'expense-test-id',
-    date: new Date('2025-03-14T15:20:00'),
-    category: 'test-category',
+    uid: 'expense-test-id',
+    date: new Date(),
+    categories: [],
     memo: 'test-memo',
     amount: 1234567890,
   };
 
-  const renderDailyExpenseListItem = ({ date, expenses }: DailyExpense) => {
-    return render(<DailyExpenseListItem date={date} expenses={expenses} />);
+  const renderDailyExpenseListItem = ({ expenses }: DailyExpense) => {
+    return render(
+      <DailyExpenseListItem date={new Date()} expenses={expenses} />
+    );
   };
 
   it('renders nothing when expenses prop is empty.', () => {

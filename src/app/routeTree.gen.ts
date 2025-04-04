@@ -15,17 +15,6 @@ import { Route as IndexImport } from './routes/index'
 import { Route as SettingsIndexImport } from './routes/settings.index'
 import { Route as ExpensesIndexImport } from './routes/expenses.index'
 import { Route as ExpensesUidImport } from './routes/expenses.$uid'
-import { Route as ComponentUnderlinedTextInputImport } from './routes/component/underlined-text-input'
-import { Route as ComponentToasterImport } from './routes/component/toaster'
-import { Route as ComponentTextInputImport } from './routes/component/text-input'
-import { Route as ComponentTextAreaImport } from './routes/component/text-area'
-import { Route as ComponentSubPageHeaderImport } from './routes/component/sub-page-header'
-import { Route as ComponentSelectMonthDrawerImport } from './routes/component/select-month-drawer'
-import { Route as ComponentInputCategoryTagsImport } from './routes/component/input-category-tags'
-import { Route as ComponentIconTestImport } from './routes/component/icon-test'
-import { Route as ComponentCategoryTagsImport } from './routes/component/category-tags'
-import { Route as ComponentCalendarDrawerImport } from './routes/component/calendar-drawer'
-import { Route as ComponentButtonsTestImport } from './routes/component/buttons-test'
 import { Route as ExpensesNewIndexImport } from './routes/expenses.new.index'
 import { Route as ExpensesNewCategoriesIndexImport } from './routes/expenses.new.categories.index'
 import { Route as ExpensesUidCategoriesIndexImport } from './routes/expenses.$uid.categories.index'
@@ -55,77 +44,6 @@ const ExpensesIndexRoute = ExpensesIndexImport.update({
 const ExpensesUidRoute = ExpensesUidImport.update({
   id: '/expenses/$uid',
   path: '/expenses/$uid',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ComponentUnderlinedTextInputRoute =
-  ComponentUnderlinedTextInputImport.update({
-    id: '/component/underlined-text-input',
-    path: '/component/underlined-text-input',
-    getParentRoute: () => rootRoute,
-  } as any)
-
-const ComponentToasterRoute = ComponentToasterImport.update({
-  id: '/component/toaster',
-  path: '/component/toaster',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ComponentTextInputRoute = ComponentTextInputImport.update({
-  id: '/component/text-input',
-  path: '/component/text-input',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ComponentTextAreaRoute = ComponentTextAreaImport.update({
-  id: '/component/text-area',
-  path: '/component/text-area',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ComponentSubPageHeaderRoute = ComponentSubPageHeaderImport.update({
-  id: '/component/sub-page-header',
-  path: '/component/sub-page-header',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ComponentSelectMonthDrawerRoute = ComponentSelectMonthDrawerImport.update(
-  {
-    id: '/component/select-month-drawer',
-    path: '/component/select-month-drawer',
-    getParentRoute: () => rootRoute,
-  } as any,
-)
-
-const ComponentInputCategoryTagsRoute = ComponentInputCategoryTagsImport.update(
-  {
-    id: '/component/input-category-tags',
-    path: '/component/input-category-tags',
-    getParentRoute: () => rootRoute,
-  } as any,
-)
-
-const ComponentIconTestRoute = ComponentIconTestImport.update({
-  id: '/component/icon-test',
-  path: '/component/icon-test',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ComponentCategoryTagsRoute = ComponentCategoryTagsImport.update({
-  id: '/component/category-tags',
-  path: '/component/category-tags',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ComponentCalendarDrawerRoute = ComponentCalendarDrawerImport.update({
-  id: '/component/calendar-drawer',
-  path: '/component/calendar-drawer',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ComponentButtonsTestRoute = ComponentButtonsTestImport.update({
-  id: '/component/buttons-test',
-  path: '/component/buttons-test',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -174,83 +92,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/component/buttons-test': {
-      id: '/component/buttons-test'
-      path: '/component/buttons-test'
-      fullPath: '/component/buttons-test'
-      preLoaderRoute: typeof ComponentButtonsTestImport
-      parentRoute: typeof rootRoute
-    }
-    '/component/calendar-drawer': {
-      id: '/component/calendar-drawer'
-      path: '/component/calendar-drawer'
-      fullPath: '/component/calendar-drawer'
-      preLoaderRoute: typeof ComponentCalendarDrawerImport
-      parentRoute: typeof rootRoute
-    }
-    '/component/category-tags': {
-      id: '/component/category-tags'
-      path: '/component/category-tags'
-      fullPath: '/component/category-tags'
-      preLoaderRoute: typeof ComponentCategoryTagsImport
-      parentRoute: typeof rootRoute
-    }
-    '/component/icon-test': {
-      id: '/component/icon-test'
-      path: '/component/icon-test'
-      fullPath: '/component/icon-test'
-      preLoaderRoute: typeof ComponentIconTestImport
-      parentRoute: typeof rootRoute
-    }
-    '/component/input-category-tags': {
-      id: '/component/input-category-tags'
-      path: '/component/input-category-tags'
-      fullPath: '/component/input-category-tags'
-      preLoaderRoute: typeof ComponentInputCategoryTagsImport
-      parentRoute: typeof rootRoute
-    }
-    '/component/select-month-drawer': {
-      id: '/component/select-month-drawer'
-      path: '/component/select-month-drawer'
-      fullPath: '/component/select-month-drawer'
-      preLoaderRoute: typeof ComponentSelectMonthDrawerImport
-      parentRoute: typeof rootRoute
-    }
-    '/component/sub-page-header': {
-      id: '/component/sub-page-header'
-      path: '/component/sub-page-header'
-      fullPath: '/component/sub-page-header'
-      preLoaderRoute: typeof ComponentSubPageHeaderImport
-      parentRoute: typeof rootRoute
-    }
-    '/component/text-area': {
-      id: '/component/text-area'
-      path: '/component/text-area'
-      fullPath: '/component/text-area'
-      preLoaderRoute: typeof ComponentTextAreaImport
-      parentRoute: typeof rootRoute
-    }
-    '/component/text-input': {
-      id: '/component/text-input'
-      path: '/component/text-input'
-      fullPath: '/component/text-input'
-      preLoaderRoute: typeof ComponentTextInputImport
-      parentRoute: typeof rootRoute
-    }
-    '/component/toaster': {
-      id: '/component/toaster'
-      path: '/component/toaster'
-      fullPath: '/component/toaster'
-      preLoaderRoute: typeof ComponentToasterImport
-      parentRoute: typeof rootRoute
-    }
-    '/component/underlined-text-input': {
-      id: '/component/underlined-text-input'
-      path: '/component/underlined-text-input'
-      fullPath: '/component/underlined-text-input'
-      preLoaderRoute: typeof ComponentUnderlinedTextInputImport
       parentRoute: typeof rootRoute
     }
     '/expenses/$uid': {
@@ -331,17 +172,6 @@ const ExpensesUidRouteWithChildren = ExpensesUidRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/component/buttons-test': typeof ComponentButtonsTestRoute
-  '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
-  '/component/category-tags': typeof ComponentCategoryTagsRoute
-  '/component/icon-test': typeof ComponentIconTestRoute
-  '/component/input-category-tags': typeof ComponentInputCategoryTagsRoute
-  '/component/select-month-drawer': typeof ComponentSelectMonthDrawerRoute
-  '/component/sub-page-header': typeof ComponentSubPageHeaderRoute
-  '/component/text-area': typeof ComponentTextAreaRoute
-  '/component/text-input': typeof ComponentTextInputRoute
-  '/component/toaster': typeof ComponentToasterRoute
-  '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
   '/expenses/$uid': typeof ExpensesUidRouteWithChildren
   '/expenses': typeof ExpensesIndexRoute
   '/settings': typeof SettingsIndexRoute
@@ -354,17 +184,6 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/component/buttons-test': typeof ComponentButtonsTestRoute
-  '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
-  '/component/category-tags': typeof ComponentCategoryTagsRoute
-  '/component/icon-test': typeof ComponentIconTestRoute
-  '/component/input-category-tags': typeof ComponentInputCategoryTagsRoute
-  '/component/select-month-drawer': typeof ComponentSelectMonthDrawerRoute
-  '/component/sub-page-header': typeof ComponentSubPageHeaderRoute
-  '/component/text-area': typeof ComponentTextAreaRoute
-  '/component/text-input': typeof ComponentTextInputRoute
-  '/component/toaster': typeof ComponentToasterRoute
-  '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
   '/expenses/$uid': typeof ExpensesUidRouteWithChildren
   '/expenses': typeof ExpensesIndexRoute
   '/settings': typeof SettingsIndexRoute
@@ -378,17 +197,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/component/buttons-test': typeof ComponentButtonsTestRoute
-  '/component/calendar-drawer': typeof ComponentCalendarDrawerRoute
-  '/component/category-tags': typeof ComponentCategoryTagsRoute
-  '/component/icon-test': typeof ComponentIconTestRoute
-  '/component/input-category-tags': typeof ComponentInputCategoryTagsRoute
-  '/component/select-month-drawer': typeof ComponentSelectMonthDrawerRoute
-  '/component/sub-page-header': typeof ComponentSubPageHeaderRoute
-  '/component/text-area': typeof ComponentTextAreaRoute
-  '/component/text-input': typeof ComponentTextInputRoute
-  '/component/toaster': typeof ComponentToasterRoute
-  '/component/underlined-text-input': typeof ComponentUnderlinedTextInputRoute
   '/expenses/$uid': typeof ExpensesUidRouteWithChildren
   '/expenses/': typeof ExpensesIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -403,17 +211,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/component/buttons-test'
-    | '/component/calendar-drawer'
-    | '/component/category-tags'
-    | '/component/icon-test'
-    | '/component/input-category-tags'
-    | '/component/select-month-drawer'
-    | '/component/sub-page-header'
-    | '/component/text-area'
-    | '/component/text-input'
-    | '/component/toaster'
-    | '/component/underlined-text-input'
     | '/expenses/$uid'
     | '/expenses'
     | '/settings'
@@ -425,17 +222,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/component/buttons-test'
-    | '/component/calendar-drawer'
-    | '/component/category-tags'
-    | '/component/icon-test'
-    | '/component/input-category-tags'
-    | '/component/select-month-drawer'
-    | '/component/sub-page-header'
-    | '/component/text-area'
-    | '/component/text-input'
-    | '/component/toaster'
-    | '/component/underlined-text-input'
     | '/expenses/$uid'
     | '/expenses'
     | '/settings'
@@ -447,17 +233,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/component/buttons-test'
-    | '/component/calendar-drawer'
-    | '/component/category-tags'
-    | '/component/icon-test'
-    | '/component/input-category-tags'
-    | '/component/select-month-drawer'
-    | '/component/sub-page-header'
-    | '/component/text-area'
-    | '/component/text-input'
-    | '/component/toaster'
-    | '/component/underlined-text-input'
     | '/expenses/$uid'
     | '/expenses/'
     | '/settings/'
@@ -471,17 +246,6 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ComponentButtonsTestRoute: typeof ComponentButtonsTestRoute
-  ComponentCalendarDrawerRoute: typeof ComponentCalendarDrawerRoute
-  ComponentCategoryTagsRoute: typeof ComponentCategoryTagsRoute
-  ComponentIconTestRoute: typeof ComponentIconTestRoute
-  ComponentInputCategoryTagsRoute: typeof ComponentInputCategoryTagsRoute
-  ComponentSelectMonthDrawerRoute: typeof ComponentSelectMonthDrawerRoute
-  ComponentSubPageHeaderRoute: typeof ComponentSubPageHeaderRoute
-  ComponentTextAreaRoute: typeof ComponentTextAreaRoute
-  ComponentTextInputRoute: typeof ComponentTextInputRoute
-  ComponentToasterRoute: typeof ComponentToasterRoute
-  ComponentUnderlinedTextInputRoute: typeof ComponentUnderlinedTextInputRoute
   ExpensesUidRoute: typeof ExpensesUidRouteWithChildren
   ExpensesIndexRoute: typeof ExpensesIndexRoute
   SettingsIndexRoute: typeof SettingsIndexRoute
@@ -492,17 +256,6 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ComponentButtonsTestRoute: ComponentButtonsTestRoute,
-  ComponentCalendarDrawerRoute: ComponentCalendarDrawerRoute,
-  ComponentCategoryTagsRoute: ComponentCategoryTagsRoute,
-  ComponentIconTestRoute: ComponentIconTestRoute,
-  ComponentInputCategoryTagsRoute: ComponentInputCategoryTagsRoute,
-  ComponentSelectMonthDrawerRoute: ComponentSelectMonthDrawerRoute,
-  ComponentSubPageHeaderRoute: ComponentSubPageHeaderRoute,
-  ComponentTextAreaRoute: ComponentTextAreaRoute,
-  ComponentTextInputRoute: ComponentTextInputRoute,
-  ComponentToasterRoute: ComponentToasterRoute,
-  ComponentUnderlinedTextInputRoute: ComponentUnderlinedTextInputRoute,
   ExpensesUidRoute: ExpensesUidRouteWithChildren,
   ExpensesIndexRoute: ExpensesIndexRoute,
   SettingsIndexRoute: SettingsIndexRoute,
@@ -523,17 +276,6 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/component/buttons-test",
-        "/component/calendar-drawer",
-        "/component/category-tags",
-        "/component/icon-test",
-        "/component/input-category-tags",
-        "/component/select-month-drawer",
-        "/component/sub-page-header",
-        "/component/text-area",
-        "/component/text-input",
-        "/component/toaster",
-        "/component/underlined-text-input",
         "/expenses/$uid",
         "/expenses/",
         "/settings/",
@@ -544,39 +286,6 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/component/buttons-test": {
-      "filePath": "component/buttons-test.tsx"
-    },
-    "/component/calendar-drawer": {
-      "filePath": "component/calendar-drawer.tsx"
-    },
-    "/component/category-tags": {
-      "filePath": "component/category-tags.tsx"
-    },
-    "/component/icon-test": {
-      "filePath": "component/icon-test.tsx"
-    },
-    "/component/input-category-tags": {
-      "filePath": "component/input-category-tags.tsx"
-    },
-    "/component/select-month-drawer": {
-      "filePath": "component/select-month-drawer.tsx"
-    },
-    "/component/sub-page-header": {
-      "filePath": "component/sub-page-header.tsx"
-    },
-    "/component/text-area": {
-      "filePath": "component/text-area.tsx"
-    },
-    "/component/text-input": {
-      "filePath": "component/text-input.tsx"
-    },
-    "/component/toaster": {
-      "filePath": "component/toaster.tsx"
-    },
-    "/component/underlined-text-input": {
-      "filePath": "component/underlined-text-input.tsx"
     },
     "/expenses/$uid": {
       "filePath": "expenses.$uid.tsx",

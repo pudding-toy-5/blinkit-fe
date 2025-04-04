@@ -34,7 +34,7 @@ describe('CalendarDrawer', () => {
       // drawer content is not rendered
       expect(queryByTitle(titleText)).not.toBeInTheDocument();
 
-      const trigger = getByRole('button', { name: props.triggerText });
+      const trigger = getByRole('button', { name: 'trigger' });
       fireEvent.click(trigger);
 
       // drawer content is rendered
@@ -47,7 +47,7 @@ describe('CalendarDrawer', () => {
     it('renders today button. when it clicks, calls setDate with Today.', () => {
       const { getByRole } = renderElement({ ...props });
 
-      const trigger = getByRole('button', { name: props.triggerText });
+      const trigger = getByRole('button', { name: 'trigger' });
       fireEvent.click(trigger);
 
       const todayButton = getByRole('button', { name: '오늘' });
@@ -67,7 +67,7 @@ describe('CalendarDrawer', () => {
     it('renders submit button. when it clicks, calls setDate with current date.', () => {
       const { getByRole } = renderElement({ ...props });
 
-      const trigger = getByRole('button', { name: props.triggerText });
+      const trigger = getByRole('button', { name: 'trigger' });
       fireEvent.click(trigger);
 
       const submitButton = getByRole('button', { name: '선택' });

@@ -24,9 +24,9 @@ const useCategories = () => {
 };
 
 const useCategoryByUid = (uid: string) => {
-  const { data, isLoading, error } = useCategoryByUidQuery(uid);
+  const { data, isLoading, isError, error } = useCategoryByUidQuery(uid);
   const category = data;
-  return { category, isLoading, error };
+  return { category, isLoading, isError, error };
 };
 
 export {

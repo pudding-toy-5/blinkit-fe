@@ -37,7 +37,7 @@ const CategoriesRoute: React.FC = () => {
     allCats?: Category[],
     selectedNames: string[] = []
   ) => {
-    return allCats?.filter((cat) => selectedNames.includes(cat.name)) || [];
+    return allCats?.filter((cat) => selectedNames.includes(cat.name)) ?? [];
   };
 
   React.useEffect(() => {
@@ -57,6 +57,7 @@ const CategoriesRoute: React.FC = () => {
       inputCategories
     );
     updateExpenseCategories(newExpenseCategories);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputCategories, categories, addCategory]);
 
   return (

@@ -18,7 +18,7 @@ const CategoriesRoute: React.FC = () => {
   const router = useRouterState();
   const addCategory = useAddCategory();
   const { categories } = useCategories();
-  const { newExpense, updateExpenseCategories } = useNewExpense();
+  const { newExpense, updateNewExpenseCategories } = useNewExpense();
 
   const [inputCategories, setInputCategories] = React.useState<string[]>([]);
 
@@ -56,7 +56,7 @@ const CategoriesRoute: React.FC = () => {
       categories,
       inputCategories
     );
-    updateExpenseCategories(newExpenseCategories);
+    updateNewExpenseCategories(newExpenseCategories);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputCategories, categories, addCategory]);
 

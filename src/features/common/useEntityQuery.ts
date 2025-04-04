@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+
+import userAxios from '@/shared/api/userAxios';
 
 interface Entity {
   uid: string;
@@ -13,7 +15,7 @@ export const createEntityHooks = <T extends Entity>(
 ) => {
   const fetchEntities = async (): Promise<T[]> => {
     try {
-      const res = await axios.get(baseUrl);
+      const res = await userAxios.get(baseUrl);
       return res.data as T[];
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -25,7 +27,7 @@ export const createEntityHooks = <T extends Entity>(
 
   const fetchEntityByUid = async (uid: string): Promise<T> => {
     try {
-      const res = await axios.get(`${baseUrl}/${uid}`);
+      const res = await userAxios.get(`${baseUrl}/${uid}`);
       return res.data as T;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -37,7 +39,7 @@ export const createEntityHooks = <T extends Entity>(
 
   const addEntity = async (entity: Omit<T, 'uid'>): Promise<T> => {
     try {
-      const res = await axios.post(baseUrl, entity);
+      const res = await userAxios.post(baseUrl, entity);
       return res.data as T;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -53,7 +55,7 @@ export const createEntityHooks = <T extends Entity>(
         throw new Error('error on update entity - no uid in entity');
       }
 
-      const res = await axios.patch(`${baseUrl}/${entity.uid}`, entity);
+      const res = await userAxios.patch(`${baseUrl}/${entity.uid}`, entity);
       return res.data as T;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -65,7 +67,7 @@ export const createEntityHooks = <T extends Entity>(
 
   const deleteEntity = async (uid: string): Promise<string> => {
     try {
-      await axios.delete(`${baseUrl}/${uid}`);
+      await userAxios.delete(`${baseUrl}/${uid}`);
       return uid;
     } catch (error) {
       if (error instanceof AxiosError) {

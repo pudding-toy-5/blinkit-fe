@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { useMemo } from 'react';
 
 import { Category } from '@/features/category/model/types/Category';
@@ -14,6 +14,7 @@ import {
   convertExpenseToServerExpense,
   convertServerExpenseToExpense,
 } from '@/features/expense/model/types/utils';
+import userAxios from '@/shared/api/userAxios';
 
 if (!apiUrl) {
   throw new Error('API URL이 설정되지 않았습니다.');
@@ -25,7 +26,12 @@ const useExpenses = () => {
     queryKey: queryKeys.expenses,
     queryFn: async () => {
       try {
-        const res = await axios.get(baseUrl);
+        const res = await userAxios.get(baseUrl, {
+          params: {
+            year: '2025',
+            month: '4',
+          },
+        });
         const serverExpenses = res.data as ServerExpense[];
         const expenses = serverExpenses.map((serverExpense) =>
           convertServerExpenseToExpense(serverExpense)
@@ -46,7 +52,10 @@ const useExpenseByUid = (uid: string) => {
     queryKey: [...queryKeys.expenses, uid],
     queryFn: async () => {
       try {
-        const res = await axios.get(`${baseUrl}/${uid}`);
+        const res = await userAxios.get(`${baseUrl}/${uid}`, {
+          params: { year: '2025', month: '04' },
+        });
+
         const serverExpense = res.data as ServerExpense;
         return convertServerExpenseToExpense(serverExpense);
       } catch (error) {
@@ -65,7 +74,7 @@ const useAddExpense = () => {
   return useMutation({
     mutationFn: async (expense: Omit<Expense, 'uid'>) => {
       try {
-        const res = await axios.post(
+        const res = await userAxios.post(
           baseUrl,
           convertExpenseToServerExpense(expense)
         );
@@ -102,7 +111,7 @@ const useUpdateExpense = () => {
           throw new Error('UpdateExpense - uid undefined');
         }
 
-        const res = await axios.patch(
+        const res = await userAxios.patch(
           `${baseUrl}/${expense.uid}`,
           convertExpenseToServerExpense(expense)
         );
@@ -137,7 +146,7 @@ const useDeleteExpense = (uid: string) => {
   return useMutation({
     mutationFn: async () => {
       try {
-        await axios.delete(`${baseUrl}/${uid}`);
+        await userAxios.delete(`${baseUrl}/${uid}`);
         return uid;
       } catch (error) {
         if (error instanceof AxiosError) {

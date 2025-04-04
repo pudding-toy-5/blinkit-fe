@@ -1,8 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
-const userAxios = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-});
+const userAxios = axios.create();
 
 userAxios.interceptors.request.use(
   (config) => {
@@ -12,7 +10,7 @@ userAxios.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error as AxiosError)
 );
 
 export default userAxios;

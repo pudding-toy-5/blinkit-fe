@@ -1,7 +1,6 @@
 import { useParams } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { isErrored } from 'stream';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -35,7 +34,8 @@ const CategoryRoute: React.FC = () => {
     throw new Error('failed to get category_uid on useParams');
   }
 
-  const { category, isError, error } = useCategoryByUid(category_uid);
+  const uid = category_uid;
+  const { category, isError, error } = useCategoryByUid(uid);
 
   if (isError) {
     throw error ?? new Error('error on useCategoryByUid');
@@ -61,6 +61,7 @@ const CategoryRoute: React.FC = () => {
       <SubPageHeader title='카테고리명 편집' close />
       <Form {...form}>
         <form
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onSubmit={form.handleSubmit(onSubmit)}
           className='flex-1 flex flex-col h-fit py-6 px-5 mb-auto'
         >

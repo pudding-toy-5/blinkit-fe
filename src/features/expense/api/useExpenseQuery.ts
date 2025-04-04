@@ -10,6 +10,7 @@ import {
   Expense,
   ServerExpense,
 } from '@/features/expense/model/types/Expense';
+import Period from '@/features/expense/model/types/Period';
 import {
   convertExpenseToServerExpense,
   convertServerExpenseToExpense,
@@ -21,15 +22,16 @@ if (!apiUrl) {
 }
 const baseUrl = apiUrl + '/expense/expenses/';
 
-const useExpenses = () => {
+const useExpensesByPeriod = (period: Period) => {
+  const { year, month } = period;
   return useQuery<Expense[]>({
     queryKey: queryKeys.expenses,
     queryFn: async () => {
       try {
         const res = await userAxios.get(baseUrl, {
           params: {
-            year: '2025',
-            month: '4',
+            year: year.toString(),
+            month: month.toString(),
           },
         });
         const serverExpenses = res.data as ServerExpense[];
@@ -166,8 +168,13 @@ const useDeleteExpense = (uid: string) => {
   });
 };
 
-const useDailyExpenses = () => {
-  const { data: expenses = [], isLoading, error } = useExpenses();
+const useDailyExpensesByPeriod = (period: Period) => {
+  const {
+    data: expenses = [],
+    isLoading,
+    isError,
+    error,
+  } = useExpensesByPeriod(period);
 
   const dailyExpenses = useMemo(() => {
     const groupedByDate: Record<string, DailyExpense> = {};
@@ -191,11 +198,11 @@ const useDailyExpenses = () => {
     );
   }, [expenses]);
 
-  return { dailyExpenses, isLoading, error };
+  return { dailyExpenses, isLoading, isError, error };
 };
 
-const useTotalAmount = () => {
-  const { data: expenses = [], isLoading, error } = useExpenses();
+const useTotalAmountByPeriod = (period: Period) => {
+  const { data: expenses = [], isLoading, error } = useExpensesByPeriod(period);
 
   const totalAmount = useMemo(
     () => expenses.reduce((sum, expense) => sum + expense.amount, 0),
@@ -273,11 +280,11 @@ const useNewExpense = () => {
 
 export {
   useAddExpense,
-  useDailyExpenses,
+  useDailyExpensesByPeriod,
   useDeleteExpense,
   useExpenseByUid,
-  useExpenses,
+  useExpensesByPeriod,
   useNewExpense,
-  useTotalAmount,
+  useTotalAmountByPeriod,
   useUpdateExpense,
 };

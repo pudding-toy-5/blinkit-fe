@@ -12,12 +12,7 @@ export const Route = createFileRoute('/expenses/$uid')({
 
 export function RouteComponent() {
   const { uid } = Route.useParams();
-  const {
-    data: expense,
-    isLoading,
-    isError,
-    error,
-  } = useExpenseByUid(uid as string);
+  const { data: expense, isLoading, isError, error } = useExpenseByUid(uid);
 
   if (isLoading) {
     return (

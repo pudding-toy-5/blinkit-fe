@@ -14,6 +14,7 @@ import {
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import {
   useAddExpense,
+  useNewExpense,
   useUpdateExpense,
 } from '@/features/expense/api/useExpenseQuery';
 import { EXPENSE_MEMO_MAX_LEN } from '@/features/expense/consts';
@@ -47,6 +48,13 @@ export interface ExpenseFormProps {
 const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
   const updateExpense = useUpdateExpense();
   const addExpense = useAddExpense();
+  const { updateNewExpense } = useNewExpense();
+
+  React.useEffect(() => {
+    if (expense) {
+      updateNewExpense(expense);
+    }
+  }, [expense, updateNewExpense]);
 
   const form = useForm<Omit<Expense, 'uid'>>({
     defaultValues:
@@ -72,6 +80,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
     <Form {...form}>
       <form
         className='flex flex-col gap-6 h-screen pt-6 px-5'
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={form.handleSubmit(handleOnSubmit)}
       >
         <FormField

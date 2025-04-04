@@ -48,7 +48,9 @@ const CategoriesRoute: React.FC = () => {
     // addCategory
     const newCategories = filterNewCategories(inputCategories, categories);
     newCategories.forEach((newCategory) => {
-      addCategory.mutate({ name: newCategory });
+      if (!categories?.find((category) => category.name === newCategory)) {
+        addCategory.mutate({ name: newCategory });
+      }
     });
 
     // updateExpenseCategories

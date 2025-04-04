@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as SettingsIndexImport } from './routes/settings.index'
 import { Route as ExpensesIndexImport } from './routes/expenses.index'
+import { Route as ExpensesUidImport } from './routes/expenses.$uid'
 import { Route as ExpensesNewIndexImport } from './routes/expenses.new.index'
 import { Route as ExpensesNewCategoriesIndexImport } from './routes/expenses.new.categories.index'
 import { Route as ExpensesUidCategoriesIndexImport } from './routes/expenses.$uid.categories.index'
@@ -37,6 +38,12 @@ const SettingsIndexRoute = SettingsIndexImport.update({
 const ExpensesIndexRoute = ExpensesIndexImport.update({
   id: '/expenses/',
   path: '/expenses/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ExpensesUidRoute = ExpensesUidImport.update({
+  id: '/expenses/$uid',
+  path: '/expenses/$uid',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -85,6 +92,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/expenses/$uid': {
+      id: '/expenses/$uid'
+      path: '/expenses/$uid'
+      fullPath: '/expenses/$uid'
+      preLoaderRoute: typeof ExpensesUidImport
       parentRoute: typeof rootRoute
     }
     '/expenses/': {
@@ -158,6 +172,7 @@ const ExpensesUidRouteWithChildren = ExpensesUidRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/expenses/$uid': typeof ExpensesUidRouteWithChildren
   '/expenses': typeof ExpensesIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/expenses/new': typeof ExpensesNewIndexRoute
@@ -169,6 +184,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/expenses/$uid': typeof ExpensesUidRouteWithChildren
   '/expenses': typeof ExpensesIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/expenses/new': typeof ExpensesNewIndexRoute
@@ -181,6 +197,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/expenses/$uid': typeof ExpensesUidRouteWithChildren
   '/expenses/': typeof ExpensesIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/expenses/new/': typeof ExpensesNewIndexRoute
@@ -194,6 +211,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/expenses/$uid'
     | '/expenses'
     | '/settings'
     | '/expenses/new'
@@ -204,6 +222,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/expenses/$uid'
     | '/expenses'
     | '/settings'
     | '/expenses/new'
@@ -214,6 +233,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/expenses/$uid'
     | '/expenses/'
     | '/settings/'
     | '/expenses/new/'
@@ -226,6 +246,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ExpensesUidRoute: typeof ExpensesUidRouteWithChildren
   ExpensesIndexRoute: typeof ExpensesIndexRoute
   SettingsIndexRoute: typeof SettingsIndexRoute
   ExpensesNewIndexRoute: typeof ExpensesNewIndexRoute
@@ -235,6 +256,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ExpensesUidRoute: ExpensesUidRouteWithChildren,
   ExpensesIndexRoute: ExpensesIndexRoute,
   SettingsIndexRoute: SettingsIndexRoute,
   ExpensesNewIndexRoute: ExpensesNewIndexRoute,
@@ -254,6 +276,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/expenses/$uid",
         "/expenses/",
         "/settings/",
         "/expenses/new/",
@@ -263,6 +286,13 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/expenses/$uid": {
+      "filePath": "expenses.$uid.tsx",
+      "children": [
+        "/expenses/$uid/categories/",
+        "/expenses/$uid/categories/$category_uid/"
+      ]
     },
     "/expenses/": {
       "filePath": "expenses.index.tsx"

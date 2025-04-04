@@ -23,7 +23,7 @@ interface SocialAuthProps {
   onClick?: () => void;
 }
 
-export function SocialAuth({ service, onClick }: SocialAuthProps) {
+export default function SocialAuth({ service, onClick }: SocialAuthProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const isProcessingCallback = useRef(false);

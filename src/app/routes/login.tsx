@@ -18,11 +18,14 @@ function RouteComponent() {
       <div className='flex flex-col items-center my-8'>
         <p className='text-[13px] text-[#555]'>
           회원가입 시{' '}
-          <Link to='/about/agreements/terms.html'>서비스 이용약관</Link>과
+          {/* <Link to='/about/agreements/terms.html' className='underline'> */}
+          서비스 이용약관
+          {/* </Link> */}과
         </p>
         <p className='text-[13px] text-[#555]'>
-          <Link to='/about/agreements/privacy.html'>개인정보 수집 및 이용</Link>
-          에 동의하게 됩니다.
+          {/* <Link to='/about/agreements/privacy.html' className='underline'> */}
+          개인정보 수집 및 이용
+          {/* </Link> */}에 동의하게 됩니다.
         </p>
       </div>
     </Layout>

@@ -1,4 +1,4 @@
-import { fireEvent, getByLabelText, render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
 
 import SelectMonthDrawer, { SelectMonthDrawerProps } from './SelectMonthDrawer';

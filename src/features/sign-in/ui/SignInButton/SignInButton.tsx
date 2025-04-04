@@ -28,7 +28,7 @@ export default function SocialAuth({ service, onClick }: SocialAuthProps) {
   const [error, setError] = useState<string | null>(null);
   const isProcessingCallback = useRef(false);
 
-  const apiHost = import.meta.env.VITE_API_HOST as string;
+  const apiHost = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const url = new URL(window.location.href);

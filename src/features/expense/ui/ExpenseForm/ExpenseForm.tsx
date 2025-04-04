@@ -11,9 +11,11 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form';
+import { Category } from '@/features/category/model/types/Category';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import {
   useAddExpense,
+  useNewExpense,
   useUpdateExpense,
 } from '@/features/expense/api/useExpenseQuery';
 import { EXPENSE_MEMO_MAX_LEN } from '@/features/expense/consts';
@@ -47,6 +49,11 @@ export interface ExpenseFormProps {
 const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
   const updateExpense = useUpdateExpense();
   const addExpense = useAddExpense();
+  const { updateNewExpense } = useNewExpense();
+
+  if (expense) {
+    updateNewExpense(expense);
+  }
 
   const form = useForm<Omit<Expense, 'uid'>>({
     defaultValues:

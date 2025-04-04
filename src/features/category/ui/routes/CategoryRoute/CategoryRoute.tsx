@@ -1,6 +1,7 @@
-import { useParams, useRouter } from '@tanstack/react-router';
+import { useParams } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { isErrored } from 'stream';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -30,11 +31,14 @@ const CategoryRoute: React.FC = () => {
 
   const { category_uid } = useParams({ strict: false });
 
-  const uid = category_uid!;
-  const { category, error } = useCategoryByUid(uid);
+  if (category_uid === undefined) {
+    throw new Error('failed to get category_uid on useParams');
+  }
 
-  if (category === undefined || error) {
-    // handle Error when category_uid is not found
+  const { category, isError, error } = useCategoryByUid(category_uid);
+
+  if (isError) {
+    throw error ?? new Error('error on useCategoryByUid');
   }
 
   const form = useForm<{ categoryName: string }>({

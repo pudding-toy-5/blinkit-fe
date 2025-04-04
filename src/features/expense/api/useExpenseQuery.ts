@@ -59,11 +59,11 @@ const useExpenseByUid = (uid: string) => {
   });
 };
 
-const useAddExpense = (expense: Omit<Expense, 'uid'>) => {
+const useAddExpense = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (expense: Omit<Expense, 'uid'>) => {
       try {
         const res = await axios.post(
           baseUrl,
@@ -92,11 +92,11 @@ const useAddExpense = (expense: Omit<Expense, 'uid'>) => {
   });
 };
 
-const useUpdateExpense = (expense: Partial<Expense>) => {
+const useUpdateExpense = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (expense: Partial<Expense>) => {
       try {
         if (expense.uid === undefined) {
           throw new Error('UpdateExpense - uid undefined');

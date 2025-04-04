@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 
 import SignInButton from '@/features/sign-in/ui/SignInButton';
 import Layout from '@/shared/ui/layout/Layout';
@@ -10,7 +10,6 @@ export const Route = createFileRoute('/login')({
 function RouteComponent() {
   return (
     <Layout>
-      <div></div>
       <div className='flex flex-col gap-3 w-full px-5 mt-auto'>
         <SignInButton service='google' />
         <SignInButton service='naver' />

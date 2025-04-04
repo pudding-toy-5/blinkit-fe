@@ -1,4 +1,4 @@
-import { getByRole, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { describe, it } from 'vitest';
 
 import { Expense } from '@/features/expense/model/types/Expense';

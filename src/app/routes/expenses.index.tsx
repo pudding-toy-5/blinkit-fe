@@ -50,8 +50,10 @@ export function ExpensesPage() {
       {!isCollapsed && (
         <header className='flex flex-row items-center px-5 py-4'>
           <Logo />
-          <Button variant='ghost' className='ml-auto size-6'>
-            <Setting size={24} />
+          <Button variant='ghost' className='ml-auto size-6' asChild>
+            <Link to='/settings'>
+              <Setting size={24} />
+            </Link>
           </Button>
         </header>
       )}

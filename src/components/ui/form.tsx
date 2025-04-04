@@ -166,5 +166,6 @@ export {
   FormItem,
   FormLabel,
   FormMessage,
-  useFormField,
 };
+
+export type { useFormField };

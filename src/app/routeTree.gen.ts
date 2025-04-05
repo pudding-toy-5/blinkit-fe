@@ -12,7 +12,6 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
-import { Route as IndexImport } from './routes/index'
 import { Route as SettingsIndexImport } from './routes/settings.index'
 import { Route as ExpensesIndexImport } from './routes/expenses.index'
 import { Route as ExpensesUidImport } from './routes/expenses.$uid'
@@ -28,12 +27,6 @@ import { Route as ExpensesUidCategoriesCategoryuidIndexImport } from './routes/e
 const LoginRoute = LoginImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -101,13 +94,6 @@ const ExpensesUidCategoriesCategoryuidIndexRoute =
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -199,7 +185,6 @@ const ExpensesUidRouteWithChildren = ExpensesUidRoute._addFileChildren(
 )
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/account/settings': typeof AccountSettingsRoute
   '/expenses/$uid': typeof ExpensesUidRouteWithChildren
@@ -213,7 +198,6 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/account/settings': typeof AccountSettingsRoute
   '/expenses/$uid': typeof ExpensesUidRouteWithChildren
@@ -228,7 +212,6 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/account/settings': typeof AccountSettingsRoute
   '/expenses/$uid': typeof ExpensesUidRouteWithChildren
@@ -244,7 +227,6 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/login'
     | '/account/settings'
     | '/expenses/$uid'
@@ -257,7 +239,6 @@ export interface FileRouteTypes {
     | '/expenses/new/categories/$category_uid'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/login'
     | '/account/settings'
     | '/expenses/$uid'
@@ -270,7 +251,6 @@ export interface FileRouteTypes {
     | '/expenses/new/categories/$category_uid'
   id:
     | '__root__'
-    | '/'
     | '/login'
     | '/account/settings'
     | '/expenses/$uid'
@@ -285,7 +265,6 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
   AccountSettingsRoute: typeof AccountSettingsRoute
   ExpensesUidRoute: typeof ExpensesUidRouteWithChildren
@@ -297,7 +276,6 @@ export interface RootRouteChildren {
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
   AccountSettingsRoute: AccountSettingsRoute,
   ExpensesUidRoute: ExpensesUidRouteWithChildren,
@@ -319,7 +297,6 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
         "/login",
         "/account/settings",
         "/expenses/$uid",
@@ -329,9 +306,6 @@ export const routeTree = rootRoute
         "/expenses/new/categories/",
         "/expenses/new/categories/$category_uid/"
       ]
-    },
-    "/": {
-      "filePath": "index.tsx"
     },
     "/login": {
       "filePath": "login.tsx"

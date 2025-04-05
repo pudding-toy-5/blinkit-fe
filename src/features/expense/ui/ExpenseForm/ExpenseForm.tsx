@@ -57,12 +57,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
   }, [expense, updateNewExpense]);
 
   const form = useForm<Omit<Expense, 'uid'>>({
-    defaultValues: {
-      date: new Date(),
-      categories: expense.categories,
-      memo: '',
-      amount: 0,
-    },
+    defaultValues: { ...expense },
   });
 
   const handleOnSubmit = (values: Omit<Expense, 'uid'>) => {

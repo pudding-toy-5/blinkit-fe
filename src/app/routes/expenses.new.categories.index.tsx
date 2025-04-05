@@ -70,7 +70,7 @@ export function NewCategoriesRoute() {
     setValues([...values, clickedCategory.name]);
   };
 
-  const onClickSubmit = () => {
+  const handleSubmit = () => {
     const selectedCategories =
       categories?.filter((category) => values.includes(category.name)) ?? [];
 
@@ -126,7 +126,7 @@ export function NewCategoriesRoute() {
         )}
         <Button
           className='h-13 rounded-full text-[15px] mt-auto'
-          onClick={onClickSubmit}
+          onClick={handleSubmit}
         >
           완료
         </Button>

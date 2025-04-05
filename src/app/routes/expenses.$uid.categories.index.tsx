@@ -75,10 +75,11 @@ export function ExpenseUidCategoriesRoute() {
     setValues([...values, clickedCategory.name]);
   };
 
-  const onClickSubmit = () => {
+  const handleSubmit = () => {
     const selectedCategories =
       categories?.filter((category) => values.includes(category.name)) ?? [];
 
+    console.log(selectedCategories);
     updateExpense.mutate({ ...expense, categories: selectedCategories });
     void navigate({ to: '/expenses/' + uid });
   };
@@ -131,7 +132,7 @@ export function ExpenseUidCategoriesRoute() {
         )}
         <Button
           className='h-13 rounded-full text-[15px] mt-auto'
-          onClick={onClickSubmit}
+          onClick={handleSubmit}
         >
           완료
         </Button>

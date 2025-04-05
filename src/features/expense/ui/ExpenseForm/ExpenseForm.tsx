@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
@@ -42,38 +42,37 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
 };
 
 export interface ExpenseFormProps {
-  expense?: Expense;
+  uid?: string;
+  expense: Omit<Expense, 'uid'>;
 }
 
-const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
+const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
+  const navigate = useNavigate();
   const updateExpense = useUpdateExpense();
   const addExpense = useAddExpense();
   const { updateNewExpense } = useNewExpense();
 
   React.useEffect(() => {
-    if (expense) {
-      updateNewExpense(expense);
-    }
+    updateNewExpense(expense);
   }, [expense, updateNewExpense]);
 
   const form = useForm<Omit<Expense, 'uid'>>({
-    defaultValues:
-      expense !== undefined
-        ? { ...expense }
-        : {
-            date: new Date(),
-            categories: [],
-            memo: '',
-            amount: 0,
-          },
+    defaultValues: {
+      date: new Date(),
+      categories: expense.categories,
+      memo: '',
+      amount: 0,
+    },
   });
 
   const handleOnSubmit = (values: Omit<Expense, 'uid'>) => {
-    if (expense) {
-      updateExpense.mutate({ uid: expense.uid, ...values });
+    if (uid) {
+      updateExpense.mutate({ uid: uid, ...values });
     } else {
       addExpense.mutate({ ...values });
     }
+
+    void navigate({ to: '/expenses' });
   };
 
   return (
@@ -151,7 +150,16 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
                   className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'
                   asChild
                 >
-                  <Link to='/expenses/new/categories'>설정</Link>
+                  <Link
+                    to={
+                      uid
+                        ? '/expenses/$uid/categories'
+                        : '/expenses/new/categories'
+                    }
+                    params={{ uid }}
+                  >
+                    설정
+                  </Link>
                 </Button>
               </div>
               <div className='flex flex-row gap-2 flex-wrap'>
@@ -189,7 +197,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
           type='submit'
           className='h-13 text-[15px] font-semibold mt-auto mb-5 rounded-full'
         >
-          {expense ? '저장' : '추가'}
+          {uid ? '저장' : '추가'}
         </Button>
       </form>
     </Form>

@@ -10,7 +10,7 @@ import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
 
 export const useMe = () => {
-  return useQuery<User>({
+  return useQuery<Partial<User>>({
     queryKey: ['me'],
     queryFn: async () => {
       try {

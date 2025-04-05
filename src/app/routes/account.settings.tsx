@@ -1,7 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 import React from 'react';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
+import { useMe, useUpdateMe } from '@/features/auth/api/useAuth';
 import LabeledTextInput from '@/shared/ui/LabeledTextInput';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
@@ -11,17 +13,48 @@ export const Route = createFileRoute('/account/settings')({
 });
 
 function RouteComponent() {
-  const [name, useName] = React.useState<string>('');
+  const updateMe = useUpdateMe();
+  const { data, isLoading, isError, error } = useMe();
+
+  const [nickname, setNickname] = React.useState<string>('');
   const [email, setEmail] = React.useState<string>('');
 
-  React.useEffect(() => {});
+  if (isError) {
+    throw error;
+  }
+
+  React.useEffect(() => {
+    if (data !== undefined) {
+      setNickname(data.nickname);
+      setEmail(data.email);
+    }
+  }, [data]);
+
+  const onSubmit = () => {
+    if (nickname.length === 0) {
+      toast.error('닉네임은 최소 1글자 이상이어야 해요.');
+      return;
+    }
+
+    if (nickname.length > 20) {
+      toast.error('닉네임은 최대 20자까지만 입력 가능해요.');
+      return;
+    }
+
+    updateMe.mutate({ ...data, nickname });
+  };
 
   return (
-    <Layout>
+    <Layout guarded>
       <SubPageHeader title='회원정보' back />
-      <LabeledTextInput />
-      <LabeledTextInput />
-      <Button />
+      <LabeledTextInput
+        id='nickname'
+        label='닉네임'
+        value={nickname}
+        onChange={setNickname}
+      />
+      <LabeledTextInput id='email' label='이메일' value={email} />
+      <Button onClick={onSubmit} />
     </Layout>
   );
 }

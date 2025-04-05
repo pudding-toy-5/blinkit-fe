@@ -25,28 +25,32 @@ import SubPageHeader from '@/shared/ui/SubPageHeader';
 import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
 
 const CategoryRoute: React.FC = () => {
-  const updateCategory = useUpdateCategory();
-  const deleteCategory = useDeleteCategory();
-
   const { category_uid } = useParams({ strict: false });
 
   if (category_uid === undefined) {
     throw new Error('failed to get category_uid on useParams');
   }
 
+  const updateCategory = useUpdateCategory();
+  const deleteCategory = useDeleteCategory();
+
   const uid = category_uid;
   const { category, isError, error } = useCategoryByUid(uid);
 
   if (isError) {
-    throw error ?? new Error('error on useCategoryByUid');
+    if (error) {
+      throw error;
+    }
+    throw new Error('failed on useCategoryByUid in CategoryRoute');
   }
 
   const form = useForm<{ categoryName: string }>({
-    // defaultValues: { categoryName: category.name },
-    defaultValues: {
-      categoryName: category !== undefined ? category.name : '',
-    },
+    defaultValues: { categoryName: '' },
   });
+
+  React.useEffect(() => {
+    form.reset({ categoryName: category?.name });
+  }, [category]);
 
   const onSubmit = (values: { categoryName: string }) => {
     updateCategory.mutate({ uid, name: values.categoryName });

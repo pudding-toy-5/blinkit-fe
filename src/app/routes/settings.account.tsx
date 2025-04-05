@@ -25,7 +25,7 @@ function RouteComponent() {
 
   React.useEffect(() => {
     if (data?.nickname !== undefined && data.email !== undefined) {
-      setNickname(data.nickname);
+      setNickname(data.nickname ?? '');
       setEmail(data.email);
     }
   }, [data]);
@@ -43,9 +43,9 @@ function RouteComponent() {
 
     if (
       data?.uid !== undefined &&
-      data.email &&
-      data.isStaff &&
-      data.isSuperuser
+      data.email
+      // &&data.isStaff !== undefined &&
+      // data.isSuperuser !== undefined
     ) {
       updateMe.mutate(
         { ...data, nickname },
@@ -71,6 +71,7 @@ function RouteComponent() {
         label='닉네임'
         value={nickname}
         onChange={setNickname}
+        maxLength={20}
       />
       <LabeledTextInput
         id='email'

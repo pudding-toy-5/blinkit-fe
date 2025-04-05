@@ -1,6 +1,7 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 
 import { Button } from '@/components/ui/button';
+import { TOKEN_KEY } from '@/constants';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
@@ -12,6 +13,7 @@ export const Route = createFileRoute('/settings/')({
 interface SettingItem {
   text: string;
   to?: string;
+  onClick?: () => void;
 }
 
 interface SettingGroup {
@@ -20,6 +22,7 @@ interface SettingGroup {
 }
 
 function RouteComponent() {
+  const navigate = useNavigate();
   const settingGroups: SettingGroup[] = [
     {
       text: '계정 정보',
@@ -48,6 +51,10 @@ function RouteComponent() {
       settingItems: [
         {
           text: '로그아웃',
+          onClick: () => {
+            localStorage.removeItem(TOKEN_KEY);
+            void navigate({ to: '/login' });
+          },
         },
       ],
     },
@@ -63,10 +70,14 @@ function RouteComponent() {
               {settingGroup.text}
             </p>
             <ul className='flex flex-col gap-2 list-none'>
-              {settingGroup.settingItems.map(({ text, to }) => (
-                <li className='flex flex-row items-center py-[9px]' key={text}>
+              {settingGroup.settingItems.map(({ text, to, onClick }) => (
+                <li
+                  className='flex flex-row items-center py-[9px]'
+                  key={text}
+                  onClick={onClick}
+                >
                   <p className='text-[15px] text-[#222]'>{text}</p>
-                  {to && (
+                  {to && !onClick && (
                     <Button
                       variant='ghost'
                       className='w-4 h-4 ml-auto p-0 has-[>svg]:p-0 rounded-none'

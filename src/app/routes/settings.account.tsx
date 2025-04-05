@@ -41,7 +41,19 @@ function RouteComponent() {
       return;
     }
 
-    updateMe.mutate({ ...data, nickname });
+    updateMe.mutate(
+      { ...data, nickname },
+      {
+        onSuccess: () => {
+          toast.success('회원정보를 성공적으로 업데이트했습니다.');
+        },
+        onError: (error) => {
+          toast.error(
+            '회원정보 업데이트 중 오류가 발생했습니다. ' + error.message
+          );
+        },
+      }
+    );
   };
 
   return (

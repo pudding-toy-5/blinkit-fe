@@ -38,6 +38,24 @@ export function NewCategoriesRoute() {
     throw error;
   }
 
+  const handleSetValues = (newValues: string[]) => {
+    if (categories === undefined) {
+      setValues(newValues);
+      return;
+    }
+
+    const notAddedValues = newValues.filter(
+      (value) => !categories.some((c) => c.name === value)
+    );
+    console.log(notAddedValues);
+
+    notAddedValues.forEach((notAddedValue) => {
+      addCategory.mutate({ name: notAddedValue });
+    });
+
+    setValues(newValues);
+  };
+
   const onClickCategory = (clickedCategory: Category) => {
     if (values.length >= 3) {
       toast.error('카테고리는 최대 3개까지 선택할 수 있어요.');
@@ -65,7 +83,7 @@ export function NewCategoriesRoute() {
       <div className='mt-6 px-5'>
         <InputCategoryTags
           value={values}
-          onChange={setValues}
+          onChange={handleSetValues}
           placeholder='카테고리명을 입력해주세요. (예: 카페)'
         />
       </div>

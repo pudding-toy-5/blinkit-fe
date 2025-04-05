@@ -6,12 +6,14 @@ import { cn } from '@/shared/ui/styles/utils';
 export interface CategoryTagProps {
   tagName: string;
   size?: 'small' | 'medium' | 'large';
+  onClick?: () => void;
   onDelete?: () => void;
 }
 
 const CategoryTag: React.FC<CategoryTagProps> = ({
   tagName,
   size,
+  onClick,
   onDelete,
 }) => {
   return (
@@ -24,6 +26,11 @@ const CategoryTag: React.FC<CategoryTagProps> = ({
         size === 'large' && 'px-4 py-3'
       )}
       aria-label={`카테고리: ${tagName}`}
+      onClick={() => {
+        if (onDelete === undefined && onClick) {
+          onClick();
+        }
+      }}
     >
       {tagName}
       {onDelete && (

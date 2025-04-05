@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import SignInButton from '@/features/sign-in/ui/SignInButton';
+import SignInButton from '@/features/auth/ui/SignInButton';
 import Layout from '@/shared/ui/layout/Layout';
 
 export const Route = createFileRoute('/login')({

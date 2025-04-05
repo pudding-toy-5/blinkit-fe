@@ -21,30 +21,14 @@ export const Route = createFileRoute('/expenses/new/categories/')({
 });
 
 export function NewCategoriesRoute() {
-  const { updateNewExpenseCategories } = useNewExpense();
   const addCategory = useAddCategory();
+
+  const { newExpense, updateNewExpenseCategories } = useNewExpense();
   const { categories, isLoading, isError, error } = useCategories();
-  const [values, setValues] = React.useState<string[]>([]);
 
-  React.useEffect(() => {
-    if (categories === undefined) {
-      return;
-    }
-
-    updateNewExpenseCategories(
-      categories.filter((category) =>
-        values.some((value) => value === category.name)
-      )
-    );
-
-    const notAddedValues = values.filter((value) =>
-      categories.some((category) => category.name !== value)
-    );
-
-    notAddedValues.forEach((value) => {
-      addCategory.mutate({ name: value });
-    });
-  }, [values, categories, addCategory, updateNewExpenseCategories]);
+  const [values, setValues] = React.useState<string[]>(
+    newExpense.categories.map((category) => category.name)
+  );
 
   if (isLoading) {
     return <>Loading</>;

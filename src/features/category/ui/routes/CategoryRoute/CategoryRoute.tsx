@@ -137,6 +137,7 @@ const CategoryRoute: React.FC = () => {
             <Button
               type='submit'
               className='flex-1 rounded-full h-13 text-[15px] text-white bg-[#222] hover:bg-[#222]/80'
+              disabled={category?.name === form.getValues().categoryName}
             >
               저장
             </Button>

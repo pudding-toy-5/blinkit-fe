@@ -55,7 +55,7 @@ const CategoryRoute: React.FC = () => {
 
   React.useEffect(() => {
     form.reset({ categoryName: category?.name });
-  }, [category]);
+  }, [category, form]);
 
   const onChangeInput = (newValue: string) => {
     if (newValue === category?.name) {

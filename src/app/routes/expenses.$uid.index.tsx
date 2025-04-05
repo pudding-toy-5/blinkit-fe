@@ -5,13 +5,12 @@ import ExpenseForm from '@/features/expense/ui/ExpenseForm';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
-export const Route = createFileRoute('/expenses/$uid')({
+export const Route = createFileRoute('/expenses/$uid/')({
   component: RouteComponent,
-  notFoundComponent: () => <p>expense with id not found</p>,
 });
 
 export function RouteComponent() {
-  const { uid } = Route.useParams();
+  const { uid }: { uid: string } = Route.useParams();
   const { data: expense, isLoading, isError, error } = useExpenseByUid(uid);
 
   if (isLoading) {
@@ -36,7 +35,7 @@ export function RouteComponent() {
   return (
     <Layout guarded>
       <SubPageHeader title='지출 내역 수정' back />
-      <ExpenseForm expense={expense} />
+      <ExpenseForm uid={uid} expense={expense} />
     </Layout>
   );
 }

@@ -34,7 +34,8 @@ export const useUpdateMe = () => {
   return useMutation({
     mutationFn: async (user: Partial<User>): Promise<User> => {
       try {
-        if (user.uid !== undefined) {
+        if (user.uid === undefined) {
+          console.error(user);
           throw new Error('useUpdateMe - uid undefined');
         }
         const res = await userAxios.patch(

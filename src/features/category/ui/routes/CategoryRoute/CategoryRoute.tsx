@@ -76,7 +76,7 @@ const CategoryRoute: React.FC = () => {
   };
 
   return (
-    <Layout>
+    <Layout guarded>
       <SubPageHeader title='카테고리명 편집' close />
       <Form {...form}>
         <form

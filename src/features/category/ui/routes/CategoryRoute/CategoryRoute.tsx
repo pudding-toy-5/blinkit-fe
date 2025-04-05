@@ -47,6 +47,8 @@ const CategoryRoute: React.FC = () => {
     throw new Error('failed on useCategoryByUid in CategoryRoute');
   }
 
+  const [disabled, setDisabled] = React.useState<boolean>(true);
+
   const form = useForm<{ categoryName: string }>({
     defaultValues: { categoryName: '' },
   });
@@ -54,6 +56,14 @@ const CategoryRoute: React.FC = () => {
   React.useEffect(() => {
     form.reset({ categoryName: category?.name });
   }, [category]);
+
+  const onChangeInput = (newValue: string) => {
+    if (newValue === category?.name) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  };
 
   const onSubmit = (values: { categoryName: string }) => {
     if (values.categoryName.length === 0) {
@@ -93,6 +103,7 @@ const CategoryRoute: React.FC = () => {
                   <UnderlinedTextInput
                     value={field.value}
                     onChange={(newValue) => {
+                      onChangeInput(newValue);
                       field.onChange(newValue);
                     }}
                     placeholder='카테고리명을 입력하세요.'
@@ -141,7 +152,7 @@ const CategoryRoute: React.FC = () => {
             <Button
               type='submit'
               className='flex-1 rounded-full h-13 text-[15px] text-white bg-[#222] hover:bg-[#222]/80'
-              disabled={category?.name === form.getValues().categoryName}
+              disabled={disabled}
             >
               저장
             </Button>

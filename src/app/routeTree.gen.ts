@@ -108,18 +108,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/account/settings': {
-      id: '/account/settings'
-      path: '/account/settings'
-      fullPath: '/account/settings'
-      preLoaderRoute: typeof AccountSettingsImport
-      parentRoute: typeof rootRoute
-    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/account/settings': {
+      id: '/account/settings'
+      path: '/account/settings'
+      fullPath: '/account/settings'
+      preLoaderRoute: typeof AccountSettingsImport
       parentRoute: typeof rootRoute
     }
     '/expenses/$uid': {
@@ -200,8 +200,8 @@ const ExpensesUidRouteWithChildren = ExpensesUidRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/account/settings': typeof AccountSettingsRoute
   '/login': typeof LoginRoute
+  '/account/settings': typeof AccountSettingsRoute
   '/expenses/$uid': typeof ExpensesUidRouteWithChildren
   '/expenses': typeof ExpensesIndexRoute
   '/settings': typeof SettingsIndexRoute
@@ -214,8 +214,8 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/account/settings': typeof AccountSettingsRoute
   '/login': typeof LoginRoute
+  '/account/settings': typeof AccountSettingsRoute
   '/expenses/$uid': typeof ExpensesUidRouteWithChildren
   '/expenses': typeof ExpensesIndexRoute
   '/settings': typeof SettingsIndexRoute
@@ -229,8 +229,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/account/settings': typeof AccountSettingsRoute
   '/login': typeof LoginRoute
+  '/account/settings': typeof AccountSettingsRoute
   '/expenses/$uid': typeof ExpensesUidRouteWithChildren
   '/expenses/': typeof ExpensesIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -245,8 +245,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/account/settings'
     | '/login'
+    | '/account/settings'
     | '/expenses/$uid'
     | '/expenses'
     | '/settings'
@@ -258,8 +258,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/account/settings'
     | '/login'
+    | '/account/settings'
     | '/expenses/$uid'
     | '/expenses'
     | '/settings'
@@ -271,8 +271,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/account/settings'
     | '/login'
+    | '/account/settings'
     | '/expenses/$uid'
     | '/expenses/'
     | '/settings/'
@@ -286,8 +286,8 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AccountSettingsRoute: typeof AccountSettingsRoute
   LoginRoute: typeof LoginRoute
+  AccountSettingsRoute: typeof AccountSettingsRoute
   ExpensesUidRoute: typeof ExpensesUidRouteWithChildren
   ExpensesIndexRoute: typeof ExpensesIndexRoute
   SettingsIndexRoute: typeof SettingsIndexRoute
@@ -298,8 +298,8 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AccountSettingsRoute: AccountSettingsRoute,
   LoginRoute: LoginRoute,
+  AccountSettingsRoute: AccountSettingsRoute,
   ExpensesUidRoute: ExpensesUidRouteWithChildren,
   ExpensesIndexRoute: ExpensesIndexRoute,
   SettingsIndexRoute: SettingsIndexRoute,
@@ -320,8 +320,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/account/settings",
         "/login",
+        "/account/settings",
         "/expenses/$uid",
         "/expenses/",
         "/settings/",
@@ -333,11 +333,11 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.tsx"
     },
-    "/account/settings": {
-      "filePath": "account.settings.tsx"
-    },
     "/login": {
       "filePath": "login.tsx"
+    },
+    "/account/settings": {
+      "filePath": "account.settings.tsx"
     },
     "/expenses/$uid": {
       "filePath": "expenses.$uid.tsx",

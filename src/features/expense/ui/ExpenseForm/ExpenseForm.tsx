@@ -65,6 +65,13 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
     defaultValues: { ...expense },
   });
 
+  React.useEffect(() => {
+    form.setValue('date', expense.date);
+    form.setValue('memo', expense.memo);
+    form.setValue('categories', expense.categories);
+    form.setValue('amount', expense.amount);
+  }, [form, expense]);
+
   const handleOnSubmit = (values: Omit<Expense, 'uid'>) => {
     if (uid) {
       updateExpense.mutate({ uid: uid, ...values });
@@ -110,13 +117,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                         return;
                       }
 
-                      if (uid) {
-                        updateExpense.mutate({
-                          ...expense,
-                          uid,
-                          date: newDate,
-                        });
-                      } else {
+                      if (!uid) {
                         updateNewExpenseDate(newDate);
                       }
                       field.onChange(newDate);
@@ -141,9 +142,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                   value={field.value}
                   onChange={(e) => {
                     if (e.length <= EXPENSE_MEMO_MAX_LEN) {
-                      if (uid) {
-                        updateExpense.mutate({ ...expense, uid, memo: e });
-                      } else {
+                      if (!uid) {
                         updateNewExpenseMemo(e);
                       }
                       field.onChange(e);
@@ -210,13 +209,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                       return;
                     }
 
-                    if (uid) {
-                      updateExpense.mutate({
-                        ...expense,
-                        uid,
-                        amount: value,
-                      });
-                    } else {
+                    if (!uid) {
                       updateNewExpenseAmount(value);
                     }
 

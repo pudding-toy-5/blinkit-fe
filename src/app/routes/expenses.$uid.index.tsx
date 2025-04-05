@@ -6,12 +6,11 @@ import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/expenses/$uid/')({
-  loader: ({ params: { uid } }) => uid,
   component: RouteComponent,
 });
 
 export function RouteComponent() {
-  const { uid } = Route.useParams();
+  const { uid }: { uid: string } = Route.useParams();
   const { data: expense, isLoading, isError, error } = useExpenseByUid(uid);
 
   if (isLoading) {

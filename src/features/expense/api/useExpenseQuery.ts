@@ -54,7 +54,7 @@ const useExpenseByUid = (uid: string) => {
     queryKey: [...queryKeys.expenses, uid],
     queryFn: async () => {
       try {
-        const res = await userAxios.get(`${baseUrl}/${uid}`);
+        const res = await userAxios.get(`${baseUrl}${uid}`);
 
         const serverExpense = res.data as ServerExpense;
         return convertServerExpenseToExpense(serverExpense);

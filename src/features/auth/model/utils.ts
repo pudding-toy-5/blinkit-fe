@@ -1,6 +1,6 @@
 import { ServerUser, User } from './User';
 
-export const convertUserToServerUser = (user: User): ServerUser => {
+export const convertUserToServerUser = (user: Partial<User>): ServerUser => {
   const {
     uid,
     email,
@@ -14,15 +14,15 @@ export const convertUserToServerUser = (user: User): ServerUser => {
   } = user;
 
   return {
-    uid,
-    email,
-    first_name: firstName,
-    last_name: lastName,
-    nickname,
-    is_staff: isStaff.toString(),
-    is_superuser: isSuperuser.toString(),
-    joined_at: joinedAt.toISOString(),
-    left_at: leftAt.toISOString(),
+    uid: uid ?? '',
+    email: email ?? '',
+    first_name: firstName ?? '',
+    last_name: lastName ?? '',
+    nickname: nickname ?? '',
+    is_staff: String(isStaff),
+    is_superuser: String(isSuperuser),
+    joined_at: joinedAt ? joinedAt.toISOString() : '',
+    left_at: leftAt ? leftAt.toISOString() : '',
   };
 };
 

@@ -32,7 +32,7 @@ export const useUpdateMe = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (user: Partial<User>): Promise<User> => {
+    mutationFn: async (user: Partial<User>): Promise<Partial<User>> => {
       try {
         if (user.uid === undefined) {
           console.error(user);

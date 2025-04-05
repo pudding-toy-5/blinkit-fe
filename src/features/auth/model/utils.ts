@@ -26,7 +26,9 @@ export const convertUserToServerUser = (user: Partial<User>): ServerUser => {
   };
 };
 
-export const convertServerUserToUser = (serverUser: ServerUser): User => {
+export const convertServerUserToUser = (
+  serverUser: ServerUser
+): Partial<User> => {
   const {
     uid,
     email,
@@ -40,13 +42,13 @@ export const convertServerUserToUser = (serverUser: ServerUser): User => {
   } = serverUser;
 
   return {
-    uid,
-    email,
+    uid, // required on update
+    email, // required on update
     firstName: first_name,
     lastName: last_name,
     nickname,
-    isStaff: is_staff === 'true',
-    isSuperuser: is_superuser === 'true',
+    isStaff: is_staff === 'true', // required on update
+    isSuperuser: is_superuser === 'true', // required on update
     joinedAt: new Date(joined_at),
     leftAt: new Date(left_at),
   };

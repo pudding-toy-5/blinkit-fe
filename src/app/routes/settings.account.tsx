@@ -8,7 +8,7 @@ import LabeledTextInput from '@/shared/ui/LabeledTextInput';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
-export const Route = createFileRoute('/account/settings')({
+export const Route = createFileRoute('/settings/account')({
   component: RouteComponent,
 });
 

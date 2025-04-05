@@ -53,8 +53,13 @@ function RouteComponent() {
         value={nickname}
         onChange={setNickname}
       />
-      <LabeledTextInput id='email' label='이메일' value={email} />
-      <Button onClick={onSubmit} />
+      <LabeledTextInput
+        id='email'
+        label='이메일'
+        value={email}
+        state='disabled'
+      />
+      <Button onClick={onSubmit}>저장</Button>
     </Layout>
   );
 }

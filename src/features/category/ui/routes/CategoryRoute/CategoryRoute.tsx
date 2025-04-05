@@ -58,10 +58,14 @@ const CategoryRoute: React.FC = () => {
   const onSubmit = (values: { categoryName: string }) => {
     if (values.categoryName.length === 0) {
       toast.error('카테고리는 최소 한 글자 이상 입력해야 합니다.');
+      return;
     }
 
-    if (categories?.find((c) => c.name === values.categoryName)) {
+    if (
+      categories?.find((c) => c.name === values.categoryName && c.uid !== uid)
+    ) {
       toast.error('동일한 카테고리 이름이 존재합니다.');
+      return;
     }
 
     updateCategory.mutate({ uid, name: values.categoryName });

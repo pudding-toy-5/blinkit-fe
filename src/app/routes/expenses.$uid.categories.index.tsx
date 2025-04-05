@@ -29,14 +29,14 @@ export function ExpenseUidCategoriesRoute() {
 
   const addCategory = useAddCategory();
   const updateExpense = useUpdateExpense();
-  const { data: expense } = useExpenseByUid(uid);
+  const { data: expense, isLoading: isExpenseLoading } = useExpenseByUid(uid);
   const { categories, isLoading, isError, error } = useCategories();
 
   const [values, setValues] = React.useState<string[]>(
     expense ? expense.categories.map((category) => category.name) : []
   );
 
-  if (isLoading) {
+  if (isLoading || isExpenseLoading) {
     return <>Loading</>;
   }
 
@@ -81,7 +81,7 @@ export function ExpenseUidCategoriesRoute() {
 
     console.log(selectedCategories);
     updateExpense.mutate({ ...expense, categories: selectedCategories });
-    void navigate({ to: '/expenses/' + uid });
+    void navigate({ to: `/expenses/${uid}` });
   };
 
   return (

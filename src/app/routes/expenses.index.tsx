@@ -3,8 +3,8 @@ import React from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
-  useDailyExpenses,
-  useTotalAmount,
+  useDailyExpensesByPeriod,
+  useTotalAmountByPeriod,
 } from '@/features/expense/api/useExpenseQuery';
 import Period from '@/features/expense/model/types/Period';
 import AddExpenseButton from '@/features/expense/ui/AddExpenseButton';
@@ -42,8 +42,8 @@ export function ExpensesPage() {
   };
 
   // api hooks
-  const { dailyExpenses } = useDailyExpenses();
-  const { totalAmount } = useTotalAmount();
+  const { dailyExpenses } = useDailyExpensesByPeriod(period);
+  const { totalAmount } = useTotalAmountByPeriod(period);
 
   return (
     <Layout>

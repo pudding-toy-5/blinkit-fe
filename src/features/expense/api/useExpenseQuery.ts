@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { useMemo } from 'react';
 
 import { Category } from '@/features/category/model/types/Category';
@@ -10,22 +10,30 @@ import {
   Expense,
   ServerExpense,
 } from '@/features/expense/model/types/Expense';
+import Period from '@/features/expense/model/types/Period';
 import {
   convertExpenseToServerExpense,
   convertServerExpenseToExpense,
 } from '@/features/expense/model/types/utils';
+import userAxios from '@/shared/api/userAxios';
 
 if (!apiUrl) {
   throw new Error('API URL이 설정되지 않았습니다.');
 }
 const baseUrl = apiUrl + '/expense/expenses/';
 
-const useExpenses = () => {
+const useExpensesByPeriod = (period: Period) => {
+  const { year, month } = period;
   return useQuery<Expense[]>({
     queryKey: queryKeys.expenses,
     queryFn: async () => {
       try {
-        const res = await axios.get(baseUrl);
+        const res = await userAxios.get(baseUrl, {
+          params: {
+            year: year.toString(),
+            month: (month + 1).toString(),
+          },
+        });
         const serverExpenses = res.data as ServerExpense[];
         const expenses = serverExpenses.map((serverExpense) =>
           convertServerExpenseToExpense(serverExpense)
@@ -46,7 +54,8 @@ const useExpenseByUid = (uid: string) => {
     queryKey: [...queryKeys.expenses, uid],
     queryFn: async () => {
       try {
-        const res = await axios.get(`${baseUrl}/${uid}`);
+        const res = await userAxios.get(`${baseUrl}/${uid}`);
+
         const serverExpense = res.data as ServerExpense;
         return convertServerExpenseToExpense(serverExpense);
       } catch (error) {
@@ -65,7 +74,7 @@ const useAddExpense = () => {
   return useMutation({
     mutationFn: async (expense: Omit<Expense, 'uid'>) => {
       try {
-        const res = await axios.post(
+        const res = await userAxios.post(
           baseUrl,
           convertExpenseToServerExpense(expense)
         );
@@ -102,7 +111,7 @@ const useUpdateExpense = () => {
           throw new Error('UpdateExpense - uid undefined');
         }
 
-        const res = await axios.patch(
+        const res = await userAxios.patch(
           `${baseUrl}/${expense.uid}`,
           convertExpenseToServerExpense(expense)
         );
@@ -137,7 +146,7 @@ const useDeleteExpense = (uid: string) => {
   return useMutation({
     mutationFn: async () => {
       try {
-        await axios.delete(`${baseUrl}/${uid}`);
+        await userAxios.delete(`${baseUrl}/${uid}`);
         return uid;
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -157,8 +166,17 @@ const useDeleteExpense = (uid: string) => {
   });
 };
 
-const useDailyExpenses = () => {
-  const { data: expenses = [], isLoading, error } = useExpenses();
+const useDailyExpensesByPeriod = (period: Period) => {
+  const {
+    data: expenses = [],
+    isLoading,
+    isError,
+    error,
+  } = useExpensesByPeriod(period);
+
+  if (isError) {
+    throw new Error('Failed on useDailyExpensesByPeriod: ' + error.message);
+  }
 
   const dailyExpenses = useMemo(() => {
     const groupedByDate: Record<string, DailyExpense> = {};
@@ -182,11 +200,11 @@ const useDailyExpenses = () => {
     );
   }, [expenses]);
 
-  return { dailyExpenses, isLoading, error };
+  return { dailyExpenses, isLoading, isError, error };
 };
 
-const useTotalAmount = () => {
-  const { data: expenses = [], isLoading, error } = useExpenses();
+const useTotalAmountByPeriod = (period: Period) => {
+  const { data: expenses = [], isLoading, error } = useExpensesByPeriod(period);
 
   const totalAmount = useMemo(
     () => expenses.reduce((sum, expense) => sum + expense.amount, 0),
@@ -264,11 +282,11 @@ const useNewExpense = () => {
 
 export {
   useAddExpense,
-  useDailyExpenses,
+  useDailyExpensesByPeriod,
   useDeleteExpense,
   useExpenseByUid,
-  useExpenses,
+  useExpensesByPeriod,
   useNewExpense,
-  useTotalAmount,
+  useTotalAmountByPeriod,
   useUpdateExpense,
 };

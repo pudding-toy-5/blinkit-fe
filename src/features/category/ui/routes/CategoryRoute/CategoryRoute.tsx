@@ -1,6 +1,7 @@
 import { useParams } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -15,6 +16,7 @@ import {
 } from '@/components/ui/drawer';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import {
+  useCategories,
   useCategoryByUid,
   useDeleteCategory,
   useUpdateCategory,
@@ -25,30 +27,47 @@ import SubPageHeader from '@/shared/ui/SubPageHeader';
 import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
 
 const CategoryRoute: React.FC = () => {
-  const updateCategory = useUpdateCategory();
-  const deleteCategory = useDeleteCategory();
-
   const { category_uid } = useParams({ strict: false });
 
   if (category_uid === undefined) {
     throw new Error('failed to get category_uid on useParams');
   }
 
+  const updateCategory = useUpdateCategory();
+  const deleteCategory = useDeleteCategory();
+
+  const { categories } = useCategories();
   const uid = category_uid;
   const { category, isError, error } = useCategoryByUid(uid);
 
   if (isError) {
-    throw error ?? new Error('error on useCategoryByUid');
+    if (error) {
+      throw error;
+    }
+    throw new Error('failed on useCategoryByUid in CategoryRoute');
   }
 
   const form = useForm<{ categoryName: string }>({
-    // defaultValues: { categoryName: category.name },
-    defaultValues: {
-      categoryName: category !== undefined ? category.name : '',
-    },
+    defaultValues: { categoryName: '' },
   });
 
+  React.useEffect(() => {
+    form.reset({ categoryName: category?.name });
+  }, [category]);
+
   const onSubmit = (values: { categoryName: string }) => {
+    if (values.categoryName.length === 0) {
+      toast.error('카테고리는 최소 한 글자 이상 입력해야 합니다.');
+      return;
+    }
+
+    if (
+      categories?.find((c) => c.name === values.categoryName && c.uid !== uid)
+    ) {
+      toast.error('동일한 카테고리 이름이 존재합니다.');
+      return;
+    }
+
     updateCategory.mutate({ uid, name: values.categoryName });
   };
 
@@ -122,6 +141,7 @@ const CategoryRoute: React.FC = () => {
             <Button
               type='submit'
               className='flex-1 rounded-full h-13 text-[15px] text-white bg-[#222] hover:bg-[#222]/80'
+              disabled={category?.name === form.getValues().categoryName}
             >
               저장
             </Button>

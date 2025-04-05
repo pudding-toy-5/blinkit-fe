@@ -48,7 +48,9 @@ const CategoriesRoute: React.FC = () => {
     // addCategory
     const newCategories = filterNewCategories(inputCategories, categories);
     newCategories.forEach((newCategory) => {
-      addCategory.mutate({ name: newCategory });
+      if (!categories?.find((category) => category.name === newCategory)) {
+        addCategory.mutate({ name: newCategory });
+      }
     });
 
     // updateExpenseCategories
@@ -77,7 +79,7 @@ const CategoriesRoute: React.FC = () => {
             아직 추가한 카테고리가 없어요.
           </p>
         ) : (
-          <ul className='flex flex-col gap-4 items-center list-none overflow-y-scroll scroll mt-4'>
+          <ul className='flex flex-col gap-4 list-none overflow-y-scroll scroll mt-4'>
             {categories.map((category) => {
               const category_uid = category.uid;
               return (

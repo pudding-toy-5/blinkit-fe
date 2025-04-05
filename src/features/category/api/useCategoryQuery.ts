@@ -11,21 +11,22 @@ const baseUrl = apiUrl + '/expense/categories';
 
 const {
   useEntities: useCategoriesQuery,
-  useEntityByUid: useCategoryByUidQuery,
+  // useEntityByUid: useCategoryByUidQuery,
   useAddEntity: useAddCategory,
   useUpdateEntity: useUpdateCategory,
   useDeleteEntity: useDeleteCategory,
 } = createEntityHooks<Category>(queryKeys.categories, baseUrl);
 
 const useCategories = () => {
-  const { data, isLoading, error } = useCategoriesQuery();
-  const categories = data;
-  return { categories, isLoading, error };
+  const { data: categories, isLoading, isError, error } = useCategoriesQuery();
+  return { categories, isLoading, isError, error };
 };
 
 const useCategoryByUid = (uid: string) => {
-  const { data, isLoading, isError, error } = useCategoryByUidQuery(uid);
-  const category = data;
+  // const { data: category, isLoading, isError, error } = useCategoryByUidQuery(uid);
+  // return { category, isLoading, isError, error };
+  const { categories, isLoading, isError, error } = useCategories();
+  const category = categories?.find((category) => category.uid === uid);
   return { category, isLoading, isError, error };
 };
 

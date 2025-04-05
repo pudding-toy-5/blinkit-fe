@@ -39,7 +39,7 @@ export function NewCategoriesRoute() {
     throw error;
   }
 
-  const handleSetValues = (newValues: string[]) => {
+  const handleValues = (newValues: string[]) => {
     if (categories === undefined) {
       setValues(newValues);
       return;
@@ -84,7 +84,7 @@ export function NewCategoriesRoute() {
       <div className='mt-6 px-5'>
         <InputCategoryTags
           value={values}
-          onChange={handleSetValues}
+          onChange={handleValues}
           placeholder='카테고리명을 입력해주세요. (예: 카페)'
         />
       </div>

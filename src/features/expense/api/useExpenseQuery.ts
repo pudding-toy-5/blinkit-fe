@@ -112,7 +112,7 @@ const useUpdateExpense = () => {
         }
 
         const res = await userAxios.patch(
-          `${baseUrl}/${expense.uid}`,
+          `${baseUrl}${expense.uid}`,
           convertExpenseToServerExpense(expense)
         );
         const serverExpense = res.data as ServerExpense;
@@ -146,7 +146,7 @@ const useDeleteExpense = (uid: string) => {
   return useMutation({
     mutationFn: async () => {
       try {
-        await userAxios.delete(`${baseUrl}/${uid}`);
+        await userAxios.delete(`${baseUrl}${uid}`);
         return uid;
       } catch (error) {
         if (error instanceof AxiosError) {

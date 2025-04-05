@@ -14,7 +14,7 @@ export const Route = createFileRoute('/settings/account')({
 
 function RouteComponent() {
   const updateMe = useUpdateMe();
-  const { data, isLoading, isError, error } = useMe();
+  const { data, isError, error } = useMe();
 
   const [nickname, setNickname] = React.useState<string>('');
   const [email, setEmail] = React.useState<string>('');

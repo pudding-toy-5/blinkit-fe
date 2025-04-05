@@ -1,6 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
-import SignInButton from '@/features/sign-in/ui/SignInButton';
+import { TOKEN_KEY } from '@/constants';
+import SignInButton from '@/features/auth/ui/SignInButton';
 import Layout from '@/shared/ui/layout/Layout';
 
 export const Route = createFileRoute('/login')({
@@ -8,6 +9,11 @@ export const Route = createFileRoute('/login')({
 });
 
 function RouteComponent() {
+  const navigate = useNavigate();
+  if (localStorage.getItem(TOKEN_KEY)) {
+    void navigate({ to: '/expenses' });
+  }
+
   return (
     <Layout>
       <div className='flex flex-col gap-3 w-full px-5 mt-auto'>

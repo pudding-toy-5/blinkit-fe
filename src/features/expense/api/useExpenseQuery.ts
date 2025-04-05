@@ -31,7 +31,7 @@ const useExpensesByPeriod = (period: Period) => {
         const res = await userAxios.get(baseUrl, {
           params: {
             year: year.toString(),
-            month: (month + 1).toString(),
+            month: month.toString(),
           },
         });
         const serverExpenses = res.data as ServerExpense[];

@@ -1,6 +1,7 @@
 import { useParams } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -15,6 +16,7 @@ import {
 } from '@/components/ui/drawer';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import {
+  useCategories,
   useCategoryByUid,
   useDeleteCategory,
   useUpdateCategory,
@@ -34,6 +36,7 @@ const CategoryRoute: React.FC = () => {
   const updateCategory = useUpdateCategory();
   const deleteCategory = useDeleteCategory();
 
+  const { categories } = useCategories();
   const uid = category_uid;
   const { category, isError, error } = useCategoryByUid(uid);
 
@@ -53,6 +56,14 @@ const CategoryRoute: React.FC = () => {
   }, [category]);
 
   const onSubmit = (values: { categoryName: string }) => {
+    if (values.categoryName.length === 0) {
+      toast.error('카테고리는 최소 한 글자 이상 입력해야 합니다.');
+    }
+
+    if (categories?.find((c) => c.name === values.categoryName)) {
+      toast.error('동일한 카테고리 이름이 존재합니다.');
+    }
+
     updateCategory.mutate({ uid, name: values.categoryName });
   };
 

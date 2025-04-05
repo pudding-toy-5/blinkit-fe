@@ -48,7 +48,7 @@ function RouteComponent() {
       // data.isSuperuser !== undefined
     ) {
       updateMe.mutate(
-        { ...data, nickname },
+        { uid: data.uid, email: data.email, nickname },
         {
           onSuccess: () => {
             toast.success('회원정보를 성공적으로 업데이트했습니다.');

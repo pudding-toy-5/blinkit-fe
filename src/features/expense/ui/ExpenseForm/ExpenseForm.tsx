@@ -70,6 +70,12 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
       updateExpense.mutate({ uid: uid, ...values });
     } else {
       addExpense.mutate({ ...values });
+      updateNewExpense({
+        date: new Date(),
+        memo: '',
+        amount: 0,
+        categories: [],
+      });
     }
 
     void navigate({ to: '/expenses' });

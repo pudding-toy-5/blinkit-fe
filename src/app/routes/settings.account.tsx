@@ -25,7 +25,7 @@ function RouteComponent() {
 
   React.useEffect(() => {
     if (data?.nickname !== undefined && data.email !== undefined) {
-      setNickname(data.nickname);
+      setNickname(data.nickname ?? '');
       setEmail(data.email);
     }
   }, [data]);
@@ -71,6 +71,7 @@ function RouteComponent() {
         label='닉네임'
         value={nickname}
         onChange={setNickname}
+        // maxLength={20}
       />
       <LabeledTextInput
         id='email'

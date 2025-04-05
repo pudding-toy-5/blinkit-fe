@@ -71,7 +71,7 @@ function RouteComponent() {
         label='닉네임'
         value={nickname}
         onChange={setNickname}
-        // maxLength={20}
+        maxLength={20}
       />
       <LabeledTextInput
         id='email'

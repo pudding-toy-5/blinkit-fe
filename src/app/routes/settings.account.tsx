@@ -43,9 +43,9 @@ function RouteComponent() {
 
     if (
       data?.uid !== undefined &&
-      data.email &&
-      data.isStaff !== undefined &&
-      data.isSuperuser !== undefined
+      data.email
+      // &&data.isStaff !== undefined &&
+      // data.isSuperuser !== undefined
     ) {
       updateMe.mutate(
         { ...data, nickname },

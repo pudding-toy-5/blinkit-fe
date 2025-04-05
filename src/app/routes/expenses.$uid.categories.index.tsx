@@ -79,8 +79,13 @@ export function ExpenseUidCategoriesRoute() {
     const selectedCategories =
       categories?.filter((category) => values.includes(category.name)) ?? [];
 
-    console.log(selectedCategories);
-    updateExpense.mutate({ ...expense, categories: selectedCategories });
+    if (expense) {
+      updateExpense.mutate({ ...expense, categories: selectedCategories });
+    } else {
+      toast.error('지출 정보를 가져오지 못했어요.');
+      return;
+    }
+
     void navigate({ to: `/expenses/${uid}` });
   };
 

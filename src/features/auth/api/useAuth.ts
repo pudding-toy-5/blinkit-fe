@@ -9,7 +9,7 @@ import {
 import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
 
-export const useGetMe = () => {
+export const useMe = () => {
   return useQuery<User>({
     queryKey: ['me'],
     queryFn: async () => {

@@ -49,9 +49,16 @@ export function NewCategoriesRoute() {
       (value) => !categories.some((c) => c.name === value)
     );
 
-    notAddedValues.forEach((notAddedValue) => {
-      addCategory.mutate({ name: notAddedValue });
-    });
+    if (notAddedValues.length > 0) {
+      const promises = notAddedValues.map((notAddedValue) => {
+        addCategory.mutate({ name: notAddedValue });
+      });
+
+      toast.promise(Promise.all(promises), {
+        success: '새 카테고리가 추가했어요.',
+        error: '카테고리 추가 중 오류가 발생했어요.',
+      });
+    }
 
     setValues(newValues);
   };

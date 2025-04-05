@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { Link } from '@tanstack/react-router';
 import React from 'react';
 import { toast } from 'sonner';
@@ -21,6 +21,7 @@ export const Route = createFileRoute('/expenses/new/categories/')({
 });
 
 export function NewCategoriesRoute() {
+  const navigate = useNavigate();
   const addCategory = useAddCategory();
 
   const { newExpense, updateNewExpenseCategories } = useNewExpense();
@@ -75,6 +76,7 @@ export function NewCategoriesRoute() {
       categories?.filter((category) => values.includes(category.name)) ?? [];
 
     updateNewExpenseCategories(selectedCategories);
+    void navigate({ to: '/expenses/new' });
   };
 
   return (

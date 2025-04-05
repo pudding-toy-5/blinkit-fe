@@ -50,7 +50,12 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
   const navigate = useNavigate();
   const updateExpense = useUpdateExpense();
   const addExpense = useAddExpense();
-  const { updateNewExpense } = useNewExpense();
+  const {
+    updateNewExpense,
+    updateNewExpenseDate,
+    updateNewExpenseMemo,
+    updateNewExpenseAmount,
+  } = useNewExpense();
 
   React.useEffect(() => {
     updateNewExpense(expense);
@@ -95,6 +100,19 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                     trigger={<CalendarDrawerTrigger date={field.value} />}
                     date={field.value}
                     setDate={(newDate) => {
+                      if (newDate === undefined) {
+                        return;
+                      }
+
+                      if (uid) {
+                        updateExpense.mutate({
+                          ...expense,
+                          uid,
+                          date: newDate,
+                        });
+                      } else {
+                        updateNewExpenseDate(newDate);
+                      }
                       field.onChange(newDate);
                     }}
                     {...field}
@@ -117,6 +135,11 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                   value={field.value}
                   onChange={(e) => {
                     if (e.length <= EXPENSE_MEMO_MAX_LEN) {
+                      if (uid) {
+                        updateExpense.mutate({ ...expense, uid, memo: e });
+                      } else {
+                        updateNewExpenseMemo(e);
+                      }
                       field.onChange(e);
                     }
                   }}
@@ -176,6 +199,21 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                   inputMode='numeric'
                   value={field.value}
                   onValueChange={(values: NumberFormatValues) => {
+                    const value = values.floatValue;
+                    if (value === undefined) {
+                      return;
+                    }
+
+                    if (uid) {
+                      updateExpense.mutate({
+                        ...expense,
+                        uid,
+                        amount: value,
+                      });
+                    } else {
+                      updateNewExpenseAmount(value);
+                    }
+
                     field.onChange(values.value);
                   }}
                   allowNegative={false}

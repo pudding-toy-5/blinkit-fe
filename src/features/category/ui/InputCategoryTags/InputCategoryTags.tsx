@@ -14,7 +14,7 @@ export type InputCategoryTagProps = Omit<
   'value' | 'onChange' | 'placeholder'
 > & {
   value: string[];
-  onChange: React.Dispatch<React.SetStateAction<string[]>>;
+  onChange: (newValue: string[]) => void;
   placeholder: string;
 };
 

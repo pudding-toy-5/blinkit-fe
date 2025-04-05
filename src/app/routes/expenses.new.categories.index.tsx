@@ -48,7 +48,6 @@ export function NewCategoriesRoute() {
     const notAddedValues = newValues.filter(
       (value) => !categories.some((c) => c.name === value)
     );
-    console.log(notAddedValues);
 
     notAddedValues.forEach((notAddedValue) => {
       addCategory.mutate({ name: notAddedValue });

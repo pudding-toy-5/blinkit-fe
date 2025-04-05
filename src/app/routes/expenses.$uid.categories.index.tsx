@@ -1,8 +1,4 @@
-import {
-  createFileRoute,
-  useLoaderData,
-  useNavigate,
-} from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { Link } from '@tanstack/react-router';
 import React from 'react';
 import { toast } from 'sonner';
@@ -57,7 +53,6 @@ export function ExpenseUidCategoriesRoute() {
     const notAddedValues = newValues.filter(
       (value) => !categories.some((c) => c.name === value)
     );
-    console.log(notAddedValues);
 
     notAddedValues.forEach((notAddedValue) => {
       addCategory.mutate({ name: notAddedValue });

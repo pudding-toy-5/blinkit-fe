@@ -174,6 +174,10 @@ const useDailyExpensesByPeriod = (period: Period) => {
     error,
   } = useExpensesByPeriod(period);
 
+  if (isError) {
+    throw new Error('Failed on useDailyExpensesByPeriod: ' + error.message);
+  }
+
   const dailyExpenses = useMemo(() => {
     const groupedByDate: Record<string, DailyExpense> = {};
 

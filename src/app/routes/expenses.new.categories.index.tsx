@@ -82,7 +82,7 @@ export function NewCategoriesRoute() {
   };
 
   return (
-    <Layout guarded isLoading>
+    <Layout guarded isLoading={isLoading}>
       <SubPageHeader title='카테고리 설정' close />
       <div className='mt-6 px-5'>
         <InputCategoryTags

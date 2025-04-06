@@ -29,7 +29,6 @@ function RouteComponent() {
       settingItems: [
         {
           text: '내 정보 수정',
-          // to: '/settings/account',
         },
       ],
     },

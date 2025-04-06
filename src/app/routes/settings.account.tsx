@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { Button } from '@/components/ui/button';
 import { useMe, useUpdateMe } from '@/features/auth/api/useAuth';
 import LabeledTextInput from '@/shared/ui/LabeledTextInput';
 import Layout from '@/shared/ui/layout/Layout';

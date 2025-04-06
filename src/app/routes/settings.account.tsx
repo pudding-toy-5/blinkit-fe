@@ -53,6 +53,7 @@ function RouteComponent() {
         {
           onSuccess: () => {
             toast.success('회원정보를 성공적으로 업데이트했습니다.');
+            void navigate({ to: '/expenses' });
           },
           onError: (error) => {
             toast.error(
@@ -61,9 +62,6 @@ function RouteComponent() {
           },
         }
       );
-
-      void navigate({ to: '/expenses' });
-      return;
     }
   };
 

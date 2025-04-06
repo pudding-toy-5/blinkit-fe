@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import React from 'react';
 import { toast } from 'sonner';
 
@@ -13,6 +13,7 @@ export const Route = createFileRoute('/settings/account')({
 });
 
 function RouteComponent() {
+  const navigate = useNavigate();
   const updateMe = useUpdateMe();
   const { data, isError, error } = useMe();
 
@@ -60,6 +61,9 @@ function RouteComponent() {
           },
         }
       );
+
+      void navigate({ to: '/expenses' });
+      return;
     }
   };
 

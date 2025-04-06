@@ -94,7 +94,7 @@ function RouteComponent() {
       <SubPageHeader title='회원정보' back />
       <Form {...form}>
         <form
-          className='flex flex-col flex-1'
+          className='flex flex-col flex-1 pt-6 pb-8 px-5'
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onSubmit={form.handleSubmit(onSubmit)}
         >
@@ -132,7 +132,7 @@ function RouteComponent() {
               </FormItem>
             )}
           />
-          <div className='mt-auto mb-8 px-5'>
+          <div className='mt-auto'>
             <SubmitButton type='submit' text='저장' className='w-full' />
           </div>
         </form>

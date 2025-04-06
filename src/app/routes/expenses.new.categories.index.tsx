@@ -31,10 +31,6 @@ export function NewCategoriesRoute() {
     newExpense.categories.map((category) => category.name)
   );
 
-  if (isLoading) {
-    return <>Loading</>;
-  }
-
   if (isError && error) {
     throw error;
   }
@@ -86,7 +82,7 @@ export function NewCategoriesRoute() {
   };
 
   return (
-    <Layout guarded>
+    <Layout guarded isLoading>
       <SubPageHeader title='카테고리 설정' close />
       <div className='mt-6 px-5'>
         <InputCategoryTags

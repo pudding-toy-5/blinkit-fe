@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/shared/ui/styles/utils';
 
-export interface SubmitButtonProps {
+export interface SubmitButtonProps extends React.ComponentProps<'button'> {
   text: string;
-  state: 'default' | 'disabled';
-  onClick: () => void;
+  state?: 'default' | 'disabled';
+  onClick?: () => void;
   className?: React.ComponentProps<'button'>['className'] | undefined;
 }
 
@@ -13,6 +13,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   state,
   onClick,
   className,
+  ...props
 }) => {
   return (
     <Button
@@ -24,6 +25,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
         state === 'disabled' && 'bg-[#ccc]',
         className
       )}
+      {...props}
     >
       {text}
     </Button>

@@ -55,7 +55,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
   const updateExpense = useUpdateExpense();
   const addExpense = useAddExpense();
   const { updateNewExpense } = useNewExpense();
+
   const [disabled, setDisabled] = React.useState<boolean>(true);
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const form = useForm<Omit<Expense, 'uid'>>({
     defaultValues: { ...expense },
@@ -207,6 +209,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                 <NumericFormat
                   inputMode='numeric'
                   value={field.value}
+                  getInputRef={inputRef}
                   max={EXPENSE_AMOUNT_MAX}
                   min={0}
                   onValueChange={(values: NumberFormatValues) => {
@@ -221,7 +224,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                     }
 
                     if (value >= EXPENSE_AMOUNT_MAX) {
-                      field.onChange(value);
+                      field.onChange(EXPENSE_AMOUNT_MAX);
+                      inputRef.current?.blur();
                       return;
                     }
 

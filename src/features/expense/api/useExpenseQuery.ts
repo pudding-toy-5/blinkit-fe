@@ -140,11 +140,11 @@ const useUpdateExpense = () => {
   });
 };
 
-const useDeleteExpense = (uid: string) => {
+const useDeleteExpense = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (uid: string) => {
       try {
         await userAxios.delete(`${baseUrl}${uid}`);
         return uid;
@@ -162,6 +162,9 @@ const useDeleteExpense = (uid: string) => {
           return oldExpenses?.filter((expense) => expense.uid !== uid);
         }
       );
+    },
+    onError: (error) => {
+      console.error('지출 내역 삭제 실패: ', error);
     },
   });
 };

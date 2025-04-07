@@ -1,12 +1,6 @@
 import { Button } from '@/components/ui/button';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
 import Period from '@/features/expense/model/types/Period';
+import SelectMonthDrawer from '@/features/expense/ui/SelectMonthDrawer';
 import ArrowLeftFilled from '@/shared/ui/icons/ArrowLeftFilled';
 import ArrowRightFilled from '@/shared/ui/icons/ArrowRightFilled';
 
@@ -48,24 +42,7 @@ const MonthSelector: React.FC<MonthSelectorProps> = ({
       >
         <ArrowLeftFilled size={16} color='#222' />
       </Button>
-      <Drawer>
-        <DrawerTrigger asChild>
-          <Button
-            variant='ghost'
-            className='h-auto p-0 text-[15px] rounded-none text-decoration-line: underline decoration-solid decoration-auto underline-offset-auto'
-            style={{ textUnderlinePosition: 'from-font' }}
-          >
-            {year !== new Date().getFullYear() && `${year.toString()}년 `}
-            {month}월
-          </Button>
-        </DrawerTrigger>
-        <DrawerContent className='flex items-center'>
-          <DrawerHeader>
-            <DrawerTitle>조회 월 선택</DrawerTitle>
-          </DrawerHeader>
-          <div className='p-4'>조회 월 선택 몸통</div>
-        </DrawerContent>
-      </Drawer>
+      <SelectMonthDrawer period={period} onSetPeriod={onSetPeriod} />
       <Button
         variant='ghost'
         size='icon'

@@ -1,5 +1,6 @@
 import { X } from 'lucide-react';
 
+import { Button } from '@/components/ui/button';
 import {
   Drawer,
   DrawerClose,
@@ -13,19 +14,27 @@ import Period from '@/features/expense/model/types/Period';
 import SelectMonthList from '../SelectMonthList';
 
 export interface SelectMonthDrawerProps {
-  trigger: React.ReactNode;
   period: Period;
   onSetPeriod: (newPeriod: Period) => void;
 }
 
 const SelectMonthDrawer: React.FC<SelectMonthDrawerProps> = ({
-  trigger,
   period,
   onSetPeriod,
 }) => {
+  const { year, month } = period;
   return (
     <Drawer>
-      <DrawerTrigger>{trigger}</DrawerTrigger>
+      <DrawerTrigger asChild>
+        <Button
+          variant='ghost'
+          className='h-auto p-0 text-[15px] rounded-none text-decoration-line: underline decoration-solid decoration-auto underline-offset-auto'
+          style={{ textUnderlinePosition: 'from-font' }}
+        >
+          {year !== new Date().getFullYear() && `${year.toString()}년 `}
+          {month}월
+        </Button>
+      </DrawerTrigger>
       <DrawerContent
         className='w-full max-w-sm mx-auto py-6 px-5'
         style={{ borderRadius: '20px 20px 0 0 ' }}

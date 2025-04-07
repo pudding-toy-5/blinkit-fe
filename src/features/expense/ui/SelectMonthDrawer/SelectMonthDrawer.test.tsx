@@ -1,33 +1,52 @@
 import { fireEvent, render } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
 
+import Period from '@/features/expense/model/types/Period';
+
 import SelectMonthDrawer, { SelectMonthDrawerProps } from './SelectMonthDrawer';
 
 describe('SelectMonthDrawer', () => {
+  const current = new Date();
+  const currentPeriod: Period = {
+    year: current.getFullYear(),
+    month: current.getMonth() + 1,
+  };
+
   const props: SelectMonthDrawerProps = {
-    trigger: 'trigger-text',
-    period: { year: 2025, month: 1 },
+    period: { ...currentPeriod },
     onSetPeriod: vi.fn(),
   };
 
-  const renderElement = ({
-    trigger,
-    period,
-    onSetPeriod,
-  }: SelectMonthDrawerProps) =>
-    render(
-      <SelectMonthDrawer
-        trigger={trigger}
-        period={period}
-        onSetPeriod={onSetPeriod}
-      />
-    );
+  const renderElement = ({ period, onSetPeriod }: SelectMonthDrawerProps) =>
+    render(<SelectMonthDrawer period={period} onSetPeriod={onSetPeriod} />);
 
-  it('renders drawer trigger.', () => {
-    const { getByRole } = renderElement({ ...props });
+  describe('drawer trigger', () => {
+    it('when period year is current year, renders month.', () => {
+      const { getByRole } = renderElement({
+        ...props,
+      });
 
-    const trigger = getByRole('button');
-    expect(trigger).toBeInTheDocument();
+      const trigger = getByRole('button');
+      expect(trigger).toBeInTheDocument();
+      expect(trigger).toHaveTextContent(props.period.month.toString() + '월');
+    });
+
+    it('when period year is not current year, renders year + month.', () => {
+      const newPeriod: Period = {
+        ...currentPeriod,
+        year: currentPeriod.year - 1,
+      };
+      const { getByRole } = renderElement({
+        ...props,
+        period: { ...newPeriod },
+      });
+
+      const trigger = getByRole('button');
+      expect(trigger).toBeInTheDocument();
+      expect(trigger).toHaveTextContent(
+        `${newPeriod.year.toString()}년 ${props.period.month.toString()}월`
+      );
+    });
   });
 
   it('when trigger button is clicked, renders title and close button.', () => {
@@ -47,7 +66,7 @@ describe('SelectMonthDrawer', () => {
     expect(title.tagName.toLowerCase()).toBe('h2');
 
     const closeButton = getByLabelText('close button');
-    expect(closeButton.tagName.toLowerCase()).toBe('button');
+    expect(closeButton).toBeInTheDocument();
   });
 
   it('when month is selected, calls onSetPeriod with selected period.', () => {

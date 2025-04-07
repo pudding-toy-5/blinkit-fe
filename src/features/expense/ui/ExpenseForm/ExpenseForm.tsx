@@ -211,13 +211,12 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                   min={0}
                   onValueChange={(values: NumberFormatValues) => {
                     const value = values.floatValue ?? 0;
-                    const now = Date.now();
 
                     if (value === 0) {
                       toast.error(
                         '0원은 입력할 수 없어요. 최소 1원부터 시작해요!'
                       );
-                      field.onChange(0);
+                      field.onChange(1);
                       return;
                     }
 

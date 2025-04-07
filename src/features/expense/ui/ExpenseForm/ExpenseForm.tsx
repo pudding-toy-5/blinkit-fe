@@ -54,26 +54,32 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
   const navigate = useNavigate();
   const updateExpense = useUpdateExpense();
   const addExpense = useAddExpense();
-  const {
-    updateNewExpense,
-    updateNewExpenseDate,
-    updateNewExpenseMemo,
-    updateNewExpenseAmount,
-  } = useNewExpense();
-
-  React.useEffect(() => {
-    updateNewExpense(expense);
-  }, [expense, updateNewExpense]);
+  const { updateNewExpense } = useNewExpense();
+  const [disabled, setDisabled] = React.useState<boolean>(true);
 
   const form = useForm<Omit<Expense, 'uid'>>({
     defaultValues: { ...expense },
   });
 
   React.useEffect(() => {
+    updateNewExpense(expense);
+  }, [expense, updateNewExpense]);
+
+  React.useEffect(() => {
     form.setValue('date', expense.date);
     form.setValue('memo', expense.memo);
     form.setValue('categories', expense.categories);
     form.setValue('amount', expense.amount);
+
+    if (
+      form.getValues().memo.length === 0 ||
+      form.getValues().categories.length === 0 ||
+      form.getValues().amount === 0
+    ) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
   }, [form, expense]);
 
   const handleOnSubmit = (values: Omit<Expense, 'uid'>) => {
@@ -143,9 +149,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                   value={field.value}
                   onChange={(e) => {
                     if (e.length <= EXPENSE_MEMO_MAX_LEN) {
-                      if (!uid) {
-                        updateNewExpenseMemo(e);
-                      }
                       field.onChange(e);
                     }
                   }}
@@ -204,14 +207,26 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                 <NumericFormat
                   inputMode='numeric'
                   value={field.value}
-                  max={EXPENSE_AMOUNT_MAX - 1}
+                  max={EXPENSE_AMOUNT_MAX}
                   min={0}
                   onValueChange={(values: NumberFormatValues) => {
-                    const value = values.floatValue;
-                    if (value === undefined) {
+                    const value = values.floatValue ?? 0;
+                    const now = Date.now();
+
+                    if (value === 0) {
+                      toast.error(
+                        '0원은 입력할 수 없어요. 최소 1원부터 시작해요!'
+                      );
+                      field.onChange(0);
                       return;
                     }
-                    field.onChange(values.value);
+
+                    if (value >= EXPENSE_AMOUNT_MAX) {
+                      field.onChange(value);
+                      return;
+                    }
+
+                    field.onChange(value);
                   }}
                   allowNegative={false}
                   thousandSeparator=','
@@ -226,6 +241,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
         <Button
           type='submit'
           className='h-13 text-[15px] font-semibold mt-auto mb-5 rounded-full'
+          disabled={disabled}
         >
           {uid ? '저장' : '추가'}
         </Button>

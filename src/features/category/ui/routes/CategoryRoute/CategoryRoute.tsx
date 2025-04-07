@@ -1,4 +1,4 @@
-import { useParams } from '@tanstack/react-router';
+import { useNavigate, useParams } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -27,7 +27,8 @@ import SubPageHeader from '@/shared/ui/SubPageHeader';
 import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
 
 const CategoryRoute: React.FC = () => {
-  const { category_uid } = useParams({ strict: false });
+  const navigate = useNavigate();
+  const { uid, category_uid } = useParams({ strict: false });
 
   if (category_uid === undefined) {
     throw new Error('failed to get category_uid on useParams');
@@ -37,8 +38,7 @@ const CategoryRoute: React.FC = () => {
   const deleteCategory = useDeleteCategory();
 
   const { categories } = useCategories();
-  const uid = category_uid;
-  const { category, isError, error } = useCategoryByUid(uid);
+  const { category, isError, error } = useCategoryByUid(category_uid);
 
   if (isError) {
     if (error) {
@@ -58,7 +58,11 @@ const CategoryRoute: React.FC = () => {
   }, [category, form]);
 
   const onChangeInput = (newValue: string) => {
-    if (newValue === category?.name) {
+    if (
+      newValue === category?.name ||
+      newValue.length === 0 ||
+      newValue.length > 20
+    ) {
       setDisabled(true);
     } else {
       setDisabled(false);
@@ -82,7 +86,16 @@ const CategoryRoute: React.FC = () => {
   };
 
   const onDelete = () => {
-    deleteCategory.mutate(uid);
+    deleteCategory.mutate(category_uid, {
+      onSuccess: () => {
+        if (uid) {
+          void navigate({ to: '/expenses/$uid/categories', params: { uid } });
+          return;
+        }
+
+        void navigate({ to: '/expenses/new/categories' });
+      },
+    });
   };
 
   return (
@@ -130,8 +143,8 @@ const CategoryRoute: React.FC = () => {
                     카테고리를 삭제할까요?
                   </DrawerTitle>
                   <DrawerDescription className='text-15px text-[#555]'>
-                    카테고리를 삭제하면, 연결된 지출 내역의 친구 생일선물 태그도
-                    함께 삭제돼요.
+                    카테고리를 삭제하면, 연결된 지출 내역의 {category?.name}{' '}
+                    태그도 함께 삭제돼요.
                   </DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter className='p-0 mt-9'>

@@ -87,13 +87,8 @@ const useAddExpense = () => {
         throw error;
       }
     },
-    onSuccess: (newExpense) => {
-      queryClient.setQueryData(
-        queryKeys.expenses,
-        (oldExpenses: Expense[] | undefined) => {
-          return oldExpenses ? [...oldExpenses, newExpense] : [newExpense];
-        }
-      );
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: queryKeys.expenses });
     },
     onError: (error) => {
       console.error('지출 추가 실패: ', error);
@@ -124,15 +119,8 @@ const useUpdateExpense = () => {
         throw error;
       }
     },
-    onSuccess: (updatedExpense) => {
-      queryClient.setQueryData(
-        queryKeys.expenses,
-        (oldExpenses: Expense[] | undefined) => {
-          return oldExpenses?.map((expense) =>
-            expense.uid === updatedExpense.uid ? updatedExpense : expense
-          );
-        }
-      );
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: queryKeys.expenses });
     },
     onError: (error) => {
       console.error('지출 내역 업데이트 실패: ', error);
@@ -155,13 +143,8 @@ const useDeleteExpense = () => {
         throw error;
       }
     },
-    onSuccess: (uid) => {
-      queryClient.setQueryData(
-        queryKeys.expenses,
-        (oldExpenses: Expense[] | undefined) => {
-          return oldExpenses?.filter((expense) => expense.uid !== uid);
-        }
-      );
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: queryKeys.expenses });
     },
     onError: (error) => {
       console.error('지출 내역 삭제 실패: ', error);

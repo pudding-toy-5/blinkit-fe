@@ -25,7 +25,7 @@ const baseUrl = apiUrl + '/expense/expenses/';
 const useExpensesByPeriod = (period: Period) => {
   const { year, month } = period;
   return useQuery<Expense[]>({
-    queryKey: queryKeys.expenses,
+    queryKey: [...queryKeys.expenses, period],
     queryFn: async () => {
       try {
         const res = await userAxios.get(baseUrl, {

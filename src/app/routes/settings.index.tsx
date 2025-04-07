@@ -82,21 +82,25 @@ function RouteComponent() {
             <ul className='flex flex-col gap-2 list-none'>
               {settingGroup.settingItems.map(({ text, to, onClick }) => (
                 <li className='flex flex-row items-center py-[9px]' key={text}>
-                  <p className='text-[15px] text-[#222]'>{text}</p>
-                  {to && !onClick && (
-                    <Button
-                      variant='ghost'
-                      className='w-4 h-4 ml-auto p-0 has-[>svg]:p-0 rounded-none'
-                      asChild
-                    >
-                      <Link to={to}>
-                        <ArrowRight size={16} />
-                      </Link>
-                    </Button>
+                  {!onClick && (
+                    <>
+                      <p className='text-[15px] text-[#222]'>{text}</p>
+                      {to && (
+                        <Button
+                          variant='ghost'
+                          className='w-4 h-4 ml-auto p-0 has-[>svg]:p-0 rounded-none'
+                          asChild
+                        >
+                          <Link to={to}>
+                            <ArrowRight size={16} />
+                          </Link>
+                        </Button>
+                      )}
+                    </>
                   )}
                   {onClick && (
                     <Drawer>
-                      <DrawerTrigger>삭제</DrawerTrigger>
+                      <DrawerTrigger>{text}</DrawerTrigger>
                       <DrawerContent className='w-full max-w-sm mx-auto py-8 px-5 rounded-t-[20px]'>
                         <DrawerHeader className='p-0'>
                           <DrawerTitle className='text-[19px] text-[#222] font-semibold'>

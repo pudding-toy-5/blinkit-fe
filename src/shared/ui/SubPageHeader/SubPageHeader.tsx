@@ -78,14 +78,16 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
       )}
       {onClose && (
         <Drawer>
-          <DrawerTrigger
-            className={cn(
-              buttonVariants({ variant: 'ghost' }),
-              'text-[15px] text-[#222] bg-[#efefef] hover:bg-[#efefef]/80',
-              'absolute right-5 h-auto p-0'
-            )}
-          >
-            삭제
+          <DrawerTrigger asChild>
+            <Button
+              variant='ghost'
+              className={cn(
+                'text-[15px] text-[#222]',
+                'absolute right-5 h-auto p-0'
+              )}
+            >
+              삭제
+            </Button>
           </DrawerTrigger>
           <DrawerContent className='w-full max-w-sm mx-auto py-8 px-5 rounded-t-[20px]'>
             <DrawerHeader className='p-0'>

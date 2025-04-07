@@ -58,7 +58,11 @@ const CategoryRoute: React.FC = () => {
   }, [category, form]);
 
   const onChangeInput = (newValue: string) => {
-    if (newValue === category?.name) {
+    if (
+      newValue === category?.name ||
+      newValue.length === 0 ||
+      newValue.length > 20
+    ) {
       setDisabled(true);
     } else {
       setDisabled(false);

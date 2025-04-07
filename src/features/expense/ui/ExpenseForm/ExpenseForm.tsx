@@ -121,9 +121,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                         return;
                       }
 
-                      if (!uid) {
-                        updateNewExpenseDate(newDate);
-                      }
                       field.onChange(newDate);
                     }}
                     {...field}

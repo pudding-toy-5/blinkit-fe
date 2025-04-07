@@ -93,7 +93,7 @@ export function NewCategoriesRoute() {
       </div>
       <div className='flex flex-col px-5 pt-9 pb-6 h-screen'>
         <p className='text-[13px] font-semibold text-[#999]'>카테고리 선택</p>
-        {categories === undefined ? (
+        {categories === undefined || categories.length === 0 ? (
           <p className='text-[13px] text-[#999] mt-47.5 mx-auto'>
             아직 추가한 카테고리가 없어요.
           </p>

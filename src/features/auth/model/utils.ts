@@ -16,13 +16,13 @@ export const convertUserToServerUser = (user: User): ServerUser => {
   return {
     uid: uid,
     email: email,
-    first_name: firstName ?? '',
-    last_name: lastName ?? '',
-    nickname: nickname ?? '',
+    first_name: firstName,
+    last_name: lastName,
+    nickname: nickname,
     is_staff: String(isStaff),
     is_superuser: String(isSuperuser),
-    joined_at: joinedAt ? joinedAt.toISOString() : '',
-    left_at: leftAt ? leftAt.toISOString() : '',
+    joined_at: joinedAt ? joinedAt.toISOString() : undefined,
+    left_at: leftAt ? leftAt.toISOString() : undefined,
   };
 };
 
@@ -42,9 +42,9 @@ export const convertServerUserToUser = (serverUser: ServerUser): User => {
   return {
     uid, // required on update
     email, // required on update
-    firstName: first_name ?? '',
-    lastName: last_name ?? '',
-    nickname: nickname ?? '',
+    firstName: first_name,
+    lastName: last_name,
+    nickname: nickname,
     isStaff: is_staff === 'true', // required on update
     isSuperuser: is_superuser === 'true', // required on update
     joinedAt: joined_at ? new Date(joined_at) : undefined,

@@ -97,10 +97,8 @@ export const createEntityHooks = <T extends Entity>(
 
     return useMutation({
       mutationFn: (entity: Omit<T, 'uid'>) => addEntity({ ...entity }),
-      onSuccess: (newEntity) => {
-        queryClient.setQueryData(queryKey, (oldData: T[] | undefined) => {
-          return oldData ? [...oldData, newEntity] : [newEntity];
-        });
+      onSuccess: () => {
+        void queryClient.invalidateQueries({ queryKey });
       },
       onError: (error) => {
         console.error(`엔티티 추가 실패:`, error);
@@ -113,12 +111,8 @@ export const createEntityHooks = <T extends Entity>(
 
     return useMutation({
       mutationFn: (entity: Partial<T>) => updateEntity(entity),
-      onSuccess: (updatedEntity) => {
-        queryClient.setQueryData(queryKey, (oldData: T[] | undefined) => {
-          return oldData?.map((entity) =>
-            entity.uid === updatedEntity.uid ? updatedEntity : entity
-          );
-        });
+      onSuccess: () => {
+        void queryClient.invalidateQueries({ queryKey });
       },
       onError: (error) => {
         console.error(`엔티티 업데이트 실패:`, error);
@@ -131,10 +125,8 @@ export const createEntityHooks = <T extends Entity>(
 
     return useMutation({
       mutationFn: (uid: string) => deleteEntity(uid),
-      onSuccess: (uid) => {
-        queryClient.setQueryData(queryKey, (oldData: T[] | undefined) => {
-          return oldData?.filter((entity) => entity.uid !== uid);
-        });
+      onSuccess: () => {
+        void queryClient.invalidateQueries({ queryKey });
       },
       onError: (error) => {
         console.error(`엔티티 제거 실패:`, error);

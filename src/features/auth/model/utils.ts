@@ -1,6 +1,6 @@
 import { ServerUser, User } from './User';
 
-export const convertUserToServerUser = (user: Partial<User>): ServerUser => {
+export const convertUserToServerUser = (user: User): ServerUser => {
   const {
     uid,
     email,
@@ -14,8 +14,8 @@ export const convertUserToServerUser = (user: Partial<User>): ServerUser => {
   } = user;
 
   return {
-    uid: uid ?? '',
-    email: email ?? '',
+    uid: uid,
+    email: email,
     first_name: firstName ?? '',
     last_name: lastName ?? '',
     nickname: nickname ?? '',
@@ -26,9 +26,7 @@ export const convertUserToServerUser = (user: Partial<User>): ServerUser => {
   };
 };
 
-export const convertServerUserToUser = (
-  serverUser: ServerUser
-): Partial<User> => {
+export const convertServerUserToUser = (serverUser: ServerUser): User => {
   const {
     uid,
     email,
@@ -44,12 +42,12 @@ export const convertServerUserToUser = (
   return {
     uid, // required on update
     email, // required on update
-    firstName: first_name,
-    lastName: last_name,
-    nickname,
+    firstName: first_name ?? '',
+    lastName: last_name ?? '',
+    nickname: nickname ?? '',
     isStaff: is_staff === 'true', // required on update
     isSuperuser: is_superuser === 'true', // required on update
-    joinedAt: new Date(joined_at),
-    leftAt: new Date(left_at),
+    joinedAt: joined_at ? new Date(joined_at) : undefined,
+    leftAt: left_at ? new Date(left_at) : undefined,
   };
 };

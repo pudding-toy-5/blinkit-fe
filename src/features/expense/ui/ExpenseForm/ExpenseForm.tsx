@@ -2,6 +2,7 @@ import { Link, useNavigate } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
+import { toast } from 'sonner';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -17,7 +18,10 @@ import {
   useNewExpense,
   useUpdateExpense,
 } from '@/features/expense/api/useExpenseQuery';
-import { EXPENSE_MEMO_MAX_LEN } from '@/features/expense/consts';
+import {
+  EXPENSE_AMOUNT_MAX,
+  EXPENSE_MEMO_MAX_LEN,
+} from '@/features/expense/consts';
 import { Expense } from '@/features/expense/model/types/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
@@ -203,16 +207,13 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                 <NumericFormat
                   inputMode='numeric'
                   value={field.value}
+                  max={EXPENSE_AMOUNT_MAX - 1}
+                  min={0}
                   onValueChange={(values: NumberFormatValues) => {
                     const value = values.floatValue;
                     if (value === undefined) {
                       return;
                     }
-
-                    if (!uid) {
-                      updateNewExpenseAmount(value);
-                    }
-
                     field.onChange(values.value);
                   }}
                   allowNegative={false}

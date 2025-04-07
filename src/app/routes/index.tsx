@@ -8,13 +8,21 @@ export const Route = createFileRoute('/')({
 
 function RouteComponent() {
   const navigate = useNavigate();
-  const { data: user } = useMe();
+  const { data: user, isLoading } = useMe();
 
-  if (user?.nickname === '') {
+  if (isLoading) {
+    return;
+  }
+
+  if (!user) {
+    return;
+  }
+
+  if (user.nickname === undefined || user.nickname === '') {
     void navigate({ to: '/settings/account' });
     return;
   }
 
-  void navigate({ to: '/expenses' });
+  // void navigate({ to: '/expenses' });
   return;
 }

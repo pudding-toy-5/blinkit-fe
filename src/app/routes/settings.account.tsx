@@ -34,27 +34,28 @@ function RouteComponent() {
   const updateMe = useUpdateMe();
   const { data, isError, error } = useMe();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: { nickname: '', email: '' },
-  });
-
   if (isError) {
     throw error;
   }
 
-  React.useEffect(() => {
-    if (data) {
-      if (data.nickname !== undefined) {
-        form.setValue('nickname', data.nickname);
-      }
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { nickname: data?.nickname, email: data?.email },
+  });
 
-      if (data.email !== undefined) {
-        form.setValue('email', data.email);
-      }
+  React.useEffect(() => {
+    if (!data) {
+      return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+
+    if (data.nickname) {
+      form.setValue('nickname', data.nickname);
+    }
+
+    if (data.email) {
+      form.setValue('email', data.email);
+    }
+  }, [form, data]);
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     const nickname = values.nickname;

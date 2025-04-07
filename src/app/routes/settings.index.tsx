@@ -1,6 +1,16 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 
 import { Button } from '@/components/ui/button';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer';
 import { TOKEN_KEY } from '@/constants';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import Layout from '@/shared/ui/layout/Layout';
@@ -29,6 +39,7 @@ function RouteComponent() {
       settingItems: [
         {
           text: '내 정보 수정',
+          to: '/settings/account',
         },
       ],
     },
@@ -70,22 +81,58 @@ function RouteComponent() {
             </p>
             <ul className='flex flex-col gap-2 list-none'>
               {settingGroup.settingItems.map(({ text, to, onClick }) => (
-                <li
-                  className='flex flex-row items-center py-[9px]'
-                  key={text}
-                  onClick={onClick}
-                >
-                  <p className='text-[15px] text-[#222]'>{text}</p>
-                  {to && !onClick && (
-                    <Button
-                      variant='ghost'
-                      className='w-4 h-4 ml-auto p-0 has-[>svg]:p-0 rounded-none'
-                      asChild
-                    >
-                      <Link to={to}>
-                        <ArrowRight size={16} />
-                      </Link>
-                    </Button>
+                <li className='flex flex-row items-center py-[9px]' key={text}>
+                  {!onClick && (
+                    <>
+                      <p className='text-[15px] text-[#222]'>{text}</p>
+                      {to && (
+                        <Button
+                          variant='ghost'
+                          className='w-4 h-4 ml-auto p-0 has-[>svg]:p-0 rounded-none'
+                          asChild
+                        >
+                          <Link to={to}>
+                            <ArrowRight size={16} />
+                          </Link>
+                        </Button>
+                      )}
+                    </>
+                  )}
+                  {onClick && (
+                    <Drawer>
+                      <DrawerTrigger>{text}</DrawerTrigger>
+                      <DrawerContent className='w-full max-w-sm mx-auto py-8 px-5 rounded-t-[20px]'>
+                        <DrawerHeader className='p-0'>
+                          <DrawerTitle className='text-[19px] text-[#222] font-semibold'>
+                            로그아웃할까요?{' '}
+                          </DrawerTitle>
+                          <DrawerDescription className='text-15px text-[#555]'>
+                            <p className='text-15px text-[#555]'>
+                              로그아웃하면, 소셜 로그인 화면으로 이동해요.
+                            </p>
+                            <p className='text-15px text-[#555]'>
+                              다시 돌아오면 로그인 화면에서 반갑게 맞이할게요.
+                            </p>
+                          </DrawerDescription>
+                        </DrawerHeader>
+                        <DrawerFooter className='p-0 mt-9'>
+                          <Button
+                            className='h-13 rounded-full'
+                            onClick={onClick}
+                          >
+                            로그아웃
+                          </Button>
+                          <DrawerClose>
+                            <Button
+                              variant='ghost'
+                              className='h-13 w-full rounded-full'
+                            >
+                              취소
+                            </Button>
+                          </DrawerClose>
+                        </DrawerFooter>
+                      </DrawerContent>
+                    </Drawer>
                   )}
                 </li>
               ))}

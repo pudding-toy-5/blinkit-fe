@@ -10,7 +10,7 @@ import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
 
 export const useMe = () => {
-  return useQuery<Partial<User>>({
+  return useQuery<User>({
     queryKey: ['me'],
     queryFn: async () => {
       try {
@@ -32,12 +32,8 @@ export const useUpdateMe = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (user: Partial<User>): Promise<Partial<User>> => {
+    mutationFn: async (user: User): Promise<User> => {
       try {
-        if (user.uid === undefined) {
-          console.error(user);
-          throw new Error('useUpdateMe - uid undefined');
-        }
         const res = await userAxios.patch(
           `${apiUrl}/account/users/me`,
           convertUserToServerUser(user)

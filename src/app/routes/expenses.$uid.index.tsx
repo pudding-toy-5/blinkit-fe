@@ -1,6 +1,10 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { toast } from 'sonner';
 
-import { useExpenseByUid } from '@/features/expense/api/useExpenseQuery';
+import {
+  useDeleteExpense,
+  useExpenseByUid,
+} from '@/features/expense/api/useExpenseQuery';
 import ExpenseForm from '@/features/expense/ui/ExpenseForm';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
@@ -10,6 +14,9 @@ export const Route = createFileRoute('/expenses/$uid/')({
 });
 
 export function RouteComponent() {
+  const navigate = useNavigate();
+  const deleteExpense = useDeleteExpense();
+
   const { uid }: { uid: string } = Route.useParams();
   const { data: expense, isLoading, isError, error } = useExpenseByUid(uid);
 
@@ -32,9 +39,21 @@ export function RouteComponent() {
     throw new Error('Expense not found');
   }
 
+  const handleDelete = () => {
+    deleteExpense.mutate(uid, {
+      onSuccess: () => {
+        toast.success('지출내역을 삭제했어요.');
+        void navigate({ to: '/expenses' });
+      },
+      onError: () => {
+        toast.error('해당 지출내역을 삭제하지 못했어요.');
+      },
+    });
+  };
+
   return (
     <Layout guarded>
-      <SubPageHeader title='지출 내역 수정' back />
+      <SubPageHeader title='지출 내역 수정' back onClose={handleDelete} />
       <ExpenseForm uid={uid} expense={expense} />
     </Layout>
   );

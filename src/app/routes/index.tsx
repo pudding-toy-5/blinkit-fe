@@ -1,31 +1,27 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 
-import { useMe } from '@/features/auth/api/useAuth';
+import { ServerUser } from '@/features/auth/model/User';
+import { convertServerUserToUser } from '@/features/auth/model/utils';
+import { apiUrl } from '@/features/common/consts';
+import userAxios from '@/shared/api/userAxios';
 
 export const Route = createFileRoute('/')({
-  component: RouteComponent,
+  loader: async () => {
+    try {
+      const res = await userAxios.get<ServerUser>(`${apiUrl}/account/users/me`);
+      const user = convertServerUserToUser(res.data);
+
+      if (!user.nickname) {
+        return redirect({ to: '/settings/account' });
+      }
+
+      if (user.nickname === '') {
+        return redirect({ to: '/settings/account' });
+      }
+
+      return redirect({ to: '/expenses' });
+    } catch {
+      return redirect({ to: '/login' });
+    }
+  },
 });
-
-function RouteComponent() {
-  const navigate = useNavigate();
-  const { data: user, isError } = useMe();
-
-  if (isError) {
-    void navigate({ to: '/login' });
-    return;
-  }
-
-  if (!user) {
-    return;
-  }
-
-  if (user.nickname === undefined) {
-    void navigate({ to: '/settings/account' });
-    return;
-  }
-
-  if (user.nickname.length > 0) {
-    void navigate({ to: '/expenses' });
-    return;
-  }
-}

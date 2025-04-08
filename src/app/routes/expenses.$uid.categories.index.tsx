@@ -91,7 +91,9 @@ export function ExpenseUidCategoriesRoute() {
           maxLength={20}
         />
       </div>
-      <div className='flex flex-col px-5 pt-9 pb-6 h-screen'>
+
+      {/* origin: pb-6  */}
+      <div className='flex-1 flex flex-col px-5 pt-9 pb-16'>
         <p className='text-[13px] font-semibold text-[#999]'>카테고리 선택</p>
         {categories === undefined || categories.length === 0 ? (
           <p className='text-[13px] text-[#999] mt-47.5 mx-auto'>
@@ -129,7 +131,7 @@ export function ExpenseUidCategoriesRoute() {
         )}
         <Button
           //origin: mt-auto
-          className='h-13 rounded-full text-[15px] mt-10'
+          className='h-13 rounded-full text-[15px] mt-auto'
           onClick={handleSubmit}
           disabled={
             !categories || categories.length === 0 || values.length === 0

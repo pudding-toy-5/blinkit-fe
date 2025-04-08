@@ -15,7 +15,7 @@ import {
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import {
   useAddExpense,
-  useNewExpense,
+  useNewExpenseByUid,
   useUpdateExpense,
 } from '@/features/expense/api/useExpenseQuery';
 import {
@@ -46,21 +46,25 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
 };
 
 export interface ExpenseFormProps {
-  uid?: string;
-  expense: Omit<Expense, 'uid'>;
+  expense: Expense;
 }
 
-const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
+const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
   const navigate = useNavigate();
   const updateExpense = useUpdateExpense();
   const addExpense = useAddExpense();
-  const { updateNewExpense } = useNewExpense();
+  const { updateNewExpense } = useNewExpenseByUid(expense.uid);
 
   const [disabled, setDisabled] = React.useState<boolean>(true);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const form = useForm<Omit<Expense, 'uid'>>({
-    defaultValues: { ...expense },
+    defaultValues: {
+      date: new Date(),
+      memo: '',
+      categories: [],
+      amount: undefined,
+    },
   });
 
   React.useEffect(() => {
@@ -68,11 +72,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
   }, [expense, updateNewExpense]);
 
   React.useEffect(() => {
-    form.setValue('date', expense.date);
-    form.setValue('memo', expense.memo);
-    form.setValue('categories', expense.categories);
-    form.setValue('amount', expense.amount);
-
     if (
       form.getValues().memo.length === 0 ||
       form.getValues().categories.length === 0 ||
@@ -84,12 +83,19 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
     }
   }, [form, expense]);
 
+  const handleClickCategory = () => {
+    const { date, memo, categories, amount } = form.getValues();
+
+    updateNewExpense({ uid: expense.uid, date, memo, categories, amount });
+  };
+
   const handleOnSubmit = (values: Omit<Expense, 'uid'>) => {
-    if (uid) {
-      updateExpense.mutate({ uid: uid, ...values });
+    if (expense.uid !== 'new') {
+      updateExpense.mutate({ uid: expense.uid, ...values });
     } else {
       addExpense.mutate({ ...values });
       updateNewExpense({
+        uid: 'new',
         date: new Date(),
         memo: '',
         amount: 0,
@@ -181,11 +187,12 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                 >
                   <Link
                     to={
-                      uid
+                      expense.uid === 'new'
                         ? '/expenses/$uid/categories'
                         : '/expenses/new/categories'
                     }
-                    params={{ uid }}
+                    onClick={handleClickCategory}
+                    params={{ uid: expense.uid }}
                   >
                     설정
                   </Link>
@@ -246,7 +253,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
           className='h-13 text-[15px] font-semibold mt-auto mb-5 rounded-full'
           disabled={disabled}
         >
-          {uid ? '저장' : '추가'}
+          저장
         </Button>
       </form>
     </Form>

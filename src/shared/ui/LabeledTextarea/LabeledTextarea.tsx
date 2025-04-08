@@ -40,10 +40,10 @@ const LabeledTextarea: React.FC<LabeledTextareaProps> = ({
         wrap='hard'
         className={cn(
           'w-full max-w-full break-all h-38 rounded-xl border text-left leading-normal text-[15px] p-5',
-          'focus:border-[#222]',
           'placeholder:whitespace-pre-line',
           'default:border-[#ccc]',
-          'focus:border-[#555]',
+          'focus-visible:border focus-visible:border-[#555] focus-visible:ring',
+          'transition-none shadow-none',
           state === 'completed' && 'border-[#28a745]',
           state === 'error' && 'border-[#d32f2f]'
         )}

@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 import {
   useDeleteExpense,
   useExpenseByUid,
+  useNewExpenseByUid,
 } from '@/features/expense/api/useExpenseQuery';
 import ExpenseForm from '@/features/expense/ui/ExpenseForm';
 import Layout from '@/shared/ui/layout/Layout';
@@ -19,6 +20,7 @@ export function RouteComponent() {
 
   const { uid }: { uid: string } = Route.useParams();
   const { data: expense, isLoading, isError, error } = useExpenseByUid(uid);
+  const { newExpense, updateNewExpense } = useNewExpenseByUid(uid);
 
   if (isLoading) {
     return (
@@ -39,6 +41,8 @@ export function RouteComponent() {
     throw new Error('Expense not found');
   }
 
+  updateNewExpense(expense);
+
   const handleDelete = () => {
     deleteExpense.mutate(uid, {
       onSuccess: () => {
@@ -54,7 +58,7 @@ export function RouteComponent() {
   return (
     <Layout guarded>
       <SubPageHeader title='지출 내역 수정' back onClose={handleDelete} />
-      <ExpenseForm expense={expense} />
+      <ExpenseForm expense={newExpense} />
     </Layout>
   );
 }

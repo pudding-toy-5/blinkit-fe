@@ -219,7 +219,7 @@ const useNewExpenseByUid = (uid: string) => {
       ]);
 
       if (previousData === undefined) {
-        throw new Error('error useNewExpenseByUid');
+        throw new Error('error useNewExpenseByUid: ' + uid);
       }
 
       return { ...previousData };

@@ -13,12 +13,14 @@ import Toaster from '@/shared/ui/Toaster';
 
 import { routeTree } from './routes.custom';
 
-const vh = window.innerHeight * 0.01;
-document.documentElement.style.setProperty('--vh', `${vh.toString()}px`);
-
-window.addEventListener('resize', () => {
+const setVh = () => {
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh.toString()}px`);
+};
+setVh();
+
+window.addEventListener('resize', () => {
+  setVh();
 });
 
 const router = createRouter({ routeTree });

@@ -1,8 +1,10 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useNavigate } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
 import { toast } from 'sonner';
+import { z } from 'zod';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -60,32 +62,35 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
 
   const form = useForm<Omit<Expense, 'uid'>>({
     defaultValues: {
-      date: new Date(),
-      memo: '',
-      categories: [],
-      amount: undefined,
+      date: expense.date,
+      memo: expense.memo,
+      categories: expense.categories,
+      amount: expense.amount === 0 ? undefined : expense.amount,
     },
+    mode: 'onChange',
   });
+
+  const { handleSubmit, watch } = form;
+
+  const date = watch('date');
+  const memo = watch('memo');
+  const categories = watch('categories');
+  const amount = watch('amount');
 
   React.useEffect(() => {
     updateNewExpense(expense);
   }, [expense, updateNewExpense]);
 
   React.useEffect(() => {
-    if (
-      form.getValues().memo.length === 0 ||
-      form.getValues().categories.length === 0 ||
-      form.getValues().amount === 0
-    ) {
-      setDisabled(true);
-    } else {
+    if (memo !== '' && categories.length > 0 && amount !== 0) {
       setDisabled(false);
+      return;
     }
-  }, [form, expense]);
+
+    setDisabled(true);
+  }, [memo, categories, amount, setDisabled]);
 
   const handleClickCategory = () => {
-    const { date, memo, categories, amount } = form.getValues();
-
     updateNewExpense({ uid: expense.uid, date, memo, categories, amount });
   };
 
@@ -94,14 +99,15 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
       updateExpense.mutate({ uid: expense.uid, ...values });
     } else {
       addExpense.mutate({ ...values });
-      updateNewExpense({
-        uid: 'new',
-        date: new Date(),
-        memo: '',
-        amount: 0,
-        categories: [],
-      });
     }
+
+    updateNewExpense({
+      uid: 'new',
+      date: new Date(),
+      memo: '',
+      amount: 0,
+      categories: [],
+    });
 
     void navigate({ to: '/expenses' });
   };
@@ -111,7 +117,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
       <form
         className='flex flex-col gap-6 h-screen pt-6 px-5'
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onSubmit={form.handleSubmit(handleOnSubmit)}
+        onSubmit={handleSubmit(handleOnSubmit)}
       >
         <FormField
           control={form.control}
@@ -188,8 +194,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
                   <Link
                     to={
                       expense.uid === 'new'
-                        ? '/expenses/$uid/categories'
-                        : '/expenses/new/categories'
+                        ? '/expenses/new/categories'
+                        : '/expenses/$uid/categories'
                     }
                     onClick={handleClickCategory}
                     params={{ uid: expense.uid }}

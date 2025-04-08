@@ -9,16 +9,20 @@ import {
 import { Category } from '@/features/category/model/types/Category';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import InputCategoryTags from '@/features/category/ui/InputCategoryTags';
-import { useNewExpense } from '@/features/expense/api/useExpenseQuery';
+import { useNewExpenseByUid } from '@/features/expense/api/useExpenseQuery';
 import Ellipsis from '@/shared/ui/icons/Ellipsis';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
-const CategoriesRoute: React.FC = () => {
+interface CategoriesRouteProps {
+  uid: string;
+}
+
+const CategoriesRoute: React.FC<CategoriesRouteProps> = ({ uid }) => {
   const router = useRouterState();
   const addCategory = useAddCategory();
   const { categories } = useCategories();
-  const { newExpense, updateNewExpenseCategories } = useNewExpense();
+  const { newExpense, updateNewExpenseCategories } = useNewExpenseByUid(uid);
 
   const [inputCategories, setInputCategories] = React.useState<string[]>([]);
 

@@ -200,42 +200,39 @@ const useTotalAmountByPeriod = (period: Period) => {
   return { totalAmount, isLoading, error };
 };
 
-const initialOmittedExpense: Omit<Expense, 'uid'> = {
+const initialData: Omit<Expense, 'uid'> = {
   date: new Date(),
   memo: '',
   categories: [],
   amount: 0,
 };
 
-const useNewExpense = () => {
+const useNewExpenseByUid = (uid: string) => {
   const queryClient = useQueryClient();
 
-  const { data: newExpense } = useQuery<Omit<Expense, 'uid'>>({
-    queryKey: ['newExpense'],
-    queryFn: () => Promise.resolve(initialOmittedExpense),
+  const { data: newExpense } = useQuery<Expense>({
+    queryKey: ['newExpense', uid],
+    queryFn: () => Promise.resolve({ ...initialData, uid }),
     enabled: false,
-    initialData: initialOmittedExpense,
+    initialData: { ...initialData, uid },
   });
 
-  const updateNewExpense = (expense: Omit<Expense, 'uid'>) => {
-    return queryClient.setQueryData<Omit<Expense, 'uid'>>(
-      ['newExpense'],
-      () => {
-        return expense;
-      }
-    );
+  const updateNewExpense = (expense: Expense) => {
+    return queryClient.setQueryData<Expense>(['newExpense', uid], () => {
+      return expense;
+    });
   };
 
   const updateNewExpenseField = <K extends keyof Omit<Expense, 'uid'>>(
     key: K,
     value: Omit<Expense, 'uid'>[K]
   ) => {
-    return queryClient.setQueryData<Omit<Expense, 'uid'>>(
-      ['newExpense'],
+    return queryClient.setQueryData<Expense>(
+      ['newExpense', uid],
       (oldExpense) => {
         return oldExpense !== undefined
-          ? { ...oldExpense, [key]: value }
-          : { ...initialOmittedExpense, [key]: value };
+          ? { ...oldExpense, uid, [key]: value }
+          : { ...initialData, uid, [key]: value };
       }
     );
   };
@@ -272,7 +269,7 @@ export {
   useDeleteExpense,
   useExpenseByUid,
   useExpensesByPeriod,
-  useNewExpense,
+  useNewExpenseByUid,
   useTotalAmountByPeriod,
   useUpdateExpense,
 };

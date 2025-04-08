@@ -11,10 +11,7 @@ import {
 import { Category } from '@/features/category/model/types/Category';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import InputCategoryTags from '@/features/category/ui/InputCategoryTags';
-import {
-  useExpenseByUid,
-  useUpdateExpense,
-} from '@/features/expense/api/useExpenseQuery';
+import { useNewExpenseByUid } from '@/features/expense/api/useExpenseQuery';
 import Ellipsis from '@/shared/ui/icons/Ellipsis';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
@@ -28,15 +25,14 @@ export function ExpenseUidCategoriesRoute() {
   const { uid }: { uid: string } = Route.useParams();
 
   const addCategory = useAddCategory();
-  const updateExpense = useUpdateExpense();
-  const { data: expense, isLoading: isExpenseLoading } = useExpenseByUid(uid);
+  const { newExpense, updateNewExpenseCategories } = useNewExpenseByUid(uid);
   const { categories, isLoading, isError, error } = useCategories();
 
   const [values, setValues] = React.useState<string[]>(
-    expense ? expense.categories.map((category) => category.name) : []
+    newExpense.categories.map((category) => category.name)
   );
 
-  if (isLoading || isExpenseLoading) {
+  if (isLoading) {
     return <>Loading</>;
   }
 
@@ -79,13 +75,7 @@ export function ExpenseUidCategoriesRoute() {
     const selectedCategories =
       categories?.filter((category) => values.includes(category.name)) ?? [];
 
-    if (expense) {
-      updateExpense.mutate({ ...expense, categories: selectedCategories });
-    } else {
-      toast.error('지출 정보를 가져오지 못했어요.');
-      return;
-    }
-
+    updateNewExpenseCategories(selectedCategories);
     void navigate({ to: `/expenses/${uid}` });
   };
 

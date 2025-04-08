@@ -200,69 +200,62 @@ const useTotalAmountByPeriod = (period: Period) => {
   return { totalAmount, isLoading, error };
 };
 
-const initialOmittedExpense: Omit<Expense, 'uid'> = {
+const initialData: Omit<Expense, 'uid'> = {
   date: new Date(),
   memo: '',
   categories: [],
   amount: 0,
 };
 
-const useNewExpense = () => {
+const useNewExpenseByUid = (uid: string) => {
   const queryClient = useQueryClient();
 
-  const { data: newExpense } = useQuery<Omit<Expense, 'uid'>>({
-    queryKey: ['newExpense'],
-    queryFn: () => Promise.resolve(initialOmittedExpense),
+  const { data: newExpense } = useQuery<Expense>({
+    queryKey: ['newExpense', uid],
+    queryFn: () => {
+      const previousData = queryClient.getQueryData<Expense>([
+        'newExpense',
+        uid,
+      ]);
+
+      if (previousData === undefined) {
+        throw new Error('error useNewExpenseByUid: ' + uid);
+      }
+
+      return { ...previousData };
+    },
     enabled: false,
-    initialData: initialOmittedExpense,
+    initialData: { ...initialData, uid },
   });
 
-  const updateNewExpense = (expense: Omit<Expense, 'uid'>) => {
-    return queryClient.setQueryData<Omit<Expense, 'uid'>>(
-      ['newExpense'],
-      () => {
-        return expense;
-      }
-    );
+  const updateNewExpense = (expense: Expense) => {
+    return queryClient.setQueryData<Expense>(['newExpense', uid], () => {
+      return expense;
+    });
   };
 
-  const updateNewExpenseField = <K extends keyof Omit<Expense, 'uid'>>(
+  const updateNewExpenseField = <K extends keyof Expense>(
     key: K,
-    value: Omit<Expense, 'uid'>[K]
+    value: Expense[K]
   ) => {
-    return queryClient.setQueryData<Omit<Expense, 'uid'>>(
-      ['newExpense'],
+    return queryClient.setQueryData<Expense>(
+      ['newExpense', uid],
       (oldExpense) => {
         return oldExpense !== undefined
           ? { ...oldExpense, [key]: value }
-          : { ...initialOmittedExpense, [key]: value };
+          : { ...initialData, uid, [key]: value };
       }
     );
-  };
-
-  const updateNewExpenseDate = (date: Date) => {
-    return updateNewExpenseField('date', date);
-  };
-
-  const updateNewExpenseMemo = (memo: string) => {
-    return updateNewExpenseField('memo', memo);
   };
 
   const updateNewExpenseCategories = (categories: Category[]) => {
     return updateNewExpenseField('categories', categories);
   };
 
-  const updateNewExpenseAmount = (amount: number) => {
-    return updateNewExpenseField('amount', amount);
-  };
-
   return {
     newExpense,
     updateNewExpense,
-    updateNewExpenseDate,
-    updateNewExpenseMemo,
     updateNewExpenseCategories,
-    updateNewExpenseAmount,
   };
 };
 
@@ -272,7 +265,7 @@ export {
   useDeleteExpense,
   useExpenseByUid,
   useExpensesByPeriod,
-  useNewExpense,
+  useNewExpenseByUid,
   useTotalAmountByPeriod,
   useUpdateExpense,
 };

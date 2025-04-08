@@ -15,7 +15,7 @@ import {
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import {
   useAddExpense,
-  useNewExpense,
+  useNewExpenseByUid,
   useUpdateExpense,
 } from '@/features/expense/api/useExpenseQuery';
 import {
@@ -46,58 +46,99 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
 };
 
 export interface ExpenseFormProps {
-  uid?: string;
-  expense: Omit<Expense, 'uid'>;
+  expense: Expense;
 }
 
-const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
+const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
   const navigate = useNavigate();
   const updateExpense = useUpdateExpense();
   const addExpense = useAddExpense();
-  const { updateNewExpense } = useNewExpense();
+  const { updateNewExpense } = useNewExpenseByUid(expense.uid);
 
-  const [disabled, setDisabled] = React.useState<boolean>(true);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const form = useForm<Omit<Expense, 'uid'>>({
-    defaultValues: { ...expense },
+    defaultValues: {
+      date: expense.date,
+      memo: expense.memo,
+      categories: expense.categories,
+      amount: expense.amount === 0 ? undefined : expense.amount,
+    },
+    mode: 'onChange',
   });
 
-  React.useEffect(() => {
-    updateNewExpense(expense);
-  }, [expense, updateNewExpense]);
+  const { handleSubmit, watch } = form;
 
-  React.useEffect(() => {
-    form.setValue('date', expense.date);
-    form.setValue('memo', expense.memo);
-    form.setValue('categories', expense.categories);
-    form.setValue('amount', expense.amount);
+  const date = watch('date');
+  const memo = watch('memo');
+  const categories = watch('categories');
+  const amount = watch('amount');
 
-    if (
-      form.getValues().memo.length === 0 ||
-      form.getValues().categories.length === 0 ||
-      form.getValues().amount === 0
-    ) {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
+  const handleClickCategory = () => {
+    updateNewExpense({ uid: expense.uid, date, memo, categories, amount });
+  };
+
+  const disabled = React.useMemo(() => {
+    if (memo.length === 0 || memo.length > 120) {
+      return true;
     }
-  }, [form, expense]);
+
+    if (categories.length === 0 || categories.length > 3) {
+      return true;
+    }
+
+    if (amount === 0 || !amount) {
+      return true;
+    }
+
+    return false;
+  }, [memo, categories, amount]);
 
   const handleOnSubmit = (values: Omit<Expense, 'uid'>) => {
-    if (uid) {
-      updateExpense.mutate({ uid: uid, ...values });
-    } else {
-      addExpense.mutate({ ...values });
-      updateNewExpense({
-        date: new Date(),
-        memo: '',
-        amount: 0,
-        categories: [],
-      });
-    }
+    if (expense.uid === 'new') {
+      addExpense.mutate(
+        { ...values },
+        {
+          onSuccess: () => {
+            toast.success('지출내역을 추가했어요.');
+            updateNewExpense({
+              uid: expense.uid,
+              date: new Date(),
+              memo: '',
+              amount: 0,
+              categories: [],
+            });
 
-    void navigate({ to: '/expenses' });
+            void navigate({ to: '/expenses' });
+          },
+          onError: () => {
+            toast.error('지출내역을 추가하는데 실패했어요.');
+          },
+        }
+      );
+      return;
+    } else {
+      updateExpense.mutate(
+        { uid: expense.uid, ...values },
+        {
+          onSuccess: () => {
+            toast.success('지출내역을 수정했어요.');
+            updateNewExpense({
+              uid: expense.uid,
+              date: new Date(),
+              memo: '',
+              amount: 0,
+              categories: [],
+            });
+
+            void navigate({ to: '/expenses' });
+          },
+          onError: () => {
+            toast.error('지출내역을 수정하는데 실패했어요.');
+          },
+        }
+      );
+    }
   };
 
   return (
@@ -105,7 +146,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
       <form
         className='flex flex-col gap-6 h-screen pt-6 px-5'
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onSubmit={form.handleSubmit(handleOnSubmit)}
+        onSubmit={handleSubmit(handleOnSubmit)}
       >
         <FormField
           control={form.control}
@@ -181,11 +222,12 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
                 >
                   <Link
                     to={
-                      uid
-                        ? '/expenses/$uid/categories'
-                        : '/expenses/new/categories'
+                      expense.uid === 'new'
+                        ? '/expenses/new/categories'
+                        : '/expenses/$uid/categories'
                     }
-                    params={{ uid }}
+                    onClick={handleClickCategory}
+                    params={{ uid: expense.uid }}
                   >
                     설정
                   </Link>
@@ -246,7 +288,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ uid, expense }) => {
           className='h-13 text-[15px] font-semibold mt-auto mb-5 rounded-full'
           disabled={disabled}
         >
-          {uid ? '저장' : '추가'}
+          저장
         </Button>
       </form>
     </Form>

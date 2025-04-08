@@ -33,7 +33,13 @@ export function RouteComponent() {
     );
   }
 
-  if (isError || !expense) {
+  if (isError) {
+    toast.error('해당 지출내역을 찾을 수 없어요.');
+    void navigate({ to: '/expenses' });
+    return;
+  }
+
+  if (!expense) {
     toast.error('해당 지출내역을 찾을 수 없어요.');
     void navigate({ to: '/expenses' });
     return;

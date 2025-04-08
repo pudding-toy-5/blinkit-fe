@@ -19,7 +19,7 @@ export function RouteComponent() {
   const deleteExpense = useDeleteExpense();
 
   const { uid }: { uid: string } = Route.useParams();
-  const { data: expense, isLoading, isError, error } = useExpenseByUid(uid);
+  const { data: expense, isLoading, isError } = useExpenseByUid(uid);
   const { newExpense, updateNewExpense } = useNewExpenseByUid(uid);
 
   if (isLoading) {

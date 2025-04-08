@@ -76,10 +76,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
   const amount = watch('amount');
 
   React.useEffect(() => {
-    updateNewExpense(expense);
-  }, [expense, updateNewExpense]);
-
-  React.useEffect(() => {
     if (memo !== '' && categories.length > 0 && amount !== 0) {
       setDisabled(false);
       return;

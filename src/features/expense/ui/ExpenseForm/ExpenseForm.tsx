@@ -95,21 +95,42 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
   };
 
   const handleOnSubmit = (values: Omit<Expense, 'uid'>) => {
-    if (expense.uid !== 'new') {
-      updateExpense.mutate({ uid: expense.uid, ...values });
+    if (expense.uid === 'new') {
+      addExpense.mutate(
+        { ...values },
+        {
+          onSuccess: () => {
+            toast.success('지출내역을 추가했어요.');
+            void navigate({ to: '/expenses' });
+          },
+          onError: () => {
+            toast.error('지출내역을 추가하는데 실패했어요.');
+          },
+        }
+      );
+      return;
     } else {
-      addExpense.mutate({ ...values });
+      updateExpense.mutate(
+        { uid: expense.uid, ...values },
+        {
+          onSuccess: () => {
+            toast.success('지출내역을 수정했어요.');
+            void navigate({ to: '/expenses' });
+          },
+          onError: () => {
+            toast.error('지출내역을 추가하는데 실패했어요.');
+          },
+        }
+      );
     }
 
     updateNewExpense({
-      uid: 'new',
+      uid: expense.uid,
       date: new Date(),
       memo: '',
       amount: 0,
       categories: [],
     });
-
-    void navigate({ to: '/expenses' });
   };
 
   return (

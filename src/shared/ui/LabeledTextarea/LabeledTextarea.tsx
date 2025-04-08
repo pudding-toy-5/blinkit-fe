@@ -42,8 +42,8 @@ const LabeledTextarea: React.FC<LabeledTextareaProps> = ({
           'w-full max-w-full break-all h-38 rounded-xl border text-left leading-normal text-[15px] p-5',
           'focus:border-[#222]',
           'placeholder:whitespace-pre-line',
-          state === 'default' && 'border-[#cccccc]',
-          state === 'focus' && 'border-[#555555]',
+          'default:border-[#ccc]',
+          'focus:border-[#555]',
           state === 'completed' && 'border-[#28a745]',
           state === 'error' && 'border-[#d32f2f]'
         )}

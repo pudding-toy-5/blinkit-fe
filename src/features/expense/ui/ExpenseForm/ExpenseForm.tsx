@@ -55,7 +55,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
   const addExpense = useAddExpense();
   const { updateNewExpense } = useNewExpenseByUid(expense.uid);
 
-  const [disabled, setDisabled] = React.useState<boolean>(true);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const form = useForm<Omit<Expense, 'uid'>>({
@@ -75,17 +74,24 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
   const categories = watch('categories');
   const amount = watch('amount');
 
-  React.useEffect(() => {
-    if (memo !== '' && categories.length > 0 && amount !== 0) {
-      setDisabled(false);
-      return;
-    }
-
-    setDisabled(true);
-  }, [memo, categories, amount, setDisabled]);
-
   const handleClickCategory = () => {
     updateNewExpense({ uid: expense.uid, date, memo, categories, amount });
+  };
+
+  const isDisabledSubmit = () => {
+    if (memo.length === 0 || memo.length > 120) {
+      return true;
+    }
+
+    if (categories.length === 0 || categories.length > 3) {
+      return true;
+    }
+
+    if (amount === 0 || !amount) {
+      return true;
+    }
+
+    return false;
   };
 
   const handleOnSubmit = (values: Omit<Expense, 'uid'>) => {
@@ -280,7 +286,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
         <Button
           type='submit'
           className='h-13 text-[15px] font-semibold mt-auto mb-5 rounded-full'
-          disabled={disabled}
+          disabled={isDisabledSubmit()}
         >
           저장
         </Button>

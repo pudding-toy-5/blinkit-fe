@@ -129,7 +129,8 @@ export function NewCategoriesRoute() {
           </ol>
         )}
         <Button
-          className='h-13 rounded-full text-[15px] mt-auto'
+          // origin: mt-auto
+          className='h-13 rounded-full text-[15px] mt-10'
           onClick={handleSubmit}
           disabled={
             !categories || categories.length === 0 || values.length === 0

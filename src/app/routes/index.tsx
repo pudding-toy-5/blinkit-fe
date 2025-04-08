@@ -15,7 +15,7 @@ export const Route = createFileRoute('/')({
         return redirect({ to: '/settings/account' });
       }
 
-      if (user.nickname.length >= 0) {
+      if (user.nickname.length > 0) {
         return redirect({ to: '/expenses' });
       }
     } catch {

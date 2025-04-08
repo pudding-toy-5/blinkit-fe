@@ -246,7 +246,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
           name='amount'
           render={({ field }) => (
             <FormItem className='flex flex-col gap-2'>
-              <FormLabel>금액</FormLabel>
+              <FormLabel className='text-[15px] font-semibold text-[#222]'>
+                금액
+              </FormLabel>
               <FormControl>
                 <NumericFormat
                   inputMode='numeric'

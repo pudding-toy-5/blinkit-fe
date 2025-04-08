@@ -4,7 +4,7 @@ import { TOKEN_KEY } from '@/constants';
 import SignInButton from '@/features/auth/ui/SignInButton';
 import Layout from '@/shared/ui/layout/Layout';
 
-export const Route = createFileRoute('/login')({
+export const Route = createFileRoute('/login/')({
   component: RouteComponent,
 });
 

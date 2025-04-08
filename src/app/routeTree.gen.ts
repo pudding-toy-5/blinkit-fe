@@ -11,11 +11,12 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as LoginImport } from './routes/login'
 import { Route as IndexImport } from './routes/index'
 import { Route as SettingsIndexImport } from './routes/settings.index'
+import { Route as LoginIndexImport } from './routes/login.index'
 import { Route as ExpensesIndexImport } from './routes/expenses.index'
 import { Route as SettingsAccountImport } from './routes/settings.account'
+import { Route as LoginServiceIndexImport } from './routes/login.$service.index'
 import { Route as ExpensesNewIndexImport } from './routes/expenses.new.index'
 import { Route as ExpensesUidIndexImport } from './routes/expenses.$uid.index'
 import { Route as ExpensesNewCategoriesIndexImport } from './routes/expenses.new.categories.index'
@@ -24,12 +25,6 @@ import { Route as ExpensesNewCategoriesCategoryuidIndexImport } from './routes/e
 import { Route as ExpensesUidCategoriesCategoryuidIndexImport } from './routes/expenses.$uid.categories.$category_uid.index'
 
 // Create/Update Routes
-
-const LoginRoute = LoginImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -43,6 +38,12 @@ const SettingsIndexRoute = SettingsIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const LoginIndexRoute = LoginIndexImport.update({
+  id: '/login/',
+  path: '/login/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ExpensesIndexRoute = ExpensesIndexImport.update({
   id: '/expenses/',
   path: '/expenses/',
@@ -52,6 +53,12 @@ const ExpensesIndexRoute = ExpensesIndexImport.update({
 const SettingsAccountRoute = SettingsAccountImport.update({
   id: '/settings/account',
   path: '/settings/account',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LoginServiceIndexRoute = LoginServiceIndexImport.update({
+  id: '/login/$service/',
+  path: '/login/$service/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -108,13 +115,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
-      parentRoute: typeof rootRoute
-    }
     '/settings/account': {
       id: '/settings/account'
       path: '/settings/account'
@@ -127,6 +127,13 @@ declare module '@tanstack/react-router' {
       path: '/expenses'
       fullPath: '/expenses'
       preLoaderRoute: typeof ExpensesIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/login/': {
+      id: '/login/'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginIndexImport
       parentRoute: typeof rootRoute
     }
     '/settings/': {
@@ -148,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/expenses/new'
       fullPath: '/expenses/new'
       preLoaderRoute: typeof ExpensesNewIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/login/$service/': {
+      id: '/login/$service/'
+      path: '/login/$service'
+      fullPath: '/login/$service'
+      preLoaderRoute: typeof LoginServiceIndexImport
       parentRoute: typeof rootRoute
     }
     '/expenses/$uid/categories/': {
@@ -185,12 +199,13 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/login': typeof LoginRoute
   '/settings/account': typeof SettingsAccountRoute
   '/expenses': typeof ExpensesIndexRoute
+  '/login': typeof LoginIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/expenses/$uid': typeof ExpensesUidIndexRoute
   '/expenses/new': typeof ExpensesNewIndexRoute
+  '/login/$service': typeof LoginServiceIndexRoute
   '/expenses/$uid/categories': typeof ExpensesUidCategoriesIndexRoute
   '/expenses/new/categories': typeof ExpensesNewCategoriesIndexRoute
   '/expenses/$uid/categories/$category_uid': typeof ExpensesUidCategoriesCategoryuidIndexRoute
@@ -199,12 +214,13 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/login': typeof LoginRoute
   '/settings/account': typeof SettingsAccountRoute
   '/expenses': typeof ExpensesIndexRoute
+  '/login': typeof LoginIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/expenses/$uid': typeof ExpensesUidIndexRoute
   '/expenses/new': typeof ExpensesNewIndexRoute
+  '/login/$service': typeof LoginServiceIndexRoute
   '/expenses/$uid/categories': typeof ExpensesUidCategoriesIndexRoute
   '/expenses/new/categories': typeof ExpensesNewCategoriesIndexRoute
   '/expenses/$uid/categories/$category_uid': typeof ExpensesUidCategoriesCategoryuidIndexRoute
@@ -214,12 +230,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/login': typeof LoginRoute
   '/settings/account': typeof SettingsAccountRoute
   '/expenses/': typeof ExpensesIndexRoute
+  '/login/': typeof LoginIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/expenses/$uid/': typeof ExpensesUidIndexRoute
   '/expenses/new/': typeof ExpensesNewIndexRoute
+  '/login/$service/': typeof LoginServiceIndexRoute
   '/expenses/$uid/categories/': typeof ExpensesUidCategoriesIndexRoute
   '/expenses/new/categories/': typeof ExpensesNewCategoriesIndexRoute
   '/expenses/$uid/categories/$category_uid/': typeof ExpensesUidCategoriesCategoryuidIndexRoute
@@ -230,12 +247,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/login'
     | '/settings/account'
     | '/expenses'
+    | '/login'
     | '/settings'
     | '/expenses/$uid'
     | '/expenses/new'
+    | '/login/$service'
     | '/expenses/$uid/categories'
     | '/expenses/new/categories'
     | '/expenses/$uid/categories/$category_uid'
@@ -243,12 +261,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/login'
     | '/settings/account'
     | '/expenses'
+    | '/login'
     | '/settings'
     | '/expenses/$uid'
     | '/expenses/new'
+    | '/login/$service'
     | '/expenses/$uid/categories'
     | '/expenses/new/categories'
     | '/expenses/$uid/categories/$category_uid'
@@ -256,12 +275,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/login'
     | '/settings/account'
     | '/expenses/'
+    | '/login/'
     | '/settings/'
     | '/expenses/$uid/'
     | '/expenses/new/'
+    | '/login/$service/'
     | '/expenses/$uid/categories/'
     | '/expenses/new/categories/'
     | '/expenses/$uid/categories/$category_uid/'
@@ -271,12 +291,13 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  LoginRoute: typeof LoginRoute
   SettingsAccountRoute: typeof SettingsAccountRoute
   ExpensesIndexRoute: typeof ExpensesIndexRoute
+  LoginIndexRoute: typeof LoginIndexRoute
   SettingsIndexRoute: typeof SettingsIndexRoute
   ExpensesUidIndexRoute: typeof ExpensesUidIndexRoute
   ExpensesNewIndexRoute: typeof ExpensesNewIndexRoute
+  LoginServiceIndexRoute: typeof LoginServiceIndexRoute
   ExpensesUidCategoriesIndexRoute: typeof ExpensesUidCategoriesIndexRoute
   ExpensesNewCategoriesIndexRoute: typeof ExpensesNewCategoriesIndexRoute
   ExpensesUidCategoriesCategoryuidIndexRoute: typeof ExpensesUidCategoriesCategoryuidIndexRoute
@@ -285,12 +306,13 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  LoginRoute: LoginRoute,
   SettingsAccountRoute: SettingsAccountRoute,
   ExpensesIndexRoute: ExpensesIndexRoute,
+  LoginIndexRoute: LoginIndexRoute,
   SettingsIndexRoute: SettingsIndexRoute,
   ExpensesUidIndexRoute: ExpensesUidIndexRoute,
   ExpensesNewIndexRoute: ExpensesNewIndexRoute,
+  LoginServiceIndexRoute: LoginServiceIndexRoute,
   ExpensesUidCategoriesIndexRoute: ExpensesUidCategoriesIndexRoute,
   ExpensesNewCategoriesIndexRoute: ExpensesNewCategoriesIndexRoute,
   ExpensesUidCategoriesCategoryuidIndexRoute:
@@ -310,12 +332,13 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/login",
         "/settings/account",
         "/expenses/",
+        "/login/",
         "/settings/",
         "/expenses/$uid/",
         "/expenses/new/",
+        "/login/$service/",
         "/expenses/$uid/categories/",
         "/expenses/new/categories/",
         "/expenses/$uid/categories/$category_uid/",
@@ -325,14 +348,14 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.tsx"
     },
-    "/login": {
-      "filePath": "login.tsx"
-    },
     "/settings/account": {
       "filePath": "settings.account.tsx"
     },
     "/expenses/": {
       "filePath": "expenses.index.tsx"
+    },
+    "/login/": {
+      "filePath": "login.index.tsx"
     },
     "/settings/": {
       "filePath": "settings.index.tsx"
@@ -342,6 +365,9 @@ export const routeTree = rootRoute
     },
     "/expenses/new/": {
       "filePath": "expenses.new.index.tsx"
+    },
+    "/login/$service/": {
+      "filePath": "login.$service.index.tsx"
     },
     "/expenses/$uid/categories/": {
       "filePath": "expenses.$uid.categories.index.tsx"

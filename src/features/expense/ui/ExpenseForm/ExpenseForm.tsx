@@ -99,6 +99,14 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
         {
           onSuccess: () => {
             toast.success('지출내역을 추가했어요.');
+            updateNewExpense({
+              uid: expense.uid,
+              date: new Date(),
+              memo: '',
+              amount: 0,
+              categories: [],
+            });
+
             void navigate({ to: '/expenses' });
           },
           onError: () => {
@@ -113,6 +121,14 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
         {
           onSuccess: () => {
             toast.success('지출내역을 수정했어요.');
+            updateNewExpense({
+              uid: expense.uid,
+              date: new Date(),
+              memo: '',
+              amount: 0,
+              categories: [],
+            });
+
             void navigate({ to: '/expenses' });
           },
           onError: () => {
@@ -121,14 +137,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
         }
       );
     }
-
-    updateNewExpense({
-      uid: expense.uid,
-      date: new Date(),
-      memo: '',
-      amount: 0,
-      categories: [],
-    });
   };
 
   return (

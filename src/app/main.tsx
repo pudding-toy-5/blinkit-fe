@@ -13,6 +13,9 @@ import Toaster from '@/shared/ui/Toaster';
 
 import { routeTree } from './routes.custom';
 
+const vh = window.innerHeight * 0.01;
+document.documentElement.style.setProperty('--vh', `${vh.toString()}px`);
+
 const router = createRouter({ routeTree });
 const queryClient = new QueryClient();
 

@@ -16,9 +16,9 @@ export const convertUserToServerUser = (user: User): ServerUser => {
   return {
     uid: uid,
     email: email,
-    first_name: firstName,
-    last_name: lastName,
-    nickname: nickname,
+    first_name: firstName ?? undefined,
+    last_name: lastName ?? undefined,
+    nickname: nickname ?? undefined,
     is_staff: String(isStaff),
     is_superuser: String(isSuperuser),
     joined_at: joinedAt ? joinedAt.toISOString() : undefined,
@@ -42,9 +42,9 @@ export const convertServerUserToUser = (serverUser: ServerUser): User => {
   return {
     uid, // required on update
     email, // required on update
-    firstName: first_name,
-    lastName: last_name,
-    nickname: nickname,
+    firstName: first_name ?? undefined,
+    lastName: last_name ?? undefined,
+    nickname: nickname ?? undefined,
     isStaff: is_staff === 'true', // required on update
     isSuperuser: is_superuser === 'true', // required on update
     joinedAt: joined_at ? new Date(joined_at) : undefined,

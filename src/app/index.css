@@ -50,6 +50,19 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* 전역으로 safe-area 인셋을 CSS 변수에 저장 */
+  /* legacy */
+  --safe-area-inset-top-legacy: constant(safe-area-inset-top);
+  --safe-area-inset-right-legacy: constant(safe-area-inset-right);
+  --safe-area-inset-bottom-legacy: constant(safe-area-inset-bottom);
+  --safe-area-inset-left-legacy: constant(safe-area-inset-left);
+
+  /* modern */
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-right: env(safe-area-inset-right);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-left: env(safe-area-inset-left);
 }
 
 .dark {
@@ -158,4 +171,21 @@
 .scroll::-webkit-scrollbar-track {
   background-color: transparent;
   border: none;
+}
+
+/* 전체 래퍼에 적용 (예: #app, .wrapper 등) */
+.safe-area-wrapper {
+  padding-top:    var(--safe-area-inset-top-legacy);
+  padding-top:    var(--safe-area-inset-top);
+  padding-right:  var(--safe-area-inset-right-legacy);
+  padding-right:  var(--safe-area-inset-right);
+  padding-bottom: var(--safe-area-inset-bottom-legacy);
+  padding-bottom: var(--safe-area-inset-bottom);
+  padding-left:   var(--safe-area-inset-left-legacy);
+  padding-left:   var(--safe-area-inset-left);
+
+  /* 선택사항: 배경색 지정 시 뷰포트 끝까지 채우기 */
+  background-color: #fff;
+  min-height: 100vh;
+  box-sizing: border-box;
 }

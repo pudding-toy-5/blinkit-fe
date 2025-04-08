@@ -43,6 +43,7 @@ export function ExpenseUidCategoriesRoute() {
   const handleValues = (newValues: string[]) => {
     if (categories === undefined) {
       setValues(newValues);
+
       return;
     }
 
@@ -127,7 +128,8 @@ export function ExpenseUidCategoriesRoute() {
           </ul>
         )}
         <Button
-          className='h-13 rounded-full text-[15px] mt-auto'
+          //origin: mt-auto
+          className='h-13 rounded-full text-[15px] mt-10'
           onClick={handleSubmit}
           disabled={
             !categories || categories.length === 0 || values.length === 0

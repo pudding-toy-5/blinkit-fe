@@ -1,8 +1,10 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useNavigate } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
 import { toast } from 'sonner';
+import { z } from 'zod';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -53,15 +55,16 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
   const navigate = useNavigate();
   const updateExpense = useUpdateExpense();
   const addExpense = useAddExpense();
-  const { newExpense, updateNewExpense } = useNewExpenseByUid(expense.uid);
+  const { updateNewExpense } = useNewExpenseByUid(expense.uid);
 
   const [disabled, setDisabled] = React.useState<boolean>(true);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const form = useForm<Omit<Expense, 'uid' | 'categories'>>({
+  const form = useForm<Omit<Expense, 'uid'>>({
     defaultValues: {
       date: expense.date,
       memo: expense.memo,
+      categories: expense.categories,
       amount: expense.amount === 0 ? undefined : expense.amount,
     },
     mode: 'onChange',
@@ -71,26 +74,31 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
 
   const date = watch('date');
   const memo = watch('memo');
+  const categories = watch('categories');
   const amount = watch('amount');
 
   React.useEffect(() => {
-    if (memo !== '' && newExpense.categories.length > 0 && amount !== 0) {
+    updateNewExpense(expense);
+  }, [expense, updateNewExpense]);
+
+  React.useEffect(() => {
+    if (memo !== '' && categories.length > 0 && amount !== 0) {
       setDisabled(false);
       return;
     }
 
     setDisabled(true);
-  }, [memo, newExpense.categories, amount, setDisabled]);
+  }, [memo, categories, amount, setDisabled]);
 
-  const handleOnSubmit = (values: Omit<Expense, 'uid' | 'categories'>) => {
+  const handleClickCategory = () => {
+    updateNewExpense({ uid: expense.uid, date, memo, categories, amount });
+  };
+
+  const handleOnSubmit = (values: Omit<Expense, 'uid'>) => {
     if (expense.uid !== 'new') {
-      updateExpense.mutate({
-        ...values,
-        uid: expense.uid,
-        categories: newExpense.categories,
-      });
+      updateExpense.mutate({ uid: expense.uid, ...values });
     } else {
-      addExpense.mutate({ ...values, categories: newExpense.categories });
+      addExpense.mutate({ ...values });
     }
 
     updateNewExpense({
@@ -165,46 +173,51 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
             </FormItem>
           )}
         />
-        <div className='flex flex-col gap-2'>
-          <div className='flex flex-row items-center'>
-            <FormLabel
-              htmlFor='categories'
-              className='text-[15px] font-semibold text-[#222]'
-            >
-              카테고리
-            </FormLabel>
-            <Button
-              id='categories'
-              aria-label='카테고리 설정 버튼'
-              className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'
-              asChild
-            >
-              <Link
-                to={
-                  expense.uid === 'new'
-                    ? '/expenses/new/categories'
-                    : '/expenses/$uid/categories'
-                }
-                params={{ uid: expense.uid }}
-              >
-                설정
-              </Link>
-            </Button>
-          </div>
-          <div className='flex flex-row gap-2 flex-wrap'>
-            {newExpense.categories.map((category) => (
-              <CategoryTag key={category.uid} tagName={category.name} />
-            ))}
-          </div>
-        </div>
+        <FormField
+          control={form.control}
+          name='categories'
+          render={({ field }) => (
+            <FormItem>
+              <div className='flex flex-row items-center'>
+                <FormLabel
+                  htmlFor='categories'
+                  className='text-[15px] font-semibold text-[#222]'
+                >
+                  카테고리
+                </FormLabel>
+                <Button
+                  id='categories'
+                  aria-label='카테고리 설정 버튼'
+                  className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'
+                  asChild
+                >
+                  <Link
+                    to={
+                      expense.uid === 'new'
+                        ? '/expenses/new/categories'
+                        : '/expenses/$uid/categories'
+                    }
+                    onClick={handleClickCategory}
+                    params={{ uid: expense.uid }}
+                  >
+                    설정
+                  </Link>
+                </Button>
+              </div>
+              <div className='flex flex-row gap-2 flex-wrap'>
+                {field.value.map((category) => (
+                  <CategoryTag key={category.uid} tagName={category.name} />
+                ))}
+              </div>
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name='amount'
           render={({ field }) => (
             <FormItem className='flex flex-col gap-2'>
-              <FormLabel className='text-[15px] font-semibold text-[#222] p-0'>
-                금액
-              </FormLabel>
+              <FormLabel>금액</FormLabel>
               <FormControl>
                 <NumericFormat
                   inputMode='numeric'

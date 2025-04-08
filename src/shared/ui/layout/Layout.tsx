@@ -14,7 +14,7 @@ const Layout: React.FC<{
 
   if (!guarded) {
     return (
-      <div className='max-w-sm mx-auto h-screen bg-white relative flex flex-col overflow-hidden'>
+      <div className='container mx-auto h-screen bg-white relative flex flex-col overflow-hidden safe-area-wrapper'>
         {children}
       </div>
     );

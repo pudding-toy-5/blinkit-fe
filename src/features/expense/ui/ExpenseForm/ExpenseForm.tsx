@@ -116,7 +116,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
             void navigate({ to: '/expenses' });
           },
           onError: () => {
-            toast.error('지출내역을 추가하는데 실패했어요.');
+            toast.error('지출내역을 수정하는데 실패했어요.');
           },
         }
       );

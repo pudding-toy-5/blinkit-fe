@@ -147,7 +147,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Pretendard', ui-sans-serif, system-ui, sans-serif;
-    background-color: var(--color-gray-200);
+    background-color: #fff;
   }
 }
 

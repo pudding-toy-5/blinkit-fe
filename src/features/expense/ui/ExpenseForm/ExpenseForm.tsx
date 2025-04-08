@@ -78,7 +78,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
     updateNewExpense({ uid: expense.uid, date, memo, categories, amount });
   };
 
-  const isDisabledSubmit = () => {
+  const disabled = React.useMemo(() => {
     if (memo.length === 0 || memo.length > 120) {
       return true;
     }
@@ -92,7 +92,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
     }
 
     return false;
-  };
+  }, [memo, categories, amount]);
 
   const handleOnSubmit = (values: Omit<Expense, 'uid'>) => {
     if (expense.uid === 'new') {
@@ -286,7 +286,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
         <Button
           type='submit'
           className='h-13 text-[15px] font-semibold mt-auto mb-5 rounded-full'
-          disabled={isDisabledSubmit()}
+          disabled={disabled}
         >
           저장
         </Button>

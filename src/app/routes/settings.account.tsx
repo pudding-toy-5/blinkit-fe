@@ -40,7 +40,7 @@ function RouteComponent() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { nickname: data?.nickname, email: data?.email },
+    defaultValues: { nickname: '', email: '' },
   });
 
   React.useEffect(() => {

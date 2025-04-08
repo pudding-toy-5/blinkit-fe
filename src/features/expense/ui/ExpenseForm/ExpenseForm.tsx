@@ -285,7 +285,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
         />
         <Button
           type='submit'
-          className='h-13 text-[15px] font-semibold mt-auto mb-5 rounded-full'
+          // origin: mt-auto
+          className='h-13 text-[15px] font-semibold mt-5 mb-5 rounded-full'
           disabled={disabled}
         >
           저장

@@ -89,6 +89,7 @@ export function NewCategoriesRoute() {
           value={values}
           onChange={handleValues}
           placeholder='카테고리명을 입력해주세요. (예: 카페)'
+          maxLength={20}
         />
       </div>
       <div className='flex flex-col px-5 pt-9 pb-6 h-screen'>
@@ -130,6 +131,9 @@ export function NewCategoriesRoute() {
         <Button
           className='h-13 rounded-full text-[15px] mt-auto'
           onClick={handleSubmit}
+          disabled={
+            !categories || categories.length === 0 || values.length === 0
+          }
         >
           완료
         </Button>

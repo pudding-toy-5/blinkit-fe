@@ -57,7 +57,7 @@ const CategoryRoute: React.FC = () => {
     form.reset({ categoryName: category?.name });
   }, [category, form]);
 
-  const onChangeInput = (newValue: string) => {
+  const validateInput = (newValue: string) => {
     if (
       newValue === category?.name ||
       newValue.length === 0 ||
@@ -116,7 +116,7 @@ const CategoryRoute: React.FC = () => {
                   <UnderlinedTextInput
                     value={field.value}
                     onChange={(newValue) => {
-                      onChangeInput(newValue);
+                      validateInput(newValue);
                       field.onChange(newValue);
                     }}
                     placeholder='카테고리명을 입력하세요.'

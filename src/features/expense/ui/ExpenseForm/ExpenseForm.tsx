@@ -144,7 +144,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
   return (
     <Form {...form}>
       <form
-        className='flex flex-col gap-6 h-screen pt-6 px-5'
+        className='flex flex-col gap-6 h-screen pt-6 px-5 pb-20'
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(handleOnSubmit)}
       >
@@ -286,7 +286,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
         <Button
           type='submit'
           // origin: mt-auto
-          className='h-13 text-[15px] font-semibold mt-5 mb-5 rounded-full'
+          className='h-13 text-[15px] font-semibold mt-auto rounded-full'
           disabled={disabled}
         >
           저장

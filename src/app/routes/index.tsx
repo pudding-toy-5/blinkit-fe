@@ -15,7 +15,7 @@ function RouteComponent() {
     return;
   }
 
-  if (user === undefined) {
+  if (!user) {
     return;
   }
 

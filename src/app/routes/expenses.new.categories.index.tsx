@@ -130,6 +130,9 @@ export function NewCategoriesRoute() {
         <Button
           className='h-13 rounded-full text-[15px] mt-auto'
           onClick={handleSubmit}
+          disabled={
+            !categories || categories.length === 0 || values.length === 0
+          }
         >
           완료
         </Button>

@@ -195,7 +195,12 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
                       field.onChange(e);
                     }
                   }}
-                  state='default'
+                  state={
+                    field.value.length > 0 &&
+                    field.value.length <= EXPENSE_MEMO_MAX_LEN
+                      ? 'completed'
+                      : 'error'
+                  }
                   maxLength={EXPENSE_MEMO_MAX_LEN}
                 />
               </FormControl>

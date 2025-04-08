@@ -9,19 +9,20 @@ import ExpenseForm, { ExpenseFormProps } from './ExpenseForm';
 describe('ExpenseForm', () => {
   const testQueryClient = new QueryClient();
 
-  const expense: Omit<Expense, 'uid'> = {
+  const expense: Expense = {
+    uid: 'test-expense-uid',
     date: new Date(),
     amount: 0,
     memo: '',
     categories: [],
   };
 
-  const props: ExpenseFormProps = { expense: expense, uid: undefined };
+  const props: ExpenseFormProps = { expense };
 
-  const renderElement = ({ uid, expense }: ExpenseFormProps) =>
+  const renderElement = ({ expense }: ExpenseFormProps) =>
     render(
       <QueryClientProvider client={testQueryClient}>
-        <ExpenseForm uid={uid} expense={expense} />
+        <ExpenseForm expense={expense} />
       </QueryClientProvider>
     );
 
@@ -73,12 +74,7 @@ describe('ExpenseForm', () => {
 
     it('renders 저장 when expense is provided.', () => {
       const { getByRole } = renderElement({
-        expense: {
-          date: new Date(),
-          memo: '',
-          categories: [],
-          amount: 0,
-        },
+        expense: { ...expense },
       });
       const submitButton = getByRole('button', { name: '저장' });
       expect(submitButton).toBeInTheDocument();

@@ -212,7 +212,18 @@ const useNewExpenseByUid = (uid: string) => {
 
   const { data: newExpense } = useQuery<Expense>({
     queryKey: ['newExpense', uid],
-    queryFn: () => Promise.resolve({ ...initialData, uid }),
+    queryFn: () => {
+      const previousData = queryClient.getQueryData<Expense>([
+        'newExpense',
+        uid,
+      ]);
+
+      if (previousData === undefined) {
+        throw new Error('error useNewExpenseByUid');
+      }
+
+      return { ...previousData };
+    },
     enabled: false,
     initialData: { ...initialData, uid },
   });

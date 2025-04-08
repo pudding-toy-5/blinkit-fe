@@ -234,43 +234,28 @@ const useNewExpenseByUid = (uid: string) => {
     });
   };
 
-  const updateNewExpenseField = <K extends keyof Omit<Expense, 'uid'>>(
+  const updateNewExpenseField = <K extends keyof Expense>(
     key: K,
-    value: Omit<Expense, 'uid'>[K]
+    value: Expense[K]
   ) => {
     return queryClient.setQueryData<Expense>(
       ['newExpense', uid],
       (oldExpense) => {
         return oldExpense !== undefined
-          ? { ...oldExpense, uid, [key]: value }
+          ? { ...oldExpense, [key]: value }
           : { ...initialData, uid, [key]: value };
       }
     );
-  };
-
-  const updateNewExpenseDate = (date: Date) => {
-    return updateNewExpenseField('date', date);
-  };
-
-  const updateNewExpenseMemo = (memo: string) => {
-    return updateNewExpenseField('memo', memo);
   };
 
   const updateNewExpenseCategories = (categories: Category[]) => {
     return updateNewExpenseField('categories', categories);
   };
 
-  const updateNewExpenseAmount = (amount: number) => {
-    return updateNewExpenseField('amount', amount);
-  };
-
   return {
     newExpense,
     updateNewExpense,
-    updateNewExpenseDate,
-    updateNewExpenseMemo,
     updateNewExpenseCategories,
-    updateNewExpenseAmount,
   };
 };
 

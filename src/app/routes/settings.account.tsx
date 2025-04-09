@@ -7,7 +7,7 @@ import { z } from 'zod';
 
 import { useMe, useUpdateMe } from '@/features/auth/api/useAuth';
 import LabeledTextInput from '@/shared/ui/LabeledTextInput';
-import Layout from '@/shared/ui/layout/Layout';
+import UserLayout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/settings/account')({
@@ -91,7 +91,7 @@ function RouteComponent() {
   };
 
   return (
-    <Layout guarded>
+    <UserLayout>
       <SubPageHeader title='회원정보' back />
       <Form {...form}>
         <form
@@ -142,6 +142,6 @@ function RouteComponent() {
           </div>
         </form>
       </Form>
-    </Layout>
+    </UserLayout>
   );
 }

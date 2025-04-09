@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/drawer';
 import { TOKEN_KEY } from '@/constants';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
-import Layout from '@/shared/ui/layout/Layout';
+import UserLayout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/settings/')({
@@ -71,7 +71,7 @@ function RouteComponent() {
   ];
 
   return (
-    <Layout guarded>
+    <UserLayout>
       <SubPageHeader title='설정' back />
       <ul className='flex flex-col list-none gap-6 pt-6 px-5'>
         {settingGroups.map((settingGroup) => (
@@ -140,6 +140,6 @@ function RouteComponent() {
           </li>
         ))}
       </ul>
-    </Layout>
+    </UserLayout>
   );
 }

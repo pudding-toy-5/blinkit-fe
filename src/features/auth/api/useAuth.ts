@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { toast } from 'sonner';
 
 import { TOKEN_KEY } from '@/constants';
 import { ServerUser, User } from '@/features/auth/model/User';
@@ -21,7 +20,6 @@ export const useMe = () => {
         const user = convertServerUserToUser(serverUser);
         return user;
       } catch (error) {
-        toast.error('소셜 로그인에서 문제가 발생했어요.');
         localStorage.removeItem(TOKEN_KEY);
         if (error instanceof AxiosError) {
           throw new Error('Get Me Failed: ' + error.message);

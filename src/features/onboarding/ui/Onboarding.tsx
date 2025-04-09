@@ -13,6 +13,8 @@ const imageUrls = [
   '/images/onboarding/3/3@3x.png',
 ];
 
+const SWIPE_THRESHOLD = 75;
+
 export default function Onboarding({ onComplete, slideInterval = 4000 }: OnboardingProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef<HTMLDivElement>(null);
@@ -90,12 +92,12 @@ export default function Onboarding({ onComplete, slideInterval = 4000 }: Onboard
   };
 
   const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 75) {
+    if (touchStart - touchEnd > SWIPE_THRESHOLD) {
       // 왼쪽으로 스와이프
       nextSlide();
     }
 
-    if (touchStart - touchEnd < -75) {
+    if (touchStart - touchEnd < -SWIPE_THRESHOLD) {
       // 오른쪽으로 스와이프
       prevSlide();
     }
@@ -128,7 +130,7 @@ export default function Onboarding({ onComplete, slideInterval = 4000 }: Onboard
     setIsDragging(false);
     setDragX(0);
 
-    if (Math.abs(diff) > 75) {
+    if (Math.abs(diff) > SWIPE_THRESHOLD) {
       if (diff > 0) {
         prevSlide();
       } else {
@@ -146,7 +148,7 @@ export default function Onboarding({ onComplete, slideInterval = 4000 }: Onboard
       setIsDragging(false);
       setDragX(0);
 
-      if (Math.abs(diff) > 75) {
+      if (Math.abs(diff) > SWIPE_THRESHOLD) {
         if (diff > 0) {
           prevSlide();
         } else {

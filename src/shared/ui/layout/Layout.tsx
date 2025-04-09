@@ -74,14 +74,14 @@ const Layout: React.FC<{
     if (!isAuthorized) {
       return <FullScreenSpinner />;
     }
-
+    
     if (!hasRedirectedRef.current) {
       return <FullScreenSpinner />;
     }
   }
 
   return (
-    <div className='container mx-auto h-screen bg-white relative flex flex-col overflow-hidden safe-area-wrapper'>
+    <div className='w-full min-w-[375px] max-w-[430px] mx-auto h-screen bg-white relative flex flex-col overflow-hidden safe-area-wrapper'>
       {children}
     </div>
   );

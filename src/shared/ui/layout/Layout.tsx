@@ -14,7 +14,7 @@ const Layout: React.FC<{
 
   if (!guarded) {
     return (
-      <div className='max-w-sm mx-auto h-screen bg-white relative flex flex-col overflow-hidden'>
+      <div className='w-full max-w-[430px] mx-auto h-screen bg-white relative flex flex-col overflow-hidden safe-area-wrapper'>
         {children}
       </div>
     );
@@ -36,7 +36,7 @@ const Layout: React.FC<{
 
   if (isLoading || isMeLoading) {
     return (
-      <div className='container mx-auto h-screen bg-white relative flex flex-col overflow-hidden safe-area-wrapper'>
+      <div className='w-full max-w-[430px] mx-auto h-screen bg-white relative flex flex-col overflow-hidden safe-area-wrapper'>
         <div className='flex flex-1 justify-center items-center'>
           <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-[#222]' />
         </div>
@@ -45,7 +45,7 @@ const Layout: React.FC<{
   }
 
   return (
-    <div className='container mx-auto h-screen bg-white relative flex flex-col overflow-hidden safe-area-wrapper'>
+    <div className='w-full max-w-[430px] mx-auto h-screen bg-white relative flex flex-col overflow-hidden safe-area-wrapper'>
       {children}
     </div>
   );

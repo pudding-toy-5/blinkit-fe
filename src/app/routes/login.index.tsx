@@ -1,6 +1,6 @@
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
-import { TOKEN_KEY } from '@/constants';
+import { useMe } from '@/features/auth/api/useAuth';
 import SignInButton from '@/features/auth/ui/SignInButton';
 import { apiUrl } from '@/features/common/consts';
 import Onboarding from '@/features/onboarding/ui/Onboarding';
@@ -8,24 +8,18 @@ import userAxios from '@/shared/api/userAxios';
 import Layout from '@/shared/ui/layout/Layout';
 
 export const Route = createFileRoute('/login/')({
-  loader: async () => {
-    try {
-      const res = await userAxios.get(`${apiUrl}/account/users/me`);
-      if (res.status !== 200) {
-        localStorage.removeItem(TOKEN_KEY);
-        return;
-      }
-
-      return redirect({ to: '/expenses' });
-    } catch {
-      localStorage.removeItem(TOKEN_KEY);
-      return;
-    }
-  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const navigate = useNavigate();
+  const { data } = useMe();
+
+  if (data) {
+    void navigate({ to: '/expenses' });
+    return;
+  }
+
   return (
     <Layout>
       <Onboarding />

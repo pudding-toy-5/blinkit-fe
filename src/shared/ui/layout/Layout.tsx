@@ -9,7 +9,7 @@ import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
 
 const FullScreenSpinner: React.FC = () => (
-  <div className='container mx-auto h-screen bg-white relative flex flex-col overflow-hidden safe-area-wrapper'>
+  <div className='w-full min-w-[375px] max-w-[430px] mx-auto h-screen bg-white relative flex flex-col overflow-hidden safe-area-wrapper'>
     <div className='flex flex-1 justify-center items-center'>
       <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-[#222]' />
     </div>
@@ -74,7 +74,7 @@ const Layout: React.FC<{
     if (!isAuthorized) {
       return <FullScreenSpinner />;
     }
-    
+
     if (!hasRedirectedRef.current) {
       return <FullScreenSpinner />;
     }

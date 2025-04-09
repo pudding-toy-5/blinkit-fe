@@ -3,6 +3,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { TOKEN_KEY } from '@/constants';
 import SignInButton from '@/features/auth/ui/SignInButton';
 import { apiUrl } from '@/features/common/consts';
+import Onboarding from '@/features/onboarding/ui/Onboarding';
 import userAxios from '@/shared/api/userAxios';
 import Layout from '@/shared/ui/layout/Layout';
 
@@ -27,6 +28,7 @@ export const Route = createFileRoute('/login/')({
 function RouteComponent() {
   return (
     <Layout>
+      <Onboarding />
       <div className='flex flex-col gap-3 w-full px-5 mt-auto'>
         <SignInButton service='google' />
         <SignInButton service='naver' />

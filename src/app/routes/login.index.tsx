@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
 import { useMe } from '@/features/auth/api/useAuth';
 import SignInButton from '@/features/auth/ui/SignInButton';
-import Layout from '@/shared/ui/layout/Layout';
+import GuestLayout from '@/shared/ui/layout/GuestLayout';
 
 export const Route = createFileRoute('/login/')({
   component: RouteComponent,
@@ -18,7 +18,7 @@ function RouteComponent() {
   }
 
   return (
-    <Layout>
+    <GuestLayout>
       <div className='flex flex-col gap-3 w-full px-5 mt-auto'>
         <SignInButton service='google' />
         <SignInButton service='naver' />
@@ -36,6 +36,6 @@ function RouteComponent() {
           {/* </Link> */}에 동의하게 됩니다.
         </p>
       </div>
-    </Layout>
+    </GuestLayout>
   );
 }

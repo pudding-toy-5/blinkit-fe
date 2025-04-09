@@ -13,7 +13,7 @@ import CategoryTag from '@/features/category/ui/CategoryTag';
 import InputCategoryTags from '@/features/category/ui/InputCategoryTags';
 import { useNewExpenseByUid } from '@/features/expense/api/useExpenseQuery';
 import Ellipsis from '@/shared/ui/icons/Ellipsis';
-import Layout from '@/shared/ui/layout/Layout';
+import UserLayout from '@/shared/ui/layout/UserLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/expenses/$uid/categories/')({
@@ -81,7 +81,7 @@ export function ExpenseUidCategoriesRoute() {
   };
 
   return (
-    <Layout guarded>
+    <UserLayout>
       <SubPageHeader title='카테고리 설정' close />
       <div className='mt-6 px-5'>
         <InputCategoryTags
@@ -140,6 +140,6 @@ export function ExpenseUidCategoriesRoute() {
           완료
         </Button>
       </div>
-    </Layout>
+    </UserLayout>
   );
 }

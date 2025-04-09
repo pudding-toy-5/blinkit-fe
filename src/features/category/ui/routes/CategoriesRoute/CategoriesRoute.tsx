@@ -11,7 +11,7 @@ import CategoryTag from '@/features/category/ui/CategoryTag';
 import InputCategoryTags from '@/features/category/ui/InputCategoryTags';
 import { useNewExpenseByUid } from '@/features/expense/api/useExpenseQuery';
 import Ellipsis from '@/shared/ui/icons/Ellipsis';
-import Layout from '@/shared/ui/layout/Layout';
+import UserLayout from '@/shared/ui/layout/UserLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 interface CategoriesRouteProps {
@@ -67,7 +67,7 @@ const CategoriesRoute: React.FC<CategoriesRouteProps> = ({ uid }) => {
   }, [inputCategories, categories, addCategory]);
 
   return (
-    <Layout guarded>
+    <UserLayout>
       <SubPageHeader title='카테고리 설정' close />
       <div className='mt-6 px-5'>
         <InputCategoryTags
@@ -112,7 +112,7 @@ const CategoriesRoute: React.FC<CategoriesRouteProps> = ({ uid }) => {
         )}
         <Button className='h-13 rounded-full text-[15px] mt-auto'>완료</Button>
       </div>
-    </Layout>
+    </UserLayout>
   );
 };
 

@@ -1,9 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-
-import { TOKEN_KEY } from '@/constants';
-import Layout from '@/shared/ui/layout/Layout';
 import { useEffect } from 'react';
 
+import { TOKEN_KEY } from '@/constants';
+import GuestLayout from '@/shared/ui/layout/GuestLayout';
 
 interface AuthResponse {
   access_token: string;
@@ -73,9 +72,5 @@ function RouteComponent() {
       console.error('Authentication error:', error);
     }
   };
-  return (
-    <Layout>
-      로그인 중
-    </Layout>
-  );
+  return <GuestLayout>로그인 중</GuestLayout>;
 }

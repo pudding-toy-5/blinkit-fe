@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { useNewExpenseByUid } from '@/features/expense/api/useExpenseQuery';
 import ExpenseForm from '@/features/expense/ui/ExpenseForm';
-import Layout from '@/shared/ui/layout/Layout';
+import UserLayout from '@/shared/ui/layout/UserLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/expenses/new/')({
@@ -13,10 +13,10 @@ export function RouteComponent() {
   const { newExpense } = useNewExpenseByUid('new');
 
   return (
-    <Layout guarded>
+    <UserLayout>
       <SubPageHeader title='지출 내역 추가' back />
       <ExpenseForm expense={newExpense} />
-    </Layout>
+    </UserLayout>
   );
 }
 

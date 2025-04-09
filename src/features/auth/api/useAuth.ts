@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useNavigate, useNavigate } from '@tanstack/react-router';
 import { AxiosError } from 'axios';
 
 import { ServerUser, User } from '@/features/auth/model/User';
@@ -10,6 +11,7 @@ import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
 
 export const useMe = () => {
+  const navigate = useNavigate();
   return useQuery<User>({
     queryKey: ['me'],
     queryFn: async () => {
@@ -19,6 +21,8 @@ export const useMe = () => {
         const user = convertServerUserToUser(serverUser);
         return user;
       } catch (error) {
+        void navigate({ to: '/login' });
+
         if (error instanceof AxiosError) {
           throw new Error('Get Me Failed: ' + error.message);
         }

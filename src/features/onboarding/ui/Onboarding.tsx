@@ -1,7 +1,9 @@
+import { cn } from '@/shared/ui/styles/utils';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface OnboardingProps {
   onComplete?: () => void;
+  slideInterval?: number; // Time in milliseconds between auto-slides
 }
 
 const TOTAL_SLIDES = 3;
@@ -11,21 +13,53 @@ const imageUrls = [
   '/images/onboarding/3/3@3x.png',
 ];
 
-export default function Onboarding({ onComplete }: OnboardingProps) {
+export default function Onboarding({ onComplete, slideInterval = 4000 }: OnboardingProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef<HTMLDivElement>(null);
+  const autoPlayRef = useRef<number>();
 
   const nextSlide = () => {
-    if (currentSlide >= TOTAL_SLIDES - 1) {
-      if (onComplete) onComplete();
-      return;
-    }
-    setCurrentSlide((prev) => prev + 1);
+    setCurrentSlide((prev) => {
+      if (prev >= TOTAL_SLIDES - 1) {
+        if (onComplete) onComplete();
+        return 0; // Loop back to first slide
+      }
+      return prev + 1;
+    });
   };
 
   const prevSlide = () => {
-    if (currentSlide === 0) return;
-    setCurrentSlide((prev) => prev - 1);
+    setCurrentSlide((prev) => {
+      if (prev === 0) {
+        return TOTAL_SLIDES - 1; // Go to last slide
+      }
+      return prev - 1;
+    });
+  };
+
+  // Auto-sliding effect
+  useEffect(() => {
+    if (slideInterval > 0) {
+      autoPlayRef.current = window.setInterval(() => {
+        nextSlide();
+      }, slideInterval);
+    }
+
+    return () => {
+      if (autoPlayRef.current) {
+        window.clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [slideInterval]);
+
+  // Reset auto-slide timer when manually changing slides
+  const resetAutoPlayTimer = () => {
+    if (autoPlayRef.current) {
+      window.clearInterval(autoPlayRef.current);
+      autoPlayRef.current = window.setInterval(() => {
+        nextSlide();
+      }, slideInterval);
+    }
   };
 
   useEffect(() => {
@@ -41,6 +75,10 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
+    // Pause auto-sliding during touch interaction
+    if (autoPlayRef.current) {
+      clearInterval(autoPlayRef.current);
+    }
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -57,10 +95,12 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
       // 오른쪽으로 스와이프
       prevSlide();
     }
+    // Resume auto-sliding after touch interaction
+    resetAutoPlayTimer();
   };
 
   return (
-    <div className='w-full h-full flex flex-col'>
+    <div className='w-full h-full flex flex-col py-8 px-5'>
       <div
         className='w-full flex-1 overflow-hidden relative'
         onTouchStart={handleTouchStart}
@@ -69,11 +109,14 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
       >
         <div ref={slideRef} className='w-full h-full flex'>
           {imageUrls.map((url, index) => (
-            <div key={index} className='w-full h-full flex-shrink-0'>
+            <div 
+              key={index} 
+              className='min-w-full w-full h-full flex-shrink-0 flex items-center justify-center'
+            >
               <img
                 src={url}
                 alt={`온보딩 이미지 ${String(index + 1)}`}
-                className='w-full h-full object-cover'
+                className='w-full h-full object-contain'
               />
             </div>
           ))}
@@ -85,9 +128,11 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
         {Array.from({ length: TOTAL_SLIDES }).map((_, index) => (
           <div
             key={index}
-            className={`w-2 h-2 rounded-full mx-1 ${
-              currentSlide === index ? 'bg-blue-500' : 'bg-gray-300'
-            }`}
+            className={cn(
+              'h-2 rounded-full mx-1',
+              currentSlide === index ? 'bg-[#89F336]' : 'bg-[#CCCCCC]',
+              currentSlide === index ? 'w-4' : 'w-2',
+            )}
             onClick={() => {
               setCurrentSlide(index);
             }}
@@ -95,29 +140,6 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
         ))}
       </div>
 
-      {/* 건너뛰기 & 다음 버튼 */}
-      <div className='flex justify-between px-6 pb-10'>
-        {currentSlide < TOTAL_SLIDES - 1 ? (
-          <>
-            <button className='text-gray-500' onClick={onComplete}>
-              건너뛰기
-            </button>
-            <button
-              className='bg-blue-500 text-white px-4 py-2 rounded-lg'
-              onClick={nextSlide}
-            >
-              다음
-            </button>
-          </>
-        ) : (
-          <button
-            className='bg-blue-500 text-white px-4 py-2 rounded-lg w-full'
-            onClick={onComplete}
-          >
-            시작하기
-          </button>
-        )}
-      </div>
     </div>
   );
 }

@@ -20,7 +20,7 @@ const Layout: React.FC<{
     );
   }
 
-  if (isError) {
+  if (isError || user === undefined) {
     localStorage.removeItem(TOKEN_KEY);
     toast.error('소셜 로그인에서 문제가 발생했어요.');
     void navigate({ to: '/login' });

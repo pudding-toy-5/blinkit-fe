@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useNavigate } from '@tanstack/react-router';
 import { AxiosError } from 'axios';
+import { toast } from 'sonner';
 
 import { ServerUser, User } from '@/features/auth/model/User';
 import {
@@ -21,6 +22,7 @@ export const useMe = () => {
         const user = convertServerUserToUser(serverUser);
         return user;
       } catch (error) {
+        toast.error('소셜 로그인에서 문제가 발생했어요.');
         void navigate({ to: '/login' });
 
         if (error instanceof AxiosError) {

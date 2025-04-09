@@ -24,7 +24,7 @@ const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
   return (
     <div className='flex flex-col items-center gap-2'>
       <Label
-        className='mr-auto text-base text-[#222] font-semibold'
+        className='mr-auto text-[15px] text-[#222] font-semibold'
         htmlFor={id}
       >
         {label}
@@ -42,10 +42,13 @@ const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
           }
         }}
         className={cn(
-          'text-base text-[#999] border-[#999] ',
-          'focus:border-[#222] focus:outline-none focus:ring-0 focus:text-[#222]',
+          'h-12',
+          'text-[15px] p-4',
+          'text-[#999] border-[#ccc] placeholder:text-[#999999]',
+          'focus-visible:border-[#555] focus:outline-none focus-visible:ring-0 focus-visible:text-[#222]',
           state === 'completed' && 'border-[#28a745]',
-          state === 'disabled' && 'text-[#555555] border-[#cccccc] bg-[#efefef]',
+          state === 'disabled' &&
+            'text-[#555555] border-[#cccccc] bg-[#efefef]',
           state === 'error' && 'border-[#d32f2f]'
         )}
       />
@@ -53,13 +56,13 @@ const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
         <span aria-live='polite' className={cn('flex flex-row ml-auto')}>
           <p
             className={cn(
-              'text-[#222]',
+              'text-[#222] text-[13px]',
               state === 'error' && value.length > maxLength && 'text-[#d32f2f]'
             )}
           >
             {value.length}
           </p>
-          <p className='text-[#999]'>/{maxLength}</p>
+          <p className='text-[#999] text-[13px]'>/{maxLength}</p>
         </span>
       )}
     </div>

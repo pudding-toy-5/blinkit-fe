@@ -10,7 +10,7 @@ const Layout: React.FC<{
   guarded?: boolean;
 }> = ({ children, isLoading, guarded }) => {
   const navigate = useNavigate();
-  const { isLoading: isMeLoading, isError } = useMe();
+  const { data: user, isError } = useMe();
 
   if (!guarded) {
     return (
@@ -28,13 +28,19 @@ const Layout: React.FC<{
     return;
   }
 
-  if (isError) {
+  if (user === undefined || isError) {
     toast.error('소셜 로그인에서 문제가 발생했어요.');
     void navigate({ to: '/login' });
     return;
   }
 
-  if (isLoading || isMeLoading) {
+  if (user.nickname === undefined || user.nickname === '') {
+    toast.error('닉네임을 설정한 후 서비스를 사용할 수 있어요.');
+    void navigate({ to: '/settings/account' });
+    return;
+  }
+
+  if (isLoading) {
     return (
       <div className='container mx-auto h-screen bg-white relative flex flex-col overflow-hidden safe-area-wrapper'>
         <div className='flex flex-1 justify-center items-center'>

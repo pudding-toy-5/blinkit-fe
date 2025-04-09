@@ -18,34 +18,38 @@ const UserLayout: React.FC<{
   const [isAuthorized, setIsAuthorized] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
 
-  const checkAuth = async () => {
-    try {
-      const res = await userAxios.get<ServerUser>(`${apiUrl}/account/users/me`);
-      const user = convertServerUserToUser(res.data);
+  React.useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await userAxios.get<ServerUser>(
+          `${apiUrl}/account/users/me`
+        );
+        const user = convertServerUserToUser(res.data);
 
-      if (res.status === 200) {
-        if (!user.nickname?.trim()) {
-          toast.error('닉네임을 설정한 후 서비스를 이용할 수 있어요.');
-          void navigate({ to: '/settings/account' });
-          return;
+        if (res.status === 200) {
+          if (!user.nickname?.trim()) {
+            toast.error('닉네임을 설정한 후 서비스를 이용할 수 있어요.');
+            void navigate({ to: '/settings/account' });
+            return;
+          }
+          setIsAuthorized(true);
         }
-        setIsAuthorized(true);
+      } catch (error) {
+        const err = error as AxiosError;
+        if (err.response?.status === 401) {
+          toast.error('소셜 로그인에서 문제가 발생했어요.');
+          void navigate({ to: '/login' });
+          return;
+        } else {
+          console.error('Unexpected error in getMe', err);
+        }
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response?.status === 401) {
-        toast.error('소셜 로그인에서 문제가 발생했어요.');
-        void navigate({ to: '/login' });
-        return;
-      } else {
-        console.error('Unexpected error in getMe', err);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  void checkAuth();
+    void checkAuth();
+  }, [navigate]);
 
   if (loading) {
     return <FullScreenSpinner />;

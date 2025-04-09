@@ -1,7 +1,6 @@
 import { useNavigate } from '@tanstack/react-router';
 import { toast } from 'sonner';
 
-import { TOKEN_KEY } from '@/constants';
 import { useMe } from '@/features/auth/api/useAuth';
 
 const Layout: React.FC<{
@@ -21,7 +20,6 @@ const Layout: React.FC<{
   }
 
   if (isError) {
-    localStorage.removeItem(TOKEN_KEY);
     toast.error('소셜 로그인에서 문제가 발생했어요.');
     void navigate({ to: '/login' });
     return;

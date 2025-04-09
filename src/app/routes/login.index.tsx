@@ -2,7 +2,10 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
 import { useMe } from '@/features/auth/api/useAuth';
 import SignInButton from '@/features/auth/ui/SignInButton';
+import { apiUrl } from '@/features/common/consts';
+import Onboarding from '@/features/onboarding/ui/Onboarding';
 import GuestLayout from '@/shared/ui/layout/GuestLayout';
+import userAxios from '@/shared/api/userAxios';
 
 export const Route = createFileRoute('/login/')({
   component: RouteComponent,
@@ -19,6 +22,7 @@ function RouteComponent() {
 
   return (
     <GuestLayout>
+      <Onboarding />
       <div className='flex flex-col gap-3 w-full px-5 mt-auto'>
         <SignInButton service='google' />
         <SignInButton service='naver' />

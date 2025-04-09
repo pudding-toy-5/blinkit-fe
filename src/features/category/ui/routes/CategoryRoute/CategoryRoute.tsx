@@ -21,7 +21,7 @@ import {
   useDeleteCategory,
   useUpdateCategory,
 } from '@/features/category/api/useCategoryQuery';
-import Layout from '@/shared/ui/layout/Layout';
+import UserLayout from '@/shared/ui/layout/UserLayout';
 import { cn } from '@/shared/ui/styles/utils';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
@@ -99,7 +99,7 @@ const CategoryRoute: React.FC = () => {
   };
 
   return (
-    <Layout guarded>
+    <UserLayout>
       <SubPageHeader title='카테고리명 편집' close />
       <Form {...form}>
         <form
@@ -172,7 +172,7 @@ const CategoryRoute: React.FC = () => {
           </div>
         </form>
       </Form>
-    </Layout>
+    </UserLayout>
   );
 };
 

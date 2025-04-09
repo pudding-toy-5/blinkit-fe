@@ -20,14 +20,14 @@ const Layout: React.FC<{
     );
   }
 
-  if (isError || user === undefined) {
+  if (isError) {
     localStorage.removeItem(TOKEN_KEY);
     toast.error('소셜 로그인에서 문제가 발생했어요.');
     void navigate({ to: '/login' });
     return;
   }
 
-  if (user.nickname === undefined || user.nickname === '') {
+  if (user?.nickname === undefined || user.nickname === '') {
     toast.error('닉네임을 설정한 후 서비스를 사용할 수 있어요.');
     void navigate({ to: '/settings/account' });
     return;

@@ -17,6 +17,9 @@ export default function Onboarding({ onComplete, slideInterval = 4000 }: Onboard
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef<HTMLDivElement>(null);
   const autoPlayRef = useRef<number>();
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [dragX, setDragX] = useState(0);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => {
@@ -64,10 +67,11 @@ export default function Onboarding({ onComplete, slideInterval = 4000 }: Onboard
 
   useEffect(() => {
     if (slideRef.current) {
-      slideRef.current.style.transition = 'all 0.5s ease-in-out';
-      slideRef.current.style.transform = `translateX(-${String(currentSlide * 100)}%)`;
+      slideRef.current.style.transition = isDragging ? 'none' : 'all 0.5s ease-in-out';
+      const offset = isDragging ? dragX : 0;
+      slideRef.current.style.transform = `translateX(calc(-${String(currentSlide * 100)}% + ${offset}px))`;
     }
-  }, [currentSlide]);
+  }, [currentSlide, isDragging, dragX]);
 
   // 터치 슬라이드 이벤트 처리를 위한 상태와 핸들러
   const [touchStart, setTouchStart] = useState(0);
@@ -99,13 +103,71 @@ export default function Onboarding({ onComplete, slideInterval = 4000 }: Onboard
     resetAutoPlayTimer();
   };
 
+  // Mouse drag handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartX(e.clientX);
+    if (autoPlayRef.current) {
+      clearInterval(autoPlayRef.current);
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    const currentX = e.clientX;
+    const diff = currentX - startX;
+    setDragX(diff);
+  };
+
+  const handleMouseUp = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    
+    const endX = e.clientX;
+    const diff = endX - startX;
+    
+    setIsDragging(false);
+    setDragX(0);
+
+    if (Math.abs(diff) > 75) {
+      if (diff > 0) {
+        prevSlide();
+      } else {
+        nextSlide();
+      }
+    }
+    resetAutoPlayTimer();
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent) => {
+    if (isDragging) {
+      const endX = e.clientX;
+      const diff = endX - startX;
+      
+      setIsDragging(false);
+      setDragX(0);
+
+      if (Math.abs(diff) > 75) {
+        if (diff > 0) {
+          prevSlide();
+        } else {
+          nextSlide();
+        }
+      }
+      resetAutoPlayTimer();
+    }
+  };
+
   return (
     <div className='w-full h-full flex flex-col py-8 px-5'>
       <div
-        className='w-full flex-1 overflow-hidden relative'
+        className='w-full flex-1 overflow-hidden relative select-none cursor-grab active:cursor-grabbing'
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
       >
         <div ref={slideRef} className='w-full h-full flex'>
           {imageUrls.map((url, index) => (
@@ -116,7 +178,7 @@ export default function Onboarding({ onComplete, slideInterval = 4000 }: Onboard
               <img
                 src={url}
                 alt={`온보딩 이미지 ${String(index + 1)}`}
-                className='w-full h-full object-contain'
+                className='w-full h-full object-contain pointer-events-none'
               />
             </div>
           ))}

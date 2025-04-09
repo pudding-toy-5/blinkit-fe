@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
 import { AxiosError } from 'axios';
 import { toast } from 'sonner';
 
+import { TOKEN_KEY } from '@/constants';
 import { ServerUser, User } from '@/features/auth/model/User';
 import {
   convertServerUserToUser,
@@ -12,7 +12,6 @@ import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
 
 export const useMe = () => {
-  const navigate = useNavigate();
   return useQuery<User>({
     queryKey: ['me'],
     queryFn: async () => {
@@ -23,8 +22,7 @@ export const useMe = () => {
         return user;
       } catch (error) {
         toast.error('소셜 로그인에서 문제가 발생했어요.');
-        void navigate({ to: '/login' });
-
+        localStorage.removeItem(TOKEN_KEY);
         if (error instanceof AxiosError) {
           throw new Error('Get Me Failed: ' + error.message);
         }

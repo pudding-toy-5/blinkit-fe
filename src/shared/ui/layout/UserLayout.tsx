@@ -20,54 +20,48 @@ const UserLayout: React.FC<{
   const [isAuthorized, setIsAuthorized] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
 
-  React.useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const res = await userAxios.get<ServerUser>(
-          `${apiUrl}/account/users/me`
-        );
-        const user = convertServerUserToUser(res.data);
+  const checkAuth = async () => {
+    try {
+      const res = await userAxios.get<ServerUser>(`${apiUrl}/account/users/me`);
+      const user = convertServerUserToUser(res.data);
 
-        if (res.status === 200) {
-          if (!user.nickname?.trim()) {
-            if (!hasRedirectedRef.current) {
-              hasRedirectedRef.current = true;
-              toast.error('닉네임을 설정한 후 서비스를 이용할 수 있어요.');
-              void navigate({ to: '/settings/account' });
-            }
-            return;
+      if (res.status === 200) {
+        if (!user.nickname?.trim()) {
+          if (!hasRedirectedRef.current) {
+            hasRedirectedRef.current = true;
+            toast.error('닉네임을 설정한 후 서비스를 이용할 수 있어요.');
+            void navigate({ to: '/settings/account' });
           }
-          setIsAuthorized(true);
+          return;
         }
-      } catch (error) {
-        const err = error as AxiosError;
-        if (err.response?.status === 401 && !hasRedirectedRef.current) {
-          hasRedirectedRef.current = true;
-          toast.error('소셜 로그인에서 문제가 발생했어요.');
-          void navigate({ to: '/login' });
-        } else {
-          console.error('Unexpected error in getMe', err);
-        }
-      } finally {
-        setLoading(false);
+        setIsAuthorized(true);
       }
-    };
-
-    void checkAuth();
-  }, [guarded, navigate]);
-
-  if (guarded) {
-    if (loading || isLoading) {
-      return <FullScreenSpinner />;
+    } catch (error) {
+      const err = error as AxiosError;
+      if (err.response?.status === 401 && !hasRedirectedRef.current) {
+        hasRedirectedRef.current = true;
+        toast.error('소셜 로그인에서 문제가 발생했어요.');
+        void navigate({ to: '/login' });
+      } else {
+        console.error('Unexpected error in getMe', err);
+      }
+    } finally {
+      setLoading(false);
     }
+  };
 
-    if (!isAuthorized) {
-      return <FullScreenSpinner />;
-    }
+  void checkAuth();
 
-    if (!hasRedirectedRef.current) {
-      return <FullScreenSpinner />;
-    }
+  if (loading) {
+    return <FullScreenSpinner />;
+  }
+
+  if (!isAuthorized) {
+    return <FullScreenSpinner />;
+  }
+
+  if (!hasRedirectedRef.current) {
+    return <FullScreenSpinner />;
   }
 
   return <Layout>{children}</Layout>;

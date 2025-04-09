@@ -7,24 +7,20 @@ import { ServerUser } from '@/features/auth/model/User';
 import { convertServerUserToUser } from '@/features/auth/model/utils';
 import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
+import FullScreenSpinner from '@/shared/ui/FullScreenSpinner';
+import Layout from '@/shared/ui/layout/Layout';
 
-import FullScreenSpinner from '../FullScreenSpinner';
-
-const Layout: React.FC<{
+const UserLayout: React.FC<{
   children?: React.ReactNode;
-  isLoading?: boolean;
-  guarded?: boolean;
-}> = ({ children, isLoading = false, guarded = false }) => {
+}> = ({ children }) => {
   const navigate = useNavigate();
 
   const hasRedirectedRef = React.useRef<boolean>(false);
 
   const [isAuthorized, setIsAuthorized] = React.useState<boolean>(false);
-  const [loading, setLoading] = React.useState<boolean>(!!guarded);
+  const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    if (!guarded) return;
-
     const checkAuth = async () => {
       try {
         const res = await userAxios.get<ServerUser>(
@@ -74,11 +70,7 @@ const Layout: React.FC<{
     }
   }
 
-  return (
-    <div className='w-full min-w-[375px] max-w-[430px] mx-auto h-screen bg-white relative flex flex-col overflow-hidden safe-area-wrapper'>
-      {children}
-    </div>
-  );
+  return <Layout>{children}</Layout>;
 };
 
-export default Layout;
+export default UserLayout;

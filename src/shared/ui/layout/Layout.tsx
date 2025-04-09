@@ -10,7 +10,7 @@ const Layout: React.FC<{
   guarded?: boolean;
 }> = ({ children, isLoading, guarded }) => {
   const navigate = useNavigate();
-  const { isLoading: isMeLoading, isError } = useMe();
+  const { isError } = useMe();
 
   if (!guarded) {
     return (
@@ -20,21 +20,14 @@ const Layout: React.FC<{
     );
   }
 
-  const token = localStorage.getItem(TOKEN_KEY);
-
-  if (!token) {
-    toast.error('소셜 로그인에서 문제가 발생했어요.');
-    void navigate({ to: '/login' });
-    return;
-  }
-
   if (isError) {
+    localStorage.removeItem(TOKEN_KEY);
     toast.error('소셜 로그인에서 문제가 발생했어요.');
     void navigate({ to: '/login' });
     return;
   }
 
-  if (isLoading || isMeLoading) {
+  if (isLoading) {
     return (
       <div className='container mx-auto h-screen bg-white relative flex flex-col overflow-hidden safe-area-wrapper'>
         <div className='flex flex-1 justify-center items-center'>

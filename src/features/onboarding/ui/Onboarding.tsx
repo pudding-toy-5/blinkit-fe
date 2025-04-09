@@ -9,8 +9,8 @@ interface OnboardingProps {
 const TOTAL_SLIDES = 3;
 const imageUrls = [
   '/images/onboarding/1/1@3x.png',
-  '/images/onboarding/2/2@3x.png',
   '/images/onboarding/3/3@3x.png',
+  '/images/onboarding/2/2@3x.png',
 ];
 
 const SWIPE_THRESHOLD = 75;

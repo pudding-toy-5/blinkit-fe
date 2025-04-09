@@ -1,7 +1,6 @@
-import { useNavigate } from '@tanstack/react-router';
+import { useLocation, useNavigate } from '@tanstack/react-router';
 import { AxiosError } from 'axios';
 import React from 'react';
-import { toast } from 'sonner';
 
 import { ServerUser } from '@/features/auth/model/User';
 import { convertServerUserToUser } from '@/features/auth/model/utils';
@@ -14,6 +13,7 @@ const UserLayout: React.FC<{
   children?: React.ReactNode;
 }> = ({ children }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isAuthorized, setIsAuthorized] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
@@ -27,8 +27,10 @@ const UserLayout: React.FC<{
         const user = convertServerUserToUser(res.data);
 
         if (res.status === 200) {
-          if (!user.nickname?.trim()) {
-            toast.error('닉네임을 설정한 후 서비스를 이용할 수 있어요.');
+          if (
+            location.pathname !== '/settings/account' &&
+            !user.nickname?.trim()
+          ) {
             void navigate({ to: '/settings/account' });
             return;
           }
@@ -37,7 +39,6 @@ const UserLayout: React.FC<{
       } catch (error) {
         const err = error as AxiosError;
         if (err.response?.status === 401) {
-          toast.error('소셜 로그인에서 문제가 발생했어요.');
           void navigate({ to: '/login' });
           return;
         } else {

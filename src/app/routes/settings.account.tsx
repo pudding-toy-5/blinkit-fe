@@ -7,7 +7,7 @@ import { z } from 'zod';
 
 import { useMe, useUpdateMe } from '@/features/auth/api/useAuth';
 import LabeledTextInput from '@/shared/ui/LabeledTextInput';
-import UserLayout from '@/shared/ui/layout/Layout';
+import UserLayout from '@/shared/ui/layout/UserLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/settings/account')({

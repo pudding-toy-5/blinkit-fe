@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
+import { TOKEN_KEY } from '@/constants';
 import { ServerUser, User } from '@/features/auth/model/User';
 import {
   convertServerUserToUser,
@@ -19,6 +20,7 @@ export const useMe = () => {
         const user = convertServerUserToUser(serverUser);
         return user;
       } catch (error) {
+        localStorage.removeItem(TOKEN_KEY);
         if (error instanceof AxiosError) {
           throw new Error('Get Me Failed: ' + error.message);
         }

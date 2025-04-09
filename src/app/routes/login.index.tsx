@@ -18,6 +18,7 @@ export const Route = createFileRoute('/login/')({
       return redirect({ to: '/expenses' });
     } catch {
       localStorage.removeItem(TOKEN_KEY);
+      return;
     }
   },
   component: RouteComponent,

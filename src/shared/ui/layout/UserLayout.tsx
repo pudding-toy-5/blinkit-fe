@@ -15,8 +15,6 @@ const UserLayout: React.FC<{
 }> = ({ children }) => {
   const navigate = useNavigate();
 
-  const hasRedirectedRef = React.useRef<boolean>(false);
-
   const [isAuthorized, setIsAuthorized] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
 
@@ -27,21 +25,18 @@ const UserLayout: React.FC<{
 
       if (res.status === 200) {
         if (!user.nickname?.trim()) {
-          if (!hasRedirectedRef.current) {
-            hasRedirectedRef.current = true;
-            toast.error('닉네임을 설정한 후 서비스를 이용할 수 있어요.');
-            void navigate({ to: '/settings/account' });
-          }
+          toast.error('닉네임을 설정한 후 서비스를 이용할 수 있어요.');
+          void navigate({ to: '/settings/account' });
           return;
         }
         setIsAuthorized(true);
       }
     } catch (error) {
       const err = error as AxiosError;
-      if (err.response?.status === 401 && !hasRedirectedRef.current) {
-        hasRedirectedRef.current = true;
+      if (err.response?.status === 401) {
         toast.error('소셜 로그인에서 문제가 발생했어요.');
         void navigate({ to: '/login' });
+        return;
       } else {
         console.error('Unexpected error in getMe', err);
       }
@@ -57,10 +52,6 @@ const UserLayout: React.FC<{
   }
 
   if (!isAuthorized) {
-    return <FullScreenSpinner />;
-  }
-
-  if (!hasRedirectedRef.current) {
     return <FullScreenSpinner />;
   }
 

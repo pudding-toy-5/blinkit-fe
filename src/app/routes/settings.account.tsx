@@ -134,7 +134,11 @@ function RouteComponent() {
             )}
           />
           <div className='mt-auto'>
-            <SubmitButton type='submit' text='저장' className='w-full' />
+            <SubmitButton
+              type='submit'
+              text='저장'
+              className='w-full font-semibold'
+            />
           </div>
         </form>
       </Form>

@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
-import { TOKEN_KEY } from '@/constants';
+import { useMe } from '@/features/auth/api/useAuth';
 import SignInButton from '@/features/auth/ui/SignInButton';
 import Layout from '@/shared/ui/layout/Layout';
 
@@ -10,8 +10,11 @@ export const Route = createFileRoute('/login/')({
 
 function RouteComponent() {
   const navigate = useNavigate();
-  if (localStorage.getItem(TOKEN_KEY)) {
+  const { data } = useMe();
+
+  if (data) {
     void navigate({ to: '/expenses' });
+    return;
   }
 
   return (

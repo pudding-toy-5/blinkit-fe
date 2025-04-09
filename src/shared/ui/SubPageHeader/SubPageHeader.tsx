@@ -44,7 +44,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
   };
 
   return (
-    <header className='flex flex-row justify-center items-center h-12 px-5 py-4'>
+    <header className='flex flex-row justify-center items-center h-14 px-5 py-4'>
       {back && (
         <div
           aria-label='back button'

@@ -12,7 +12,7 @@ import DailyExpenseList from '@/features/expense/ui/DailyExpenseList';
 import MonthSelector from '@/features/expense/ui/MonthSelector';
 import Logo from '@/shared/ui/icons/Logo';
 import Setting from '@/shared/ui/icons/Setting';
-import Layout from '@/shared/ui/layout/Layout';
+import UserLayout from '@/shared/ui/layout/UserLayout';
 
 export const Route = createFileRoute('/expenses/')({
   component: ExpensesPage,
@@ -46,7 +46,7 @@ export function ExpensesPage() {
   const { totalAmount } = useTotalAmountByPeriod(period);
 
   return (
-    <Layout guarded>
+    <UserLayout>
       {!isCollapsed && (
         <header className='flex flex-row items-center px-5 py-4'>
           <Logo />
@@ -73,7 +73,7 @@ export function ExpensesPage() {
       <Link to='/expenses/new'>
         <AddExpenseButton />
       </Link>
-    </Layout>
+    </UserLayout>
   );
 }
 

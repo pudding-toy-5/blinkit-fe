@@ -7,7 +7,7 @@ import {
   useNewExpenseByUid,
 } from '@/features/expense/api/useExpenseQuery';
 import ExpenseForm from '@/features/expense/ui/ExpenseForm';
-import Layout from '@/shared/ui/layout/Layout';
+import UserLayout from '@/shared/ui/layout/UserLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/expenses/$uid/')({
@@ -24,12 +24,12 @@ export function RouteComponent() {
 
   if (isLoading) {
     return (
-      <Layout guarded>
+      <UserLayout>
         <SubPageHeader title='지출 내역 수정' back />
         <div className='flex flex-1 justify-center items-center'>
           <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-[#222]' />
         </div>
-      </Layout>
+      </UserLayout>
     );
   }
 
@@ -60,10 +60,10 @@ export function RouteComponent() {
   };
 
   return (
-    <Layout guarded>
+    <UserLayout>
       <SubPageHeader title='지출 내역 수정' back onClose={handleDelete} />
       <ExpenseForm expense={newExpense} />
-    </Layout>
+    </UserLayout>
   );
 }
 

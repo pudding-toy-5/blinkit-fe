@@ -13,7 +13,7 @@ import CategoryTag from '@/features/category/ui/CategoryTag';
 import InputCategoryTags from '@/features/category/ui/InputCategoryTags';
 import { useNewExpenseByUid } from '@/features/expense/api/useExpenseQuery';
 import Ellipsis from '@/shared/ui/icons/Ellipsis';
-import Layout from '@/shared/ui/layout/Layout';
+import UserLayout from '@/shared/ui/layout/UserLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/expenses/new/categories/')({
@@ -25,7 +25,7 @@ export function NewCategoriesRoute() {
   const addCategory = useAddCategory();
 
   const { newExpense, updateNewExpenseCategories } = useNewExpenseByUid('new');
-  const { categories, isLoading, isError, error } = useCategories();
+  const { categories, isError, error } = useCategories();
 
   const [values, setValues] = React.useState<string[]>(
     newExpense.categories.map((category) => category.name)
@@ -82,7 +82,7 @@ export function NewCategoriesRoute() {
   };
 
   return (
-    <Layout guarded isLoading={isLoading}>
+    <UserLayout>
       <SubPageHeader title='카테고리 설정' close />
       <div className='mt-6 px-5'>
         <InputCategoryTags
@@ -140,6 +140,6 @@ export function NewCategoriesRoute() {
           완료
         </Button>
       </div>
-    </Layout>
+    </UserLayout>
   );
 }

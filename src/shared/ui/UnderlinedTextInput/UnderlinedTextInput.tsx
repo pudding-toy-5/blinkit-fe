@@ -59,19 +59,6 @@ const UnderlinedTextInput: React.FC<UnderlinedTextInputProps> = ({
         {guideText && (
           <span className='text-[13px] text-[#555]'>{guideText}</span>
         )}
-        {maxLength && (
-          <span className={cn('flex flex-row ml-auto')}>
-            <p
-              className={cn(
-                'text-[#222]'
-                // value.length > maxLength && 'text-[#d32f2f]'
-              )}
-            >
-              {value.length}
-            </p>
-            <p className='text-[#999]'>/{maxLength}</p>
-          </span>
-        )}
       </div>
     </div>
   );

@@ -23,7 +23,10 @@ const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
 }) => {
   return (
     <div className='flex flex-col items-center gap-2'>
-      <Label className='mr-auto text-base text-[#222]' htmlFor={id}>
+      <Label
+        className='mr-auto text-base text-[#222] font-semibold'
+        htmlFor={id}
+      >
         {label}
       </Label>
       <Input

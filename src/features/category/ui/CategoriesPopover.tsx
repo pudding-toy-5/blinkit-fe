@@ -27,7 +27,7 @@ export default function CategoriesPopover({
   onClose,
 }: Props) {
   const addCategory = useAddCategory();
-  const { categories, isLoading, isError, error } = useCategories();
+  const { categories } = useCategories();
 
   const [values, setValues] = React.useState<string[]>(
     selectedCategories.map((selectedCategory) => selectedCategory.name)
@@ -43,14 +43,6 @@ export default function CategoriesPopover({
       selectedCategories.map((selectedCategory) => selectedCategory.name)
     );
   }, [selectedCategories]);
-
-  if (isLoading) {
-    return <>Loading</>;
-  }
-
-  if (isError && error) {
-    throw error;
-  }
 
   const handleValues = (newValues: string[]) => {
     if (categories === undefined) {

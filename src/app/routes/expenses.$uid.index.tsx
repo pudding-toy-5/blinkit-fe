@@ -25,7 +25,7 @@ export function RouteComponent() {
   if (isLoading) {
     return (
       <UserLayout>
-        <SubPageHeader title='지출 내역 수정' back />
+        <SubPageHeader title='지출 내역 수정' />
         <div className='flex flex-1 justify-center items-center'>
           <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-[#222]' />
         </div>
@@ -61,7 +61,13 @@ export function RouteComponent() {
 
   return (
     <UserLayout>
-      <SubPageHeader title='지출 내역 수정' back onDelete={handleDelete} />
+      <SubPageHeader
+        title='지출 내역 수정'
+        onClickBack={() => {
+          void navigate({ to: '/expenses' });
+        }}
+        onDelete={handleDelete}
+      />
       <ExpenseForm expense={newExpense} />
     </UserLayout>
   );

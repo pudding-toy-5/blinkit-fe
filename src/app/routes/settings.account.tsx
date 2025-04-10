@@ -92,7 +92,12 @@ function RouteComponent() {
 
   return (
     <UserLayout>
-      <SubPageHeader title='회원정보' back />
+      <SubPageHeader
+        title='회원정보'
+        onClickBack={() => {
+          void navigate({ to: '/settings' });
+        }}
+      />
       <Form {...form}>
         <form
           className='flex flex-col flex-1 pt-6 pb-8 px-5'

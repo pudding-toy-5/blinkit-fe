@@ -19,6 +19,7 @@ export interface SubPageHeaderProps {
   title: string;
   back?: boolean;
   close?: boolean;
+  onClickBack?: () => void;
   onClose?: () => void;
   onDelete?: () => void;
 }
@@ -27,6 +28,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
   title,
   back,
   close,
+  onClickBack,
   onClose,
   onDelete,
 }) => {
@@ -58,6 +60,19 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
           onClick={() => {
             handleClickBack();
           }}
+        >
+          <ArrowLeft size={24} />
+        </div>
+      )}
+      {onClickBack && (
+        <div
+          aria-label='back button'
+          role='button'
+          className={cn(
+            buttonVariants({ variant: 'ghost' }),
+            'absolute left-5 size-6'
+          )}
+          onClick={onClickBack}
         >
           <ArrowLeft size={24} />
         </div>

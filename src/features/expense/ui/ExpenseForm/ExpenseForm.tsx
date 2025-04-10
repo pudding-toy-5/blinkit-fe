@@ -47,14 +47,11 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
 
 export interface ExpenseFormProps {
   expense: Expense;
+  onSubmit: (expense: Omit<Expense, 'uid'>) => void;
 }
 
-const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
+const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
   const navigate = useNavigate();
-  const updateExpense = useUpdateExpense();
-  const addExpense = useAddExpense();
-  const { updateNewExpense } = useNewExpenseByUid(expense.uid);
-
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const form = useForm<Omit<Expense, 'uid'>>({
@@ -94,59 +91,12 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
     return false;
   }, [memo, categories, amount]);
 
-  const handleOnSubmit = (values: Omit<Expense, 'uid'>) => {
-    if (expense.uid === 'new') {
-      addExpense.mutate(
-        { ...values },
-        {
-          onSuccess: () => {
-            toast.success('지출내역을 추가했어요.');
-            updateNewExpense({
-              uid: expense.uid,
-              date: new Date(),
-              memo: '',
-              amount: 0,
-              categories: [],
-            });
-
-            void navigate({ to: '/expenses' });
-          },
-          onError: () => {
-            toast.error('지출내역을 추가하는데 실패했어요.');
-          },
-        }
-      );
-      return;
-    } else {
-      updateExpense.mutate(
-        { uid: expense.uid, ...values },
-        {
-          onSuccess: () => {
-            toast.success('지출내역을 수정했어요.');
-            updateNewExpense({
-              uid: expense.uid,
-              date: new Date(),
-              memo: '',
-              amount: 0,
-              categories: [],
-            });
-
-            void navigate({ to: '/expenses' });
-          },
-          onError: () => {
-            toast.error('지출내역을 수정하는데 실패했어요.');
-          },
-        }
-      );
-    }
-  };
-
   return (
     <Form {...form}>
       <form
         className='flex flex-col gap-6 h-screen pt-6 px-5 pb-20'
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onSubmit={handleSubmit(handleOnSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <FormField
           control={form.control}

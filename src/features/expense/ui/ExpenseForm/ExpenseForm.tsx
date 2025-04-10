@@ -10,6 +10,7 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form';
+import CategoriesPopover from '@/features/category/ui/CategoriesPopover';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import {
   EXPENSE_AMOUNT_MAX,
@@ -79,6 +80,17 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
 
   return (
     <Form {...form}>
+      {open && (
+        <CategoriesPopover
+          selected={categories}
+          setSelected={(values) => {
+            form.setValue('categories', values);
+          }}
+          onClose={() => {
+            setOpen(false);
+          }}
+        />
+      )}
       <form
         className='flex flex-col gap-6 h-screen pt-6 px-5 pb-20'
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -155,7 +167,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                   id='categories'
                   aria-label='카테고리 설정 버튼'
                   className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'
-                  onClick={onClickCategoryButton}
+                  onClick={() => {
+                    setOpen(true);
+                  }}
                 >
                   설정
                 </Button>

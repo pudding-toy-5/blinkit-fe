@@ -164,7 +164,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                         ? '/expenses/new/categories'
                         : '/expenses/$uid/categories'
                     }
-                    onClick={handleClickCategory}
                     params={{ uid: expense.uid }}
                   >
                     설정

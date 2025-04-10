@@ -72,6 +72,19 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
           <X size={24} />
         </div>
       )}
+      {onClose && (
+        <div
+          aria-label='close button'
+          role='button'
+          className={cn(
+            buttonVariants({ variant: 'ghost' }),
+            'absolute right-5 size-6'
+          )}
+          onClick={onClose}
+        >
+          <X size={24} />
+        </div>
+      )}
       {onDelete && (
         <Drawer>
           <DrawerTrigger asChild>

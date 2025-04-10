@@ -93,7 +93,7 @@ const CategoryRoute: React.FC = () => {
     }
 
     updateCategory.mutate(
-      { uid, name: values.categoryName },
+      { uid: category_uid, name: values.categoryName },
       {
         onSuccess: () => {
           if (uid) {

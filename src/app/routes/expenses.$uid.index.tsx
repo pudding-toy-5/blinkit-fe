@@ -4,7 +4,6 @@ import { toast } from 'sonner';
 import {
   useDeleteExpense,
   useExpenseByUid,
-  useNewExpenseByUid,
   useUpdateExpense,
 } from '@/features/expense/api/useExpenseQuery';
 import { Expense } from '@/features/expense/model/types/Expense';
@@ -23,7 +22,6 @@ export function RouteComponent() {
 
   const { uid }: { uid: string } = Route.useParams();
   const { data: expense, isLoading, isError } = useExpenseByUid(uid);
-  const { newExpense, updateNewExpense } = useNewExpenseByUid(uid);
 
   if (isLoading) {
     return (
@@ -47,8 +45,6 @@ export function RouteComponent() {
     void navigate({ to: '/expenses' });
     return;
   }
-
-  updateNewExpense(expense);
 
   const handleDelete = () => {
     deleteExpense.mutate(uid, {
@@ -86,7 +82,7 @@ export function RouteComponent() {
         }}
         onDelete={handleDelete}
       />
-      <ExpenseForm expense={newExpense} onSubmit={handleSubmit} />
+      <ExpenseForm expense={expense} onSubmit={handleSubmit} />
     </UserLayout>
   );
 }

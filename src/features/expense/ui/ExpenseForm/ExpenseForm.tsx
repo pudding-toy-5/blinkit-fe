@@ -153,21 +153,12 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                   카테고리
                 </FormLabel>
                 <Button
+                  type='button'
                   id='categories'
                   aria-label='카테고리 설정 버튼'
                   className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'
-                  asChild
                 >
-                  <Link
-                    to={
-                      expense.uid === 'new'
-                        ? '/expenses/new/categories'
-                        : '/expenses/$uid/categories'
-                    }
-                    params={{ uid: expense.uid }}
-                  >
-                    설정
-                  </Link>
+                  설정
                 </Button>
               </div>
               <div className='flex flex-row gap-2 flex-wrap'>

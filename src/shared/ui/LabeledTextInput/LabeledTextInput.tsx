@@ -43,7 +43,7 @@ const LabeledTextInput: React.FC<LabeledTextInputProps> = ({
         }}
         className={cn(
           'h-12',
-          'text-[15px] p-4',
+          'text-[15px] p-4 transition-[color] shadow-none',
           'text-[#999] border-[#ccc] placeholder:text-[#999999]',
           'focus-visible:border-[#555] focus:outline-none focus-visible:ring-0 focus-visible:text-[#222]',
           'disabled:text-[#555555] disabled:border-[#cccccc] disabled:bg-[#efefef]',

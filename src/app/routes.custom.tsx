@@ -1,5 +1,5 @@
 // routes.custom.ts
-import { createRoute, Outlet } from '@tanstack/react-router';
+import { createRoute, Outlet, redirect } from '@tanstack/react-router';
 
 import PrivacyPage from '@/pages/about/agreements/PrivacyPage';
 import TermsPage from '@/pages/about/agreements/TermsPage';
@@ -25,7 +25,12 @@ const termsRoute = createRoute({
   path: 'terms.html',
   component: () => (
     <>
-      <SubPageHeader title='이용약관' />
+      <SubPageHeader
+        title='이용약관'
+        onClickBack={() => {
+          void redirect({ to: '/settings' });
+        }}
+      />
       <TermsPage />
     </>
   ),
@@ -36,7 +41,12 @@ const privacyRoute = createRoute({
   path: 'privacy.html',
   component: () => (
     <>
-      <SubPageHeader title='개인정보 처리방침' />
+      <SubPageHeader
+        title='개인정보 처리방침'
+        onClickBack={() => {
+          void redirect({ to: '/settings' });
+        }}
+      />
       <PrivacyPage />
     </>
   ),

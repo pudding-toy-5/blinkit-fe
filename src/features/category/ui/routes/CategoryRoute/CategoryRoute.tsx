@@ -53,19 +53,23 @@ const CategoryRoute: React.FC = () => {
     defaultValues: { categoryName: '' },
   });
 
+  const navigateAfterCategoryAction = React.useCallback(() => {
+    if (uid) {
+      void navigate({ to: '/expenses/$uid/categories', params: { uid } });
+      return;
+    }
+
+    void navigate({ to: '/expenses/new/categories' });
+  }, [uid, navigate]);
+
   React.useEffect(() => {
     if (category === undefined) {
-      if (uid) {
-        void navigate({ to: '/expenses/$uid/categories', params: { uid } });
-        return;
-      }
-
-      void navigate({ to: '/expenses/new/categories' });
+      navigateAfterCategoryAction();
       return;
     }
 
     form.setValue('categoryName', category.name);
-  }, [navigate, uid, category, form]);
+  }, [category, navigateAfterCategoryAction, form]);
 
   const validateInput = (newValue: string) => {
     if (
@@ -98,12 +102,7 @@ const CategoryRoute: React.FC = () => {
       { uid: category_uid, name: values.categoryName },
       {
         onSuccess: () => {
-          if (uid) {
-            void navigate({ to: '/expenses/$uid/categories', params: { uid } });
-            return;
-          }
-
-          void navigate({ to: '/expenses/new/categories' });
+          navigateAfterCategoryAction();
         },
       }
     );
@@ -112,12 +111,7 @@ const CategoryRoute: React.FC = () => {
   const onDelete = () => {
     deleteCategory.mutate(category_uid, {
       onSuccess: () => {
-        if (uid) {
-          void navigate({ to: '/expenses/$uid/categories', params: { uid } });
-          return;
-        }
-
-        void navigate({ to: '/expenses/new/categories' });
+        navigateAfterCategoryAction();
       },
     });
   };

@@ -1,4 +1,3 @@
-import { useRouter } from '@tanstack/react-router';
 import { X } from 'lucide-react';
 
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -17,7 +16,6 @@ import { cn } from '@/shared/ui/styles/utils';
 
 export interface SubPageHeaderProps {
   title: string;
-  close?: boolean;
   onClickBack?: () => void;
   onClose?: () => void;
   onDelete?: () => void;
@@ -25,22 +23,10 @@ export interface SubPageHeaderProps {
 
 const SubPageHeader: React.FC<SubPageHeaderProps> = ({
   title,
-  close,
   onClickBack,
   onClose,
   onDelete,
 }) => {
-  const router = useRouter();
-
-  const handleClickClose = () => {
-    if (!onClose) {
-      router.history.back();
-      return;
-    }
-
-    onClose();
-  };
-
   return (
     <header className='flex flex-row justify-center items-center h-14 px-5 py-4'>
       {onClickBack && (
@@ -57,21 +43,6 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
         </div>
       )}
       <h1 className='text-[17px] text-[#222] font-semibold'>{title}</h1>
-      {close && (
-        <div
-          aria-label='close button'
-          role='button'
-          className={cn(
-            buttonVariants({ variant: 'ghost' }),
-            'absolute right-5 size-6'
-          )}
-          onClick={() => {
-            handleClickClose();
-          }}
-        >
-          <X size={24} />
-        </div>
-      )}
       {onClose && (
         <div
           aria-label='close button'

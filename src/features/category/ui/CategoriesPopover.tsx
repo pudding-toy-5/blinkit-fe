@@ -147,7 +147,13 @@ export default function CategoriesPopover({
             //origin: mt-auto
             className='h-13 rounded-full text-[15px] mt-auto'
             onClick={() => {
-              setSelected([]);
+              setSelected(
+                categories
+                  ? categories.filter((c) =>
+                      values.find((value) => value === c.name)
+                    )
+                  : []
+              );
               onClose();
             }}
             disabled={

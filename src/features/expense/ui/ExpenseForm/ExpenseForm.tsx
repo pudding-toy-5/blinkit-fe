@@ -40,7 +40,7 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
 };
 
 export interface ExpenseFormProps {
-  expense: Expense;
+  expense: Omit<Expense, 'uid'>;
   onSubmit: (expense: Omit<Expense, 'uid'>) => void;
 }
 

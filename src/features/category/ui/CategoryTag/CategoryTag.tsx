@@ -20,7 +20,7 @@ const CategoryTag: React.FC<CategoryTagProps> = ({
     <Badge
       className={cn(
         'flex flex-row items-center bg-[#EAF6EC] text-[#28A745] rounded-full text-[13px]',
-        'px-2 py-1 h-6',
+        'px-2 py-1',
         size === 'small' && 'px-2 py-1',
         size === 'medium' && 'px-3 py-2',
         size === 'large' && 'px-4 py-3'

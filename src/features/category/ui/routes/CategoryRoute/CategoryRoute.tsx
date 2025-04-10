@@ -118,7 +118,17 @@ const CategoryRoute: React.FC = () => {
 
   return (
     <UserLayout>
-      <SubPageHeader title='카테고리명 편집' close />
+      <SubPageHeader
+        title='카테고리명 편집'
+        onClose={() => {
+          if (uid) {
+            void navigate({ to: '/expenses/$uid', params: { uid } });
+            return;
+          }
+
+          void navigate({ to: '/expenses/new' });
+        }}
+      />
       <Form {...form}>
         <form
           // eslint-disable-next-line @typescript-eslint/no-misused-promises

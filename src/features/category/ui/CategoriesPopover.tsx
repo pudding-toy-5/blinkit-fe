@@ -13,6 +13,8 @@ import Ellipsis from '@/shared/ui/icons/Ellipsis';
 import UserLayout from '@/shared/ui/layout/UserLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
+import CategoryPopover from './CategoryPopover';
+
 interface Props {
   selected: Category[];
   setSelected: (values: Category[]) => void;
@@ -27,8 +29,13 @@ export default function CategoriesPopover({
   const addCategory = useAddCategory();
   const { categories, isLoading, isError, error } = useCategories();
 
+  const [open, setOpen] = React.useState<boolean>(false);
   const [values, setValues] = React.useState<string[]>(
     selected.map((s) => s.name)
+  );
+
+  const [category, setCategory] = React.useState<Category | undefined>(
+    undefined
   );
 
   React.useEffect(() => {
@@ -99,6 +106,14 @@ export default function CategoriesPopover({
         height: '100%',
       }}
     >
+      {open && category && (
+        <CategoryPopover
+          category={category}
+          onClose={() => {
+            setOpen(false);
+          }}
+        />
+      )}
       <UserLayout>
         <SubPageHeader title='카테고리 설정' onClose={onClose} />
         <div className='mt-6 px-5'>
@@ -130,10 +145,12 @@ export default function CategoriesPopover({
                       }}
                     />
                     <Button
+                      type='button'
                       variant='ghost'
                       className='size-6 p-0 ml-auto'
                       onClick={() => {
-                        console.log('onclick-setting-');
+                        setCategory(category);
+                        setOpen(true);
                       }}
                     >
                       <Ellipsis size={24} color='#555' />

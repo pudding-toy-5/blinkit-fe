@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import userAxios from '@/shared/api/userAxios';
@@ -106,27 +111,34 @@ export const createEntityHooks = <T extends Entity>(
     });
   };
 
-  const useUpdateEntity = () => {
+  const useUpdateEntity = (
+    options?: UseMutationOptions<T, Error, Partial<T>>
+  ) => {
     const queryClient = useQueryClient();
 
-    return useMutation({
+    return useMutation<T, Error, Partial<T>>({
       mutationFn: (entity: Partial<T>) => updateEntity(entity),
-      onSuccess: () => {
+      onSuccess: (data, variables, context) => {
         void queryClient.invalidateQueries({ queryKey });
+        options?.onSuccess?.(data, variables, context);
       },
       onError: (error) => {
         console.error(`엔티티 업데이트 실패:`, error);
       },
+      ...options,
     });
   };
 
-  const useDeleteEntity = () => {
+  const useDeleteEntity = (
+    options?: UseMutationOptions<string, Error, string>
+  ) => {
     const queryClient = useQueryClient();
 
-    return useMutation({
+    return useMutation<string, Error, string>({
       mutationFn: (uid: string) => deleteEntity(uid),
-      onSuccess: () => {
+      onSuccess: (data, variables, context) => {
         void queryClient.invalidateQueries({ queryKey });
+        options?.onSuccess?.(data, variables, context);
       },
       onError: (error) => {
         console.error(`엔티티 제거 실패:`, error);

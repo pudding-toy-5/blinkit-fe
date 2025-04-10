@@ -53,9 +53,23 @@ const CategoryRoute: React.FC = () => {
     defaultValues: { categoryName: '' },
   });
 
+  const navigateAfterCategoryAction = React.useCallback(() => {
+    if (uid) {
+      void navigate({ to: '/expenses/$uid/categories', params: { uid } });
+      return;
+    }
+
+    void navigate({ to: '/expenses/new/categories' });
+  }, [uid, navigate]);
+
   React.useEffect(() => {
-    form.reset({ categoryName: category?.name });
-  }, [category, form]);
+    if (category === undefined) {
+      navigateAfterCategoryAction();
+      return;
+    }
+
+    form.setValue('categoryName', category.name);
+  }, [category, navigateAfterCategoryAction, form]);
 
   const validateInput = (newValue: string) => {
     if (
@@ -76,24 +90,28 @@ const CategoryRoute: React.FC = () => {
     }
 
     if (
-      categories?.find((c) => c.name === values.categoryName && c.uid !== uid)
+      categories?.find(
+        (c) => c.name === values.categoryName && c.uid !== category_uid
+      )
     ) {
       toast.error('동일한 카테고리 이름이 존재합니다.');
       return;
     }
 
-    updateCategory.mutate({ uid, name: values.categoryName });
+    updateCategory.mutate(
+      { uid: category_uid, name: values.categoryName },
+      {
+        onSuccess: () => {
+          navigateAfterCategoryAction();
+        },
+      }
+    );
   };
 
   const onDelete = () => {
     deleteCategory.mutate(category_uid, {
       onSuccess: () => {
-        if (uid) {
-          void navigate({ to: '/expenses/$uid/categories', params: { uid } });
-          return;
-        }
-
-        void navigate({ to: '/expenses/new/categories' });
+        navigateAfterCategoryAction();
       },
     });
   };

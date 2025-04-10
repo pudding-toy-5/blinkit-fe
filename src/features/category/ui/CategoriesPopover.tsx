@@ -16,31 +16,33 @@ import SubPageHeader from '@/shared/ui/SubPageHeader';
 import CategoryPopover from './CategoryPopover';
 
 interface Props {
-  selected: Category[];
-  setSelected: (values: Category[]) => void;
+  selectedCategories: Category[];
+  setSelectedCategories: (values: Category[]) => void;
   onClose: () => void;
 }
 
 export default function CategoriesPopover({
-  selected,
-  setSelected,
+  selectedCategories,
+  setSelectedCategories,
   onClose,
 }: Props) {
   const addCategory = useAddCategory();
   const { categories, isLoading, isError, error } = useCategories();
 
-  const [open, setOpen] = React.useState<boolean>(false);
   const [values, setValues] = React.useState<string[]>(
-    selected.map((s) => s.name)
+    selectedCategories.map((selectedCategory) => selectedCategory.name)
   );
 
+  const [open, setOpen] = React.useState<boolean>(false);
   const [category, setCategory] = React.useState<Category | undefined>(
     undefined
   );
 
   React.useEffect(() => {
-    setValues(selected.map((s) => s.name));
-  }, [selected]);
+    setValues(
+      selectedCategories.map((selectedCategory) => selectedCategory.name)
+    );
+  }, [selectedCategories]);
 
   if (isLoading) {
     return <>Loading</>;
@@ -69,7 +71,7 @@ export default function CategoriesPopover({
               (c) => c.name !== notAddedValue
             );
 
-            setSelected([...selected, ...addedCategory]);
+            setSelectedCategories([...selectedCategories, ...addedCategory]);
           },
           onError: () => {
             toast.error(notAddedValue + ' 카테고리를 추가하는데 실패했어요.');
@@ -164,7 +166,7 @@ export default function CategoriesPopover({
             //origin: mt-auto
             className='h-13 rounded-full text-[15px] mt-auto'
             onClick={() => {
-              setSelected(
+              setSelectedCategories(
                 categories
                   ? categories.filter((c) =>
                       values.find((value) => value === c.name)

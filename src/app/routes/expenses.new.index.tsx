@@ -42,7 +42,7 @@ export function RouteComponent() {
           void navigate({ to: '/expenses' });
         }}
       />
-      <ExpenseForm expense={newExpense} />
+      <ExpenseForm expense={newExpense} onSubmit={handleSubmit} />
     </UserLayout>
   );
 }

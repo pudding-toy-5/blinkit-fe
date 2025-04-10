@@ -17,7 +17,7 @@ const DailyExpenseRecord: React.FC<Omit<Expense, 'date'>> = ({
   return (
     <li
       aria-labelledby={`expense-${uid}`}
-      className='flex flex-col p-4 rounded-xl bg-white'
+      className='flex flex-col p-4 rounded-[8px] bg-white'
       onClick={onClick}
     >
       <p aria-label='지출 금액' className='font-[15px] font-semibold'>

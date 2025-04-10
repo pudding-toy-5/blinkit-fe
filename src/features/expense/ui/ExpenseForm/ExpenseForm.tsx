@@ -82,8 +82,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
     <Form {...form}>
       {open && (
         <CategoriesPopover
-          selected={categories}
-          setSelected={(values) => {
+          selectedCategories={categories}
+          setSelectedCategories={(values) => {
             form.setValue('categories', values);
           }}
           onClose={() => {

@@ -54,8 +54,18 @@ const CategoryRoute: React.FC = () => {
   });
 
   React.useEffect(() => {
-    form.reset({ categoryName: category?.name });
-  }, [category, form]);
+    if (category === undefined) {
+      if (uid) {
+        void navigate({ to: '/expenses/$uid/categories', params: { uid } });
+        return;
+      }
+
+      void navigate({ to: '/expenses/new/categories' });
+      return;
+    }
+
+    form.setValue('categoryName', category.name);
+  }, [navigate, uid, category, form]);
 
   const validateInput = (newValue: string) => {
     if (

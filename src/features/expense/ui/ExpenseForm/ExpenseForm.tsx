@@ -44,9 +44,7 @@ export interface ExpenseFormProps {
 }
 
 const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState<boolean>(false);
-
   const form = useForm<Omit<Expense, 'uid'>>({
     defaultValues: {
       date: expense.date,
@@ -180,7 +178,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                 <NumericFormat
                   inputMode='numeric'
                   value={field.value}
-                  getInputRef={inputRef}
                   max={EXPENSE_AMOUNT_MAX}
                   min={1}
                   isAllowed={(values: NumberFormatValues) => {

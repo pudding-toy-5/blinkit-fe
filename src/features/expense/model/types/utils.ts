@@ -5,9 +5,17 @@ export const convertExpenseToServerExpense = (
 ): ServerExpense => {
   const { uid, date, memo, amount, categories } = expense;
 
+  const expendedDate = date ?? new Date();
+  const expended_at = addLocalTimezoneOffset(
+    getDateOnly(expendedDate)
+  ).toISOString();
+
+  console.log(expendedDate);
+  console.log(expended_at);
+
   const serverExpense: ServerExpense = {
     uid: uid ?? '',
-    expended_at: date ? date.toISOString() : new Date().toISOString(),
+    expended_at,
     memo: memo ?? '',
     amount: amount !== undefined ? amount.toString() : '0',
     category_uids: categories ? categories.map((category) => category.uid) : [],
@@ -31,3 +39,16 @@ export const convertServerExpenseToExpense = (
     categories,
   } as Expense;
 };
+
+export function getDateOnly(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+export function addLocalTimezoneOffset(date: Date) {
+  const d = new Date(date);
+  // const offsetMinutes = d.getTimezoneOffset();
+  const offsetMinutes = 9 * 60;
+  const offsetMs = offsetMinutes * 60 * 1000;
+
+  return new Date(d.getTime() + offsetMs);
+}

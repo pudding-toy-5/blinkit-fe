@@ -82,7 +82,19 @@ const CategoryRoute: React.FC = () => {
       return;
     }
 
-    updateCategory.mutate({ uid, name: values.categoryName });
+    updateCategory.mutate(
+      { uid, name: values.categoryName },
+      {
+        onSuccess: () => {
+          if (uid) {
+            void navigate({ to: '/expenses/$uid/categories', params: { uid } });
+            return;
+          }
+
+          void navigate({ to: '/expenses/new/categories' });
+        },
+      }
+    );
   };
 
   const onDelete = () => {

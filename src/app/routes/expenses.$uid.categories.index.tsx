@@ -82,7 +82,12 @@ export function ExpenseUidCategoriesRoute() {
 
   return (
     <UserLayout>
-      <SubPageHeader title='카테고리 설정' close />
+      <SubPageHeader
+        title='카테고리 설정'
+        onClose={() => {
+          void navigate({ to: '/expenses/$uid', params: { uid } });
+        }}
+      />
       <div className='mt-6 px-5'>
         <InputCategoryTags
           value={values}

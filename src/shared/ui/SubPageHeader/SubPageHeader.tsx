@@ -20,6 +20,7 @@ export interface SubPageHeaderProps {
   back?: boolean;
   close?: boolean;
   onClose?: () => void;
+  onDelete?: () => void;
 }
 
 const SubPageHeader: React.FC<SubPageHeaderProps> = ({
@@ -27,6 +28,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
   back,
   close,
   onClose,
+  onDelete,
 }) => {
   const router = useRouter();
 
@@ -76,7 +78,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
           <X size={24} />
         </div>
       )}
-      {onClose && (
+      {onDelete && (
         <Drawer>
           <DrawerTrigger asChild>
             <Button
@@ -99,7 +101,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
               </DrawerDescription>
             </DrawerHeader>
             <DrawerFooter className='p-0 mt-9'>
-              <Button className='h-13 rounded-full' onClick={handleClickClose}>
+              <Button className='h-13 rounded-full' onClick={onDelete}>
                 삭제
               </Button>
               <DrawerClose>

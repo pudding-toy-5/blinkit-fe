@@ -61,7 +61,7 @@ export function RouteComponent() {
 
   return (
     <UserLayout>
-      <SubPageHeader title='지출 내역 수정' back onClose={handleDelete} />
+      <SubPageHeader title='지출 내역 수정' back onDelete={handleDelete} />
       <ExpenseForm expense={newExpense} />
     </UserLayout>
   );

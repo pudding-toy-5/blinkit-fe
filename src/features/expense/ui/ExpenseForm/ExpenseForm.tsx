@@ -256,7 +256,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
                   min={1}
                   isAllowed={(values: NumberFormatValues) => {
                     const value = values.floatValue ?? 0;
-                    return value >= 0 && value <= EXPENSE_AMOUNT_MAX;
+                    return value > 0 && value <= EXPENSE_AMOUNT_MAX;
                   }}
                   onValueChange={(values: NumberFormatValues) => {
                     const value = values.floatValue ?? 1;

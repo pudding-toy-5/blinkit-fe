@@ -17,7 +17,6 @@ import { cn } from '@/shared/ui/styles/utils';
 
 export interface SubPageHeaderProps {
   title: string;
-  back?: boolean;
   close?: boolean;
   onClickBack?: () => void;
   onClose?: () => void;
@@ -26,17 +25,12 @@ export interface SubPageHeaderProps {
 
 const SubPageHeader: React.FC<SubPageHeaderProps> = ({
   title,
-  back,
   close,
   onClickBack,
   onClose,
   onDelete,
 }) => {
   const router = useRouter();
-
-  const handleClickBack = () => {
-    router.history.back();
-  };
 
   const handleClickClose = () => {
     if (!onClose) {
@@ -49,21 +43,6 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
 
   return (
     <header className='flex flex-row justify-center items-center h-14 px-5 py-4'>
-      {back && (
-        <div
-          aria-label='back button'
-          role='button'
-          className={cn(
-            buttonVariants({ variant: 'ghost' }),
-            'absolute left-5 size-6'
-          )}
-          onClick={() => {
-            handleClickBack();
-          }}
-        >
-          <ArrowLeft size={24} />
-        </div>
-      )}
       {onClickBack && (
         <div
           aria-label='back button'

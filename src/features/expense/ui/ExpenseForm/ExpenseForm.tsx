@@ -253,24 +253,13 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
                   value={field.value}
                   getInputRef={inputRef}
                   max={EXPENSE_AMOUNT_MAX}
-                  min={0}
-                  onValueChange={(values: NumberFormatValues) => {
+                  min={1}
+                  isAllowed={(values: NumberFormatValues) => {
                     const value = values.floatValue ?? 0;
-
-                    if (value === 0) {
-                      toast.error(
-                        '0원은 입력할 수 없어요. 최소 1원부터 시작해요!'
-                      );
-                      field.onChange(1);
-                      return;
-                    }
-
-                    if (value >= EXPENSE_AMOUNT_MAX) {
-                      field.onChange(EXPENSE_AMOUNT_MAX);
-                      inputRef.current?.blur();
-                      return;
-                    }
-
+                    return value >= 0 && value <= EXPENSE_AMOUNT_MAX;
+                  }}
+                  onValueChange={(values: NumberFormatValues) => {
+                    const value = values.floatValue ?? 1;
                     field.onChange(value);
                   }}
                   allowNegative={false}

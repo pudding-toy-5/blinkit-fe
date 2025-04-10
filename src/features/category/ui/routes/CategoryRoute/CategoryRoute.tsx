@@ -120,14 +120,7 @@ const CategoryRoute: React.FC = () => {
     <UserLayout>
       <SubPageHeader
         title='카테고리명 편집'
-        onClose={() => {
-          if (uid) {
-            void navigate({ to: '/expenses/$uid', params: { uid } });
-            return;
-          }
-
-          void navigate({ to: '/expenses/new' });
-        }}
+        onClose={navigateAfterCategoryAction}
       />
       <Form {...form}>
         <form

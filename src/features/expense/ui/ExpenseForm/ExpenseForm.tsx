@@ -176,7 +176,11 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
               </div>
               <div className='flex flex-row gap-2 flex-wrap'>
                 {field.value.map((category) => (
-                  <CategoryTag key={category.uid} tagName={category.name} />
+                  <CategoryTag
+                    key={category.uid}
+                    size='medium'
+                    tagName={category.name}
+                  />
                 ))}
               </div>
             </FormItem>

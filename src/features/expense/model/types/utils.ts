@@ -31,3 +31,15 @@ export const convertServerExpenseToExpense = (
     categories,
   } as Expense;
 };
+
+export function getDateOnly(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+export function addLocalTimezoneOffset(date: Date) {
+  const d = new Date(date);
+  const offsetMinutes = d.getTimezoneOffset();
+  const offsetMs = offsetMinutes * 60 * 1000;
+
+  return new Date(d.getTime() + offsetMs);
+}

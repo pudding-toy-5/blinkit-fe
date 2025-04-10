@@ -5,7 +5,9 @@ import {
   useDeleteExpense,
   useExpenseByUid,
   useNewExpenseByUid,
+  useUpdateExpense,
 } from '@/features/expense/api/useExpenseQuery';
+import { Expense } from '@/features/expense/model/types/Expense';
 import ExpenseForm from '@/features/expense/ui/ExpenseForm';
 import UserLayout from '@/shared/ui/layout/UserLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
@@ -17,6 +19,7 @@ export const Route = createFileRoute('/expenses/$uid/')({
 export function RouteComponent() {
   const navigate = useNavigate();
   const deleteExpense = useDeleteExpense();
+  const updateExpense = useUpdateExpense();
 
   const { uid }: { uid: string } = Route.useParams();
   const { data: expense, isLoading, isError } = useExpenseByUid(uid);
@@ -59,6 +62,21 @@ export function RouteComponent() {
     });
   };
 
+  const handleSubmit = (expense: Omit<Expense, 'uid'>) => {
+    updateExpense.mutate(
+      { ...expense, uid },
+      {
+        onSuccess: () => {
+          toast.success('지출내역을 수정했어요.');
+          void navigate({ to: '/expenses' });
+        },
+        onError: () => {
+          toast.error('지출내역을 수정하는데 실패했어요.');
+        },
+      }
+    );
+  };
+
   return (
     <UserLayout>
       <SubPageHeader
@@ -68,7 +86,7 @@ export function RouteComponent() {
         }}
         onDelete={handleDelete}
       />
-      <ExpenseForm expense={newExpense} />
+      <ExpenseForm expense={newExpense} onSubmit={handleSubmit} />
     </UserLayout>
   );
 }

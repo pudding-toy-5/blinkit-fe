@@ -10,6 +10,9 @@ export const convertExpenseToServerExpense = (
     getDateOnly(expendedDate)
   ).toISOString();
 
+  console.log(expendedDate);
+  console.log(expended_at);
+
   const serverExpense: ServerExpense = {
     uid: uid ?? '',
     expended_at,
@@ -43,7 +46,8 @@ export function getDateOnly(date: Date): Date {
 
 export function addLocalTimezoneOffset(date: Date) {
   const d = new Date(date);
-  const offsetMinutes = d.getTimezoneOffset();
+  // const offsetMinutes = d.getTimezoneOffset();
+  const offsetMinutes = 9 * 60;
   const offsetMs = offsetMinutes * 60 * 1000;
 
   return new Date(d.getTime() + offsetMs);

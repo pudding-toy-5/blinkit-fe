@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
 import { useNewExpenseByUid } from '@/features/expense/api/useExpenseQuery';
 import ExpenseForm from '@/features/expense/ui/ExpenseForm';
@@ -10,11 +10,17 @@ export const Route = createFileRoute('/expenses/new/')({
 });
 
 export function RouteComponent() {
+  const navigate = useNavigate();
   const { newExpense } = useNewExpenseByUid('new');
 
   return (
     <UserLayout>
-      <SubPageHeader title='지출 내역 추가' back />
+      <SubPageHeader
+        title='지출 내역 추가'
+        onClickBack={() => {
+          void navigate({ to: '/expenses' });
+        }}
+      />
       <ExpenseForm expense={newExpense} />
     </UserLayout>
   );

@@ -86,7 +86,9 @@ const CategoryRoute: React.FC = () => {
     }
 
     if (
-      categories?.find((c) => c.name === values.categoryName && c.uid !== uid)
+      categories?.find(
+        (c) => c.name === values.categoryName && c.uid !== category_uid
+      )
     ) {
       toast.error('동일한 카테고리 이름이 존재합니다.');
       return;

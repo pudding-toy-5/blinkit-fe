@@ -1,8 +1,7 @@
-import { Link, useNavigate } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
-import { toast } from 'sonner';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -13,11 +12,6 @@ import {
   FormLabel,
 } from '@/components/ui/form';
 import CategoryTag from '@/features/category/ui/CategoryTag';
-import {
-  useAddExpense,
-  useNewExpenseByUid,
-  useUpdateExpense,
-} from '@/features/expense/api/useExpenseQuery';
 import {
   EXPENSE_AMOUNT_MAX,
   EXPENSE_MEMO_MAX_LEN,
@@ -51,7 +45,6 @@ export interface ExpenseFormProps {
 }
 
 const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
-  const navigate = useNavigate();
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const form = useForm<Omit<Expense, 'uid'>>({
@@ -66,14 +59,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
 
   const { handleSubmit, watch } = form;
 
-  const date = watch('date');
   const memo = watch('memo');
   const categories = watch('categories');
   const amount = watch('amount');
-
-  const handleClickCategory = () => {
-    updateNewExpense({ uid: expense.uid, date, memo, categories, amount });
-  };
 
   const disabled = React.useMemo(() => {
     if (memo.length === 0 || memo.length > 120) {

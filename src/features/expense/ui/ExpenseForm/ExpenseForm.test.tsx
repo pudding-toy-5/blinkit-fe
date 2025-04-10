@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render } from '@testing-library/react';
-import { describe, it } from 'vitest';
+import { describe, it, vi } from 'vitest';
 
 import { Expense } from '@/features/expense/model/types/Expense';
 
@@ -17,12 +17,12 @@ describe('ExpenseForm', () => {
     categories: [],
   };
 
-  const props: ExpenseFormProps = { expense };
+  const props: ExpenseFormProps = { expense, onSubmit: vi.fn() };
 
-  const renderElement = ({ expense }: ExpenseFormProps) =>
+  const renderElement = ({ expense, onSubmit }: ExpenseFormProps) =>
     render(
       <QueryClientProvider client={testQueryClient}>
-        <ExpenseForm expense={expense} />
+        <ExpenseForm expense={expense} onSubmit={onSubmit} />
       </QueryClientProvider>
     );
 
@@ -74,7 +74,7 @@ describe('ExpenseForm', () => {
 
     it('renders 저장 when expense is provided.', () => {
       const { getByRole } = renderElement({
-        expense: { ...expense },
+        ...props,
       });
       const submitButton = getByRole('button', { name: '저장' });
       expect(submitButton).toBeInTheDocument();

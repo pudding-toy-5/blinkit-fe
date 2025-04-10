@@ -18,12 +18,11 @@ import SubPageHeader, { SubPageHeaderProps } from './SubPageHeader';
 describe('SubPageHeader', () => {
   const props: SubPageHeaderProps = {
     title: 'sub page title',
-    back: undefined,
     close: undefined,
   };
 
-  const renderSubPageHeader = ({ title, back, close }: SubPageHeaderProps) =>
-    render(<SubPageHeader title={title} back={back} close={close} />);
+  const renderSubPageHeader = ({ title, close }: SubPageHeaderProps) =>
+    render(<SubPageHeader title={title} close={close} />);
 
   it('renders the provided title correctly.', () => {
     const { getByText } = renderSubPageHeader({ ...props });
@@ -31,20 +30,6 @@ describe('SubPageHeader', () => {
 
     expect(title).toBeInTheDocument();
     expect(title.tagName.toLowerCase()).toBe('h1');
-  });
-
-  it('renders provided back button, when clicks, calls router.history.back().', () => {
-    const { getByLabelText } = renderSubPageHeader({
-      ...props,
-      back: true,
-    });
-
-    const backButton = getByLabelText('back button');
-    expect(backButton).toBeInTheDocument();
-    expect(backButton).toHaveAttribute('role', 'button');
-
-    fireEvent.click(backButton);
-    expect(mockBack).toBeCalledTimes(1);
   });
 
   it('renders provided close button.', () => {

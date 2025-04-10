@@ -25,7 +25,7 @@ const termsRoute = createRoute({
   path: 'terms.html',
   component: () => (
     <>
-      <SubPageHeader title='이용약관' back />
+      <SubPageHeader title='이용약관' />
       <TermsPage />
     </>
   ),
@@ -36,7 +36,7 @@ const privacyRoute = createRoute({
   path: 'privacy.html',
   component: () => (
     <>
-      <SubPageHeader title='개인정보 처리방침' back />
+      <SubPageHeader title='개인정보 처리방침' />
       <PrivacyPage />
     </>
   ),

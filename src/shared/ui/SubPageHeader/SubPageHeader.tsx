@@ -1,4 +1,3 @@
-import { useRouter } from '@tanstack/react-router';
 import { X } from 'lucide-react';
 
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -17,35 +16,20 @@ import { cn } from '@/shared/ui/styles/utils';
 
 export interface SubPageHeaderProps {
   title: string;
-  back?: boolean;
-  close?: boolean;
+  onClickBack?: () => void;
   onClose?: () => void;
+  onDelete?: () => void;
 }
 
 const SubPageHeader: React.FC<SubPageHeaderProps> = ({
   title,
-  back,
-  close,
+  onClickBack,
   onClose,
+  onDelete,
 }) => {
-  const router = useRouter();
-
-  const handleClickBack = () => {
-    router.history.back();
-  };
-
-  const handleClickClose = () => {
-    if (!onClose) {
-      router.history.back();
-      return;
-    }
-
-    onClose();
-  };
-
   return (
     <header className='flex flex-row justify-center items-center h-14 px-5 py-4'>
-      {back && (
+      {onClickBack && (
         <div
           aria-label='back button'
           role='button'
@@ -53,15 +37,13 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
             buttonVariants({ variant: 'ghost' }),
             'absolute left-5 size-6'
           )}
-          onClick={() => {
-            handleClickBack();
-          }}
+          onClick={onClickBack}
         >
           <ArrowLeft size={24} />
         </div>
       )}
       <h1 className='text-[17px] text-[#222] font-semibold'>{title}</h1>
-      {close && (
+      {onClose && (
         <div
           aria-label='close button'
           role='button'
@@ -69,14 +51,12 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
             buttonVariants({ variant: 'ghost' }),
             'absolute right-5 size-6'
           )}
-          onClick={() => {
-            handleClickClose();
-          }}
+          onClick={onClose}
         >
           <X size={24} />
         </div>
       )}
-      {onClose && (
+      {onDelete && (
         <Drawer>
           <DrawerTrigger asChild>
             <Button
@@ -99,7 +79,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
               </DrawerDescription>
             </DrawerHeader>
             <DrawerFooter className='p-0 mt-9'>
-              <Button className='h-13 rounded-full' onClick={handleClickClose}>
+              <Button className='h-13 rounded-full' onClick={onDelete}>
                 삭제
               </Button>
               <DrawerClose>

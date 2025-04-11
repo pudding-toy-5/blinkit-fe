@@ -113,9 +113,7 @@ export default function CategoriesPopover({
   };
 
   return (
-    <div
-      className='fixed z-10 top-0 left-0 w-full h-full flex flex-col overflow-hidden'
-    >
+    <div className='fixed z-10 top-0 left-0 w-full h-full flex flex-col overflow-hidden'>
       {open && category && (
         <CategoryPopover
           category={category}
@@ -138,7 +136,9 @@ export default function CategoriesPopover({
         </div>
 
         <div className='flex flex-col px-5 flex-1 overflow-hidden'>
-          <p className='text-[13px] font-semibold text-[#999] my-4'>카테고리 선택</p>
+          <p className='text-[13px] font-semibold text-[#999] my-4'>
+            카테고리 선택
+          </p>
           <div className='flex-1 overflow-hidden'>
             {categories === undefined || categories.length === 0 ? (
               <p className='text-[13px] text-[#999] mt-47.5 mx-auto'>
@@ -149,7 +149,10 @@ export default function CategoriesPopover({
                 <ul className='flex flex-col gap-4 list-none'>
                   {categories.map((category) => {
                     return (
-                      <li className='flex flex-row items-center' key={category.uid}>
+                      <li
+                        className='flex flex-row items-center'
+                        key={category.uid}
+                      >
                         <CategoryTag
                           tagName={category.name}
                           size='medium'

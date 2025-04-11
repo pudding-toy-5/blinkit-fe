@@ -1,5 +1,6 @@
-import { TOKEN_KEY } from '@/constants';
 import axios, { AxiosError } from 'axios';
+
+import { TOKEN_KEY } from '@/constants';
 
 const userAxios = axios.create();
 

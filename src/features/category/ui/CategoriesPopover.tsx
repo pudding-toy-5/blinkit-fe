@@ -114,14 +114,7 @@ export default function CategoriesPopover({
 
   return (
     <div
-      style={{
-        position: 'fixed',
-        zIndex: 1,
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-      }}
+      className='fixed z-10 top-0 left-0 w-full h-full'
     >
       {open && category && (
         <CategoryPopover
@@ -144,44 +137,48 @@ export default function CategoriesPopover({
           />
         </div>
 
-        {/* origin: pb-6  */}
-        <div className='flex-1 flex flex-col px-5 pt-9 pb-16'>
-          <p className='text-[13px] font-semibold text-[#999]'>카테고리 선택</p>
-          {categories === undefined || categories.length === 0 ? (
-            <p className='text-[13px] text-[#999] mt-47.5 mx-auto'>
-              아직 추가한 카테고리가 없어요.
-            </p>
-          ) : (
-            <ul className='flex flex-col gap-4 list-none overflow-y-scroll scroll mt-4'>
-              {categories.map((category) => {
-                return (
-                  <li className='flex flex-row items-center' key={category.uid}>
-                    <CategoryTag
-                      tagName={category.name}
-                      size='medium'
-                      onClick={() => {
-                        onClickCategory(category);
-                      }}
-                    />
-                    <Button
-                      type='button'
-                      variant='ghost'
-                      className='size-6 p-0 ml-auto'
-                      onClick={() => {
-                        setCategory(category);
-                        setOpen(true);
-                      }}
-                    >
-                      <Ellipsis size={24} color='#555' />
-                    </Button>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+        <div className='flex flex-col px-5 flex-1' style={{ height: 'calc(100vh - 250px)' }}>
+          <p className='text-[13px] font-semibold text-[#999] my-4'>카테고리 선택</p>
+          <div className='flex-1 overflow-hidden'>
+            {categories === undefined || categories.length === 0 ? (
+              <p className='text-[13px] text-[#999] mt-47.5 mx-auto'>
+                아직 추가한 카테고리가 없어요.
+              </p>
+            ) : (
+              <div className='h-full overflow-y-auto pr-1'>
+                <ul className='flex flex-col gap-4 list-none pb-4'>
+                  {categories.map((category) => {
+                    return (
+                      <li className='flex flex-row items-center' key={category.uid}>
+                        <CategoryTag
+                          tagName={category.name}
+                          size='medium'
+                          onClick={() => {
+                            onClickCategory(category);
+                          }}
+                        />
+                        <Button
+                          type='button'
+                          variant='ghost'
+                          className='size-6 p-0 ml-auto'
+                          onClick={() => {
+                            setCategory(category);
+                            setOpen(true);
+                          }}
+                        >
+                          <Ellipsis size={24} color='#555' />
+                        </Button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className='px-5 py-4 sticky bottom-0 mt-auto bg-white'>
           <Button
-            //origin: mt-auto
-            className='h-13 rounded-full text-[15px] mt-auto'
+            className='h-13 rounded-full text-[15px] w-full'
             onClick={() => {
               setSelectedCategories(
                 categories

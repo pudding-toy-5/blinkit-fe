@@ -114,7 +114,7 @@ export default function CategoriesPopover({
 
   return (
     <div
-      className='fixed z-10 top-0 left-0 w-full h-full flex flex-col'
+      className='fixed z-10 top-0 left-0 w-full h-full flex flex-col overflow-hidden'
     >
       {open && category && (
         <CategoryPopover
@@ -145,8 +145,8 @@ export default function CategoriesPopover({
                 아직 추가한 카테고리가 없어요.
               </p>
             ) : (
-              <div className='h-full overflow-y-auto pr-1'>
-                <ul className='flex flex-col gap-4 list-none pb-24'>
+              <div className='h-full overflow-y-auto pr-1 pb-24'>
+                <ul className='flex flex-col gap-4 list-none'>
                   {categories.map((category) => {
                     return (
                       <li className='flex flex-row items-center' key={category.uid}>

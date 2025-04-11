@@ -27,10 +27,17 @@ import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
 
 interface Props {
   category: Category;
+  onChangeCategory: (category: Category) => void;
+  onDeleteCategory: (uid: string) => void;
   onClose: () => void;
 }
 
-export default function CategoryPopover({ category, onClose }: Props) {
+export default function CategoryPopover({
+  category,
+  onChangeCategory,
+  onDeleteCategory,
+  onClose,
+}: Props) {
   const updateCategory = useUpdateCategory();
   const deleteCategory = useDeleteCategory();
   const { categories } = useCategories();
@@ -54,6 +61,7 @@ export default function CategoryPopover({ category, onClose }: Props) {
   };
 
   const onSubmit = (values: { categoryName: string }) => {
+    console.log('onsubmit');
     if (values.categoryName.length === 0) {
       toast.error('카테고리는 최소 한 글자 이상 입력해야 합니다.');
       return;
@@ -68,21 +76,25 @@ export default function CategoryPopover({ category, onClose }: Props) {
       return;
     }
 
-    updateCategory.mutate(
-      { uid: category.uid, name: values.categoryName },
-      {
-        onSuccess: () => {
-          toast.success('카테고리 이름을 업데이트했어요.');
-          onClose();
-        },
-      }
-    );
+    const updatedCategory: Category = {
+      uid: category.uid,
+      name: values.categoryName,
+    };
+
+    updateCategory.mutate(updatedCategory, {
+      onSuccess: () => {
+        toast.success('카테고리 이름을 업데이트했어요.');
+        onChangeCategory(updatedCategory);
+        onClose();
+      },
+    });
   };
 
   const onDelete = () => {
     deleteCategory.mutate(category.uid, {
       onSuccess: () => {
         toast.success(category.name + '카테고리를 삭제했어요.');
+        onDeleteCategory(category.uid);
         onClose();
       },
     });
@@ -130,6 +142,7 @@ export default function CategoryPopover({ category, onClose }: Props) {
             <div className='flex flex-row w-full gap-2 mt-auto'>
               <Drawer>
                 <DrawerTrigger
+                  type='button'
                   className={cn(
                     buttonVariants({ variant: 'default' }),
                     'flex-1 rounded-full h-13 text-[15px] text-[#222] bg-[#efefef] hover:bg-[#efefef]/80'

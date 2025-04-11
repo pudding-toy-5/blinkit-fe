@@ -210,7 +210,11 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                   thousandSeparator=','
                   suffix='원'
                   placeholder='금액을 입력해주세요.'
-                  className='h-12 w-full p-4 rounded-md border border-[#ccc] text-[15px] text-[#222] placeholder:text-[15px] placeholder:text-[#999]'
+                  className={cn(
+                    'h-12 w-full p-4 rounded-md border border-[#ccc] text-[15px] text-[#222]',
+                    'placeholder:text-[15px] placeholder:text-[#999]',
+                    'focus-visible:border-[#555555]'
+                  )}
                 />
               </FormControl>
             </FormItem>

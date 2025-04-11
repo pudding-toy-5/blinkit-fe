@@ -25,12 +25,7 @@ const termsRoute = createRoute({
   path: 'terms.html',
   component: () => (
     <>
-      <SubPageHeader
-        title='이용약관'
-        onClickBack={() => {
-          void redirect({ to: '/settings' });
-        }}
-      />
+      <SubPageHeader title='이용약관' />
       <TermsPage />
     </>
   ),
@@ -41,12 +36,7 @@ const privacyRoute = createRoute({
   path: 'privacy.html',
   component: () => (
     <>
-      <SubPageHeader
-        title='개인정보 처리방침'
-        onClickBack={() => {
-          void redirect({ to: '/settings' });
-        }}
-      />
+      <SubPageHeader title='개인정보 처리방침' />
       <PrivacyPage />
     </>
   ),

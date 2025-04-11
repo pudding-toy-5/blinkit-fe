@@ -44,6 +44,7 @@ const InputCategoryTags = React.forwardRef<
         'min-h-12 flex flex-row w-full',
         'flex flex-row items-center rounded-md border border-[#ccc] bg-white px-4 py-3 text-sm ring-offset-white',
         'disabled:cursor-not-allowed disabled:opacity-50',
+        'focus-visible:border-[#555555]',
         className
       )}
     >

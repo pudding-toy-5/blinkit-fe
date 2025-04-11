@@ -39,7 +39,6 @@ export default function CategoriesPopover({
   );
 
   React.useEffect(() => {
-    console.log(selectedCategories);
     setValues(
       selectedCategories.map((selectedCategory) => selectedCategory.name)
     );
@@ -90,7 +89,7 @@ export default function CategoriesPopover({
     handleValues([...values, clickedCategory.name]);
   };
 
-  const onChangeCategory = (newCategory: Category) => {
+  const onUpdateCategory = (newCategory: Category) => {
     const index = selectedCategories.findIndex(
       (selectedCategory) => selectedCategory.uid === newCategory.uid
     );
@@ -99,12 +98,8 @@ export default function CategoriesPopover({
       return;
     }
 
-    const newSelectedCategories = [...selectedCategories].splice(
-      index,
-      1,
-      newCategory
-    );
-
+    const newSelectedCategories = [...selectedCategories];
+    newSelectedCategories.splice(index, 1, newCategory);
     setSelectedCategories(newSelectedCategories);
   };
 
@@ -130,7 +125,7 @@ export default function CategoriesPopover({
       {open && category && (
         <CategoryPopover
           category={category}
-          onChangeCategory={onChangeCategory}
+          onUpdateCategory={onUpdateCategory}
           onDeleteCategory={onDeleteCategory}
           onClose={() => {
             setOpen(false);

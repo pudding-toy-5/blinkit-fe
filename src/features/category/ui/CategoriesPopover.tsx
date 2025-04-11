@@ -145,7 +145,7 @@ export default function CategoriesPopover({
                 아직 추가한 카테고리가 없어요.
               </p>
             ) : (
-              <div className='h-full overflow-y-scroll pr-1 pb-24 scroll'>
+              <div className='h-full overflow-y-auto pr-1 pb-24 scroll'>
                 <ul className='flex flex-col gap-4 list-none'>
                   {categories.map((category) => {
                     return (

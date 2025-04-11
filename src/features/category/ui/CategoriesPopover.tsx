@@ -146,7 +146,7 @@ export default function CategoriesPopover({
               </p>
             ) : (
               <div className='h-full overflow-y-auto pr-1'>
-                <ul className='flex flex-col gap-4 list-none pb-4'>
+                <ul className='flex flex-col gap-4 list-none pb-24'>
                   {categories.map((category) => {
                     return (
                       <li className='flex flex-row items-center' key={category.uid}>
@@ -176,7 +176,7 @@ export default function CategoriesPopover({
             )}
           </div>
         </div>
-        <div className='px-5 py-4 bg-white border-t border-gray-100'>
+        <div className='fixed bottom-0 left-0 right-0 px-5 py-4 bg-white border-t border-gray-100'>
           <Button
             className='h-13 rounded-full text-[15px] w-full'
             onClick={() => {

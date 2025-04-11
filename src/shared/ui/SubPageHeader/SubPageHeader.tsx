@@ -1,5 +1,3 @@
-import { X } from 'lucide-react';
-
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Drawer,
@@ -12,6 +10,7 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import ArrowLeft from '@/shared/ui/icons/ArrowLeft';
+import X from '@/shared/ui/icons/X';
 import { cn } from '@/shared/ui/styles/utils';
 
 export interface SubPageHeaderProps {
@@ -51,7 +50,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
           className={cn('absolute right-[20px] size-[24px] has-[>svg]:p-0')}
           onClick={onClose}
         >
-          <X className='size-[24px]' />
+          <X size={24} />
         </Button>
       )}
       {onDelete && (

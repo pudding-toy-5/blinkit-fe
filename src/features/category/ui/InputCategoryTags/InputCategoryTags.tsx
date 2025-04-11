@@ -59,18 +59,20 @@ const InputCategoryTags = React.forwardRef<
             }}
           />
         ))}
-        <input
-          className='outline-none placeholder:text-[#999] placeholder:text-[15px]'
-          aria-label='카테고리 추가 입력'
-          value={pendingDataPoint}
-          placeholder={value.length === 0 ? placeholder : undefined}
-          disabled={value.length >= 3}
-          onChange={(e) => {
-            setPendingDataPoint(e.target.value);
-          }}
-          {...props}
-          ref={ref}
-        />
+        {value.length >= 0 && value.length < 3 && (
+          <input
+            className='outline-none placeholder:text-[#999] placeholder:text-[15px]'
+            aria-label='카테고리 추가 입력'
+            value={pendingDataPoint}
+            placeholder={value.length === 0 ? placeholder : undefined}
+            disabled={value.length >= 3}
+            onChange={(e) => {
+              setPendingDataPoint(e.target.value);
+            }}
+            {...props}
+            ref={ref}
+          />
+        )}
       </div>
       <Button
         variant='ghost'

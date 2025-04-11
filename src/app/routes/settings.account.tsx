@@ -1,9 +1,7 @@
-import { zodResolver } from '@hookform/resolvers/zod';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { z } from 'zod';
 
 import { useMe, useUpdateMe } from '@/features/auth/api/useAuth';
 import LabeledTextInput from '@/shared/ui/LabeledTextInput';
@@ -17,17 +15,10 @@ export const Route = createFileRoute('/settings/account')({
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import SubmitButton from '@/shared/ui/SubmitButton';
 
-const formSchema = z.object({
-  nickname: z
-    .string()
-    .min(1, {
-      message: '닉네임은 최소 1글자 이상이어야 해요.',
-    })
-    .max(20, {
-      message: '닉네임은 최대 20글자까지 입력할 수 있어요.',
-    }),
-  email: z.string(),
-});
+interface AccountForm {
+  nickname: string;
+  email: string;
+}
 
 function RouteComponent() {
   const navigate = useNavigate();
@@ -38,7 +29,7 @@ function RouteComponent() {
     throw error;
   }
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<AccountForm>({
     defaultValues: { nickname: '', email: '' },
   });
 
@@ -70,7 +61,7 @@ function RouteComponent() {
     }
   }, [form, data]);
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: AccountForm) => {
     const nickname = values.nickname;
     const prevNickname = data?.nickname;
 

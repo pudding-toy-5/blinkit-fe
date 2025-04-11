@@ -116,6 +116,7 @@ function RouteComponent() {
                     value={field.value}
                     onChange={field.onChange}
                     maxLength={20}
+                    placeholder='닉네임을 입력해주세요.'
                   />
                 </FormControl>
               </FormItem>

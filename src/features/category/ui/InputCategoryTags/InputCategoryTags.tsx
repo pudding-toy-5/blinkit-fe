@@ -42,12 +42,13 @@ const InputCategoryTags = React.forwardRef<
         // caveat: :has() variant requires tailwind v3.4 or above: https://tailwindcss.com/blog/tailwindcss-v3-4#new-has-variant
         'has-[:focus-visible]:border-[#555]',
         'min-h-12 flex flex-row w-full',
-        'flex flex-row items-center rounded-md border border-[#ccc] bg-white px-4 py-3 text-sm ring-offset-white',
+        'flex flex-row items-center rounded-md border border-[#ccc] bg-white px-4 py-3 text-[15px] ring-offset-white',
         'disabled:cursor-not-allowed disabled:opacity-50',
+        'focus-visible:border-[#555555]',
         className
       )}
     >
-      <div className={cn('flex flex-row flex-1 flex-wrap gap-2 mr-5')}>
+      <div className={cn('flex flex-row flex-1 flex-wrap gap-[8px] mr-5')}>
         {value.map((item) => (
           <CategoryTag
             key={item}
@@ -58,18 +59,20 @@ const InputCategoryTags = React.forwardRef<
             }}
           />
         ))}
-        <input
-          className='flex-1 outline-none placeholder:text-[#999] placeholder:text-[15px]'
-          aria-label='카테고리 추가 입력'
-          value={pendingDataPoint}
-          placeholder={value.length === 0 ? placeholder : undefined}
-          disabled={value.length >= 3}
-          onChange={(e) => {
-            setPendingDataPoint(e.target.value);
-          }}
-          {...props}
-          ref={ref}
-        />
+        {value.length >= 0 && value.length < 3 && (
+          <input
+            className='flex-1 outline-none placeholder:text-[#999] placeholder:text-[15px]'
+            aria-label='카테고리 추가 입력'
+            value={pendingDataPoint}
+            placeholder={value.length === 0 ? placeholder : undefined}
+            disabled={value.length >= 3}
+            onChange={(e) => {
+              setPendingDataPoint(e.target.value);
+            }}
+            {...props}
+            ref={ref}
+          />
+        )}
       </div>
       <Button
         variant='ghost'

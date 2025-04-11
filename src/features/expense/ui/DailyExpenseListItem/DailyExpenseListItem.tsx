@@ -13,7 +13,10 @@ const DailyExpenseListItem: React.FC<DailyExpense> = ({ date, expenses }) => {
     <li
       aria-labelledby={`daily-expense-list-item-${date.getDate().toString()}`}
     >
-      <p aria-label={dateString} className='mb-4'>
+      <p
+        aria-label={dateString}
+        className='mb-4 text-[13px] font-normal text-[#555555]'
+      >
         {dateString}
       </p>
       <ul className='flex flex-col gap-2'>

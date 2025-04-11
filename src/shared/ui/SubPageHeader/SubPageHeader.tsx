@@ -44,17 +44,15 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
       )}
       <h1 className='text-[17px] text-[#222] font-semibold'>{title}</h1>
       {onClose && (
-        <div
+        <Button
           aria-label='close button'
+          variant='ghost'
           role='button'
-          className={cn(
-            buttonVariants({ variant: 'ghost' }),
-            'absolute right-5 size-6'
-          )}
+          className={cn('absolute right-[20px] size-[24px] has-[>svg]:p-0')}
           onClick={onClose}
         >
-          <X size={24} />
-        </div>
+          <X className='size-[24px]' />
+        </Button>
       )}
       {onDelete && (
         <Drawer>
@@ -69,7 +67,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
               삭제
             </Button>
           </DrawerTrigger>
-          <DrawerContent className='w-full max-w-sm mx-auto py-8 px-5 rounded-t-[20px]'>
+          <DrawerContent className='w-full min-w-[375px] max-w-[430px] mx-auto py-8 px-5 rounded-t-[20px]'>
             <DrawerHeader className='p-0'>
               <DrawerTitle className='text-[19px] text-[#222] font-semibold'>
                 내역을 삭제할까요?

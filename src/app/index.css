@@ -189,3 +189,7 @@
   min-height: 100vh;
   box-sizing: border-box;
 }
+
+[data-sonner-toast] {
+  width: calc(100% - 40px) !important;
+}

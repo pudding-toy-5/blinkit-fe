@@ -12,18 +12,17 @@ export interface CategoryTagProps {
 
 const CategoryTag: React.FC<CategoryTagProps> = ({
   tagName,
-  size,
+  size = 'small',
   onClick,
   onDelete,
 }) => {
   return (
     <Badge
       className={cn(
-        'flex flex-row items-center bg-[#EAF6EC] text-[#28A745] rounded-full text-[13px]',
-        'px-2 py-1 h-6',
-        size === 'small' && 'px-2 py-1',
-        size === 'medium' && 'px-3 py-2',
-        size === 'large' && 'px-4 py-3'
+        'flex flex-row gap-[4px] items-center bg-[#EAF6EC] text-[#28A745] rounded-full text-[13px]',
+        size === 'small' && 'px-[8px] py-[4px]',
+        size === 'medium' && 'px-[12px] py-[8px]',
+        size === 'large' && 'px-[16px] py-[12px]'
       )}
       aria-label={`카테고리: ${tagName}`}
       onClick={() => {
@@ -35,7 +34,7 @@ const CategoryTag: React.FC<CategoryTagProps> = ({
       {tagName}
       {onDelete && (
         <Button
-          className='ml-1 w-3 h-3'
+          className='size-[12px]'
           size='icon'
           variant='ghost'
           aria-label={`category tag - ${tagName} - delete button`}

@@ -68,7 +68,7 @@ export default function CategoryPopover({
 
     if (
       categories?.find(
-        (c) => c.name === values.categoryName && c.uid !== category.name
+        (c) => c.name === values.categoryName && c.uid !== category.uid
       )
     ) {
       toast.error('동일한 카테고리 이름이 존재합니다.');

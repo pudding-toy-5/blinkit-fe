@@ -114,7 +114,7 @@ export default function CategoriesPopover({
 
   return (
     <div
-      className='fixed z-10 top-0 left-0 w-full h-full'
+      className='fixed z-10 top-0 left-0 w-full h-full flex flex-col'
     >
       {open && category && (
         <CategoryPopover
@@ -137,7 +137,7 @@ export default function CategoriesPopover({
           />
         </div>
 
-        <div className='flex flex-col px-5 flex-1' style={{ height: 'calc(100vh - 250px)' }}>
+        <div className='flex flex-col px-5 flex-1 overflow-hidden'>
           <p className='text-[13px] font-semibold text-[#999] my-4'>카테고리 선택</p>
           <div className='flex-1 overflow-hidden'>
             {categories === undefined || categories.length === 0 ? (
@@ -176,7 +176,7 @@ export default function CategoriesPopover({
             )}
           </div>
         </div>
-        <div className='px-5 py-4 sticky bottom-0 mt-auto bg-white'>
+        <div className='px-5 py-4 bg-white border-t border-gray-100'>
           <Button
             className='h-13 rounded-full text-[15px] w-full'
             onClick={() => {

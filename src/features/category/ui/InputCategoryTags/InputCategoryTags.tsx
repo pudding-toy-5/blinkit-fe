@@ -47,7 +47,7 @@ const InputCategoryTags = React.forwardRef<
         className
       )}
     >
-      <div className={cn('flex flex-row flex-1 flex-wrap gap-2 mr-5')}>
+      <div className={cn('flex flex-row flex-1 flex-wrap gap-[8px] mr-5')}>
         {value.map((item) => (
           <CategoryTag
             key={item}
@@ -59,7 +59,7 @@ const InputCategoryTags = React.forwardRef<
           />
         ))}
         <input
-          className='flex-1 outline-none placeholder:text-[#999] placeholder:text-[15px]'
+          className='outline-none placeholder:text-[#999] placeholder:text-[15px]'
           aria-label='카테고리 추가 입력'
           value={pendingDataPoint}
           placeholder={value.length === 0 ? placeholder : undefined}

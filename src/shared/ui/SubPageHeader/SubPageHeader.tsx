@@ -66,7 +66,7 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
               삭제
             </Button>
           </DrawerTrigger>
-          <DrawerContent className='py-8 px-5 rounded-t-[20px]'>
+          <DrawerContent className='py-8 px-5 !rounded-t-[20px]'>
             <DrawerHeader className='p-0'>
               <DrawerTitle className='text-[19px] text-[#222] font-semibold'>
                 내역을 삭제할까요?

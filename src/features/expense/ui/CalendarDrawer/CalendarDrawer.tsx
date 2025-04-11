@@ -1,5 +1,4 @@
 import { ko } from 'date-fns/locale';
-import { X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -12,6 +11,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
+import X from '@/shared/ui/icons/X';
 import SubmitButton from '@/shared/ui/SubmitButton';
 
 export interface CalendarDrawerProps {
@@ -36,14 +36,15 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
   return (
     <Drawer>
       <DrawerTrigger id={id}>{trigger}</DrawerTrigger>
-      <DrawerContent className='p-6'>
-        <DrawerHeader className='flex flex-row items-center justify-between rounded-t-full p-0'>
+      <DrawerContent className='p-6 !rounded-t-[20px]'>
+        <DrawerHeader className='flex flex-row items-center justify-between p-0'>
           <div className='flex-1' />
           <DrawerTitle>날짜 선택</DrawerTitle>
-          <DrawerClose className='flex-1 flex justify-end'>
-            <div role='button' aria-label='close button'>
-              <X />
-            </div>
+          <DrawerClose
+            aria-label='close button'
+            className='flex-1 flex justify-end'
+          >
+            <X size={24} />
           </DrawerClose>
         </DrawerHeader>
         <div className='items-center mt-6'>
@@ -67,7 +68,7 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
           />
           <DrawerFooter className='flex flex-row flex-center pb-0 pt-4 px-auto'>
             <Button
-              className='font-[15px] h-13'
+              className='text-[15px] text-[#555555] h-13'
               variant='ghost'
               onClick={() => {
                 setDate(today);
@@ -79,6 +80,7 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
               <SubmitButton
                 text='선택'
                 state='default'
+                className='text-[15px]'
                 onClick={() => {
                   setDate(date);
                 }}

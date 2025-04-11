@@ -28,12 +28,12 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
       className={cn(
         buttonVariants({ variant: 'ghost' }),
         'has-[>svg]:p-0',
-        'flex flex-row items-center h-auto w-auto ml-auto p-0'
+        'flex flex-row items-center h-4 w-auto ml-auto p-0'
       )}
     >
-      <p className='mr-1 text-[15px] font-normal text-[#28a745]'>
-        {date.toLocaleDateString()}
-      </p>
+      <span className='inline-flex items-center mr-1 text-[15px] font-normal text-[#28a745] relative top-[1px]'>
+        {`${date.getFullYear().toString()}년 ${(date.getMonth() + 1).toString()}월 ${date.getDate().toString()}일`}
+      </span>
       <ArrowRight size={16} color='#28a745' />
     </div>
   );
@@ -92,7 +92,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
         />
       )}
       <form
-        className='flex flex-col gap-6 h-screen pt-6 px-5 pb-20'
+        className='flex flex-col gap-8 h-screen pt-6 px-5 pb-20'
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -166,7 +166,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                   type='button'
                   id='categories'
                   aria-label='카테고리 설정 버튼'
-                  className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'
+                  className='rounded-full bg-[#efefef] hover:bg-accent h-[28px] w-[39px] items-center text-[13px] text-[#555] ml-auto py-1 px-2 shadow-none font-normal'
                   onClick={() => {
                     setOpen(true);
                   }}

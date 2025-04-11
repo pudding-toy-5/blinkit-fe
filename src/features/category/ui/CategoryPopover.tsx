@@ -149,7 +149,7 @@ export default function CategoryPopover({
                 >
                   삭제
                 </DrawerTrigger>
-                <DrawerContent className='py-8 px-5 rounded-t-[20px]'>
+                <DrawerContent className='py-8 px-5 !rounded-t-[20px]'>
                   <DrawerHeader className='p-0'>
                     <DrawerTitle className='text-[19px] text-[#222] font-semibold'>
                       카테고리를 삭제할까요?
@@ -159,14 +159,14 @@ export default function CategoryPopover({
                       태그도 함께 삭제돼요.
                     </DrawerDescription>
                   </DrawerHeader>
-                  <DrawerFooter className='p-0 mt-9'>
+                  <DrawerFooter className='p-0 mt-8'>
                     <Button className='h-13 rounded-full' onClick={onDelete}>
                       삭제
                     </Button>
-                    <DrawerClose>
+                    <DrawerClose asChild>
                       <Button
                         variant='ghost'
-                        className='h-13 w-full rounded-full'
+                        className='w-[26px] h-[18px] mx-auto mt-[25px]'
                       >
                         취소
                       </Button>

@@ -66,7 +66,7 @@ export function ExpensesPage() {
         <MonthSelector period={period} onSetPeriod={setPeriod} />
         <div className='flex flex-col mt-4'>
           <p className='text-[15px] text-[#555] font-semibold'>총 소비 내역</p>
-          <p className='text-[22px] text-[#222] font-semibold mt-1'>
+          <p className='text-[22px] text-[#222] font-semibold mt-1 h-[26px]'>
             {totalAmount.toLocaleString('ko-KR')}원
           </p>
         </div>

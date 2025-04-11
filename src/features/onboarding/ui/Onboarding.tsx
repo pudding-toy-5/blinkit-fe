@@ -1,5 +1,6 @@
-import { cn } from '@/shared/ui/styles/utils';
 import React, { useEffect, useRef, useState } from 'react';
+
+import { cn } from '@/shared/ui/styles/utils';
 
 interface OnboardingProps {
   onComplete?: () => void;
@@ -15,7 +16,10 @@ const imageUrls = [
 
 const SWIPE_THRESHOLD = 75;
 
-export default function Onboarding({ onComplete, slideInterval = 4000 }: OnboardingProps) {
+export default function Onboarding({
+  onComplete,
+  slideInterval = 4000,
+}: OnboardingProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef<HTMLDivElement>(null);
   const autoPlayRef = useRef<number>(0);
@@ -69,7 +73,9 @@ export default function Onboarding({ onComplete, slideInterval = 4000 }: Onboard
 
   useEffect(() => {
     if (slideRef.current) {
-      slideRef.current.style.transition = isDragging ? 'none' : 'all 0.5s ease-in-out';
+      slideRef.current.style.transition = isDragging
+        ? 'none'
+        : 'all 0.5s ease-in-out';
       const offset = isDragging ? dragX : 0;
       slideRef.current.style.transform = `translateX(calc(-${String(currentSlide * 100)}% + ${offset}px))`;
     }
@@ -123,10 +129,10 @@ export default function Onboarding({ onComplete, slideInterval = 4000 }: Onboard
 
   const handleMouseUp = (e: React.MouseEvent) => {
     if (!isDragging) return;
-    
+
     const endX = e.clientX;
     const diff = endX - startX;
-    
+
     setIsDragging(false);
     setDragX(0);
 
@@ -144,7 +150,7 @@ export default function Onboarding({ onComplete, slideInterval = 4000 }: Onboard
     if (isDragging) {
       const endX = e.clientX;
       const diff = endX - startX;
-      
+
       setIsDragging(false);
       setDragX(0);
 
@@ -173,8 +179,8 @@ export default function Onboarding({ onComplete, slideInterval = 4000 }: Onboard
       >
         <div ref={slideRef} className='w-full h-full flex'>
           {imageUrls.map((url, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className='min-w-full w-full h-full flex-shrink-0 flex items-center justify-center'
             >
               <img
@@ -195,7 +201,7 @@ export default function Onboarding({ onComplete, slideInterval = 4000 }: Onboard
             className={cn(
               'h-2 rounded-full mx-1',
               currentSlide === index ? 'bg-[#89F336]' : 'bg-[#CCCCCC]',
-              currentSlide === index ? 'w-4' : 'w-2',
+              currentSlide === index ? 'w-4' : 'w-2'
             )}
             onClick={() => {
               setCurrentSlide(index);
@@ -203,7 +209,6 @@ export default function Onboarding({ onComplete, slideInterval = 4000 }: Onboard
           />
         ))}
       </div>
-
     </div>
   );
 }

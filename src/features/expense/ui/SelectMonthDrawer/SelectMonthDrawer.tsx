@@ -28,7 +28,7 @@ const SelectMonthDrawer: React.FC<SelectMonthDrawerProps> = ({
       <DrawerTrigger asChild>
         <Button
           variant='ghost'
-          className='h-auto p-0 text-[15px] rounded-none text-decoration-line: underline decoration-solid decoration-auto underline-offset-auto'
+          className='h-auto p-0 text-[15px] min-w-[22px] rounded-none text-decoration-line: underline decoration-solid decoration-auto underline-offset-auto'
           style={{ textUnderlinePosition: 'from-font' }}
         >
           {year !== new Date().getFullYear() && `${year.toString()}년 `}

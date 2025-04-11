@@ -39,9 +39,22 @@ function RouteComponent() {
   }
 
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
     defaultValues: { nickname: '', email: '' },
   });
+
+  const [disabled, setDisabled] = React.useState<boolean>(true);
+
+  const validateInput = (value: string) => {
+    if (!data) {
+      return;
+    }
+
+    if (value === data.nickname || value.length === 0 || value.length > 20) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  };
 
   React.useEffect(() => {
     if (!data) {
@@ -59,6 +72,7 @@ function RouteComponent() {
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     const nickname = values.nickname;
+    const prevNickname = data?.nickname;
 
     if (nickname.length === 0) {
       toast.error('닉네임은 최소 1글자 이상이어야 해요.');
@@ -80,7 +94,14 @@ function RouteComponent() {
         { ...data, nickname },
         {
           onSuccess: () => {
-            void navigate({ to: '/expenses' });
+            toast.success('닉네임을 설정했어요.');
+
+            if (!prevNickname || prevNickname === '') {
+              void navigate({ to: '/expenses' });
+              return;
+            }
+
+            void navigate({ to: '/settings' });
           },
           onError: () => {
             toast.error('닉네임 설정에 실패했어요.');
@@ -114,7 +135,10 @@ function RouteComponent() {
                     id='nickname'
                     label='닉네임'
                     value={field.value}
-                    onChange={field.onChange}
+                    onChange={(e) => {
+                      validateInput(e);
+                      field.onChange(e);
+                    }}
                     maxLength={20}
                     placeholder='닉네임을 입력해주세요.'
                   />
@@ -143,6 +167,7 @@ function RouteComponent() {
             <SubmitButton
               type='submit'
               text='저장'
+              disabled={disabled}
               className='w-full font-semibold'
             />
           </div>

@@ -166,7 +166,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                   type='button'
                   id='categories'
                   aria-label='카테고리 설정 버튼'
-                  className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'
+                  className='rounded-full bg-[#efefef] hover:bg-accent h-[28px] w-[39px] items-center text-[13px] text-[#555] ml-auto py-1 px-2 shadow-none font-normal'
                   onClick={() => {
                     setOpen(true);
                   }}

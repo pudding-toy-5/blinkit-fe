@@ -199,12 +199,14 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                   max={EXPENSE_AMOUNT_MAX}
                   min={1}
                   isAllowed={(values: NumberFormatValues) => {
+                    if (values.value === '') {
+                      return true;
+                    }
                     const value = values.floatValue ?? 0;
                     return value > 0 && value <= EXPENSE_AMOUNT_MAX;
                   }}
                   onValueChange={(values: NumberFormatValues) => {
-                    const value = values.floatValue ?? 1;
-                    field.onChange(value);
+                    field.onChange(values.floatValue ?? '');
                   }}
                   allowNegative={false}
                   thousandSeparator=','

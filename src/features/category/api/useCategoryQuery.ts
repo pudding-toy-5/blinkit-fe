@@ -37,7 +37,7 @@ const useUpdateCategory = () => {
   return useUpdateCategoryQuery({
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: expenseQueryKeys.expenses });
-      // void qc.invalidateQueries({ queryKey: ['newExpense'] });
+      void qc.invalidateQueries({ queryKey: queryKeys.categories });
     },
   });
 };
@@ -47,7 +47,7 @@ const useDeleteCategory = () => {
   return useDeleteCategoryQuery({
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: expenseQueryKeys.expenses });
-      // void qc.invalidateQueries({ queryKey: ['newExpense'] });
+      void qc.invalidateQueries({ queryKey: queryKeys.categories });
     },
   });
 };

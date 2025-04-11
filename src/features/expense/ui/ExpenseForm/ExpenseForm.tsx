@@ -1,8 +1,6 @@
-import { Link, useNavigate } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
-import { toast } from 'sonner';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -12,12 +10,8 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form';
+import CategoriesPopover from '@/features/category/ui/CategoriesPopover';
 import CategoryTag from '@/features/category/ui/CategoryTag';
-import {
-  useAddExpense,
-  useNewExpenseByUid,
-  useUpdateExpense,
-} from '@/features/expense/api/useExpenseQuery';
 import {
   EXPENSE_AMOUNT_MAX,
   EXPENSE_MEMO_MAX_LEN,
@@ -46,17 +40,12 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
 };
 
 export interface ExpenseFormProps {
-  expense: Expense;
+  expense: Omit<Expense, 'uid'>;
+  onSubmit: (expense: Omit<Expense, 'uid'>) => void;
 }
 
-const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
-  const navigate = useNavigate();
-  const updateExpense = useUpdateExpense();
-  const addExpense = useAddExpense();
-  const { updateNewExpense } = useNewExpenseByUid(expense.uid);
-
-  const inputRef = React.useRef<HTMLInputElement>(null);
-
+const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
+  const [open, setOpen] = React.useState<boolean>(false);
   const form = useForm<Omit<Expense, 'uid'>>({
     defaultValues: {
       date: expense.date,
@@ -69,14 +58,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
 
   const { handleSubmit, watch } = form;
 
-  const date = watch('date');
   const memo = watch('memo');
   const categories = watch('categories');
   const amount = watch('amount');
-
-  const handleClickCategory = () => {
-    updateNewExpense({ uid: expense.uid, date, memo, categories, amount });
-  };
 
   const disabled = React.useMemo(() => {
     if (memo.length === 0 || memo.length > 120) {
@@ -94,59 +78,23 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
     return false;
   }, [memo, categories, amount]);
 
-  const handleOnSubmit = (values: Omit<Expense, 'uid'>) => {
-    if (expense.uid === 'new') {
-      addExpense.mutate(
-        { ...values },
-        {
-          onSuccess: () => {
-            toast.success('지출내역을 추가했어요.');
-            updateNewExpense({
-              uid: expense.uid,
-              date: new Date(),
-              memo: '',
-              amount: 0,
-              categories: [],
-            });
-
-            void navigate({ to: '/expenses' });
-          },
-          onError: () => {
-            toast.error('지출내역을 추가하는데 실패했어요.');
-          },
-        }
-      );
-      return;
-    } else {
-      updateExpense.mutate(
-        { uid: expense.uid, ...values },
-        {
-          onSuccess: () => {
-            toast.success('지출내역을 수정했어요.');
-            updateNewExpense({
-              uid: expense.uid,
-              date: new Date(),
-              memo: '',
-              amount: 0,
-              categories: [],
-            });
-
-            void navigate({ to: '/expenses' });
-          },
-          onError: () => {
-            toast.error('지출내역을 수정하는데 실패했어요.');
-          },
-        }
-      );
-    }
-  };
-
   return (
     <Form {...form}>
+      {open && (
+        <CategoriesPopover
+          selectedCategories={categories}
+          setSelectedCategories={(values) => {
+            form.setValue('categories', values);
+          }}
+          onClose={() => {
+            setOpen(false);
+          }}
+        />
+      )}
       <form
         className='flex flex-col gap-6 h-screen pt-6 px-5 pb-20'
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onSubmit={handleSubmit(handleOnSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <FormField
           control={form.control}
@@ -215,22 +163,15 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
                   카테고리
                 </FormLabel>
                 <Button
+                  type='button'
                   id='categories'
                   aria-label='카테고리 설정 버튼'
                   className='rounded-full bg-[#efefef] hover:bg-accent h-auto text-[13px] text-[#555] ml-auto py-1 px-2'
-                  asChild
+                  onClick={() => {
+                    setOpen(true);
+                  }}
                 >
-                  <Link
-                    to={
-                      expense.uid === 'new'
-                        ? '/expenses/new/categories'
-                        : '/expenses/$uid/categories'
-                    }
-                    onClick={handleClickCategory}
-                    params={{ uid: expense.uid }}
-                  >
-                    설정
-                  </Link>
+                  설정
                 </Button>
               </div>
               <div className='flex flex-row gap-2 flex-wrap'>
@@ -251,7 +192,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense }) => {
                 <NumericFormat
                   inputMode='numeric'
                   value={field.value}
-                  getInputRef={inputRef}
                   max={EXPENSE_AMOUNT_MAX}
                   min={1}
                   isAllowed={(values: NumberFormatValues) => {

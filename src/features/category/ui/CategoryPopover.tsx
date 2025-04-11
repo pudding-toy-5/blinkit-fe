@@ -159,14 +159,14 @@ export default function CategoryPopover({
                       태그도 함께 삭제돼요.
                     </DrawerDescription>
                   </DrawerHeader>
-                  <DrawerFooter className='p-0 mt-9'>
+                  <DrawerFooter className='p-0 mt-8'>
                     <Button className='h-13 rounded-full' onClick={onDelete}>
                       삭제
                     </Button>
-                    <DrawerClose>
+                    <DrawerClose asChild>
                       <Button
                         variant='ghost'
-                        className='h-13 w-full rounded-full'
+                        className='w-[26px] h-[18px] mx-auto mt-[25px]'
                       >
                         취소
                       </Button>

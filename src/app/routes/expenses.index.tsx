@@ -33,8 +33,10 @@ export function ExpensesPage() {
   const handleScroll = (e: React.UIEvent<HTMLUListElement>) => {
     const currentScrollTop = e.currentTarget.scrollTop;
     if (currentScrollTop > prevScrollTop) {
-      setIsCollapsed(true);
+      // setIsCollapsed(true);
+      setIsCollapsed(false);
     } else {
+      // setIsCollapsed(false);
       setIsCollapsed(false);
     }
 

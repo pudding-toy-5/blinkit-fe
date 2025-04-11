@@ -16,6 +16,11 @@ export const Route = createFileRoute('/settings/account')({
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import SubmitButton from '@/shared/ui/SubmitButton';
 
+interface AccountForm {
+  nickname: string;
+  email: string;
+}
+
 function RouteComponent() {
   const navigate = useNavigate();
   const updateMe = useUpdateMe();
@@ -25,7 +30,7 @@ function RouteComponent() {
     throw error;
   }
 
-  const form = useForm<{ nickname: string; email: string }>({
+  const form = useForm<AccountForm>({
     defaultValues: { nickname: '', email: '' },
   });
 
@@ -57,7 +62,7 @@ function RouteComponent() {
     }
   }, [form, data]);
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: AccountForm) => {
     const nickname = values.nickname;
     const prevNickname = data?.nickname;
 

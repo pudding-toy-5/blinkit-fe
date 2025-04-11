@@ -14,7 +14,7 @@ const DailyExpenseList: React.FC<DailyExpenseListProps> = ({
   return (
     <ul
       className={cn(
-        'flex flex-1 flex-col gap-6 scroll list-none overflow-y-hidden justify-start py-6 pl-5 pr-4 bg-[#F5F3F0]'
+        'flex flex-1 flex-col gap-6 scroll list-none overflow-y-scroll justify-start py-6 pl-5 pr-4 bg-[#F5F3F0]'
       )}
       onScroll={onScroll}
       aria-label='daily-expense-list'

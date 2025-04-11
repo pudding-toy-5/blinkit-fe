@@ -36,7 +36,7 @@ const SelectMonthDrawer: React.FC<SelectMonthDrawerProps> = ({
         </Button>
       </DrawerTrigger>
       <DrawerContent
-        className='w-full max-w-sm mx-auto py-6 px-5'
+        className='py-6 px-5'
         style={{ borderRadius: '20px 20px 0 0 ' }}
       >
         <DrawerHeader className='flex flex-row items-center justify-between p-0'>

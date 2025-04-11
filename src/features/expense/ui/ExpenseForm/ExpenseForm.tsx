@@ -32,7 +32,7 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
       )}
     >
       <span className='inline-flex items-center mr-1 text-[15px] font-normal text-[#28a745] relative top-[1px]'>
-        {date.toLocaleDateString()}
+        {`${date.getFullYear().toString()}년 ${(date.getMonth() + 1).toString()}월 ${date.getDate().toString()}일`}
       </span>
       <ArrowRight size={16} color='#28a745' />
     </div>

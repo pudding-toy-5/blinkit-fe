@@ -21,7 +21,6 @@ const Toaster = ({ ...props }: ToasterProps) => {
         unstyled: true,
         classNames: {
           toast: cn(
-            'w-full min-w-[375px] max-w-[430px]',
             'flex flex-row justify-start items-center gap-[8px]',
             'bg-[#555] px-[16px] py-[14px] rounded-[8px]'
           ),

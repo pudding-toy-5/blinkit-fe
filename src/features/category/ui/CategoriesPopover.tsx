@@ -46,7 +46,6 @@ export default function CategoriesPopover({
 
   const handleValues = (newValues: string[]) => {
     if (categories === undefined) {
-      toast.error('어떠한 문제상황');
       return;
     }
 

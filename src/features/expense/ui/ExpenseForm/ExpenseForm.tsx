@@ -28,12 +28,12 @@ const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
       className={cn(
         buttonVariants({ variant: 'ghost' }),
         'has-[>svg]:p-0',
-        'flex flex-row items-center h-auto w-auto ml-auto p-0'
+        'flex flex-row items-center h-4 w-auto ml-auto p-0'
       )}
     >
-      <p className='mr-1 text-[15px] font-normal text-[#28a745]'>
+      <span className='inline-flex items-center mr-1 text-[15px] font-normal text-[#28a745] relative top-[1px]'>
         {date.toLocaleDateString()}
-      </p>
+      </span>
       <ArrowRight size={16} color='#28a745' />
     </div>
   );

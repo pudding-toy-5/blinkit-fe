@@ -59,11 +59,13 @@ export default function CategoriesPopover({
         { name: notAddedValue },
         {
           onSuccess: () => {
-            const addedCategory: Category[] = categories.filter(
-              (c) => c.name !== notAddedValue
+            const addedCategory = categories.find(
+              (c) => c.name === notAddedValue
             );
 
-            setSelectedCategories([...selectedCategories, ...addedCategory]);
+            if (addedCategory) {
+              setSelectedCategories([...selectedCategories, addedCategory]);
+            }
           },
           onError: () => {
             toast.error(notAddedValue + ' 카테고리를 추가하는데 실패했어요.');

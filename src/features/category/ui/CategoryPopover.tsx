@@ -27,14 +27,14 @@ import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
 
 interface Props {
   category: Category;
-  onChangeCategory: (category: Category) => void;
+  onUpdateCategory: (category: Category) => void;
   onDeleteCategory: (uid: string) => void;
   onClose: () => void;
 }
 
 export default function CategoryPopover({
   category,
-  onChangeCategory,
+  onUpdateCategory,
   onDeleteCategory,
   onClose,
 }: Props) {
@@ -61,7 +61,6 @@ export default function CategoryPopover({
   };
 
   const onSubmit = (values: { categoryName: string }) => {
-    console.log('onsubmit');
     if (values.categoryName.length === 0) {
       toast.error('카테고리는 최소 한 글자 이상 입력해야 합니다.');
       return;
@@ -84,7 +83,7 @@ export default function CategoryPopover({
     updateCategory.mutate(updatedCategory, {
       onSuccess: () => {
         toast.success('카테고리 이름을 업데이트했어요.');
-        onChangeCategory(updatedCategory);
+        onUpdateCategory(updatedCategory);
         onClose();
       },
     });

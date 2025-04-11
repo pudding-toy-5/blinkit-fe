@@ -1,5 +1,5 @@
 // routes.custom.ts
-import { createRoute, Outlet, redirect } from '@tanstack/react-router';
+import { createRoute, Outlet } from '@tanstack/react-router';
 
 import PrivacyPage from '@/pages/about/agreements/PrivacyPage';
 import TermsPage from '@/pages/about/agreements/TermsPage';

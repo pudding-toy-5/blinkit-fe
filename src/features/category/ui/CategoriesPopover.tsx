@@ -179,7 +179,7 @@ export default function CategoriesPopover({
             )}
           </div>
         </div>
-        <div className='fixed bottom-0 left-0 right-0 w-full min-w-[375px] max-w-[430px] mx-auto px-5 py-4 bg-white border-t border-gray-100'>
+        <div className='fixed bottom-0 left-0 right-0 w-full min-w-[360px] max-w-[430px] mx-auto px-5 py-4 bg-white border-t border-gray-100'>
           <Button
             className='h-13 rounded-full text-[15px] w-full'
             onClick={() => {

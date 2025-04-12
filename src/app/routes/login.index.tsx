@@ -1,5 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 
+import { TOKEN_KEY } from '@/constants';
 import SignInButton from '@/features/auth/ui/SignInButton';
 import { apiUrl } from '@/features/common/consts';
 import Onboarding from '@/features/onboarding/ui/Onboarding';
@@ -13,6 +14,10 @@ export const Route = createFileRoute('/login/')({
 
       if (res.status === 200) {
         return redirect({ to: '/expenses' });
+      }
+      if (res.status === 401) {
+        localStorage.removeItem(TOKEN_KEY);
+        return;
       }
     } catch {
       return;

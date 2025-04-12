@@ -48,7 +48,7 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
             <X size={24} />
           </DrawerClose>
         </DrawerHeader>
-        <div className='items-center mt-6'>
+        <div className='flex flex-col w-full mx-auto items-center mt-6'>
           <Calendar
             mode='single'
             selected={date}
@@ -56,12 +56,13 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
             locale={ko}
             month={date}
             onMonthChange={setDate}
-            className='px-auto py-0'
+            className='w-full p-0'
             classNames={{
               caption_label: 'font-[17px]',
-              head_cell: 'w-[44px] font-normal',
+              head_cell: 'w-[14.2857143%] font-normal',
               row: 'flex w-full mt-0',
-              day: 'size-[44px] rounded-full font-[15px] hover:bg-[#89f336]/50',
+              cell: 'w-[14.2857143%] aspect-square',
+              day: 'h-full w-full rounded-full font-[15px] hover:bg-[#89f336]/50',
               day_selected: 'bg-[#89f336] text-[#222]',
               day_today: 'text-[#28a745]',
               day_disabled: 'text-[#999999]',

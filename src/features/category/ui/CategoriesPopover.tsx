@@ -141,9 +141,11 @@ export default function CategoriesPopover({
           </p>
           <div className='flex-1 overflow-hidden'>
             {categories === undefined || categories.length === 0 ? (
-              <p className='text-[13px] text-[#999] mt-47.5 mx-auto'>
-                아직 추가한 카테고리가 없어요.
-              </p>
+              <div className='mt-47.5 mx-auto flex items-center justify-center'>
+                <span className='text-[13px] text-[#999]'>
+                  아직 추가한 카테고리가 없어요.
+                </span>
+              </div>
             ) : (
               <div className='h-full overflow-y-auto mx-auto px-5 pr-1 pb-24 scroll'>
                 <ul className='flex flex-col gap-4 list-none'>

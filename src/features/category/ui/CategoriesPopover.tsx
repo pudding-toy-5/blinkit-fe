@@ -135,8 +135,8 @@ export default function CategoriesPopover({
           />
         </div>
 
-        <div className='flex flex-col px-5 flex-1 overflow-hidden'>
-          <p className='text-[13px] font-semibold text-[#999] my-4'>
+        <div className='flex flex-col flex-1 overflow-hidden'>
+          <p className='text-[13px] font-semibold text-[#999] my-4 px-5'>
             카테고리 선택
           </p>
           <div className='flex-1 overflow-hidden'>
@@ -145,7 +145,7 @@ export default function CategoriesPopover({
                 아직 추가한 카테고리가 없어요.
               </p>
             ) : (
-              <div className='h-full overflow-y-auto pr-1 pb-24 scroll'>
+              <div className='h-full overflow-y-auto mx-auto px-5 pr-1 pb-24 scroll'>
                 <ul className='flex flex-col gap-4 list-none'>
                   {categories.map((category) => {
                     return (
@@ -163,7 +163,7 @@ export default function CategoriesPopover({
                         <Button
                           type='button'
                           variant='ghost'
-                          className='size-6 p-0 ml-auto'
+                          className='size-6 p-0 ml-auto mr-[16px]'
                           onClick={() => {
                             setCategory(category);
                             setOpen(true);

@@ -3,7 +3,6 @@ import { createRoute, Outlet } from '@tanstack/react-router';
 
 import PrivacyPage from '@/pages/about/agreements/PrivacyPage';
 import TermsPage from '@/pages/about/agreements/TermsPage';
-import GuestLayout from '@/shared/ui/layout/GuestLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 import { routeTree } from './routeTree.gen';
@@ -12,11 +11,7 @@ import { routeTree } from './routeTree.gen';
 const agreementsRoute = createRoute({
   getParentRoute: () => routeTree,
   path: '/about/agreements',
-  component: () => (
-    <GuestLayout>
-      <Outlet />
-    </GuestLayout>
-  ),
+  component: () => <Outlet />,
 });
 
 // agreements 자식 라우트 생성

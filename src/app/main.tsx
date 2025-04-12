@@ -24,7 +24,7 @@ declare module '@tanstack/react-router' {
 
 if (import.meta.env.PROD) {
   const script = document.createElement('script');
-  const CLARITY_KEY = import.meta.env.CLARITY_KEY as string;
+  const CLARITY_KEY = import.meta.env.VITE_CLARITY_KEY as string;
   script.src = `https://www.clarity.ms/tag/${CLARITY_KEY}`;
   script.async = true;
   document.head.appendChild(script);

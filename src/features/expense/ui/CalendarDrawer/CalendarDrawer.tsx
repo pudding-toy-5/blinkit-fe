@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
 import { Button } from '@/components/ui/button';
@@ -64,6 +65,10 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
               day_selected: 'bg-[#89f336] text-[#222]',
               day_today: 'text-[#28a745]',
               day_disabled: 'text-[#999999]',
+            }}
+            formatters={{
+              formatCaption: (month) =>
+                format(month, 'yyyy년 M월', { locale: ko }),
             }}
           />
           <DrawerFooter className='flex flex-row items-center w-full pb-0 pt-4 px-auto'>

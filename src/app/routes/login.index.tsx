@@ -18,7 +18,7 @@ export const Route = createFileRoute('/login/')({
       }
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error.status === 401) {
+        if (error.response?.status === 401) {
           localStorage.removeItem(TOKEN_KEY);
         }
       }

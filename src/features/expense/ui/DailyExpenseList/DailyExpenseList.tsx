@@ -20,7 +20,9 @@ const DailyExpenseList: React.FC<DailyExpenseListProps> = ({
       aria-label='daily-expense-list'
     >
       {dailyExpenses.length === 0 ? (
-        <p className='mx-auto my-auto'>지출 내역을 추가해주세요.</p>
+        <span className='mx-auto my-auto text-[15px] text-[#555555]'>
+          지출 내역을 추가해주세요.
+        </span>
       ) : (
         dailyExpenses.map(({ date, expenses }) => (
           <DailyExpenseItem

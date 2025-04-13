@@ -20,7 +20,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
       disabled={state === 'disabled'}
       onClick={onClick}
       className={cn(
-        'h-13 rounded-[26px] text-white font-[15px]',
+        'h-13 rounded-[26px] text-white text-[15px]',
         state === 'default' && 'bg-[#222]',
         state === 'disabled' && 'bg-[#ccc]',
         className

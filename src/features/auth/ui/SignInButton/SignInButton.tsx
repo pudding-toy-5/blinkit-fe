@@ -88,7 +88,7 @@ export default function SocialAuth({ service, onClick }: SocialAuthProps) {
       )}
 
       {isLoggedIn ? (
-        <div className='flex flex-col items-center gap-3 p-4 border rounded-lg shadow-sm'>
+        <div className='flex flex-col items-center gap-3 p-4 border rounded-[8px] shadow-sm'>
           <div className='text-center'>
             <h3 className='font-medium'>로그인됨</h3>
           </div>
@@ -105,7 +105,7 @@ export default function SocialAuth({ service, onClick }: SocialAuthProps) {
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onClick={handleLogin}
             className={cn(
-              'flex h-12 w-full items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors rounded-xl',
+              'flex h-12 w-full items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-300 hover:bg-gray-50 transition-colors rounded-[8px]',
               service === 'google' &&
                 'bg-white text-[#222] text-[15px] border-[#ccc] hover:bg-white/90',
               service === 'naver' &&

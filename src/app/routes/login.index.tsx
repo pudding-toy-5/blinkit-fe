@@ -1,4 +1,5 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
+import { AxiosError } from 'axios';
 
 import { TOKEN_KEY } from '@/constants';
 import SignInButton from '@/features/auth/ui/SignInButton';
@@ -15,11 +16,12 @@ export const Route = createFileRoute('/login/')({
       if (res.status === 200) {
         return redirect({ to: '/expenses' });
       }
-      if (res.status === 401) {
-        localStorage.removeItem(TOKEN_KEY);
-        return;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.status === 401) {
+          localStorage.removeItem(TOKEN_KEY);
+        }
       }
-    } catch {
       return;
     }
   },

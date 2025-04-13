@@ -144,7 +144,7 @@ export default function CategoryPopover({
                   type='button'
                   className={cn(
                     buttonVariants({ variant: 'default' }),
-                    'flex-1 rounded-full h-13 text-[15px] text-[#222] bg-[#efefef] hover:bg-[#efefef]/80'
+                    'flex-1 rounded-full h-13 text-[15px] text-[#555555] bg-[#efefef] hover:bg-[#efefef]/80 shadow-none'
                   )}
                 >
                   삭제

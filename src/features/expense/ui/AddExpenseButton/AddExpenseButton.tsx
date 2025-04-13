@@ -1,4 +1,4 @@
-import { Plus } from 'lucide-react';
+import Plus from '@/shared/ui/icons/Plus';
 
 const AddExpenseButton: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ const AddExpenseButton: React.FC = () => {
       className='absolute right-[20px] bottom-20 w-14 h-14 p-4 rounded-[28px] bg-[#89f336] hover:ring'
       role='button'
     >
-      <Plus color='#222222' size='24' />
+      <Plus size={24} />
     </div>
   );
 };

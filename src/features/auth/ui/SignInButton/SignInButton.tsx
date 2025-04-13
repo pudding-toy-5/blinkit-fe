@@ -105,7 +105,7 @@ export default function SocialAuth({ service, onClick }: SocialAuthProps) {
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onClick={handleLogin}
             className={cn(
-              'flex h-12 w-full items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors rounded-[8px]',
+              'flex h-12 w-full items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-300 hover:bg-gray-50 transition-colors rounded-[8px]',
               service === 'google' &&
                 'bg-white text-[#222] text-[15px] border-[#ccc] hover:bg-white/90',
               service === 'naver' &&

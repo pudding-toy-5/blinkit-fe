@@ -17,6 +17,7 @@ import { Route as LoginIndexImport } from './routes/login.index'
 import { Route as ExpensesIndexImport } from './routes/expenses.index'
 import { Route as SettingsAccountImport } from './routes/settings.account'
 import { Route as LoginServiceIndexImport } from './routes/login.$service.index'
+import { Route as ExpensesReviewIndexImport } from './routes/expenses.review.index'
 import { Route as ExpensesNewIndexImport } from './routes/expenses.new.index'
 import { Route as ExpensesUidIndexImport } from './routes/expenses.$uid.index'
 
@@ -55,6 +56,12 @@ const SettingsAccountRoute = SettingsAccountImport.update({
 const LoginServiceIndexRoute = LoginServiceIndexImport.update({
   id: '/login/$service/',
   path: '/login/$service/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ExpensesReviewIndexRoute = ExpensesReviewIndexImport.update({
+  id: '/expenses/review/',
+  path: '/expenses/review/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -123,6 +130,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExpensesNewIndexImport
       parentRoute: typeof rootRoute
     }
+    '/expenses/review/': {
+      id: '/expenses/review/'
+      path: '/expenses/review'
+      fullPath: '/expenses/review'
+      preLoaderRoute: typeof ExpensesReviewIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/login/$service/': {
       id: '/login/$service/'
       path: '/login/$service'
@@ -143,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsIndexRoute
   '/expenses/$uid': typeof ExpensesUidIndexRoute
   '/expenses/new': typeof ExpensesNewIndexRoute
+  '/expenses/review': typeof ExpensesReviewIndexRoute
   '/login/$service': typeof LoginServiceIndexRoute
 }
 
@@ -154,6 +169,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsIndexRoute
   '/expenses/$uid': typeof ExpensesUidIndexRoute
   '/expenses/new': typeof ExpensesNewIndexRoute
+  '/expenses/review': typeof ExpensesReviewIndexRoute
   '/login/$service': typeof LoginServiceIndexRoute
 }
 
@@ -166,6 +182,7 @@ export interface FileRoutesById {
   '/settings/': typeof SettingsIndexRoute
   '/expenses/$uid/': typeof ExpensesUidIndexRoute
   '/expenses/new/': typeof ExpensesNewIndexRoute
+  '/expenses/review/': typeof ExpensesReviewIndexRoute
   '/login/$service/': typeof LoginServiceIndexRoute
 }
 
@@ -179,6 +196,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/expenses/$uid'
     | '/expenses/new'
+    | '/expenses/review'
     | '/login/$service'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -189,6 +207,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/expenses/$uid'
     | '/expenses/new'
+    | '/expenses/review'
     | '/login/$service'
   id:
     | '__root__'
@@ -199,6 +218,7 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/expenses/$uid/'
     | '/expenses/new/'
+    | '/expenses/review/'
     | '/login/$service/'
   fileRoutesById: FileRoutesById
 }
@@ -211,6 +231,7 @@ export interface RootRouteChildren {
   SettingsIndexRoute: typeof SettingsIndexRoute
   ExpensesUidIndexRoute: typeof ExpensesUidIndexRoute
   ExpensesNewIndexRoute: typeof ExpensesNewIndexRoute
+  ExpensesReviewIndexRoute: typeof ExpensesReviewIndexRoute
   LoginServiceIndexRoute: typeof LoginServiceIndexRoute
 }
 
@@ -222,6 +243,7 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsIndexRoute: SettingsIndexRoute,
   ExpensesUidIndexRoute: ExpensesUidIndexRoute,
   ExpensesNewIndexRoute: ExpensesNewIndexRoute,
+  ExpensesReviewIndexRoute: ExpensesReviewIndexRoute,
   LoginServiceIndexRoute: LoginServiceIndexRoute,
 }
 
@@ -242,6 +264,7 @@ export const routeTree = rootRoute
         "/settings/",
         "/expenses/$uid/",
         "/expenses/new/",
+        "/expenses/review/",
         "/login/$service/"
       ]
     },
@@ -265,6 +288,9 @@ export const routeTree = rootRoute
     },
     "/expenses/new/": {
       "filePath": "expenses.new.index.tsx"
+    },
+    "/expenses/review/": {
+      "filePath": "expenses.review.index.tsx"
     },
     "/login/$service/": {
       "filePath": "login.$service.index.tsx"

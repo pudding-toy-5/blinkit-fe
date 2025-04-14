@@ -2,7 +2,7 @@
 import { createRoute, Outlet } from '@tanstack/react-router';
 
 import PrivacyPage from '@/pages/about/agreements/PrivacyPage';
-import TermsPage from '@/pages/about/agreements/TermsPage';
+import GuestLayout from '@/shared/ui/layout/GuestLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 import { routeTree } from './routeTree.gen';
@@ -11,18 +11,10 @@ import { routeTree } from './routeTree.gen';
 const agreementsRoute = createRoute({
   getParentRoute: () => routeTree,
   path: '/about/agreements',
-  component: () => <Outlet />,
-});
-
-// agreements 자식 라우트 생성
-const termsRoute = createRoute({
-  getParentRoute: () => agreementsRoute,
-  path: 'terms.html',
   component: () => (
-    <>
-      <SubPageHeader title='이용약관' />
-      <TermsPage />
-    </>
+    <GuestLayout>
+      <Outlet />
+    </GuestLayout>
   ),
 });
 
@@ -38,7 +30,7 @@ const privacyRoute = createRoute({
 });
 
 // 자식 라우트 추가
-agreementsRoute.addChildren([termsRoute, privacyRoute]);
+agreementsRoute.addChildren([privacyRoute]);
 
 // 확장된 라우트를 기존 routeTree에 추가
 

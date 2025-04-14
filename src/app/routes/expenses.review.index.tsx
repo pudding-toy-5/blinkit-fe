@@ -3,7 +3,6 @@ import React from 'react';
 
 import Logo from '@/shared/ui/icons/Logo';
 import UserLayout from '@/shared/ui/layout/UserLayout';
-import BottomNavBar from '@/widgets/BottomNavBar';
 import ReviewTopNavBar from '@/widgets/ReviewTopNavBar';
 
 export const Route = createFileRoute('/expenses/review/')({
@@ -12,7 +11,6 @@ export const Route = createFileRoute('/expenses/review/')({
 
 function RouteComponent() {
   const [isRewind, setIsRewind] = React.useState<boolean>(false);
-  const [selected, setSelected] = React.useState<0 | 1 | 2>(0);
 
   return (
     <UserLayout>
@@ -20,7 +18,6 @@ function RouteComponent() {
         <Logo />
       </header>
       <ReviewTopNavBar isRewind={isRewind} setIsRewind={setIsRewind} />
-      <BottomNavBar selectedIndex={selected} setSelected={setSelected} />
     </UserLayout>
   );
 }

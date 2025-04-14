@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Drawer,
   DrawerClose,
@@ -14,6 +14,7 @@ import {
 import { TOKEN_KEY } from '@/constants';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import UserLayout from '@/shared/ui/layout/UserLayout';
+import { cn } from '@/shared/ui/styles/utils';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/settings/')({
@@ -48,7 +49,7 @@ function RouteComponent() {
       settingItems: [
         {
           text: '서비스 이용약관',
-          to: '/about/agreements/terms.html',
+          to: 'https://organized-slip-9b5.notion.site/1bf8d1493c1f808b9ef3c1df49771870?pvs=4',
         },
         {
           text: '개인정보 처리방침',
@@ -91,15 +92,32 @@ function RouteComponent() {
                     <>
                       <p className='text-[15px] text-[#222]'>{text}</p>
                       {to && (
-                        <Button
-                          variant='ghost'
-                          className='w-4 h-4 ml-auto p-0 has-[>svg]:p-0 rounded-none'
-                          asChild
-                        >
-                          <Link to={to}>
-                            <ArrowRight size={16} />
-                          </Link>
-                        </Button>
+                        <>
+                          {to.startsWith('http') ? (
+                            <a
+                              href={to}
+                              target='_blank'
+                              rel='noopener noreferrer'
+                              className={cn(
+                                buttonVariants({ variant: 'ghost' }),
+                                'w-4 h-4 ml-auto p-0 has-[>svg]:p-0 rounded-none',
+                                'ml-auto'
+                              )}
+                            >
+                              <ArrowRight size={16} />
+                            </a>
+                          ) : (
+                            <Button
+                              variant='ghost'
+                              className='w-4 h-4 ml-auto p-0 has-[>svg]:p-0 rounded-none'
+                              asChild
+                            >
+                              <Link to={to}>
+                                <ArrowRight size={16} />
+                              </Link>
+                            </Button>
+                          )}
+                        </>
                       )}
                     </>
                   )}

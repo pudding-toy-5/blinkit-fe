@@ -3,7 +3,8 @@ import React from 'react';
 
 import Logo from '@/shared/ui/icons/Logo';
 import UserLayout from '@/shared/ui/layout/UserLayout';
-import { cn } from '@/shared/ui/styles/utils';
+import BottomNavBar from '@/widgets/BottomNavBar';
+import ReviewTopNavBar from '@/widgets/ReviewTopNavBar';
 
 export const Route = createFileRoute('/expenses/review/')({
   component: RouteComponent,
@@ -11,42 +12,15 @@ export const Route = createFileRoute('/expenses/review/')({
 
 function RouteComponent() {
   const [isRewind, setIsRewind] = React.useState<boolean>(false);
+  const [selected, setSelected] = React.useState<0 | 1 | 2>(0);
 
   return (
     <UserLayout>
       <header className='px-5 py-4'>
         <Logo />
       </header>
-      <nav className='px-5 pt-4'>
-        <ul className='flex flex-row items-center justify-center gap-5'>
-          <li
-            className={cn(
-              'flex flex-1 items-center justify-center',
-              'text-[17px] text-[#999999] font-semibold',
-              'border-b-[2px] border-transparent',
-              !isRewind && 'text-[#222222] border-[#222222]'
-            )}
-            onClick={() => {
-              setIsRewind(false);
-            }}
-          >
-            리뷰
-          </li>
-          <li
-            className={cn(
-              'flex flex-1 items-center justify-center pb-[10px]',
-              'text-[17px] text-[#999999] font-semibold',
-              'border-b-[2px] border-transparent',
-              isRewind && 'text-[#222222] border-[#222222]'
-            )}
-            onClick={() => {
-              setIsRewind(true);
-            }}
-          >
-            회고
-          </li>
-        </ul>
-      </nav>
+      <ReviewTopNavBar isRewind={isRewind} setIsRewind={setIsRewind} />
+      <BottomNavBar selectedIndex={selected} setSelected={setSelected} />
     </UserLayout>
   );
 }

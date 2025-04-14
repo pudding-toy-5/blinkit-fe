@@ -21,7 +21,7 @@ function RouteComponent() {
         <ul className='flex flex-row items-center justify-center gap-5'>
           <li
             className={cn(
-              'flex items-center justify-center w-[50%]',
+              'flex flex-1 items-center justify-center',
               'text-[17px] text-[#999999] font-semibold',
               'border-b-[2px] border-transparent',
               !isRewind && 'text-[#222222] border-[#222222]'
@@ -34,7 +34,7 @@ function RouteComponent() {
           </li>
           <li
             className={cn(
-              'flex items-center justify-center w-[50%]',
+              'flex flex-1 items-center justify-center pb-[10px]',
               'text-[17px] text-[#999999] font-semibold',
               'border-b-[2px] border-transparent',
               isRewind && 'text-[#222222] border-[#222222]'

@@ -45,7 +45,7 @@ const RadioItem: React.FC<RadioItemProps> = ({
   consumption,
   onClick,
 }) => {
-  const { title, description, info, consumptionKind } = consumption;
+  const { title, description, info } = consumption;
 
   return (
     <div className='flex flex-row items-center rounded-[8px] px-4 py-5.5 bg-[#F5F3F0]'>

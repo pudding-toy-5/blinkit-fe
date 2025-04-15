@@ -1,11 +1,12 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
+import { useUpdateExpense } from '@/features/expense/api/useExpenseQuery';
+import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
+import { Expense } from '@/features/expense/model/types/Expense';
 import { cn } from '@/shared/ui/styles/utils';
 
-import { useUpdateExpense } from '../../api/useExpenseQuery';
-import { ConsumptionKind } from '../../model/types/ConsumptionKind';
-import { Expense } from '../../model/types/Expense';
+import { getConsumptionTitle } from '../../utils';
 import ClassifyExpenseDrawer from './ClassifyExpenseDrawer';
 import UnReviewedExpenseListItem from './UnReviewedExpenseListItem';
 
@@ -41,15 +42,17 @@ const UnReviewedExpenseList: React.FC<Props> = ({
   }, []);
 
   const setConsumptionKind = (consumptionKind: ConsumptionKind) => {
+    const title = getConsumptionTitle(consumptionKind);
+
     updateExpense.mutate(
       { ...selectedExpense, consumptionKind },
       {
         onSuccess: () => {
-          toast.success(`지출내역을 ${consumptionKind}로 분류했어요.`);
+          toast.success(`${title}로 분류했어요.`);
           setSelectedUid(null);
         },
         onError: () => {
-          toast.error(`지출내역을 ${consumptionKind}로 분류하지 못했어요.`);
+          toast.error(`지출내역을 ${title}로 분류하지 못했어요.`);
         },
       }
     );

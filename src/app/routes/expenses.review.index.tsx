@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Expense } from '@/features/expense/model/types/Expense';
 import UnReviewedExpenseList from '@/features/expense/ui/UnReviewedExpenseList/UnReviewedExpenseList';
+import RetrospectiveView from '@/features/retrospective/ui/RetrospectiveView';
 import Logo from '@/shared/ui/icons/Logo';
 import UserLayout from '@/shared/ui/layout/UserLayout';
 import ReviewTopNavBar from '@/widgets/ReviewTopNavBar';
@@ -55,8 +56,11 @@ function RouteComponent() {
         isRetrospective={isRetrospective}
         setIsRetrospective={setIsRetrospective}
       />
-      {}
-      <UnReviewedExpenseList expenses={expenses} />
+      {isRetrospective ? (
+        <RetrospectiveView />
+      ) : (
+        <UnReviewedExpenseList expenses={expenses} />
+      )}
     </UserLayout>
   );
 }

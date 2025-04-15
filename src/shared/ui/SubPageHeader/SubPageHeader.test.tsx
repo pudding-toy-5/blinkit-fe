@@ -16,16 +16,13 @@ vi.mock('@tanstack/react-router', () => ({
 import SubPageHeader, { SubPageHeaderProps } from './SubPageHeader';
 
 describe('SubPageHeader', () => {
-  const props: SubPageHeaderProps = {
-    title: 'sub page title',
-  };
-
   const renderSubPageHeader = ({ title }: SubPageHeaderProps) =>
     render(<SubPageHeader title={title} />);
 
   it('renders the provided title correctly.', () => {
-    const { getByText } = renderSubPageHeader({ ...props });
-    const title = getByText(props.title);
+    const titleText = 'title title';
+    const { getByText } = renderSubPageHeader({ title: titleText });
+    const title = getByText(titleText);
 
     expect(title).toBeInTheDocument();
     expect(title.tagName.toLowerCase()).toBe('h1');

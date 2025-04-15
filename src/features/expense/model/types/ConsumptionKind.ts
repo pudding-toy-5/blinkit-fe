@@ -1,12 +1,12 @@
-export const consumptionKindValues = {
+export const ConsumptionKind = {
   none: 'none',
   essential: 'essential',
   conscious: 'conscious',
   emotional: 'emotional',
 };
 
-export type ConsumptionKindType =
-  (typeof consumptionKindValues)[keyof typeof consumptionKindValues];
+export type ConsumptionKind =
+  (typeof ConsumptionKind)[keyof typeof ConsumptionKind];
 
 export interface ConsumptionTexts {
   title: string;
@@ -15,6 +15,6 @@ export interface ConsumptionTexts {
 }
 
 export interface Consumption {
-  consumptionKind: ConsumptionKindType;
+  consumptionKind: ConsumptionKind;
   consumptionTexts: ConsumptionTexts;
 }

@@ -1,5 +1,5 @@
 import { Category } from '@/features/category/model/types/Category';
-import { ConsumptionKindType } from '@/features/expense/model/types/ConsumptionKind';
+import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
 
 export interface ServerRetrospectiveCategory {
   category: Category;
@@ -12,14 +12,14 @@ export interface RetrospectiveCategory {
 }
 
 export interface ServerRetrospective {
-  consumption_kind: ConsumptionKindType;
+  consumption_kind: ConsumptionKind;
   total_count: number;
   total_amount: number;
   items: ServerRetrospectiveCategory[];
 }
 
 export interface Retrospective {
-  consumptionKind: ConsumptionKindType;
+  consumptionKind: ConsumptionKind;
   totalCount: number;
   totalAmount: number;
   items: RetrospectiveCategory[];

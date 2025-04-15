@@ -13,6 +13,7 @@ import MonthSelector from '@/features/expense/ui/MonthSelector';
 import Logo from '@/shared/ui/icons/Logo';
 import Setting from '@/shared/ui/icons/Setting';
 import UserLayout from '@/shared/ui/layout/UserLayout';
+import BottomNavBar from '@/widgets/BottomNavBar';
 
 export const Route = createFileRoute('/expenses/')({
   component: ExpensesPage,
@@ -74,6 +75,7 @@ export function ExpensesPage() {
         </div>
       </div>
       <DailyExpenseList dailyExpenses={dailyExpenses} onScroll={handleScroll} />
+      <BottomNavBar />
       <Link to='/expenses/new'>
         <AddExpenseButton />
       </Link>

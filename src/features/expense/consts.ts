@@ -1,4 +1,8 @@
-import { ConsumptionTexts } from './model/types/ConsumptionKind';
+import {
+  Consumption,
+  ConsumptionKind,
+  ConsumptionTexts,
+} from './model/types/ConsumptionKind';
 
 export const EXPENSE_MEMO_MAX_LEN = 120;
 
@@ -24,4 +28,19 @@ export const consumptionConsciousTexts: ConsumptionTexts = {
   title: '의식적 소비',
   description: '내 가치관에 따라 선택한 소비',
   tooltipText: '예시로 필요 없는 구독, 스트레스 해소용 쇼핑 등이 있어요.',
+};
+
+export const consumptionEssential: Consumption = {
+  consumptionKind: ConsumptionKind.essential,
+  consumptionTexts: consumptionEssentialTexts,
+};
+
+export const consumptionEmotional: Consumption = {
+  consumptionKind: ConsumptionKind.essential,
+  consumptionTexts: consumptionEmotionalTexts,
+};
+
+export const consumptionConscious: Consumption = {
+  consumptionKind: ConsumptionKind.essential,
+  consumptionTexts: consumptionConsciousTexts,
 };

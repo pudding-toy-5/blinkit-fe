@@ -11,11 +11,13 @@ import { cn } from '@/shared/ui/styles/utils';
 export interface RetrospectiveCardProps {
   retrospective: Retrospective;
   consumption: Consumption;
+  onClickRetrospectiveDetail: () => void;
 }
 
 const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
   retrospective,
   consumption,
+  onClickRetrospectiveDetail,
 }) => {
   const { totalCount, totalAmount, items } = retrospective;
   const { consumptionKind, consumptionTexts } = consumption;
@@ -57,7 +59,11 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
         )}
       </ul>
       <div className='flex flex-row justify-center items-center w-full mt-6 pt-4 border-t-[1px] border-[#efefef]'>
-        <Button variant='ghost' className='shadow-none'>
+        <Button
+          variant='ghost'
+          className='shadow-none h-auto has-[>svg]:p-0'
+          onClick={onClickRetrospectiveDetail}
+        >
           자세히보기
           <ArrowRight size={16} color='#555555' />
         </Button>

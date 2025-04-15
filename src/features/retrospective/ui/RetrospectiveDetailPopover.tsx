@@ -2,16 +2,9 @@ import { useEffect, useState } from 'react';
 
 import { Category } from '@/features/category/model/types/Category';
 import { useExpenses } from '@/features/expense/api/useExpenseQuery';
-import {
-  consumptionConsciousTexts,
-  consumptionEmotionalTexts,
-  consumptionEssentialTexts,
-} from '@/features/expense/consts';
-import {
-  ConsumptionKind,
-  ConsumptionTexts,
-} from '@/features/expense/model/types/ConsumptionKind';
+import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
 import ReviewExpenseCard from '@/features/expense/ui/ReviewExpenseCard';
+import { getConsumptionTexts } from '@/features/expense/utils';
 import UserLayout from '@/shared/ui/layout/UserLayout';
 import { cn } from '@/shared/ui/styles/utils';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
@@ -60,8 +53,7 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
     categoryUids: selectedCategories.map((c) => c.uid),
   });
 
-  const [consumptionTexts, setConsumptionTexts] =
-    useState<ConsumptionTexts | null>(null);
+  const consumptionTexts = getConsumptionTexts(consumptionKind);
 
   useEffect(() => {
     if (!expenses) {
@@ -77,20 +69,6 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
     );
     setCategories(uniqueCategories);
   }, [expenses, setTotalAmount]);
-
-  useEffect(() => {
-    if (consumptionKind === ConsumptionKind.conscious) {
-      setConsumptionTexts(consumptionConsciousTexts);
-    }
-
-    if (consumptionKind === ConsumptionKind.emotional) {
-      setConsumptionTexts(consumptionEmotionalTexts);
-    }
-
-    if (consumptionKind === ConsumptionKind.essential) {
-      setConsumptionTexts(consumptionEssentialTexts);
-    }
-  }, [consumptionKind]);
 
   if (!expenses) {
     return null;
@@ -118,10 +96,10 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
         <SubPageHeader onClickBack={onClose} />
         <div className='flex flex-col px-5 pb-4'>
           <h1 className='text-[19px] text-[#222] font-semibold'>
-            {consumptionTexts?.title}
+            {consumptionTexts.title}
           </h1>
           <span className='text-[13px] text-[#555] mt-1'>
-            {consumptionTexts?.description}
+            {consumptionTexts.description}
           </span>
           <span className='text-[22px] text-[#222] font-semibold mt-3'>
             {totalAmount.toLocaleString()}원

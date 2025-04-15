@@ -7,3 +7,9 @@ export const consumptionKindValues = {
 
 export type ConsumptionKindType =
   (typeof consumptionKindValues)[keyof typeof consumptionKindValues];
+
+export interface ConsumptionTexts {
+  title: string;
+  description: string;
+  tooltipText: string;
+}

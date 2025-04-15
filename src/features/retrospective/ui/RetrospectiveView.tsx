@@ -42,7 +42,7 @@ const RetrospectiveView: React.FC = () => {
         consumption={consumptionConscious}
         retrospective={{
           ...retrospective,
-          consumptionKind: ConsumptionKind.emotional,
+          consumptionKind: ConsumptionKind.conscious,
         }}
       />
       <RetrospectiveCard

@@ -42,6 +42,10 @@ const UnReviewedExpenseList: React.FC<Props> = ({
   }, []);
 
   const setConsumptionKind = (consumptionKind: ConsumptionKind) => {
+    if (!selectedExpense) {
+      return;
+    }
+
     const title = getConsumptionTitle(consumptionKind);
 
     updateExpense.mutate(

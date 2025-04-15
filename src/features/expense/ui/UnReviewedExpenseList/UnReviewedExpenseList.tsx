@@ -69,7 +69,7 @@ const UnReviewedExpenseList: React.FC<Props> = ({
         setConsumptionKind={setConsumptionKind}
       />
       <div className='relative flex flex-col flex-1 bg-[#f5f3f0] px-5 pt-8'>
-        {expenses.length === 0 ? (
+        {unReviewedExpenses.length === 0 ? (
           <span className='flex items-center justify-center m-auto text-[15px] text-[#555]'>
             지출 내역을 추가하면 리뷰할 수 있어요.
           </span>
@@ -118,6 +118,13 @@ const UnReviewedExpenseList: React.FC<Props> = ({
             )}
           </>
         )}
+        {/* 보이지 않는 측정용 버튼 */}
+        <button
+          ref={measureRef}
+          className='absolute -z-10 invisible whitespace-nowrap px-6 font-semibold text-[14px]'
+        >
+          리뷰하기
+        </button>
       </div>
     </>
   );

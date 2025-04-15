@@ -1,10 +1,9 @@
 import { animated, type AnimatedProps, useSpring } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
-import { format } from 'date-fns';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import CategoryTag from '@/features/category/ui/CategoryTag';
 import { Expense } from '@/features/expense/model/types/Expense';
+import ReviewExpenseCard from '@/features/expense/ui/ReviewExpenseCard';
 import { cn } from '@/shared/ui/styles/utils';
 
 const AnimatedDiv = animated.div as React.FC<
@@ -90,28 +89,7 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
         }}
       >
         <div style={{ width: `${liWidth.toString()}px`, flexShrink: 0 }}>
-          <div className='flex flex-col w-full p-4 rounded-[8px] bg-white'>
-            <span aria-label='지출 날짜' className='text-[13px] text-[#999]'>
-              {format(expense.date, 'yyyy. M. d.')}
-            </span>
-            <span
-              aria-label='지출 금액'
-              className='text-[17px] font-semibold mt-1.5'
-            >
-              {expense.amount.toLocaleString()}원
-            </span>
-            <span
-              aria-label='메모'
-              className='text-[15px] text-[#555] leading-[150%] mt-2'
-            >
-              {expense.memo}
-            </span>
-            <div className='flex flex-row flex-wrap gap-x-1 gap-y-1.5 mt-6 w-full'>
-              {expense.categories.map((cat) => (
-                <CategoryTag key={cat.uid} tagName={cat.name} />
-              ))}
-            </div>
-          </div>
+          <ReviewExpenseCard expense={expense} />
         </div>
 
         <div style={{ width: '8px', flexShrink: 0 }} />

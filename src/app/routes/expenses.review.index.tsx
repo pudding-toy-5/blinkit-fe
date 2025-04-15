@@ -7,6 +7,7 @@ import UnReviewedExpenseList from '@/features/expense/ui/UnReviewedExpenseList/U
 import RetrospectiveView from '@/features/retrospective/ui/RetrospectiveView';
 import Logo from '@/shared/ui/icons/Logo';
 import UserLayout from '@/shared/ui/layout/UserLayout';
+import BottomNavBar from '@/widgets/BottomNavBar';
 import ReviewTopNavBar from '@/widgets/ReviewTopNavBar';
 
 export const Route = createFileRoute('/expenses/review/')({
@@ -52,6 +53,7 @@ function RouteComponent() {
           }}
         />
       )}
+      <BottomNavBar />
     </UserLayout>
   );
 }

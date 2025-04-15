@@ -19,7 +19,7 @@ const RetrospectiveView: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   if (!retrospectives) {
-    return;
+    return null;
   }
 
   return (

@@ -54,7 +54,7 @@ const UnReviewedExpenseList: React.FC<Props> = ({ expenses }) => {
                 지출 내역을 왼쪽으로 밀어서 소비를 분류해보세요.
               </span>
             </div>
-            <ul className='flex flex-col gap-2'>
+            <ul className='flex flex-col gap-2 pb-2'>
               {expenses.map((expense) => (
                 <UnReviewedExpenseListItem
                   key={expense.uid}

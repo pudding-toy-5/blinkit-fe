@@ -16,7 +16,7 @@ export const useRetrospectives = () => {
     queryFn: async () => {
       try {
         const res = await userAxios.get<ServerRetrospective[]>(
-          apiUrl + '/expense/expense/consumption-retrospective'
+          apiUrl + '/expense/expenses/consumption-retrospective'
         );
 
         const retrospectives = res.data.map((serverRetrospective) =>

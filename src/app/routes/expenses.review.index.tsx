@@ -54,7 +54,12 @@ function RouteComponent() {
       </header>
       <ReviewTopNavBar
         isRetrospective={isRetrospective}
-        setIsRetrospective={setIsRetrospective}
+        onClickReview={() => {
+          setIsRetrospective(false);
+        }}
+        onClickRetrospective={() => {
+          setIsRetrospective(true);
+        }}
       />
       {isRetrospective ? (
         <RetrospectiveView />

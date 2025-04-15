@@ -24,12 +24,14 @@ const NavItem: React.FC<NavItemProps> = ({ text, isSelected, onClick }) => {
 
 interface NavBarProps {
   isRetrospective: boolean;
-  setIsRetrospective: (isRetrospective: boolean) => void;
+  onClickReview: () => void;
+  onClickRetrospective: () => void;
 }
 
 const ReviewTopNavBar: React.FC<NavBarProps> = ({
   isRetrospective,
-  setIsRetrospective,
+  onClickReview,
+  onClickRetrospective,
 }) => {
   return (
     <nav className='px-5 pt-4'>
@@ -37,16 +39,12 @@ const ReviewTopNavBar: React.FC<NavBarProps> = ({
         <NavItem
           text='리뷰'
           isSelected={!isRetrospective}
-          onClick={() => {
-            setIsRetrospective(false);
-          }}
+          onClick={onClickReview}
         />
         <NavItem
           text='회고'
           isSelected={isRetrospective}
-          onClick={() => {
-            setIsRetrospective(true);
-          }}
+          onClick={onClickRetrospective}
         />
       </ul>
     </nav>

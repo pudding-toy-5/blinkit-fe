@@ -96,11 +96,14 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
             </span>
             <span
               aria-label='지출 금액'
-              className='text-[15px] font-semibold mt-1.5'
+              className='text-[17px] font-semibold mt-1.5'
             >
               {expense.amount.toLocaleString()}원
             </span>
-            <span aria-label='메모' className='text-[15px] leading-[150%] mt-2'>
+            <span
+              aria-label='메모'
+              className='text-[15px] text-[#555] leading-[150%] mt-2'
+            >
               {expense.memo}
             </span>
             <div className='flex flex-row flex-wrap gap-x-1 gap-y-1.5 mt-6 w-full'>

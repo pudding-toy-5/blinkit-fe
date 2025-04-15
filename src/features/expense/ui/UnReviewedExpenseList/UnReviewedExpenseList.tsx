@@ -68,9 +68,10 @@ const UnReviewedExpenseList: React.FC<Props> = ({
         onOpenChange={onDrawerOpenChange}
         setConsumptionKind={setConsumptionKind}
       />
-      <div className='relative flex flex-col flex-1 bg-[#f5f3f0] px-5 pt-8'>
+      {/* when scrollable height, pr-5. when not scrollable height, pr-4 (scroll width - 4px) */}
+      <div className='relative flex flex-col flex-1 bg-[#f5f3f0] pl-5 pr-4 pt-8 overflow-y-auto scroll'>
         {totalExpenseLength === 0 ? (
-          <span className='flex items-center justify-center m-auto text-[15px] text-[#555]'>
+          <span className='flex-1 flex items-center justify-center m-auto text-[15px] text-[#555]'>
             지출 내역을 추가하면 리뷰할 수 있어요.
           </span>
         ) : (
@@ -103,7 +104,7 @@ const UnReviewedExpenseList: React.FC<Props> = ({
                 </button>
               </div>
             ) : (
-              <ul className='flex flex-col gap-2 pb-2'>
+              <ul className='flex-1 flex flex-col gap-2 pb-2'>
                 {unReviewedExpenses.map((expense) => (
                   <UnReviewedExpenseListItem
                     key={expense.uid}

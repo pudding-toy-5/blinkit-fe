@@ -1,3 +1,4 @@
+import { TooltipArrow } from '@radix-ui/react-tooltip';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -10,6 +11,12 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '@/components/ui/drawer';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import Check from '@/shared/ui/icons/Check';
 import Exclamation from '@/shared/ui/icons/Exclamation';
 import X from '@/shared/ui/icons/X';
@@ -45,11 +52,26 @@ const RadioItem: React.FC<RadioItemProps> = ({
       <div className='flex flex-col'>
         <div className='flex flex-row items-center gap-1'>
           <span className='text-[15px] text-[#222] font-semibold'>{title}</span>
-          <div className='relative inline-block group'>
-            <div className='rotate-180'>
-              <Exclamation size={16} color='#999' />
-            </div>
-          </div>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <div className='rotate-180'>
+                  <Exclamation size={16} color='#999' />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent
+                className='rounded-[4px] bg-[#222] text-white text-[13px] whitespace-pre-line p-2 font-normal'
+                side='bottom'
+                sideOffset={1}
+                align='start'
+                // alignOffset={-16}
+                arrowPadding={16}
+              >
+                {info}
+                <TooltipArrow fill='#222' className='' />
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
         <span className='text-[13px] text-[#555] mt-1'>{description}</span>
       </div>
@@ -92,7 +114,7 @@ const consumptions: Consumption[] = [
     consumptionKind: consumptionKindValues.emotional,
     title: '감정적 소비',
     description: '필요 없거나 충동적으로 한 소비',
-    info: '예시로 필요 없는 구독, 스트레스 해소용 쇼핑 등이 있어요.',
+    info: '예시로 필요 없는 구독, 스트레스 해소용 쇼핑\n등이 있어요.',
   },
 ];
 

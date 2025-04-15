@@ -12,7 +12,7 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
   onClose,
 }) => {
   return (
-    <div>
+    <div className='fixed z-10 top-0 left-0 w-full h-dvh flex flex-col overflow-hidden'>
       <UserLayout>
         <SubPageHeader onClickBack={onClose} />
       </UserLayout>

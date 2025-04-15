@@ -64,7 +64,6 @@ const RadioItem: React.FC<RadioItemProps> = ({
                 side='bottom'
                 sideOffset={1}
                 align='start'
-                // alignOffset={-16}
                 arrowPadding={16}
               >
                 {info}

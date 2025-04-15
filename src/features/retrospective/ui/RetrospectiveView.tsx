@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import {
   consumptionConscious,
   consumptionEmotional,
@@ -7,6 +9,7 @@ import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind'
 
 import { Retrospective } from '../model/Retrospective';
 import RetrospectiveCard from './RetrospectiveCard';
+import RetrospectiveDetailPopover from './RetrospectiveDetailPopover';
 
 const RetrospectiveView: React.FC = () => {
   // todo: update this to useConsumptionRetrospectives
@@ -29,13 +32,31 @@ const RetrospectiveView: React.FC = () => {
     ],
   };
 
+  const [consumptionKind, setConsumptionKind] =
+    useState<ConsumptionKind | null>(null);
+
+  const [open, setOpen] = useState<boolean>(false);
+
   return (
     <div className='flex flex-col overflow-y-scroll scroll'>
+      {open && consumptionKind && (
+        <RetrospectiveDetailPopover
+          consumptionKind={consumptionKind}
+          onClose={() => {
+            setOpen(false);
+            setConsumptionKind(null);
+          }}
+        />
+      )}
       <RetrospectiveCard
         consumption={consumptionEmotional}
         retrospective={{
           ...retrospective,
           consumptionKind: ConsumptionKind.emotional,
+        }}
+        onClickRetrospectiveDetail={() => {
+          setConsumptionKind(ConsumptionKind.emotional);
+          setOpen(true);
         }}
       />
       <div className='h-2 bg-[#F5F3F0] shrink-0' />
@@ -45,6 +66,10 @@ const RetrospectiveView: React.FC = () => {
           ...retrospective,
           consumptionKind: ConsumptionKind.conscious,
         }}
+        onClickRetrospectiveDetail={() => {
+          setConsumptionKind(ConsumptionKind.emotional);
+          setOpen(true);
+        }}
       />
       <div className='h-2 bg-[#F5F3F0] shrink-0' />
       <RetrospectiveCard
@@ -52,6 +77,10 @@ const RetrospectiveView: React.FC = () => {
         retrospective={{
           ...retrospective,
           consumptionKind: ConsumptionKind.essential,
+        }}
+        onClickRetrospectiveDetail={() => {
+          setConsumptionKind(ConsumptionKind.emotional);
+          setOpen(true);
         }}
       />
     </div>

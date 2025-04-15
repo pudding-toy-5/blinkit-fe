@@ -14,9 +14,20 @@ const ReviewExpenseCard: React.FC<{ expense: Expense }> = ({ expense }) => {
 
   useLayoutEffect(() => {
     const element = memoRef.current;
-    if (element) {
-      setIsMemoOverflowing(element.scrollHeight > element.clientHeight);
+    if (!element) {
+      return;
     }
+
+    const originalClass = element.className;
+
+    element.classList.add('line-clamp-1');
+
+    requestAnimationFrame(() => {
+      const isOverflowing = element.scrollHeight > element.clientHeight;
+      setIsMemoOverflowing(isOverflowing);
+
+      element.className = originalClass;
+    });
   }, [memoRef]);
 
   return (
@@ -39,20 +50,24 @@ const ReviewExpenseCard: React.FC<{ expense: Expense }> = ({ expense }) => {
           {expense.memo}
         </span>
         {isMemoOverflowing && (
-          <Button
-            variant='ghost'
-            className='flex flex-row text-[13px] text-[#555] p-0 justify-start'
-            onClick={() => {
-              setIsMemoOpen(!isMemoOpen);
-            }}
-          >
-            더보기
-            <div
-              className={cn(isMemoOpen ? 'rotate-[90deg]' : 'rotate-[-90deg]')}
+          <div className='mt-1'>
+            <Button
+              variant='ghost'
+              className='flex flex-row h-auto text-[13px] text-[#555] p-0 justify-start has-[>svg]: p-0'
+              onClick={() => {
+                setIsMemoOpen(!isMemoOpen);
+              }}
             >
-              <ArrowLeft size={16} color='#555' />
-            </div>
-          </Button>
+              더보기
+              <div
+                className={cn(
+                  isMemoOpen ? 'rotate-[90deg]' : 'rotate-[-90deg]'
+                )}
+              >
+                <ArrowLeft size={16} color='#555' />
+              </div>
+            </Button>
+          </div>
         )}
       </div>
       <div className='flex flex-row flex-wrap gap-x-1 gap-y-1.5 mt-6 w-full'>

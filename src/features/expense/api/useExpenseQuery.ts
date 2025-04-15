@@ -88,6 +88,7 @@ export const useAddExpense = () => {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: queryKeys.expenses });
+      void queryClient.invalidateQueries({ queryKey: ['retrospective'] });
     },
     onError: (error) => {
       console.error('지출 추가 실패: ', error);
@@ -120,6 +121,7 @@ export const useUpdateExpense = () => {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: queryKeys.expenses });
+      void queryClient.invalidateQueries({ queryKey: ['retrospective'] });
     },
     onError: (error) => {
       console.error('지출 내역 업데이트 실패: ', error);
@@ -144,6 +146,7 @@ export const useDeleteExpense = () => {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: queryKeys.expenses });
+      void queryClient.invalidateQueries({ queryKey: ['retrospective'] });
     },
     onError: (error) => {
       console.error('지출 내역 삭제 실패: ', error);

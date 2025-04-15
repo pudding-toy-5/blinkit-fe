@@ -22,13 +22,13 @@ export const AnimatedButton = animated.button as React.FC<
 interface Props {
   expense: Expense;
   buttonWidth: number;
-  onClickReview: () => void;
+  onSelectReview: () => void;
 }
 
 const UnReviewedExpenseListItem: React.FC<Props> = ({
   expense,
   buttonWidth,
-  onClickReview,
+  onSelectReview,
 }) => {
   const liRef = useRef<HTMLLIElement>(null);
   const [liWidth, setLiWidth] = useState(0);
@@ -118,7 +118,7 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
 
         <div style={{ width: `${buttonWidth.toString()}px`, flexShrink: 0 }}>
           <AnimatedButton
-            onClick={onClickReview}
+            onClick={onSelectReview}
             style={{
               width: '100%',
               opacity: deleteWidth.to((w) => (w < 2 ? 0 : 1)),

@@ -54,7 +54,7 @@ const UnReviewedExpenseList: React.FC<Props> = ({ expenses }) => {
               key={expense.uid}
               expense={expense}
               buttonWidth={buttonWidth}
-              onClickReview={() => {
+              onSelectReview={() => {
                 setSelectedUid(expense.uid);
               }}
             />

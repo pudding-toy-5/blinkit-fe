@@ -23,27 +23,28 @@ const NavItem: React.FC<NavItemProps> = ({ text, isSelected, onClick }) => {
 };
 
 interface NavBarProps {
-  isRewind: boolean;
-  setIsRewind: (isRewind: boolean) => void;
+  isRetrospective: boolean;
+  onClickReview: () => void;
+  onClickRetrospective: () => void;
 }
 
-const ReviewTopNavBar: React.FC<NavBarProps> = ({ isRewind, setIsRewind }) => {
+const ReviewTopNavBar: React.FC<NavBarProps> = ({
+  isRetrospective,
+  onClickReview,
+  onClickRetrospective,
+}) => {
   return (
     <nav className='px-5 pt-4'>
       <ul className='flex flex-row items-center justify-center gap-5'>
         <NavItem
           text='리뷰'
-          isSelected={!isRewind}
-          onClick={() => {
-            setIsRewind(false);
-          }}
+          isSelected={!isRetrospective}
+          onClick={onClickReview}
         />
         <NavItem
           text='회고'
-          isSelected={isRewind}
-          onClick={() => {
-            setIsRewind(true);
-          }}
+          isSelected={isRetrospective}
+          onClick={onClickRetrospective}
         />
       </ul>
     </nav>

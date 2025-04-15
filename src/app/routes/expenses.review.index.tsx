@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Expense } from '@/features/expense/model/types/Expense';
 import UnReviewedExpenseList from '@/features/expense/ui/UnReviewedExpenseList/UnReviewedExpenseList';
+import RetrospectiveView from '@/features/retrospective/ui/RetrospectiveView';
 import Logo from '@/shared/ui/icons/Logo';
 import UserLayout from '@/shared/ui/layout/UserLayout';
 import ReviewTopNavBar from '@/widgets/ReviewTopNavBar';
@@ -12,7 +13,7 @@ export const Route = createFileRoute('/expenses/review/')({
 });
 
 function RouteComponent() {
-  const [isRewind, setIsRewind] = React.useState<boolean>(false);
+  const [isRetrospective, setIsRetrospective] = React.useState<boolean>(false);
 
   // todo: update useUnReviewedExpenses
   const expenses: Expense[] = [
@@ -51,8 +52,20 @@ function RouteComponent() {
       <header className='px-5 py-4'>
         <Logo />
       </header>
-      <ReviewTopNavBar isRewind={isRewind} setIsRewind={setIsRewind} />
-      <UnReviewedExpenseList expenses={expenses} />
+      <ReviewTopNavBar
+        isRetrospective={isRetrospective}
+        onClickReview={() => {
+          setIsRetrospective(false);
+        }}
+        onClickRetrospective={() => {
+          setIsRetrospective(true);
+        }}
+      />
+      {isRetrospective ? (
+        <RetrospectiveView />
+      ) : (
+        <UnReviewedExpenseList expenses={expenses} />
+      )}
     </UserLayout>
   );
 }

@@ -200,72 +200,12 @@ const useTotalAmountByPeriod = (period: Period) => {
   return { totalAmount, isLoading, error };
 };
 
-const initialData: Omit<Expense, 'uid'> = {
-  date: new Date(),
-  memo: '',
-  categories: [],
-  amount: 0,
-};
-
-const useNewExpenseByUid = (uid: string) => {
-  const queryClient = useQueryClient();
-
-  const { data: newExpense } = useQuery<Expense>({
-    queryKey: ['newExpense', uid],
-    queryFn: () => {
-      const previousData = queryClient.getQueryData<Expense>([
-        'newExpense',
-        uid,
-      ]);
-
-      if (previousData === undefined) {
-        throw new Error('error useNewExpenseByUid: ' + uid);
-      }
-
-      return { ...previousData };
-    },
-    enabled: false,
-    initialData: { ...initialData, uid },
-  });
-
-  const updateNewExpense = (expense: Expense) => {
-    return queryClient.setQueryData<Expense>(['newExpense', uid], () => {
-      return expense;
-    });
-  };
-
-  const updateNewExpenseField = <K extends keyof Expense>(
-    key: K,
-    value: Expense[K]
-  ) => {
-    return queryClient.setQueryData<Expense>(
-      ['newExpense', uid],
-      (oldExpense) => {
-        return oldExpense !== undefined
-          ? { ...oldExpense, [key]: value }
-          : { ...initialData, uid, [key]: value };
-      }
-    );
-  };
-
-  const updateNewExpenseCategories = (categories: Category[]) => {
-    return updateNewExpenseField('categories', categories);
-  };
-
-  return {
-    newExpense,
-    updateNewExpense,
-    updateNewExpenseCategories,
-  };
-};
-
 export {
   useAddExpense,
   useDailyExpensesByPeriod,
   useDeleteExpense,
   useExpenseByUid,
   useExpensesByPeriod,
-  useNewExpenseByUid,
   useTotalAmountByPeriod,
   useUpdateExpense,
 };

@@ -1,5 +1,7 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { toast } from 'sonner';
 
+import { useUpdateExpense } from '../../api/useExpenseQuery';
 import { ConsumptionKind } from '../../model/types/ConsumptionKind';
 import { Expense } from '../../model/types/Expense';
 import ClassifyExpenseDrawer from './ClassifyExpenseDrawer';
@@ -10,10 +12,18 @@ interface Props {
 }
 
 const UnReviewedExpenseList: React.FC<Props> = ({ expenses }) => {
+  const updateExpense = useUpdateExpense();
   const [selectedUid, setSelectedUid] = useState<string | null>(null);
+  const [selectedExpense, setSelectedExpense] = useState<Expense | null>(null);
 
   const measureRef = useRef<HTMLButtonElement>(null);
   const [buttonWidth, setButtonWidth] = useState(0);
+
+  useEffect(() => {
+    setSelectedExpense(
+      expenses.find((expense) => expense.uid === selectedUid) ?? null
+    );
+  }, [expenses, selectedUid, setSelectedExpense]);
 
   useLayoutEffect(() => {
     if (measureRef.current) {
@@ -22,8 +32,18 @@ const UnReviewedExpenseList: React.FC<Props> = ({ expenses }) => {
   }, []);
 
   const setConsumptionKind = (consumptionKind: ConsumptionKind) => {
-    // todo: add updateExpenseByConsumptionKind with Uid
-    console.log(consumptionKind);
+    updateExpense.mutate(
+      { ...selectedExpense, consumptionKind },
+      {
+        onSuccess: () => {
+          toast.success(`지출내역을 ${consumptionKind}로 분류했어요.`);
+          setSelectedUid(null);
+        },
+        onError: () => {
+          toast.error(`지출내역을 ${consumptionKind}로 분류하지 못했어요.`);
+        },
+      }
+    );
   };
 
   const onDrawerOpenChange = (open: boolean) => {

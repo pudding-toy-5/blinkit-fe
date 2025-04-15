@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
-import { ConsumptionKindType } from '../../model/types/ConsumptionKind';
+import { ConsumptionKind } from '../../model/types/ConsumptionKind';
 import { Expense } from '../../model/types/Expense';
 import ClassifyExpenseDrawer from './ClassifyExpenseDrawer';
 import UnReviewedExpenseListItem from './UnReviewedExpenseListItem';
@@ -21,7 +21,7 @@ const UnReviewedExpenseList: React.FC<Props> = ({ expenses }) => {
     }
   }, []);
 
-  const setConsumptionKind = (consumptionKind: ConsumptionKindType) => {
+  const setConsumptionKind = (consumptionKind: ConsumptionKind) => {
     // todo: add updateExpenseByConsumptionKind with Uid
     console.log(consumptionKind);
   };

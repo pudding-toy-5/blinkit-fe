@@ -19,24 +19,24 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
   const { title, description } = consumptionTexts;
 
   return (
-    <div className='px-5 py-8'>
-      <div className='flex flex-row'>
+    <div className='flex flex-col px-5 py-8'>
+      <div className='flex flex-row items-center'>
         <span className='text-[19px] text-[#222] font-semibold'>{title}</span>
         <span
           className={cn(
-            'text-[15px] font-semibold',
-            consumptionKind === ConsumptionKind.conscious && 'text-[#FF6B6B]',
-            consumptionKind === ConsumptionKind.emotional && 'text-[#E7B60F]',
+            'text-[15px] font-semibold ml-1',
+            consumptionKind === ConsumptionKind.emotional && 'text-[#FF6B6B]',
+            consumptionKind === ConsumptionKind.conscious && 'text-[#E7B60F]',
             consumptionKind === ConsumptionKind.essential && 'text-[#28A745]'
           )}
         >
           {totalCount}건
         </span>
       </div>
+      <span className='mt-1'>{description}</span>
       <span className='text-[22px] text-[#222] font-semibold'>
         {totalAmount.toLocaleString()}원
       </span>
-      <span>{description}</span>
     </div>
   );
 };

@@ -18,7 +18,7 @@ const CategoryButton: React.FC<{
     <button
       className={cn(
         'flex items-center bg-[#E1DFDC]',
-        'text-[13px] text-[#555] font-medium',
+        'text-[13px] text-[#555] font-medium whitespace-nowrap',
         'px-3 py-2 rounded-full',
         isClicked && 'bg-[#222] text-[#fff]'
       )}
@@ -105,8 +105,8 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
             {totalAmount.toLocaleString()}원
           </span>
         </div>
-        <div className='flex-1 flex flex-col bg-[#F5F3F0]'>
-          <ol className='flex flex-row gap-2 pt-4 pb-5.5 pl-5'>
+        <div className='flex-1 flex flex-col bg-[#F5F3F0] overflow-y-hidden'>
+          <ol className='flex flex-row gap-2 pt-4 pb-5.5 px-5 overflow-x-auto scrollbar-hide'>
             <li key='category-all'>
               <CategoryButton
                 text='전체 소비'
@@ -131,11 +131,13 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
           <span className='text-[13px] text-[#555] px-5'>
             총 {expenses.length}건
           </span>
-          <ul className='flex flex-col gap-2 pl-5 pr-4 scroll mt-4'>
-            {filteredExpenses.map((expense) => (
-              <ReviewExpenseCard key={expense.uid} expense={expense} />
-            ))}
-          </ul>
+          <div className='pl-5 pr-4 mt-4 pb-8 overflow-y-auto scroll'>
+            <ul className='flex flex-col gap-2'>
+              {filteredExpenses.map((expense) => (
+                <ReviewExpenseCard key={expense.uid} expense={expense} />
+              ))}
+            </ul>
+          </div>
         </div>
       </UserLayout>
     </div>

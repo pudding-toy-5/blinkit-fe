@@ -2,7 +2,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useMemo } from 'react';
 
-import { Category } from '@/features/category/model/types/Category';
 import { apiUrl } from '@/features/common/consts';
 import { queryKeys } from '@/features/expense/consts';
 import {
@@ -22,7 +21,7 @@ if (!apiUrl) {
 }
 const baseUrl = apiUrl + '/expense/expenses/';
 
-const useExpensesByPeriod = (period: Period) => {
+export const useExpensesByPeriod = (period: Period) => {
   const { year, month } = period;
   return useQuery<Expense[]>({
     queryKey: [...queryKeys.expenses, period],
@@ -49,7 +48,7 @@ const useExpensesByPeriod = (period: Period) => {
   });
 };
 
-const useExpenseByUid = (uid: string) => {
+export const useExpenseByUid = (uid: string) => {
   return useQuery<Expense>({
     queryKey: [...queryKeys.expenses, uid],
     queryFn: async () => {
@@ -68,7 +67,7 @@ const useExpenseByUid = (uid: string) => {
   });
 };
 
-const useAddExpense = () => {
+export const useAddExpense = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -96,7 +95,7 @@ const useAddExpense = () => {
   });
 };
 
-const useUpdateExpense = () => {
+export const useUpdateExpense = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -128,7 +127,7 @@ const useUpdateExpense = () => {
   });
 };
 
-const useDeleteExpense = () => {
+export const useDeleteExpense = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -152,7 +151,7 @@ const useDeleteExpense = () => {
   });
 };
 
-const useDailyExpensesByPeriod = (period: Period) => {
+export const useDailyExpensesByPeriod = (period: Period) => {
   const {
     data: expenses = [],
     isLoading,
@@ -189,7 +188,7 @@ const useDailyExpensesByPeriod = (period: Period) => {
   return { dailyExpenses, isLoading, isError, error };
 };
 
-const useTotalAmountByPeriod = (period: Period) => {
+export const useTotalAmountByPeriod = (period: Period) => {
   const { data: expenses = [], isLoading, error } = useExpensesByPeriod(period);
 
   const totalAmount = useMemo(
@@ -198,14 +197,4 @@ const useTotalAmountByPeriod = (period: Period) => {
   );
 
   return { totalAmount, isLoading, error };
-};
-
-export {
-  useAddExpense,
-  useDailyExpensesByPeriod,
-  useDeleteExpense,
-  useExpenseByUid,
-  useExpensesByPeriod,
-  useTotalAmountByPeriod,
-  useUpdateExpense,
 };

@@ -1,8 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
 import React from 'react';
 
+import { useExpenses } from '@/features/expense/api/useExpenseQuery';
 import { Expense } from '@/features/expense/model/types/Expense';
+import Period from '@/features/expense/model/types/Period';
 import UnReviewedExpenseList from '@/features/expense/ui/UnReviewedExpenseList/UnReviewedExpenseList';
+import { useRetrospectives } from '@/features/retrospective/api/useRetrospectives';
 import RetrospectiveView from '@/features/retrospective/ui/RetrospectiveView';
 import Logo from '@/shared/ui/icons/Logo';
 import UserLayout from '@/shared/ui/layout/UserLayout';
@@ -13,39 +16,9 @@ export const Route = createFileRoute('/expenses/review/')({
 });
 
 function RouteComponent() {
+  const period: Period = { year: 2024, month: 4 };
+  const { data: expenses } = useExpenses({ period });
   const [isRetrospective, setIsRetrospective] = React.useState<boolean>(false);
-
-  // todo: update useUnReviewedExpenses
-  const expenses: Expense[] = [
-    {
-      uid: 'expense-1',
-      date: new Date(),
-      memo: '첫번째 소비 백만원',
-      amount: 1000000,
-      categories: [
-        {
-          uid: 'category-1',
-          name: 'first-category',
-        },
-      ],
-    },
-    {
-      uid: 'expense-2',
-      date: new Date(),
-      memo: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
-      amount: 10000,
-      categories: [
-        {
-          uid: 'category-1',
-          name: 'first-category',
-        },
-        {
-          uid: 'category-2',
-          name: 'second-category',
-        },
-      ],
-    },
-  ];
 
   return (
     <UserLayout>
@@ -64,7 +37,7 @@ function RouteComponent() {
       {isRetrospective ? (
         <RetrospectiveView />
       ) : (
-        <UnReviewedExpenseList expenses={expenses} />
+        <UnReviewedExpenseList expenses={expenses ?? []} />
       )}
     </UserLayout>
   );

@@ -21,7 +21,7 @@ const UnReviewedExpenseList: React.FC<Props> = ({ expenses }) => {
     }
   }, []);
 
-  const onReviewExpense = (consumptionKind: ConsumptionKindType) => {
+  const setConsumptionKind = (consumptionKind: ConsumptionKindType) => {
     // todo: add updateExpenseByConsumptionKind with Uid
     console.log(consumptionKind);
   };
@@ -36,8 +36,8 @@ const UnReviewedExpenseList: React.FC<Props> = ({ expenses }) => {
     <>
       <ClassifyExpenseDrawer
         isOpen={selectedUid !== null}
-        onReviewExpense={onReviewExpense}
         onOpenChange={onDrawerOpenChange}
+        setConsumptionKind={setConsumptionKind}
       />
       <div className='flex flex-col flex-1 bg-[#f5f3f0] px-5 pt-8'>
         <div className='pb-4'>

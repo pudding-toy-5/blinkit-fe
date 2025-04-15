@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import {
   Drawer,
@@ -16,68 +18,84 @@ import {
   consumptionKindValues,
 } from '../../model/types/ConsumptionKind';
 
-interface CardProps {
+interface Consumption {
+  consumptionKind: ConsumptionKindType;
   title: string;
   description: string;
   info: string;
-  consumptionKind: ConsumptionKindType;
 }
 
-const ConsumptionKindCard: React.FC<CardProps> = ({
-  title,
-  description,
-  info,
-  consumptionKind,
-}) => {
+interface RadioItemProps {
+  isSelected: boolean;
+  consumption: Consumption;
+  onClick: () => void;
+}
+
+const RadioItem: React.FC<RadioItemProps> = ({ isSelected, consumption }) => {
+  const { title, description, info, consumptionKind } = consumption;
+
   return (
-    <div className='flex flex-row rounded-[8px] px-4 py-5.5 bg-[F5F3F0]'>
+    <div className='flex flex-row rounded-[8px] px-4 py-5.5 bg-[#F5F3F0]'>
       <div className='flex flex-col'>
-        <div className='flex flex-row'>
+        <div className='flex flex-row items-center gap-1'>
           <span className='text-[15px] text-[#222] font-semibold'>{title}</span>
-          <Exclamation size={16} color='#999' />
+          <div className='relative inline-block group'>
+            <div className='rotate-180'>
+              <Exclamation size={16} color='#999' />
+            </div>
+          </div>
         </div>
-        <span className='text-[13px] text-[#555]'>{description}</span>
+        <span className='text-[13px] text-[#555] mt-1'>{description}</span>
       </div>
-      <div className='ml-auto'></div>
+      <Button
+        variant='ghost'
+        className='size-6 ml-auto rounded-full shadow-none'
+      >
+        {isSelected && <></>}
+      </Button>
     </div>
   );
 };
 
 interface Props {
   isOpen: boolean;
-  onReviewExpense: (consumptionKind: ConsumptionKindType) => void;
+  setConsumptionKind: (consumptionKind: ConsumptionKindType) => void;
   onOpenChange: (open: boolean) => void;
 }
 
+const consumptions: Consumption[] = [
+  {
+    consumptionKind: consumptionKindValues.essential,
+    title: '필수 소비',
+    description: '생존, 생활 유지에 반드시 필요한 소비',
+    info: '예시로 월세, 공과금, 식비 등이 있어요.',
+  },
+  {
+    consumptionKind: consumptionKindValues.essential,
+    title: '의식적 소비',
+    description: '내 가치관에 따라 선택한 소비',
+    info: '예시로 자기계발, 친구와의 약속 등이 있어요.',
+  },
+  {
+    consumptionKind: consumptionKindValues.essential,
+    title: '감정적 소비',
+    description: '필요 없거나 충동적으로 한 소비',
+    info: '예시로 필요 없는 구독, 스트레스 해소용 쇼핑 등이 있어요.',
+  },
+];
+
 const ClassifyExpenseDrawer: React.FC<Props> = ({
   isOpen,
-  onReviewExpense,
+  setConsumptionKind,
   onOpenChange,
 }) => {
-  const cards: CardProps[] = [
-    {
-      title: '필수 소비',
-      description: '생존, 생활 유지에 반드시 필요한 소비',
-      info: '예시로 월세, 공과금, 식비 등이 있어요.',
-      consumptionKind: consumptionKindValues.essential,
-    },
-    {
-      title: '의식적 소비',
-      description: '내 가치관에 따라 선택한 소비',
-      info: '예시로 자기계발, 친구와의 약속 등이 있어요.',
-      consumptionKind: consumptionKindValues.conscious,
-    },
-    {
-      title: '감정적 소비',
-      description: '필요 없거나 충동적으로 한 소비',
-      info: '예시로 필요 없는 구독, 스트레스 해소용 쇼핑 등이 있어요.',
-      consumptionKind: consumptionKindValues.emotional,
-    },
-  ];
+  const [selectedKind, setSelectedKind] = useState<ConsumptionKindType | null>(
+    null
+  );
 
   return (
     <Drawer open={isOpen} onOpenChange={onOpenChange}>
-      <DrawerContent className='px-5 py-6 rounded-t-[20px]'>
+      <DrawerContent className='px-5 py-6 rounded-t-[20px] bg-white'>
         <DrawerHeader className='flex flex-col gap-0'>
           <div className='flex flex-row'>
             <div className='flex-1' />
@@ -96,19 +114,28 @@ const ClassifyExpenseDrawer: React.FC<Props> = ({
             리뷰한 결과는 회고 탭에서 확인할 수 있어요.
           </DrawerDescription>
         </DrawerHeader>
-        <div className='flex flex-col'>
-          {cards.map(({ title, description, info, consumptionKind }) => (
-            <ConsumptionKindCard
-              key={consumptionKind}
-              title={title}
-              description={description}
-              info={info}
-              consumptionKind={consumptionKind}
+        <div className='flex flex-col gap-2'>
+          {consumptions.map((consumption) => (
+            <RadioItem
+              key={consumption.consumptionKind}
+              isSelected={selectedKind === consumption.consumptionKind}
+              consumption={consumption}
+              onClick={() => {
+                setSelectedKind(consumption.consumptionKind);
+              }}
             />
           ))}
         </div>
-        <DrawerFooter className='p-0'>
-          <Button className='h-13 rounded-full text-white bg-[#222] font-semibold'>
+        <DrawerFooter className='mt-8 p-0'>
+          <Button
+            className='h-13 rounded-full text-white bg-[#222] font-semibold'
+            onClick={() => {
+              if (selectedKind) {
+                setConsumptionKind(selectedKind);
+              }
+            }}
+            disabled={selectedKind === null}
+          >
             완료
           </Button>
         </DrawerFooter>

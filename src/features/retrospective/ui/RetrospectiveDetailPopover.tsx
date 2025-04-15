@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 import { Category } from '@/features/category/model/types/Category';
-import CategoryTag from '@/features/category/ui/CategoryTag';
 import { useExpenses } from '@/features/expense/api/useExpenseQuery';
 import {
   consumptionConsciousTexts,

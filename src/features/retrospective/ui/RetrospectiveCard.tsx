@@ -9,7 +9,7 @@ import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import { cn } from '@/shared/ui/styles/utils';
 
 export interface RetrospectiveCardProps {
-  retrospective: Retrospective;
+  retrospective?: Retrospective;
   consumption: Consumption;
   onClickRetrospectiveDetail: () => void;
 }
@@ -19,6 +19,10 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
   consumption,
   onClickRetrospectiveDetail,
 }) => {
+  if (!retrospective) {
+    return;
+  }
+
   const { totalCount, totalAmount, items } = retrospective;
   const { consumptionKind, consumptionTexts } = consumption;
   const { title, description } = consumptionTexts;
@@ -40,7 +44,7 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
       </div>
       <span className='text-[13px] text-[#555] mt-1'>{description}</span>
       <span className='text-[22px] text-[#222] font-semibold mt-3'>
-        {totalAmount.toLocaleString()}원
+        {Math.floor(totalAmount).toLocaleString()}원
       </span>
       <ul className='flex flex-col gap-4 mt-8'>
         {items.length === 0 ? (
@@ -51,7 +55,7 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
               <li className='flex flex-row' key={item.category.uid}>
                 <CategoryTag tagName={item.category.name} size='small' />
                 <span className='flex ml-auto items-center text-[17px] text-[#222] font-semibold'>
-                  {item.totalAmount}원
+                  {Math.floor(item.totalAmount).toLocaleString()}원
                 </span>
               </li>
             ))}

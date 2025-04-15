@@ -17,19 +17,13 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { Consumption } from '@/features/expense/model/types/ConsumptionKind';
 import Check from '@/shared/ui/icons/Check';
 import Exclamation from '@/shared/ui/icons/Exclamation';
 import X from '@/shared/ui/icons/X';
 import { cn } from '@/shared/ui/styles/utils';
 
 import { ConsumptionKind } from '../../model/types/ConsumptionKind';
-
-interface Consumption {
-  consumptionKind: ConsumptionKind;
-  title: string;
-  description: string;
-  info: string;
-}
 
 interface RadioItemProps {
   isSelected: boolean;
@@ -42,7 +36,8 @@ const RadioItem: React.FC<RadioItemProps> = ({
   consumption,
   onClick,
 }) => {
-  const { title, description, info } = consumption;
+  const { consumptionKind, consumptionTexts } = consumption;
+  const { title, description, tooltipText } = consumptionTexts;
 
   return (
     <div className='flex flex-row items-center rounded-[8px] px-4 py-5.5 bg-[#F5F3F0]'>
@@ -63,8 +58,8 @@ const RadioItem: React.FC<RadioItemProps> = ({
                 align='start'
                 arrowPadding={16}
               >
-                {info}
-                <TooltipArrow fill='#222' className='' />
+                {tooltipText}
+                <TooltipArrow fill='#222' />
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -164,7 +159,7 @@ const ClassifyExpenseDrawer: React.FC<Props> = ({
         </div>
         <DrawerFooter className='mt-8 p-0'>
           <Button
-            className='h-13 rounded-full text-white bg-[#222] font-semibold'
+            className='h-13 rounded-full text-white bg-[#222] font-semibold disabled:bg-[#CCC]'
             onClick={() => {
               if (selectedKind) {
                 setConsumptionKind(selectedKind);

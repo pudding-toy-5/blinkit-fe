@@ -20,7 +20,7 @@ const RetrospectiveView: React.FC = () => {
       },
       {
         category: { uid: 'category-2', name: 'category-2' },
-        totalAmount: 50000,
+        totalAmount: 30000,
       },
       {
         category: { uid: 'category-3', name: 'category-3' },
@@ -30,7 +30,7 @@ const RetrospectiveView: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='flex flex-col overflow-y-scroll scroll'>
       <RetrospectiveCard
         consumption={consumptionEmotional}
         retrospective={{
@@ -38,6 +38,7 @@ const RetrospectiveView: React.FC = () => {
           consumptionKind: ConsumptionKind.emotional,
         }}
       />
+      <div className='h-2 bg-[#F5F3F0] shrink-0' />
       <RetrospectiveCard
         consumption={consumptionConscious}
         retrospective={{
@@ -45,6 +46,7 @@ const RetrospectiveView: React.FC = () => {
           consumptionKind: ConsumptionKind.conscious,
         }}
       />
+      <div className='h-2 bg-[#F5F3F0] shrink-0' />
       <RetrospectiveCard
         consumption={consumptionEssential}
         retrospective={{

@@ -93,11 +93,11 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
   }, [consumptionKind]);
 
   if (!expenses) {
-    return <div>asdf</div>;
+    return null;
   }
 
   if (!filteredExpenses) {
-    return <div>asdf</div>;
+    return null;
   }
 
   const handleClickCategory = (category: Category) => {

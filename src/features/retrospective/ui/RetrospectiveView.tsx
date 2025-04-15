@@ -49,10 +49,10 @@ const RetrospectiveView: React.FC = () => {
         consumption={consumptionConscious}
         retrospective={retrospectives.find(
           (retrospective) =>
-            retrospective.consumptionKind === ConsumptionKind.emotional
+            retrospective.consumptionKind === ConsumptionKind.conscious
         )}
         onClickRetrospectiveDetail={() => {
-          setConsumptionKind(ConsumptionKind.emotional);
+          setConsumptionKind(ConsumptionKind.conscious);
           setOpen(true);
         }}
       />
@@ -64,7 +64,7 @@ const RetrospectiveView: React.FC = () => {
             retrospective.consumptionKind === ConsumptionKind.essential
         )}
         onClickRetrospectiveDetail={() => {
-          setConsumptionKind(ConsumptionKind.emotional);
+          setConsumptionKind(ConsumptionKind.essential);
           setOpen(true);
         }}
       />

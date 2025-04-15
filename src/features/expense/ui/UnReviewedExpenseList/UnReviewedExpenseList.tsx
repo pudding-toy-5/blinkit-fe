@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
+import { ConsumptionKindType } from '../../model/types/ConsumptionKind';
 import { Expense } from '../../model/types/Expense';
 import ClassifyExpenseDrawer from './ClassifyExpenseDrawer';
 import UnReviewedExpenseListItem from './UnReviewedExpenseListItem';
@@ -9,6 +10,8 @@ interface Props {
 }
 
 const UnReviewedExpenseList: React.FC<Props> = ({ expenses }) => {
+  const [selectedUid, setSelectedUid] = useState<string | null>(null);
+
   const measureRef = useRef<HTMLButtonElement>(null);
   const [buttonWidth, setButtonWidth] = useState(0);
 
@@ -20,6 +23,12 @@ const UnReviewedExpenseList: React.FC<Props> = ({ expenses }) => {
 
   const onClick = (uid: string) => {
     console.log(uid);
+  };
+
+  const onDrawerOpenChange = (open: boolean) => {
+    if (!open) {
+      setSelectedUid(null);
+    }
   };
 
   return (

@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 
 import { apiUrl } from '@/features/common/consts';
 import { queryKeys } from '@/features/expense/consts';
+import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
 import {
   DailyExpense,
   Expense,
@@ -20,6 +21,45 @@ if (!apiUrl) {
   throw new Error('API URL이 설정되지 않았습니다.');
 }
 const baseUrl = apiUrl + '/expense/expenses/';
+
+export const useExpenses = ({
+  period,
+  categoryUids: category_uids,
+  consumptionKind: consumption_kind,
+}: {
+  period: Period;
+  categoryUids?: string[];
+  consumptionKind?: ConsumptionKind;
+}) => {
+  const { year, month } = period;
+
+  return useQuery<Expense[]>({
+    queryKey: [...queryKeys.expenses, period, category_uids, consumption_kind],
+    queryFn: async () => {
+      try {
+        const res = await userAxios.get<ServerExpense[]>(baseUrl, {
+          params: {
+            year: year.toString(),
+            month: month.toString(),
+            category_uids,
+            consumption_kind,
+          },
+          paramsSerializer: { indexes: null },
+        });
+        const expenses = res.data.map((serverExpense) =>
+          convertServerExpenseToExpense(serverExpense)
+        );
+
+        return expenses;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error('지출 목록 조회 실패: ' + error.message);
+        }
+        throw error;
+      }
+    },
+  });
+};
 
 export const useExpensesByPeriod = (period: Period) => {
   const { year, month } = period;

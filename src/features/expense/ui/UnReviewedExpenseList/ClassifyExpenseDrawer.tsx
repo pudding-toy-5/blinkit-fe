@@ -128,7 +128,16 @@ const ClassifyExpenseDrawer: React.FC<Props> = ({
   );
 
   return (
-    <Drawer open={isOpen} onOpenChange={onOpenChange}>
+    <Drawer
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          setSelectedKind(null);
+        }
+
+        onOpenChange(open);
+      }}
+    >
       <DrawerContent className='px-5 py-6 rounded-t-[20px] bg-white'>
         <DrawerHeader className='flex flex-col gap-0'>
           <div className='flex flex-row'>

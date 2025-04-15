@@ -24,7 +24,7 @@ const NavItem: React.FC<NavItemProps> = ({ text, isSelected, onClick }) => {
 
 interface NavBarProps {
   isRetrospective: boolean;
-  setIsRetrospective: (isRewind: boolean) => void;
+  setIsRetrospective: (isRetrospective: boolean) => void;
 }
 
 const ReviewTopNavBar: React.FC<NavBarProps> = ({

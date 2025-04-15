@@ -14,7 +14,7 @@ import X from '@/shared/ui/icons/X';
 import { cn } from '@/shared/ui/styles/utils';
 
 export interface SubPageHeaderProps {
-  title: string;
+  title?: string;
   onClickBack?: () => void;
   onClose?: () => void;
   onDelete?: () => void;

@@ -1,0 +1,120 @@
+import { Button } from '@/components/ui/button';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from '@/components/ui/drawer';
+import Exclamation from '@/shared/ui/icons/Exclamation';
+import X from '@/shared/ui/icons/X';
+
+import {
+  ConsumptionKindType,
+  consumptionKindValues,
+} from '../../model/types/ConsumptionKind';
+
+interface CardProps {
+  title: string;
+  description: string;
+  info: string;
+  consumptionKind: ConsumptionKindType;
+}
+
+const ConsumptionKindCard: React.FC<CardProps> = ({
+  title,
+  description,
+  info,
+  consumptionKind,
+}) => {
+  return (
+    <div className='flex flex-row rounded-[8px] px-4 py-5.5 bg-[F5F3F0]'>
+      <div className='flex flex-col'>
+        <div className='flex flex-row'>
+          <span className='text-[15px] text-[#222] font-semibold'>{title}</span>
+          <Exclamation size={16} color='#999' />
+        </div>
+        <span className='text-[13px] text-[#555]'>{description}</span>
+      </div>
+      <div className='ml-auto'></div>
+    </div>
+  );
+};
+
+interface Props {
+  isOpen: boolean;
+  onReviewExpense: (consumptionKind: ConsumptionKindType) => void;
+  onOpenChange: (open: boolean) => void;
+}
+
+const ClassifyExpenseDrawer: React.FC<Props> = ({
+  isOpen,
+  onReviewExpense,
+  onOpenChange,
+}) => {
+  const cards: CardProps[] = [
+    {
+      title: '필수 소비',
+      description: '생존, 생활 유지에 반드시 필요한 소비',
+      info: '예시로 월세, 공과금, 식비 등이 있어요.',
+      consumptionKind: consumptionKindValues.essential,
+    },
+    {
+      title: '의식적 소비',
+      description: '내 가치관에 따라 선택한 소비',
+      info: '예시로 자기계발, 친구와의 약속 등이 있어요.',
+      consumptionKind: consumptionKindValues.conscious,
+    },
+    {
+      title: '감정적 소비',
+      description: '필요 없거나 충동적으로 한 소비',
+      info: '예시로 필요 없는 구독, 스트레스 해소용 쇼핑 등이 있어요.',
+      consumptionKind: consumptionKindValues.emotional,
+    },
+  ];
+
+  return (
+    <Drawer open={isOpen} onOpenChange={onOpenChange}>
+      <DrawerContent className='px-5 py-6 rounded-t-[20px]'>
+        <DrawerHeader className='flex flex-col gap-0'>
+          <div className='flex flex-row'>
+            <div className='flex-1' />
+            <DrawerTitle className='font-[17px] font-semibold'>
+              다음으로 분류
+            </DrawerTitle>
+            <DrawerClose className='flex-1 flex justify-end' asChild>
+              <div role='button' aria-label='close button'>
+                <X size={24} />
+              </div>
+            </DrawerClose>
+          </div>
+          <DrawerDescription className='text-[13px] text-[#555] mt-6'>
+            지출 내역을 아래 소비 중 하나로 분류해 리뷰하세요.
+            <br />
+            리뷰한 결과는 회고 탭에서 확인할 수 있어요.
+          </DrawerDescription>
+        </DrawerHeader>
+        <div className='flex flex-col'>
+          {cards.map(({ title, description, info, consumptionKind }) => (
+            <ConsumptionKindCard
+              key={consumptionKind}
+              title={title}
+              description={description}
+              info={info}
+              consumptionKind={consumptionKind}
+            />
+          ))}
+        </div>
+        <DrawerFooter className='p-0'>
+          <Button className='h-13 rounded-full text-white bg-[#222] font-semibold'>
+            완료
+          </Button>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  );
+};
+
+export default ClassifyExpenseDrawer;

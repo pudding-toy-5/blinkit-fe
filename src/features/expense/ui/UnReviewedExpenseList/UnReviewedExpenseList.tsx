@@ -40,26 +40,34 @@ const UnReviewedExpenseList: React.FC<Props> = ({ expenses }) => {
         setConsumptionKind={setConsumptionKind}
       />
       <div className='flex flex-col flex-1 bg-[#f5f3f0] px-5 pt-8'>
-        <div className='pb-4'>
-          <h1 className='text-[19px] text-[#222] font-semibold'>
-            리뷰하지 않은 지출 내역
-          </h1>
-          <span className='pt-1 text-[13px] text-[#555]'>
-            지출 내역을 왼쪽으로 밀어서 소비를 분류해보세요.
+        {expenses.length === 0 ? (
+          <span className='flex items-center justify-center m-auto text-[15px] text-[#555]'>
+            지출 내역을 추가하면 리뷰할 수 있어요.
           </span>
-        </div>
-        <ul className='flex flex-col gap-2'>
-          {expenses.map((expense) => (
-            <UnReviewedExpenseListItem
-              key={expense.uid}
-              expense={expense}
-              buttonWidth={buttonWidth}
-              onSelectReview={() => {
-                setSelectedUid(expense.uid);
-              }}
-            />
-          ))}
-        </ul>
+        ) : (
+          <>
+            <div className='pb-4'>
+              <h1 className='text-[19px] text-[#222] font-semibold'>
+                리뷰하지 않은 지출 내역
+              </h1>
+              <span className='pt-1 text-[13px] text-[#555]'>
+                지출 내역을 왼쪽으로 밀어서 소비를 분류해보세요.
+              </span>
+            </div>
+            <ul className='flex flex-col gap-2'>
+              {expenses.map((expense) => (
+                <UnReviewedExpenseListItem
+                  key={expense.uid}
+                  expense={expense}
+                  buttonWidth={buttonWidth}
+                  onSelectReview={() => {
+                    setSelectedUid(expense.uid);
+                  }}
+                />
+              ))}
+            </ul>
+          </>
+        )}
         {/* 보이지 않는 측정용 버튼 */}
         <button
           ref={measureRef}

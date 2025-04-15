@@ -13,3 +13,8 @@ export interface ConsumptionTexts {
   description: string;
   tooltipText: string;
 }
+
+export interface Consumption {
+  consumptionKind: ConsumptionKindType;
+  consumptionTexts: ConsumptionTexts;
+}

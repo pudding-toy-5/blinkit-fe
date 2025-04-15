@@ -48,7 +48,7 @@ const BottomNavBar: React.FC = () => {
   ];
 
   return (
-    // <div className='fixed bottom-0 left-0 right-0 w-full min-w-[360px] max-w-[430px] mx-auto bg-white rounded-t-[16px]'>
+    <nav className='flex flex-row items-center w-full mt-auto bg-[#F5F3F0]'>
     <nav className='flex flex-row items-center w-full mt-auto'>
       <ul className='flex flex-row w-full'>
         {navItems.map(({ text, icon, onClick }) => (
@@ -56,7 +56,6 @@ const BottomNavBar: React.FC = () => {
         ))}
       </ul>
     </nav>
-    // </div>
   );
 };
 export default BottomNavBar;

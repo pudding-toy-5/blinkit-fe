@@ -45,8 +45,11 @@ function RouteComponent() {
         <RetrospectiveView />
       ) : (
         <UnReviewedExpenseList
-          expenses={unReviewedExpenses ?? []}
+          unReviewedExpenses={unReviewedExpenses ?? []}
           totalExpenseLength={totalExpenses.length}
+          onMoveRetrospective={() => {
+            setIsRetrospective(true);
+          }}
         />
       )}
     </UserLayout>

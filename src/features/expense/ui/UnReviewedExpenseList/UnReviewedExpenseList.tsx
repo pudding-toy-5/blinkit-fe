@@ -10,13 +10,15 @@ import ClassifyExpenseDrawer from './ClassifyExpenseDrawer';
 import UnReviewedExpenseListItem from './UnReviewedExpenseListItem';
 
 interface Props {
-  expenses: Expense[];
+  unReviewedExpenses: Expense[];
   totalExpenseLength: number;
+  onMoveRetrospective: () => void;
 }
 
 const UnReviewedExpenseList: React.FC<Props> = ({
-  expenses,
+  unReviewedExpenses,
   totalExpenseLength,
+  onMoveRetrospective,
 }) => {
   const updateExpense = useUpdateExpense();
 
@@ -28,9 +30,9 @@ const UnReviewedExpenseList: React.FC<Props> = ({
 
   useEffect(() => {
     setSelectedExpense(
-      expenses.find((expense) => expense.uid === selectedUid) ?? null
+      unReviewedExpenses.find((expense) => expense.uid === selectedUid) ?? null
     );
-  }, [expenses, selectedUid, setSelectedExpense]);
+  }, [unReviewedExpenses, selectedUid, setSelectedExpense]);
 
   useLayoutEffect(() => {
     if (measureRef.current) {
@@ -68,23 +70,9 @@ const UnReviewedExpenseList: React.FC<Props> = ({
       />
       <div className='flex flex-col flex-1 bg-[#f5f3f0] px-5 pt-8'>
         {totalExpenseLength === 0 ? (
-          <div className='flex-1 flex flex-col items-center justify-center text-center'>
-            <span className='text-[15px] text-[#555] leading-[150%]'>
-              리뷰할 지출 내역이 없어요.
-              <br />
-              회고 탭으로 이동해 결과를 확인해주세요.
-            </span>
-            <button
-              className={cn(
-                'bg-white',
-                'border-[1px] border-[#ccc] rounded-full',
-                'px-3 py-2 mt-4',
-                'text-[13px] text-[#555]'
-              )}
-            >
-              회고 탭으로 이동하기
-            </button>
-          </div>
+          <span className='flex items-center justify-center m-auto text-[15px] text-[#555]'>
+            지출 내역을 추가하면 리뷰할 수 있어요.
+          </span>
         ) : (
           <>
             <div className='pb-4'>
@@ -95,13 +83,28 @@ const UnReviewedExpenseList: React.FC<Props> = ({
                 지출 내역을 왼쪽으로 밀어서 소비를 분류해보세요.
               </span>
             </div>
-            {expenses.length === 0 ? (
-              <span className='flex items-center justify-center m-auto text-[15px] text-[#555]'>
-                지출 내역을 추가하면 리뷰할 수 있어요.
-              </span>
+            {unReviewedExpenses.length === 0 ? (
+              <div className='flex-1 flex flex-col items-center justify-center text-center'>
+                <span className='text-[15px] text-[#555] leading-[150%]'>
+                  리뷰할 지출 내역이 없어요.
+                  <br />
+                  회고 탭으로 이동해 결과를 확인해주세요.
+                </span>
+                <button
+                  className={cn(
+                    'bg-white',
+                    'border-[1px] border-[#ccc] rounded-full',
+                    'px-3 py-2 mt-4',
+                    'text-[13px] text-[#555]'
+                  )}
+                  onClick={onMoveRetrospective}
+                >
+                  회고 탭으로 이동하기
+                </button>
+              </div>
             ) : (
               <ul className='flex flex-col gap-2 pb-2'>
-                {expenses.map((expense) => (
+                {unReviewedExpenses.map((expense) => (
                   <UnReviewedExpenseListItem
                     key={expense.uid}
                     expense={expense}

@@ -50,3 +50,9 @@ export const consumptionMap = {
   [ConsumptionKind.emotional]: consumptionEmotional,
   [ConsumptionKind.conscious]: consumptionConscious,
 } as const;
+
+export const consumptionTextsMap: Record<ConsumptionKind, ConsumptionTexts> = {
+  [ConsumptionKind.essential]: consumptionEssentialTexts,
+  [ConsumptionKind.emotional]: consumptionEmotionalTexts,
+  [ConsumptionKind.conscious]: consumptionConsciousTexts,
+};

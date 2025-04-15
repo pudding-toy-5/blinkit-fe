@@ -168,6 +168,7 @@ const ClassifyExpenseDrawer: React.FC<Props> = ({
             onClick={() => {
               if (selectedKind) {
                 setConsumptionKind(selectedKind);
+                setSelectedKind(null);
                 onOpenChange(false);
               }
             }}

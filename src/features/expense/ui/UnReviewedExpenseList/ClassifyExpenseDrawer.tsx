@@ -22,13 +22,10 @@ import Exclamation from '@/shared/ui/icons/Exclamation';
 import X from '@/shared/ui/icons/X';
 import { cn } from '@/shared/ui/styles/utils';
 
-import {
-  ConsumptionKindType,
-  consumptionKindValues,
-} from '../../model/types/ConsumptionKind';
+import { ConsumptionKind } from '../../model/types/ConsumptionKind';
 
 interface Consumption {
-  consumptionKind: ConsumptionKindType;
+  consumptionKind: ConsumptionKind;
   title: string;
   description: string;
   info: string;
@@ -92,25 +89,25 @@ const RadioItem: React.FC<RadioItemProps> = ({
 
 interface Props {
   isOpen: boolean;
-  setConsumptionKind: (consumptionKind: ConsumptionKindType) => void;
+  setConsumptionKind: (consumptionKind: ConsumptionKind) => void;
   onOpenChange: (open: boolean) => void;
 }
 
 const consumptions: Consumption[] = [
   {
-    consumptionKind: consumptionKindValues.essential,
+    consumptionKind: ConsumptionKind.essential,
     title: '필수 소비',
     description: '생존, 생활 유지에 반드시 필요한 소비',
     info: '예시로 월세, 공과금, 식비 등이 있어요.',
   },
   {
-    consumptionKind: consumptionKindValues.conscious,
+    consumptionKind: ConsumptionKind.conscious,
     title: '의식적 소비',
     description: '내 가치관에 따라 선택한 소비',
     info: '예시로 자기계발, 친구와의 약속 등이 있어요.',
   },
   {
-    consumptionKind: consumptionKindValues.emotional,
+    consumptionKind: ConsumptionKind.emotional,
     title: '감정적 소비',
     description: '필요 없거나 충동적으로 한 소비',
     info: '예시로 필요 없는 구독, 스트레스 해소용 쇼핑\n등이 있어요.',
@@ -122,7 +119,7 @@ const ClassifyExpenseDrawer: React.FC<Props> = ({
   setConsumptionKind,
   onOpenChange,
 }) => {
-  const [selectedKind, setSelectedKind] = useState<ConsumptionKindType | null>(
+  const [selectedKind, setSelectedKind] = useState<ConsumptionKind | null>(
     null
   );
 

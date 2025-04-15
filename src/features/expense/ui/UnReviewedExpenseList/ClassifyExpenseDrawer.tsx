@@ -10,8 +10,10 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '@/components/ui/drawer';
+import Check from '@/shared/ui/icons/Check';
 import Exclamation from '@/shared/ui/icons/Exclamation';
 import X from '@/shared/ui/icons/X';
+import { cn } from '@/shared/ui/styles/utils';
 
 import {
   ConsumptionKindType,
@@ -31,11 +33,15 @@ interface RadioItemProps {
   onClick: () => void;
 }
 
-const RadioItem: React.FC<RadioItemProps> = ({ isSelected, consumption }) => {
+const RadioItem: React.FC<RadioItemProps> = ({
+  isSelected,
+  consumption,
+  onClick,
+}) => {
   const { title, description, info, consumptionKind } = consumption;
 
   return (
-    <div className='flex flex-row rounded-[8px] px-4 py-5.5 bg-[#F5F3F0]'>
+    <div className='flex flex-row items-center rounded-[8px] px-4 py-5.5 bg-[#F5F3F0]'>
       <div className='flex flex-col'>
         <div className='flex flex-row items-center gap-1'>
           <span className='text-[15px] text-[#222] font-semibold'>{title}</span>
@@ -49,9 +55,15 @@ const RadioItem: React.FC<RadioItemProps> = ({ isSelected, consumption }) => {
       </div>
       <Button
         variant='ghost'
-        className='size-6 ml-auto rounded-full shadow-none'
+        className={cn(
+          'w-6 h-6 ml-auto rounded-full shadow-none p-0',
+          isSelected
+            ? 'bg-[#89F336] p-[4px] hover:bg-[#89F336]'
+            : 'bg-white border-[1px] border-[#CCC]'
+        )}
+        onClick={onClick}
       >
-        {isSelected && <></>}
+        {isSelected && <Check size={16} />}
       </Button>
     </div>
   );
@@ -71,13 +83,13 @@ const consumptions: Consumption[] = [
     info: '예시로 월세, 공과금, 식비 등이 있어요.',
   },
   {
-    consumptionKind: consumptionKindValues.essential,
+    consumptionKind: consumptionKindValues.conscious,
     title: '의식적 소비',
     description: '내 가치관에 따라 선택한 소비',
     info: '예시로 자기계발, 친구와의 약속 등이 있어요.',
   },
   {
-    consumptionKind: consumptionKindValues.essential,
+    consumptionKind: consumptionKindValues.emotional,
     title: '감정적 소비',
     description: '필요 없거나 충동적으로 한 소비',
     info: '예시로 필요 없는 구독, 스트레스 해소용 쇼핑 등이 있어요.',
@@ -132,6 +144,7 @@ const ClassifyExpenseDrawer: React.FC<Props> = ({
             onClick={() => {
               if (selectedKind) {
                 setConsumptionKind(selectedKind);
+                onOpenChange(false);
               }
             }}
             disabled={selectedKind === null}

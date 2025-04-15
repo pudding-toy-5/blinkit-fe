@@ -17,6 +17,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import {
+  consumptionConscious,
+  consumptionEmotional,
+  consumptionEssential,
+} from '@/features/expense/consts';
 import { Consumption } from '@/features/expense/model/types/ConsumptionKind';
 import Check from '@/shared/ui/icons/Check';
 import Exclamation from '@/shared/ui/icons/Exclamation';
@@ -82,32 +87,17 @@ const RadioItem: React.FC<RadioItemProps> = ({
   );
 };
 
+const consumptions: Consumption[] = [
+  consumptionEssential,
+  consumptionConscious,
+  consumptionEmotional,
+];
+
 interface Props {
   isOpen: boolean;
   setConsumptionKind: (consumptionKind: ConsumptionKind) => void;
   onOpenChange: (open: boolean) => void;
 }
-
-const consumptions: Consumption[] = [
-  {
-    consumptionKind: ConsumptionKind.essential,
-    title: '필수 소비',
-    description: '생존, 생활 유지에 반드시 필요한 소비',
-    info: '예시로 월세, 공과금, 식비 등이 있어요.',
-  },
-  {
-    consumptionKind: ConsumptionKind.conscious,
-    title: '의식적 소비',
-    description: '내 가치관에 따라 선택한 소비',
-    info: '예시로 자기계발, 친구와의 약속 등이 있어요.',
-  },
-  {
-    consumptionKind: ConsumptionKind.emotional,
-    title: '감정적 소비',
-    description: '필요 없거나 충동적으로 한 소비',
-    info: '예시로 필요 없는 구독, 스트레스 해소용 쇼핑\n등이 있어요.',
-  },
-];
 
 const ClassifyExpenseDrawer: React.FC<Props> = ({
   isOpen,

@@ -15,12 +15,17 @@ export const Route = createFileRoute('/expenses/review/')({
 
 function RouteComponent() {
   const period: Period = { year: 2025, month: 4 };
+  const { data: totalExpenses } = useExpenses({ period });
   const { data: unReviewedExpenses } = useExpenses({
     period,
     consumptionKind: 'none',
   });
 
   const [isRetrospective, setIsRetrospective] = React.useState<boolean>(false);
+
+  if (!totalExpenses) {
+    return <></>;
+  }
 
   return (
     <UserLayout>
@@ -39,7 +44,10 @@ function RouteComponent() {
       {isRetrospective ? (
         <RetrospectiveView />
       ) : (
-        <UnReviewedExpenseList expenses={unReviewedExpenses ?? []} />
+        <UnReviewedExpenseList
+          expenses={unReviewedExpenses ?? []}
+          totalExpenseLength={totalExpenses.length}
+        />
       )}
     </UserLayout>
   );

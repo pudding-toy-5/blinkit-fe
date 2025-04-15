@@ -69,7 +69,7 @@ const UnReviewedExpenseList: React.FC<Props> = ({
         setConsumptionKind={setConsumptionKind}
       />
       <div className='relative flex flex-col flex-1 bg-[#f5f3f0] px-5 pt-8'>
-        {unReviewedExpenses.length === 0 ? (
+        {totalExpenseLength === 0 ? (
           <span className='flex items-center justify-center m-auto text-[15px] text-[#555]'>
             지출 내역을 추가하면 리뷰할 수 있어요.
           </span>

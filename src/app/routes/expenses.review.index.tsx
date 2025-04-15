@@ -32,7 +32,7 @@ function RouteComponent() {
     {
       uid: 'expense-2',
       date: new Date(),
-      memo: '엄청나게 긴 메모',
+      memo: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
       amount: 10000,
       categories: [
         {

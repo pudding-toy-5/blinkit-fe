@@ -42,7 +42,7 @@ const UnReviewedExpenseList: React.FC<Props> = ({
   }, []);
 
   const setConsumptionKind = (consumptionKind: ConsumptionKind) => {
-    if (!selectedExpense) {
+    if (!selectedExpense || consumptionKind === ConsumptionKind.none) {
       return;
     }
 

@@ -21,8 +21,9 @@ const UnReviewedExpenseList: React.FC<Props> = ({ expenses }) => {
     }
   }, []);
 
-  const onClick = (uid: string) => {
-    console.log(uid);
+  const onReviewExpense = (consumptionKind: ConsumptionKindType) => {
+    // todo: add updateExpenseByConsumptionKind with Uid
+    console.log(consumptionKind);
   };
 
   const onDrawerOpenChange = (open: boolean) => {

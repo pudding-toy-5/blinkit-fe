@@ -36,7 +36,7 @@ const RadioItem: React.FC<RadioItemProps> = ({
   consumption,
   onClick,
 }) => {
-  const { consumptionKind, consumptionTexts } = consumption;
+  const { consumptionTexts } = consumption;
   const { title, description, tooltipText } = consumptionTexts;
 
   return (

@@ -13,7 +13,7 @@ interface NavItemProps {
 
 const NavItem: React.FC<NavItemProps> = ({ text, icon, onClick }) => {
   return (
-    <li className='flex-1 flex flex-col py-[9px] px-5 items-center'>
+    <li className='flex-1 flex flex-col py-[9px] items-center'>
       <Button
         variant='ghost'
         className='flex flex-col h-auto w-auto has-[>svg]:p-0 shadow-none items-center'
@@ -48,8 +48,7 @@ const BottomNavBar: React.FC = () => {
   ];
 
   return (
-    <nav className='flex flex-row items-center w-full mt-auto bg-[#F5F3F0]'>
-    <nav className='flex flex-row items-center w-full mt-auto'>
+    <nav className='flex flex-row items-center w-full mt-auto border-[1px] border-[#efefef] rounded-t-[16px]'>
       <ul className='flex flex-row w-full'>
         {navItems.map(({ text, icon, onClick }) => (
           <NavItem key={text} text={text} icon={icon} onClick={onClick} />

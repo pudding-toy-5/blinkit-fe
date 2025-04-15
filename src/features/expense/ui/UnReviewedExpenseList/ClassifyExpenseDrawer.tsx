@@ -130,12 +130,9 @@ const ClassifyExpenseDrawer: React.FC<Props> = ({
   return (
     <Drawer
       open={isOpen}
-      onOpenChange={(open) => {
-        if (!open) {
-          setSelectedKind(null);
-        }
-
-        onOpenChange(open);
+      onOpenChange={onOpenChange}
+      onClose={() => {
+        setSelectedKind(null);
       }}
     >
       <DrawerContent className='px-5 py-6 rounded-t-[20px] bg-white'>

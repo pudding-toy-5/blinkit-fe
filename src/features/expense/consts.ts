@@ -36,11 +36,11 @@ export const consumptionEssential: Consumption = {
 };
 
 export const consumptionEmotional: Consumption = {
-  consumptionKind: ConsumptionKind.essential,
+  consumptionKind: ConsumptionKind.emotional,
   consumptionTexts: consumptionEmotionalTexts,
 };
 
 export const consumptionConscious: Consumption = {
-  consumptionKind: ConsumptionKind.essential,
+  consumptionKind: ConsumptionKind.conscious,
   consumptionTexts: consumptionConsciousTexts,
 };

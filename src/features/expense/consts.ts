@@ -20,14 +20,14 @@ export const consumptionEssentialTexts: ConsumptionTexts = {
 
 export const consumptionEmotionalTexts: ConsumptionTexts = {
   title: '감정적 소비',
-  description: '생존, 생활 유지에 반드시 필요한 소비',
-  tooltipText: '예시로 자기계발, 친구와의 약속 등이 있어요.',
+  description: '필요 없거나 충동적으로 한 소비',
+  tooltipText: '예시로 필요 없는 구독, 스트레스 해소용 쇼핑 등이 있어요.',
 };
 
 export const consumptionConsciousTexts: ConsumptionTexts = {
   title: '의식적 소비',
   description: '내 가치관에 따라 선택한 소비',
-  tooltipText: '예시로 필요 없는 구독, 스트레스 해소용 쇼핑 등이 있어요.',
+  tooltipText: '예시로 자기계발, 친구와의 약속 등이 있어요.',
 };
 
 export const consumptionEssential: Consumption = {

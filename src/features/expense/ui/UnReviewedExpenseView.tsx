@@ -149,9 +149,9 @@ const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
           ref={measureRef}
           className={cn(
             'absolute -z-10 invisible',
-            'flex items-center justify-center',
-            'bg-white text-[#28A745]',
-            'font-semibold text-[14px]'
+            'flex items-center justify-center px-6',
+            'bg-white text-[#28A745] font-semibold text-[14px]',
+            'rounded-[8px] whitespace-nowrap'
           )}
         >
           리뷰하기

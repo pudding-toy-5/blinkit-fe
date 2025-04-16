@@ -25,7 +25,7 @@ function RouteComponent() {
   const [isRetrospective, setIsRetrospective] = React.useState<boolean>(false);
 
   if (!totalExpenses) {
-    return <></>;
+    return null;
   }
 
   return (

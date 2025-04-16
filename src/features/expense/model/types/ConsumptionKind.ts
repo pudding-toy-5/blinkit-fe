@@ -11,7 +11,7 @@ export type ConsumptionKind =
 export interface ConsumptionTexts {
   title: string;
   description: string;
-  popoverText: string;
+  helperText: string;
 }
 
 export interface Consumption {

@@ -40,7 +40,7 @@ const RadioItem: React.FC<RadioItemProps> = ({
   onClick,
 }) => {
   const { consumptionTexts } = consumption;
-  const { title, description, popoverText } = consumptionTexts;
+  const { title, description, helperText } = consumptionTexts;
 
   return (
     <div className='flex flex-row items-center rounded-[8px] px-4 py-5.5 bg-[#F5F3F0]'>
@@ -60,7 +60,7 @@ const RadioItem: React.FC<RadioItemProps> = ({
               arrowPadding={16}
               align='start'
             >
-              {popoverText}
+              {helperText}
               <PopoverArrow
                 fill='#222'
                 width={14}

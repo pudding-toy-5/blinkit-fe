@@ -42,7 +42,7 @@ function RouteComponent() {
           }}
         />
       )}
-      <BottomNavBar />
+      <BottomNavBar variant='white' />
     </UserLayout>
   );
 }

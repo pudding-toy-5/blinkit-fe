@@ -101,11 +101,11 @@ const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
       { ...selectedExpense, consumptionKind },
       {
         onSuccess: () => {
-          toast.success(`${title}로 분류했어요.`);
+          toast.success(`${title}로 분류가 완료되었어요.`);
           setSelectedExpense(null);
         },
         onError: () => {
-          toast.error(`지출내역을 ${title}로 분류하지 못했어요.`);
+          toast.error(`${title}로 분류하지 못했어요.`);
         },
       }
     );
@@ -147,7 +147,12 @@ const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
         {/* 보이지 않는 스와이프 버튼 가로길이 측정용 버튼 */}
         <button
           ref={measureRef}
-          className='absolute -z-10 invisible whitespace-nowrap px-6 font-semibold text-[14px]'
+          className={cn(
+            'absolute -z-10 invisible',
+            'flex items-center justify-center px-6',
+            'bg-white text-[#28A745] font-semibold text-[14px]',
+            'rounded-[8px] whitespace-nowrap'
+          )}
         >
           리뷰하기
         </button>

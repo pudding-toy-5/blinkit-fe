@@ -1,10 +1,15 @@
+import { useEffect, useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import {
   Consumption,
   ConsumptionKind,
 } from '@/features/expense/model/types/ConsumptionKind';
-import { Retrospective } from '@/features/retrospective/model/Retrospective';
+import {
+  Retrospective,
+  RetrospectiveCategory,
+} from '@/features/retrospective/model/Retrospective';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import { cn } from '@/shared/ui/styles/utils';
 
@@ -20,12 +25,29 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
   onClickRetrospectiveDetail,
 }) => {
   if (!retrospective) {
-    return null;
+    throw new Error('retrospective is falsy in RetrospectiveCard');
   }
 
   const { totalCount, totalAmount, items } = retrospective;
   const { consumptionKind, consumptionTexts } = consumption;
   const { title, description } = consumptionTexts;
+
+  const [sortedItems, setSortedItems] = useState<RetrospectiveCategory[]>([]);
+
+  const sortRetrospectiveCategories = (
+    a: RetrospectiveCategory,
+    b: RetrospectiveCategory
+  ) => {
+    if (a.totalAmount !== b.totalAmount) {
+      return b.totalAmount - a.totalAmount;
+    }
+
+    return a.category.name.localeCompare(b.category.name, ['ko', 'en']);
+  };
+
+  useEffect(() => {
+    setSortedItems([...items].sort(sortRetrospectiveCategories));
+  }, [items]);
 
   return (
     <div className='flex flex-col pt-8 pb-4 pl-5 pr-4 bg-white'>
@@ -48,7 +70,7 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
       </span>
       {items.length !== 0 && (
         <ul className='flex flex-col gap-4 mt-8'>
-          {items.map((item) => (
+          {sortedItems.map((item) => (
             <li className='flex flex-row' key={item.category.uid}>
               <CategoryTag tagName={item.category.name} size='small' />
               <span className='flex ml-auto items-center text-[17px] text-[#222] font-semibold'>

@@ -74,12 +74,7 @@ function RouteComponent() {
 
   return (
     <UserLayout>
-      <SubPageHeader
-        title='설정'
-        onClickBack={() => {
-          void navigate({ to: '/expenses' });
-        }}
-      />
+      <SubPageHeader title='설정' />
       <ul className='flex flex-col list-none gap-6 pt-6 px-5'>
         {settingGroups.map((settingGroup) => (
           <li className='flex flex-col gap-4' key={settingGroup.text}>
@@ -164,7 +159,7 @@ function RouteComponent() {
           </li>
         ))}
       </ul>
-      <BottomNavBar />
+      <BottomNavBar variant='white' />
     </UserLayout>
   );
 }

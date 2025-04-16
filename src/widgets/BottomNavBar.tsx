@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import Record from '@/shared/ui/icons/Record';
 import Review from '@/shared/ui/icons/Review';
 import SettingsFilled from '@/shared/ui/icons/SettingsFilled';
+import { cn } from '@/shared/ui/styles/utils';
 
 interface NavItemProps {
   text: string;
@@ -26,7 +27,9 @@ const NavItem: React.FC<NavItemProps> = ({ text, icon, onClick }) => {
   );
 };
 
-const BottomNavBar: React.FC = () => {
+const BottomNavBar: React.FC<{ variant: 'white' | 'accent' }> = ({
+  variant = 'white',
+}) => {
   const navigate = useNavigate();
 
   const navItems: NavItemProps[] = [
@@ -48,13 +51,24 @@ const BottomNavBar: React.FC = () => {
   ];
 
   return (
-    <nav className='flex flex-row items-center w-full mt-auto border-[1px] border-[#efefef] rounded-t-[16px]'>
-      <ul className='flex flex-row w-full'>
-        {navItems.map(({ text, icon, onClick }) => (
-          <NavItem key={text} text={text} icon={icon} onClick={onClick} />
-        ))}
-      </ul>
-    </nav>
+    <div
+      className={cn(
+        variant === 'white' && 'bg-white',
+        variant === 'accent' && 'bg-[#F5F3F0]'
+      )}
+    >
+      <nav
+        className={cn(
+          'flex flex-row items-center w-full mt-auto border-[1px] border-[#efefef] rounded-t-[16px] bg-white'
+        )}
+      >
+        <ul className='flex flex-row w-full'>
+          {navItems.map(({ text, icon, onClick }) => (
+            <NavItem key={text} text={text} icon={icon} onClick={onClick} />
+          ))}
+        </ul>
+      </nav>
+    </div>
   );
 };
 export default BottomNavBar;

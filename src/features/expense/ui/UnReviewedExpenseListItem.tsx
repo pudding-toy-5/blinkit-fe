@@ -6,6 +6,8 @@ import { Expense } from '@/features/expense/model/types/Expense';
 import ReviewExpenseCard from '@/features/expense/ui/ReviewExpenseCard';
 import { cn } from '@/shared/ui/styles/utils';
 
+const GAP = 8;
+
 const AnimatedDiv = animated.div as React.FC<
   AnimatedProps<React.HTMLAttributes<HTMLDivElement>> & {
     children?: React.ReactNode;
@@ -45,7 +47,7 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
   }, []);
 
   useEffect(() => {
-    void api.start({ deleteWidth: isOpen ? buttonWidth : 0 });
+    void api.start({ deleteWidth: isOpen ? buttonWidth + GAP : 0 });
   }, [buttonWidth, isOpen, api]);
 
   const bind = useDrag(
@@ -54,17 +56,19 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
         return;
       }
 
+      const maxSwipeDistance = buttonWidth + GAP;
+
       if (first) {
         void api.start({ deleteWidth: deleteWidth.get(), immediate: true });
       }
 
       const raw = deleteWidth.get() - mx;
-      const next = Math.max(0, Math.min(raw, buttonWidth));
+      const next = Math.max(0, Math.min(raw, maxSwipeDistance));
 
       if (last) {
-        const open = next > buttonWidth / 2;
+        const open = next > maxSwipeDistance / 2;
         setIsOpen(open);
-        void api.start({ deleteWidth: open ? buttonWidth : 0 });
+        void api.start({ deleteWidth: open ? maxSwipeDistance : 0 });
       } else {
         void api.start({ deleteWidth: next, immediate: true });
       }
@@ -82,7 +86,7 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
         className='flex'
         style={{
           width: liWidth
-            ? `calc(${liWidth.toString()}px + ${buttonWidth.toString()}px + 8px)`
+            ? `calc(${liWidth.toString()}px + ${buttonWidth.toString()}px + ${GAP.toString()}px)`
             : undefined,
           transform: deleteWidth.to((w) => `translateX(-${w.toString()}px)`),
           willChange: 'transform',
@@ -92,7 +96,7 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
           <ReviewExpenseCard expense={expense} />
         </div>
 
-        <div style={{ width: '8px', flexShrink: 0 }} />
+        <div style={{ width: `${GAP.toString()}px`, flexShrink: 0 }} />
 
         <div style={{ width: `${buttonWidth.toString()}px`, flexShrink: 0 }}>
           <AnimatedButton

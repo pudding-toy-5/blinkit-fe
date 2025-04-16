@@ -1,4 +1,4 @@
-import { TooltipArrow } from '@radix-ui/react-tooltip';
+import { PopoverArrow } from '@radix-ui/react-popover';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -12,11 +12,10 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer';
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import {
   consumptionConscious,
   consumptionEmotional,
@@ -41,32 +40,35 @@ const RadioItem: React.FC<RadioItemProps> = ({
   onClick,
 }) => {
   const { consumptionTexts } = consumption;
-  const { title, description, tooltipText } = consumptionTexts;
+  const { title, description, helperText } = consumptionTexts;
 
   return (
     <div className='flex flex-row items-center rounded-[8px] px-4 py-5.5 bg-[#F5F3F0]'>
       <div className='flex flex-col'>
         <div className='flex flex-row items-center gap-1'>
           <span className='text-[15px] text-[#222] font-semibold'>{title}</span>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <div className='rotate-180'>
-                  <Exclamation size={16} color='#999' />
-                </div>
-              </TooltipTrigger>
-              <TooltipContent
-                className='rounded-[4px] bg-[#222] text-white text-[13px] whitespace-pre-line p-2 font-normal'
-                side='bottom'
-                sideOffset={1}
-                align='start'
-                arrowPadding={16}
-              >
-                {tooltipText}
-                <TooltipArrow fill='#222' />
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <Popover>
+            <PopoverTrigger>
+              <div className='rotate-180'>
+                <Exclamation size={16} color='#999' />
+              </div>
+            </PopoverTrigger>
+            <PopoverContent
+              className='rounded-[4px] bg-[#222] text-white pt-2 px-2 pb-0 text-[13px] whitespace-pre-wrap w-auto p-2 font-normal border-none'
+              side='bottom'
+              sideOffset={0}
+              arrowPadding={16}
+              align='start'
+            >
+              {helperText}
+              <PopoverArrow
+                fill='#222'
+                width={14}
+                height={10}
+                style={{ visibility: 'visible' }}
+              />
+            </PopoverContent>
+          </Popover>
         </div>
         <span className='text-[13px] text-[#555] mt-1'>{description}</span>
       </div>

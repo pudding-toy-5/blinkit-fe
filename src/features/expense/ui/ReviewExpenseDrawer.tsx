@@ -23,12 +23,11 @@ import {
   consumptionEssential,
 } from '@/features/expense/consts';
 import { Consumption } from '@/features/expense/model/types/ConsumptionKind';
+import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
 import Check from '@/shared/ui/icons/Check';
 import Exclamation from '@/shared/ui/icons/Exclamation';
 import X from '@/shared/ui/icons/X';
 import { cn } from '@/shared/ui/styles/utils';
-
-import { ConsumptionKind } from '../../model/types/ConsumptionKind';
 
 interface RadioItemProps {
   isSelected: boolean;
@@ -99,7 +98,7 @@ interface Props {
   onOpenChange: (open: boolean) => void;
 }
 
-const ClassifyExpenseDrawer: React.FC<Props> = ({
+const ReviewExpenseDrawer: React.FC<Props> = ({
   isOpen,
   setConsumptionKind,
   onOpenChange,
@@ -167,4 +166,4 @@ const ClassifyExpenseDrawer: React.FC<Props> = ({
   );
 };
 
-export default ClassifyExpenseDrawer;
+export default ReviewExpenseDrawer;

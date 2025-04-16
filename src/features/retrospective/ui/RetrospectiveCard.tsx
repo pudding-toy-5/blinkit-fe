@@ -46,7 +46,7 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
   };
 
   useEffect(() => {
-    setSortedItems(items.sort(sortRetrospectiveCategories));
+    setSortedItems([...items].sort(sortRetrospectiveCategories));
   }, [items, setSortedItems]);
 
   return (

@@ -1,9 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import React from 'react';
 
-import { useExpenses } from '@/features/expense/api/useExpenseQuery';
-import Period from '@/features/expense/model/types/Period';
-import UnReviewedExpenseList from '@/features/expense/ui/UnReviewedExpenseList/UnReviewedExpenseList';
+import UnReviewedExpenseView from '@/features/expense/ui/UnReviewedExpenseView/UnReviewedExpenseView';
 import RetrospectiveView from '@/features/retrospective/ui/RetrospectiveView';
 import Logo from '@/shared/ui/icons/Logo';
 import UserLayout from '@/shared/ui/layout/UserLayout';
@@ -15,18 +13,7 @@ export const Route = createFileRoute('/expenses/review/')({
 });
 
 function RouteComponent() {
-  const period: Period = { year: 2025, month: 4 };
-  const { data: totalExpenses } = useExpenses({ period });
-  const { data: unReviewedExpenses } = useExpenses({
-    period,
-    consumptionKind: 'none',
-  });
-
   const [isRetrospective, setIsRetrospective] = React.useState<boolean>(false);
-
-  if (!totalExpenses) {
-    return null;
-  }
 
   return (
     <UserLayout>
@@ -49,9 +36,7 @@ function RouteComponent() {
           }}
         />
       ) : (
-        <UnReviewedExpenseList
-          unReviewedExpenses={unReviewedExpenses ?? []}
-          totalExpenseLength={totalExpenses.length}
+        <UnReviewedExpenseView
           onMoveRetrospective={() => {
             setIsRetrospective(true);
           }}

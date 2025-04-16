@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Category } from '@/features/category/model/types/Category';
 import { useExpenses } from '@/features/expense/api/useExpenseQuery';

@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import React from 'react';
 
-import UnReviewedExpenseView from '@/features/expense/ui/UnReviewedExpenseView/UnReviewedExpenseView';
+import UnReviewedExpenseView from '@/features/expense/ui/UnReviewedExpenseView';
 import RetrospectiveView from '@/features/retrospective/ui/RetrospectiveView';
 import Logo from '@/shared/ui/icons/Logo';
 import UserLayout from '@/shared/ui/layout/UserLayout';

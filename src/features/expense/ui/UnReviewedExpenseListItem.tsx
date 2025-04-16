@@ -56,19 +56,19 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
         return;
       }
 
-      const fullOpenWidth = buttonWidth + GAP;
+      const maxSwipeDistance = buttonWidth + GAP;
 
       if (first) {
         void api.start({ deleteWidth: deleteWidth.get(), immediate: true });
       }
 
       const raw = deleteWidth.get() - mx;
-      const next = Math.max(0, Math.min(raw, fullOpenWidth));
+      const next = Math.max(0, Math.min(raw, maxSwipeDistance));
 
       if (last) {
-        const open = next > fullOpenWidth / 2;
+        const open = next > maxSwipeDistance / 2;
         setIsOpen(open);
-        void api.start({ deleteWidth: open ? fullOpenWidth : 0 });
+        void api.start({ deleteWidth: open ? maxSwipeDistance : 0 });
       } else {
         void api.start({ deleteWidth: next, immediate: true });
       }

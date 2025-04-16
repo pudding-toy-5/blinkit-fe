@@ -159,7 +159,7 @@ function RouteComponent() {
           </li>
         ))}
       </ul>
-      <BottomNavBar isBgWhite={true} />
+      <BottomNavBar variant='white' />
     </UserLayout>
   );
 }

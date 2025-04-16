@@ -68,7 +68,7 @@ export function ExpensesPage() {
         </div>
       </div>
       <DailyExpenseList dailyExpenses={dailyExpenses} onScroll={handleScroll} />
-      <BottomNavBar isBgWhite={false} />
+      <BottomNavBar variant='accent' />
       <Link to='/expenses/new'>
         <AddExpenseButton />
       </Link>

@@ -27,8 +27,8 @@ const NavItem: React.FC<NavItemProps> = ({ text, icon, onClick }) => {
   );
 };
 
-const BottomNavBar: React.FC<{ isBgWhite: boolean }> = ({
-  isBgWhite = true,
+const BottomNavBar: React.FC<{ variant: 'white' | 'accent' }> = ({
+  variant = 'white',
 }) => {
   const navigate = useNavigate();
 
@@ -51,7 +51,12 @@ const BottomNavBar: React.FC<{ isBgWhite: boolean }> = ({
   ];
 
   return (
-    <div className={isBgWhite ? 'bg-white' : 'bg-[#F5F3F0]'}>
+    <div
+      className={cn(
+        variant === 'white' && 'bg-white',
+        variant === 'accent' && 'bg-[#F5F3F0]'
+      )}
+    >
       <nav
         className={cn(
           'flex flex-row items-center w-full mt-auto border-[1px] border-[#efefef] rounded-t-[16px] bg-white'

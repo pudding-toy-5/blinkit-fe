@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Category } from '@/features/category/model/types/Category';
 import { useExpenses } from '@/features/expense/api/useExpenseQuery';
@@ -11,16 +11,15 @@ import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 const CategoryButton: React.FC<{
   text: string;
-  isClicked: boolean;
+  isActive: boolean;
   onClick: () => void;
-}> = ({ text, isClicked, onClick }) => {
+}> = ({ text, isActive, onClick }) => {
   return (
     <button
       className={cn(
-        'bg-[#E1DFDC]',
-        'text-[13px] text-[#555] font-medium whitespace-nowrap',
+        'text-[13px] font-medium whitespace-nowrap',
         'px-3 py-2 rounded-full',
-        isClicked && 'bg-[#222] text-[#fff]'
+        isActive ? 'bg-[#222] text-[#fff]' : 'bg-[#E1DFDC] text-[#555]'
       )}
       onClick={onClick}
     >
@@ -38,46 +37,33 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
   consumptionKind,
   onClose,
 }) => {
-  const { data: expenses } = useExpenses({
+  const { data: expenses = [] } = useExpenses({
     period: { year: 2025, month: 4 },
     consumptionKind,
   });
 
-  const [totalAmount, setTotalAmount] = useState<number>(0);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const categories = useMemo(() => {
+    const map = new Map<string, Category>();
+    expenses.forEach((e) => {
+      e.categories.forEach((c) => map.set(c.uid, c));
+    });
+    return Array.from(map.values());
+  }, [expenses]);
+
+  const totalAmount = useMemo(
+    () => expenses.reduce((sum, e) => sum + e.amount, 0),
+    [expenses]
+  );
+
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
-  const { data: filteredExpenses, isLoading } = useExpenses({
+  const { data: filteredExpenses = [] } = useExpenses({
     period: { year: 2025, month: 4 },
     consumptionKind,
     categoryUids: selectedCategories.map((c) => c.uid),
   });
 
-  const consumptionTexts = getConsumptionTexts(consumptionKind);
-
-  useEffect(() => {
-    if (!expenses) {
-      return;
-    }
-
-    setTotalAmount(
-      expenses.reduce((total, expense) => total + expense.amount, 0)
-    );
-
-    const categoryMap = new Map<string, Category>();
-
-    expenses.forEach((expense) => {
-      expense.categories.forEach((category) => {
-        categoryMap.set(category.uid, category);
-      });
-    });
-
-    setCategories(Array.from(categoryMap.values()));
-  }, [expenses, setTotalAmount]);
-
-  if (!filteredExpenses) {
-    return null;
-  }
+  const { title, description } = getConsumptionTexts(consumptionKind);
 
   const handleClickCategory = (category: Category) => {
     if (!selectedCategories.includes(category)) {
@@ -96,12 +82,8 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
       <UserLayout>
         <SubPageHeader onClickBack={onClose} />
         <div className='flex flex-col px-5 pb-4'>
-          <h1 className='text-[19px] text-[#222] font-semibold'>
-            {consumptionTexts.title}
-          </h1>
-          <span className='text-[13px] text-[#555] mt-1'>
-            {consumptionTexts.description}
-          </span>
+          <h1 className='text-[19px] text-[#222] font-semibold'>{title}</h1>
+          <span className='text-[13px] text-[#555] mt-1'>{description}</span>
           <span className='text-[22px] text-[#222] font-semibold mt-3'>
             {totalAmount.toLocaleString()}원
           </span>
@@ -111,7 +93,7 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
             <li key='category-all'>
               <CategoryButton
                 text='전체 소비'
-                isClicked={selectedCategories.length === 0}
+                isActive={selectedCategories.length === 0}
                 onClick={() => {
                   setSelectedCategories([]);
                 }}
@@ -121,7 +103,7 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
               <li key={category.uid}>
                 <CategoryButton
                   text={category.name}
-                  isClicked={selectedCategories.includes(category)}
+                  isActive={selectedCategories.includes(category)}
                   onClick={() => {
                     handleClickCategory(category);
                   }}

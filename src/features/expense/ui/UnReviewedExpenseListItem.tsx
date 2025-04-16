@@ -6,6 +6,8 @@ import { Expense } from '@/features/expense/model/types/Expense';
 import ReviewExpenseCard from '@/features/expense/ui/ReviewExpenseCard';
 import { cn } from '@/shared/ui/styles/utils';
 
+const GAP = 8;
+
 const AnimatedDiv = animated.div as React.FC<
   AnimatedProps<React.HTMLAttributes<HTMLDivElement>> & {
     children?: React.ReactNode;
@@ -45,7 +47,7 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
   }, []);
 
   useEffect(() => {
-    void api.start({ deleteWidth: isOpen ? buttonWidth : 0 });
+    void api.start({ deleteWidth: isOpen ? buttonWidth + GAP : 0 });
   }, [buttonWidth, isOpen, api]);
 
   const bind = useDrag(
@@ -92,7 +94,7 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
           <ReviewExpenseCard expense={expense} />
         </div>
 
-        <div style={{ width: '8px', flexShrink: 0 }} />
+        <div style={{ width: `${GAP.toString()}px`, flexShrink: 0 }} />
 
         <div style={{ width: `${buttonWidth.toString()}px`, flexShrink: 0 }}>
           <AnimatedButton

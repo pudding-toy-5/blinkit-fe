@@ -1,32 +1,15 @@
 import { useMemo, useState } from 'react';
 
 import { Category } from '@/features/category/model/types/Category';
+import CategoryFilter from '@/features/category/ui/CategoryFilter';
 import { useExpenses } from '@/features/expense/api/useExpenseQuery';
 import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
-import ReviewExpenseCard from '@/features/expense/ui/ReviewExpenseCard';
 import { getConsumptionTexts } from '@/features/expense/utils';
 import UserLayout from '@/shared/ui/layout/UserLayout';
-import { cn } from '@/shared/ui/styles/utils';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
-const CategoryButton: React.FC<{
-  text: string;
-  isActive: boolean;
-  onClick: () => void;
-}> = ({ text, isActive, onClick }) => {
-  return (
-    <button
-      className={cn(
-        'text-[13px] font-medium whitespace-nowrap',
-        'px-3 py-2 rounded-full',
-        isActive ? 'bg-[#222] text-[#fff]' : 'bg-[#E1DFDC] text-[#555]'
-      )}
-      onClick={onClick}
-    >
-      {text}
-    </button>
-  );
-};
+import RetrospectiveCardList from './RetrospectiveCardList';
+import RetrospectiveDetailHeader from './RetrospectiveDetailHeader';
 
 interface Props {
   consumptionKind: ConsumptionKind;
@@ -77,50 +60,31 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
     setSelectedCategories(removedCategories);
   };
 
+  const handleClearSelectedCategory = () => {
+    setSelectedCategories([]);
+  };
+
   return (
     <div className='fixed z-10 top-0 left-0 w-full h-dvh flex flex-col overflow-hidden'>
       <UserLayout>
         <SubPageHeader onClickBack={onClose} />
-        <div className='flex flex-col px-5 pb-4'>
-          <h1 className='text-[19px] text-[#222] font-semibold'>{title}</h1>
-          <span className='text-[13px] text-[#555] mt-1'>{description}</span>
-          <span className='text-[22px] text-[#222] font-semibold mt-3'>
-            {totalAmount.toLocaleString()}원
-          </span>
-        </div>
+        <RetrospectiveDetailHeader
+          title={title}
+          description={description}
+          totalAmount={totalAmount}
+        />
         <div className='flex-1 flex flex-col bg-[#F5F3F0] overflow-y-hidden'>
-          <ul className='flex flex-row shrink-0 gap-2 pt-4 pb-[22px] px-5 overflow-x-auto scrollbar-hide'>
-            <li key='category-all'>
-              <CategoryButton
-                text='전체 소비'
-                isActive={selectedCategories.length === 0}
-                onClick={() => {
-                  setSelectedCategories([]);
-                }}
-              />
-            </li>
-            {categories.map((category) => (
-              <li key={category.uid}>
-                <CategoryButton
-                  text={category.name}
-                  isActive={selectedCategories.includes(category)}
-                  onClick={() => {
-                    handleClickCategory(category);
-                  }}
-                />
-              </li>
-            ))}
-          </ul>
+          <CategoryFilter
+            categories={categories}
+            selectedCategories={selectedCategories}
+            onClickCategory={handleClickCategory}
+            onClearSelectedCategories={handleClearSelectedCategory}
+          />
+
           <span className='text-[13px] text-[#555] px-5'>
             총 {filteredExpenses.length}건
           </span>
-          <div className='pl-5 pr-4 mt-4 pb-8 overflow-y-auto scroll'>
-            <ul className='flex flex-col gap-2'>
-              {filteredExpenses.map((expense) => (
-                <ReviewExpenseCard key={expense.uid} expense={expense} />
-              ))}
-            </ul>
-          </div>
+          <RetrospectiveCardList expenses={filteredExpenses} />
         </div>
       </UserLayout>
     </div>

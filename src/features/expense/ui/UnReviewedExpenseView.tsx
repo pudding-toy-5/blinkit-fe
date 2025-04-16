@@ -101,11 +101,11 @@ const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
       { ...selectedExpense, consumptionKind },
       {
         onSuccess: () => {
-          toast.success(`${title}로 분류했어요.`);
+          toast.success(`${title}로 분류가 완료되었어요.`);
           setSelectedExpense(null);
         },
         onError: () => {
-          toast.error(`지출내역을 ${title}로 분류하지 못했어요.`);
+          toast.error(`${title}로 분류하지 못했어요.`);
         },
       }
     );

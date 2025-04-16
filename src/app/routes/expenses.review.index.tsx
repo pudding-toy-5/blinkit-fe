@@ -43,7 +43,11 @@ function RouteComponent() {
         }}
       />
       {isRetrospective ? (
-        <RetrospectiveView />
+        <RetrospectiveView
+          onMoveReview={() => {
+            setIsRetrospective(false);
+          }}
+        />
       ) : (
         <UnReviewedExpenseList
           unReviewedExpenses={unReviewedExpenses ?? []}

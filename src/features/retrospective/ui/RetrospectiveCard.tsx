@@ -20,7 +20,7 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
   onClickRetrospectiveDetail,
 }) => {
   if (!retrospective) {
-    return;
+    return null;
   }
 
   const { totalCount, totalAmount, items } = retrospective;

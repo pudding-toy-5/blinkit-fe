@@ -16,6 +16,7 @@ import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import UserLayout from '@/shared/ui/layout/UserLayout';
 import { cn } from '@/shared/ui/styles/utils';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
+import BottomNavBar from '@/widgets/BottomNavBar';
 
 export const Route = createFileRoute('/settings/')({
   component: RouteComponent,
@@ -163,6 +164,7 @@ function RouteComponent() {
           </li>
         ))}
       </ul>
+      <BottomNavBar />
     </UserLayout>
   );
 }

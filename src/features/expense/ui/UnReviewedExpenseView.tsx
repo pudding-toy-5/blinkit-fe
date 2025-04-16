@@ -127,13 +127,11 @@ const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
       {/* when scrollable height, pr-5. when not scrollable height, pr-4 (scroll width - 4px) */}
       <div className='relative flex flex-col flex-1 bg-[#f5f3f0] pl-5 pr-4 pt-8 overflow-y-auto scroll'>
         {totalExpenses.length === 0 ? (
-          // 지출내역이 없는 사용자에게 보여주는 안내문구
           <TotalExpenseEmptyPlaceholder />
         ) : (
           <>
             <UnReviewedExpenseHeader />
             {unReviewedExpenses.length === 0 ? (
-              // consumption_kind = 'none'으로 가져온 expense list가 빈 배열인 경우
               <UnReviewedExpenseEmptyPlaceholder
                 onMoveRetrospective={onMoveRetrospective}
               />

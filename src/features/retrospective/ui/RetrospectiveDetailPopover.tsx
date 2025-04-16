@@ -17,7 +17,7 @@ const CategoryButton: React.FC<{
   return (
     <button
       className={cn(
-        'flex items-center bg-[#E1DFDC]',
+        'bg-[#E1DFDC]',
         'text-[13px] text-[#555] font-medium whitespace-nowrap',
         'px-3 py-2 rounded-full',
         isClicked && 'bg-[#222] text-[#fff]'
@@ -47,7 +47,7 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
-  const { data: filteredExpenses } = useExpenses({
+  const { data: filteredExpenses, isLoading } = useExpenses({
     period: { year: 2025, month: 4 },
     consumptionKind,
     categoryUids: selectedCategories.map((c) => c.uid),
@@ -64,15 +64,16 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
       expenses.reduce((total, expense) => total + expense.amount, 0)
     );
 
-    const uniqueCategories = Array.from(
-      Object.values(expenses.flatMap((expense) => expense.categories))
-    );
-    setCategories(uniqueCategories);
-  }, [expenses, setTotalAmount]);
+    const categoryMap = new Map<string, Category>();
 
-  if (!expenses) {
-    return null;
-  }
+    expenses.forEach((expense) => {
+      expense.categories.forEach((category) => {
+        categoryMap.set(category.uid, category);
+      });
+    });
+
+    setCategories(Array.from(categoryMap.values()));
+  }, [expenses, setTotalAmount]);
 
   if (!filteredExpenses) {
     return null;
@@ -106,7 +107,7 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
           </span>
         </div>
         <div className='flex-1 flex flex-col bg-[#F5F3F0] overflow-y-hidden'>
-          <ol className='flex flex-row gap-2 pt-4 pb-5.5 px-5 overflow-x-auto scrollbar-hide'>
+          <ul className='flex flex-row shrink-0 gap-2 pt-4 pb-[22px] px-5 overflow-x-auto scrollbar-hide'>
             <li key='category-all'>
               <CategoryButton
                 text='전체 소비'
@@ -127,9 +128,9 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
                 />
               </li>
             ))}
-          </ol>
+          </ul>
           <span className='text-[13px] text-[#555] px-5'>
-            총 {expenses.length}건
+            총 {filteredExpenses.length}건
           </span>
           <div className='pl-5 pr-4 mt-4 pb-8 overflow-y-auto scroll'>
             <ul className='flex flex-col gap-2'>

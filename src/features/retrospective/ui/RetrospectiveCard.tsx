@@ -46,22 +46,18 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
       <span className='text-[22px] text-[#222] font-semibold mt-3'>
         {Math.floor(totalAmount).toLocaleString()}원
       </span>
-      <ul className='flex flex-col gap-4 mt-8'>
-        {items.length === 0 ? (
-          <span>{title}에 해당하는 카테고리가 없습니다.</span>
-        ) : (
-          <>
-            {items.map((item) => (
-              <li className='flex flex-row' key={item.category.uid}>
-                <CategoryTag tagName={item.category.name} size='small' />
-                <span className='flex ml-auto items-center text-[17px] text-[#222] font-semibold'>
-                  {Math.floor(item.totalAmount).toLocaleString()}원
-                </span>
-              </li>
-            ))}
-          </>
-        )}
-      </ul>
+      {items.length !== 0 && (
+        <ul className='flex flex-col gap-4 mt-8'>
+          {items.map((item) => (
+            <li className='flex flex-row' key={item.category.uid}>
+              <CategoryTag tagName={item.category.name} size='small' />
+              <span className='flex ml-auto items-center text-[17px] text-[#222] font-semibold'>
+                {Math.floor(item.totalAmount).toLocaleString()}원
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
       <div className='flex flex-row justify-center items-center w-full mt-6 pt-4 border-t-[1px] border-[#efefef]'>
         <Button
           variant='ghost'

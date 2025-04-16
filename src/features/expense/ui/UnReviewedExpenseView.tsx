@@ -147,7 +147,12 @@ const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
         {/* 보이지 않는 스와이프 버튼 가로길이 측정용 버튼 */}
         <button
           ref={measureRef}
-          className='absolute -z-10 invisible whitespace-nowrap px-6 font-semibold text-[14px]'
+          className={cn(
+            'absolute -z-10 invisible',
+            'flex items-center justify-center',
+            'bg-white text-[#28A745]',
+            'font-semibold text-[14px]'
+          )}
         >
           리뷰하기
         </button>

@@ -7,10 +7,10 @@ import {
 } from '@/features/expense/api/useExpenseQuery';
 import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
 import { Expense } from '@/features/expense/model/types/Expense';
+import { getConsumptionTitle } from '@/features/expense/utils';
 import { cn } from '@/shared/ui/styles/utils';
 
-import { getConsumptionTitle } from '../../utils';
-import ClassifyExpenseDrawer from './ClassifyExpenseDrawer';
+import ReviewExpenseDrawer from './ReviewExpenseDrawer';
 import UnReviewedExpenseList from './UnReviewedExpenseList';
 
 const TotalExpenseEmptyPlaceholder: React.FC = () => {
@@ -119,7 +119,7 @@ const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
 
   return (
     <>
-      <ClassifyExpenseDrawer
+      <ReviewExpenseDrawer
         isOpen={selectedExpense !== null}
         onOpenChange={onDrawerOpenChange}
         setConsumptionKind={setConsumptionKind}

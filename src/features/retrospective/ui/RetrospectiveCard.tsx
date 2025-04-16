@@ -47,7 +47,7 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
 
   useEffect(() => {
     setSortedItems([...items].sort(sortRetrospectiveCategories));
-  }, [items, setSortedItems]);
+  }, [items]);
 
   return (
     <div className='flex flex-col pt-8 pb-4 pl-5 pr-4 bg-white'>

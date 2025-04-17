@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import { apiUrl } from '@/features/common/consts';
+import { getDateOnly } from '@/features/expense/model/types/utils';
 import {
   Retrospective,
   ServerRetrospective,
@@ -10,13 +11,25 @@ import userAxios from '@/shared/api/userAxios';
 
 import { fromServerRetrospective } from '../model/utils';
 
-export const useRetrospectives = () => {
+const useRetrospectivesByPeriod = ({
+  startDate,
+  endDate,
+}: {
+  startDate: Date;
+  endDate: Date;
+}) => {
   return useQuery<Retrospective[]>({
     queryKey: ['retrospective'],
     queryFn: async () => {
       try {
         const res = await userAxios.get<ServerRetrospective[]>(
-          apiUrl + '/expense/expenses/consumption-retrospective'
+          apiUrl + '/expense/expenses/consumption-retrospective',
+          {
+            params: {
+              start_date: getDateOnly(startDate),
+              end_date: getDateOnly(endDate),
+            },
+          }
         );
 
         const retrospectives = res.data.map((serverRetrospective) =>
@@ -32,3 +45,5 @@ export const useRetrospectives = () => {
     },
   });
 };
+
+export default useRetrospectivesByPeriod;

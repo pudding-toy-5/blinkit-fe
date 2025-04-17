@@ -278,7 +278,7 @@ export const useTotalAmountByPeriod = (period: Period) => {
   return { totalAmount, isLoading, error };
 };
 
-export const useCountByStartEnd = ({
+export const useExpenseCountByStartEnd = ({
   start,
   end,
 }: {
@@ -289,12 +289,15 @@ export const useCountByStartEnd = ({
     queryKey: ['expense-count'],
     queryFn: async () => {
       try {
-        const res = await userAxios.get<{ expense_count: number }>(baseUrl, {
-          params: {
-            start_date: formatDate(start, 'yyyy-MM-dd'),
-            end_date: formatDate(end, 'yyyy-MM-dd'),
-          },
-        });
+        const res = await userAxios.get<{ expense_count: number }>(
+          baseUrl + '/counts',
+          {
+            params: {
+              start_date: formatDate(start, 'yyyy-MM-dd'),
+              end_date: formatDate(end, 'yyyy-MM-dd'),
+            },
+          }
+        );
 
         return res.data.expense_count;
       } catch (error) {

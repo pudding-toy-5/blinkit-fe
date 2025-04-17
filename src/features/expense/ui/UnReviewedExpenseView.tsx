@@ -2,8 +2,8 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 import {
-  useExpenseCountByStartEnd,
-  useExpensesByStartEnd,
+  useExpenseCountByRange,
+  useExpensesByRange,
   useUpdateExpense,
 } from '@/features/expense/api/useExpenseQuery';
 import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
@@ -70,12 +70,12 @@ const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
   const start = new Date('2025-04-12');
   const end = new Date('2025-04-18');
 
-  const { data: totalExpenseCount = 0 } = useExpenseCountByStartEnd({
+  const { data: totalExpenseCount = 0 } = useExpenseCountByRange({
     start,
     end,
   });
 
-  const { data: unReviewedExpenses = [] } = useExpensesByStartEnd({
+  const { data: unReviewedExpenses = [] } = useExpensesByRange({
     start,
     end,
     consumptionKind: ConsumptionKind.none,

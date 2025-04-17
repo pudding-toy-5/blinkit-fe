@@ -1,28 +1,46 @@
-import { useNavigate } from '@tanstack/react-router';
+import { useLocation, useNavigate } from '@tanstack/react-router';
+import { useEffect, useState } from 'react';
 
-import { Button } from '@/components/ui/button';
-import Record from '@/shared/ui/icons/Record';
+import Navigation from '@/shared/model/Navigation';
 import Review from '@/shared/ui/icons/Review';
+import ReviewFilled from '@/shared/ui/icons/ReviewFilled';
+import Settings from '@/shared/ui/icons/Settings';
 import SettingsFilled from '@/shared/ui/icons/SettingsFilled';
+import Write from '@/shared/ui/icons/Write';
+import WriteFilled from '@/shared/ui/icons/WriteFilled';
 import { cn } from '@/shared/ui/styles/utils';
 
 interface NavItemProps {
-  text: string;
+  nav: Navigation;
   icon: React.ReactNode;
+  clickedIcon: React.ReactNode;
+  isClicked: boolean;
   onClick: () => void;
 }
 
-const NavItem: React.FC<NavItemProps> = ({ text, icon, onClick }) => {
+const NavItem: React.FC<NavItemProps> = ({
+  nav,
+  icon,
+  clickedIcon,
+  isClicked,
+  onClick,
+}) => {
   return (
     <li className='flex-1 flex flex-col py-[9px] items-center'>
-      <Button
-        variant='ghost'
+      <button
         className='flex flex-col h-auto w-auto has-[>svg]:p-0 shadow-none items-center'
         onClick={onClick}
       >
-        {icon}
-        <span className='text-[10px] text-[#222] font-medium'>{text}</span>
-      </Button>
+        {isClicked ? clickedIcon : icon}
+        <span
+          className={cn(
+            'text-[10px] text-[#222] mt-[2px]',
+            isClicked ? 'font-semibold' : 'font-medium'
+          )}
+        >
+          {nav}
+        </span>
+      </button>
     </li>
   );
 };
@@ -31,24 +49,42 @@ const BottomNavBar: React.FC<{ variant: 'white' | 'accent' }> = ({
   variant = 'white',
 }) => {
   const navigate = useNavigate();
+  const pathname = useLocation({ select: (location) => location.pathname });
 
-  const navItems: NavItemProps[] = [
+  const [selectedNav, setSelectedNav] = useState<Navigation>(Navigation.record);
+
+  const navItems: Omit<NavItemProps, 'isClicked'>[] = [
     {
-      text: '기록',
-      icon: <Record size={24} color='#222222' />,
+      nav: Navigation.record,
+      icon: <Write size={24} color='#222222' />,
+      clickedIcon: <WriteFilled size={24} color='#222222' />,
       onClick: () => void navigate({ to: '/expenses' }),
     },
     {
-      text: '리뷰',
+      nav: Navigation.review,
       icon: <Review size={24} color='#222222' />,
+      clickedIcon: <ReviewFilled size={24} color='#222222' />,
       onClick: () => void navigate({ to: '/expenses/review' }),
     },
     {
-      text: '설정',
-      icon: <SettingsFilled size={24} color='#222222' />,
+      nav: Navigation.settings,
+      icon: <Settings size={24} color='#222222' />,
+      clickedIcon: <SettingsFilled size={24} color='#222222' />,
       onClick: () => void navigate({ to: '/settings' }),
     },
   ];
+
+  useEffect(() => {
+    if (pathname === '/expenses') {
+      setSelectedNav(Navigation.record);
+    }
+    if (pathname === '/expenses/review') {
+      setSelectedNav(Navigation.review);
+    }
+    if (pathname === '/settings') {
+      setSelectedNav(Navigation.settings);
+    }
+  }, [pathname]);
 
   return (
     <div
@@ -64,8 +100,15 @@ const BottomNavBar: React.FC<{ variant: 'white' | 'accent' }> = ({
         )}
       >
         <ul className='flex flex-row w-full'>
-          {navItems.map(({ text, icon, onClick }) => (
-            <NavItem key={text} text={text} icon={icon} onClick={onClick} />
+          {navItems.map(({ nav, icon, clickedIcon, onClick }) => (
+            <NavItem
+              key={nav}
+              nav={nav}
+              icon={icon}
+              clickedIcon={clickedIcon}
+              isClicked={nav === selectedNav}
+              onClick={onClick}
+            />
           ))}
         </ul>
       </nav>

@@ -19,7 +19,7 @@ export const useRetrospectivesByRange = ({
   end: Date;
 }) => {
   return useQuery<Retrospective[]>({
-    queryKey: ['retrospective'],
+    queryKey: ['retrospective', start, end],
     queryFn: async () => {
       try {
         const res = await userAxios.get<ServerRetrospective[]>(

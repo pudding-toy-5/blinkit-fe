@@ -286,7 +286,7 @@ export const useExpenseCountByRange = ({
   end: Date;
 }) => {
   return useQuery<number>({
-    queryKey: ['expense-count'],
+    queryKey: ['expense-count', start, end],
     queryFn: async () => {
       try {
         const res = await userAxios.get<{ expense_count: number }>(

@@ -29,8 +29,8 @@ const NavItem: React.FC<NavItemProps> = ({
 }) => {
   return (
     <li className='flex-1 flex flex-col py-[9px] items-center'>
-      <button
-        className='flex flex-col h-auto w-auto has-[>svg]:p-0 shadow-none items-center'
+      <a
+        className='flex flex-col h-auto w-auto p-0 shadow-none items-center'
         onClick={onClick}
       >
         {isClicked ? clickedIcon : icon}
@@ -42,7 +42,7 @@ const NavItem: React.FC<NavItemProps> = ({
         >
           {nav}
         </span>
-      </button>
+      </a>
     </li>
   );
 };

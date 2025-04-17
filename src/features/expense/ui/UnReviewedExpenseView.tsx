@@ -29,7 +29,7 @@ const UnReviewedExpenseHeader: React.FC = () => {
       <h1 className='text-[19px] text-[#222] font-semibold'>
         리뷰하지 않은 지출 내역
       </h1>
-      <span className='pt-1 text-[13px] text-[#555]'>
+      <span className='pt-1 text-[13px] text-[#555] font-medium'>
         지출 내역을 왼쪽으로 밀어서 소비를 분류해보세요.
       </span>
     </div>

@@ -118,7 +118,7 @@ const ReviewExpenseDrawer: React.FC<Props> = ({
       }}
     >
       <DrawerContent className='px-5 py-6 rounded-t-[20px] bg-white'>
-        <DrawerHeader className='flex flex-col gap-0'>
+        <DrawerHeader className='flex flex-col gap-0 p-0'>
           <div className='flex flex-row'>
             <div className='flex-1' />
             <DrawerTitle className='font-[17px] font-semibold'>
@@ -136,7 +136,7 @@ const ReviewExpenseDrawer: React.FC<Props> = ({
             리뷰한 결과는 회고 탭에서 확인할 수 있어요.
           </DrawerDescription>
         </DrawerHeader>
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col gap-2 mt-6'>
           {consumptions.map((consumption) => (
             <RadioItem
               key={consumption.consumptionKind}

@@ -29,7 +29,7 @@ const UnReviewedExpenseHeader: React.FC = () => {
       <h1 className='text-[19px] text-[#222] font-semibold'>
         리뷰하지 않은 지출 내역
       </h1>
-      <span className='pt-1 text-[13px] text-[#555]'>
+      <span className='pt-1 text-[13px] text-[#555] font-medium'>
         지출 내역을 왼쪽으로 밀어서 소비를 분류해보세요.
       </span>
     </div>
@@ -133,7 +133,7 @@ const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
         setConsumptionKind={setConsumptionKind}
       />
       {/* when scrollable height, pr-5. when not scrollable height, pr-4 (scroll width - 4px) */}
-      <div className='relative flex flex-col flex-1 bg-[#f5f3f0] pl-5 pr-4 pt-8 overflow-y-auto scroll'>
+      <div className='relative flex flex-col flex-1 bg-[#f5f3f0] px-5 pt-8 overflow-y-auto scroll'>
         {totalExpenseCount === 0 ? (
           <TotalExpenseEmptyPlaceholder />
         ) : (

@@ -37,7 +37,7 @@ const CategoryFilter: React.FC<Props> = ({
     <ul className='flex flex-row shrink-0 gap-2 pt-4 pb-[22px] px-5 overflow-x-auto scrollbar-hide'>
       <li key='category-all'>
         <CategoryButton
-          text='전체 소비'
+          text='전체'
           isActive={selectedCategories.length === 0}
           onClick={onClearSelectedCategories}
         />

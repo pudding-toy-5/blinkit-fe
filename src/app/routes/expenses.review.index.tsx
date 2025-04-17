@@ -42,7 +42,7 @@ function RouteComponent() {
           }}
         />
       )}
-      <BottomNavBar variant='accent' />
+      <BottomNavBar variant={isRetrospective ? 'white' : 'accent'} />
     </UserLayout>
   );
 }

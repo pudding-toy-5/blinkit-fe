@@ -53,13 +53,14 @@ const BottomNavBar: React.FC<{ variant: 'white' | 'accent' }> = ({
   return (
     <div
       className={cn(
+        'mt-auto',
         variant === 'white' && 'bg-white',
         variant === 'accent' && 'bg-[#F5F3F0]'
       )}
     >
       <nav
         className={cn(
-          'flex flex-row items-center w-full mt-auto border-[1px] border-[#efefef] rounded-t-[16px] bg-white'
+          'flex flex-row items-center w-full border-[1px] border-[#efefef] rounded-t-[16px] bg-white'
         )}
       >
         <ul className='flex flex-row w-full'>

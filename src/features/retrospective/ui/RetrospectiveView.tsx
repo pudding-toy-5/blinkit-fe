@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useExpenses } from '@/features/expense/api/useExpenseQuery';
 import {
   consumptionConscious,
   consumptionEmotional,
   consumptionEssential,
 } from '@/features/expense/consts';
 import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
-import { useRetrospectivesByStartEnd } from '@/features/retrospective/api/useRetrospective';
+import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetrospective';
 
 import RetrospectiveCard from './RetrospectiveCard';
 import RetrospectiveDetailPopover from './RetrospectiveDetailPopover';
@@ -15,11 +14,7 @@ import RetrospectiveDetailPopover from './RetrospectiveDetailPopover';
 const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
   onMoveReview,
 }) => {
-  const { data: totalExpenses } = useExpenses({
-    period: { year: 2025, month: 4 },
-  });
-
-  const { data: retrospectives } = useRetrospectivesByStartEnd({
+  const { data: retrospectives = [] } = useRetrospectivesByRange({
     start: new Date('2025-04-12'),
     end: new Date('2025-04-18'),
   });
@@ -28,17 +23,17 @@ const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
     useState<ConsumptionKind | null>(null);
   const [open, setOpen] = useState<boolean>(false);
 
-  if (!retrospectives) {
-    return null;
-  }
+  const [reviewedExpenseCount, setReviewedExpenseCount] = useState<number>(0);
 
-  if (!totalExpenses) {
-    return;
-  }
+  useEffect(() => {
+    setReviewedExpenseCount(
+      retrospectives.reduce((acc, cur) => acc + cur.totalCount, 0)
+    );
+  }, [retrospectives]);
 
   return (
     <div className='flex-1 flex flex-col overflow-y-auto scroll'>
-      {totalExpenses.length === 0 ? (
+      {reviewedExpenseCount === 0 ? (
         <div className='flex-1 flex flex-col items-center justify-center text-center'>
           <span className='text-[15px] text-[#555] leading-[150%]'>
             아직 리뷰한 소비가 없어요.

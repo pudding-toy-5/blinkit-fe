@@ -7,7 +7,7 @@ import {
   consumptionEssential,
 } from '@/features/expense/consts';
 import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
-import useRetrospectivesByPeriod from '@/features/retrospective/api/useRetrospectivesByPeriod';
+import { useRetrospectivesByStartEnd } from '@/features/retrospective/api/useRetrospective';
 
 import RetrospectiveCard from './RetrospectiveCard';
 import RetrospectiveDetailPopover from './RetrospectiveDetailPopover';
@@ -18,9 +18,10 @@ const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
   const { data: totalExpenses } = useExpenses({
     period: { year: 2025, month: 4 },
   });
-  const { data: retrospectives } = useRetrospectivesByPeriod({
-    startDate: new Date(2025, 4, 12),
-    endDate: new Date(2025, 4, 18),
+
+  const { data: retrospectives } = useRetrospectivesByStartEnd({
+    start: new Date('2025-04-12'),
+    end: new Date('2025-04-18'),
   });
 
   const [consumptionKind, setConsumptionKind] =

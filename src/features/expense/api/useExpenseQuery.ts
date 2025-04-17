@@ -62,7 +62,7 @@ export const useExpenses = ({
   });
 };
 
-export const useExpensesByStartEnd = ({
+export const useExpensesByRange = ({
   start,
   end,
   consumptionKind,
@@ -72,7 +72,7 @@ export const useExpensesByStartEnd = ({
   consumptionKind: ConsumptionKind;
 }) => {
   return useQuery<Expense[]>({
-    queryKey: [...queryKeys.expenses, start, end],
+    queryKey: [...queryKeys.expenses, start, end, consumptionKind],
     queryFn: async () => {
       try {
         const res = await userAxios.get(baseUrl, {
@@ -278,7 +278,7 @@ export const useTotalAmountByPeriod = (period: Period) => {
   return { totalAmount, isLoading, error };
 };
 
-export const useExpenseCountByStartEnd = ({
+export const useExpenseCountByRange = ({
   start,
   end,
 }: {

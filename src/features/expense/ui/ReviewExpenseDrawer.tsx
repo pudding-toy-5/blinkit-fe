@@ -47,7 +47,7 @@ const RadioItem: React.FC<RadioItemProps> = ({
       <div className='flex flex-col'>
         <div className='flex flex-row items-center gap-1'>
           <span className='text-[15px] text-[#222] font-semibold'>{title}</span>
-          <Popover>
+          <Popover modal={true}>
             <PopoverTrigger>
               <div className='rotate-180'>
                 <Exclamation size={16} color='#999' />

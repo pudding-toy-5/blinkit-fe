@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { formatDate } from 'date-fns';
 import { useMemo } from 'react';
 
 import { apiUrl } from '@/features/common/consts';
@@ -50,6 +51,41 @@ export const useExpenses = ({
           convertServerExpenseToExpense(serverExpense)
         );
 
+        return expenses;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error('지출 목록 조회 실패: ' + error.message);
+        }
+        throw error;
+      }
+    },
+  });
+};
+
+export const useExpensesByStartEnd = ({
+  start,
+  end,
+  consumptionKind,
+}: {
+  start: Date;
+  end: Date;
+  consumptionKind: ConsumptionKind;
+}) => {
+  return useQuery<Expense[]>({
+    queryKey: [...queryKeys.expenses, start, end],
+    queryFn: async () => {
+      try {
+        const res = await userAxios.get(baseUrl, {
+          params: {
+            start_date: formatDate(start, 'yyyy-MM-dd'),
+            end_date: formatDate(end, 'yyyy-MM-dd'),
+            consumption_kind: consumptionKind,
+          },
+        });
+        const serverExpenses = res.data as ServerExpense[];
+        const expenses = serverExpenses.map((serverExpense) =>
+          convertServerExpenseToExpense(serverExpense)
+        );
         return expenses;
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -240,4 +276,33 @@ export const useTotalAmountByPeriod = (period: Period) => {
   );
 
   return { totalAmount, isLoading, error };
+};
+
+export const useCountByStartEnd = ({
+  start,
+  end,
+}: {
+  start: Date;
+  end: Date;
+}) => {
+  return useQuery<number>({
+    queryKey: ['expense-count'],
+    queryFn: async () => {
+      try {
+        const res = await userAxios.get<{ expense_count: number }>(baseUrl, {
+          params: {
+            start_date: formatDate(start, 'yyyy-MM-dd'),
+            end_date: formatDate(end, 'yyyy-MM-dd'),
+          },
+        });
+
+        return res.data.expense_count;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error('지출 개수 조회 실패' + error.message);
+        }
+        throw error;
+      }
+    },
+  });
 };

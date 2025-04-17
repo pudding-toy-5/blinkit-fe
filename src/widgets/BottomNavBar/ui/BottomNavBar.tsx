@@ -79,14 +79,14 @@ const BottomNavBar: React.FC<{ variant: 'white' | 'accent' }> = ({
   ];
 
   useEffect(() => {
-    if (pathname === '/expenses') {
-      setSelectedNav(BottomNavigation.record);
-    }
-    if (pathname === '/expenses/review') {
-      setSelectedNav(BottomNavigation.review);
-    }
-    if (pathname === '/settings') {
-      setSelectedNav(BottomNavigation.settings);
+    const pathToNav = {
+      '/expenses': BottomNavigation.record,
+      '/expenses/review': BottomNavigation.review,
+      '/settings': BottomNavigation.settings,
+    };
+
+    if (pathname in pathToNav) {
+      setSelectedNav(pathToNav[pathname as keyof typeof pathToNav]);
     }
   }, [pathname]);
 

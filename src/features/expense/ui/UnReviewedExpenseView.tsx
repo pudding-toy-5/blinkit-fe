@@ -2,12 +2,14 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 import {
-  useExpenses,
+  useExpenseCountByRange,
+  useExpensesByRange,
   useUpdateExpense,
 } from '@/features/expense/api/useExpenseQuery';
 import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
 import { Expense } from '@/features/expense/model/types/Expense';
 import { getConsumptionTitle } from '@/features/expense/utils';
+import useDateRange from '@/shared/lib/useDateRange';
 import { cn } from '@/shared/ui/styles/utils';
 
 import ReviewExpenseDrawer from './ReviewExpenseDrawer';
@@ -66,13 +68,19 @@ interface Props {
 const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
   const updateExpense = useUpdateExpense();
 
-  const { data: totalExpenses = [] } = useExpenses({
-    period: { year: 2025, month: 4 },
+  const {
+    dateRange: { start, end },
+  } = useDateRange();
+
+  const { data: totalExpenseCount = 0 } = useExpenseCountByRange({
+    start,
+    end,
   });
 
-  const { data: unReviewedExpenses = [] } = useExpenses({
-    period: { year: 2025, month: 4 },
-    consumptionKind: 'none',
+  const { data: unReviewedExpenses = [] } = useExpensesByRange({
+    start,
+    end,
+    consumptionKind: ConsumptionKind.none,
   });
 
   const [selectedExpense, setSelectedExpense] = useState<Expense | null>(null);
@@ -126,7 +134,7 @@ const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
       />
       {/* when scrollable height, pr-5. when not scrollable height, pr-4 (scroll width - 4px) */}
       <div className='relative flex flex-col flex-1 bg-[#f5f3f0] pl-5 pr-4 pt-8 overflow-y-auto scroll'>
-        {totalExpenses.length === 0 ? (
+        {totalExpenseCount === 0 ? (
           <TotalExpenseEmptyPlaceholder />
         ) : (
           <>

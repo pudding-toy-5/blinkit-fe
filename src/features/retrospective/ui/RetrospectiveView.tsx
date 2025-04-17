@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useExpenses } from '@/features/expense/api/useExpenseQuery';
 import {
   consumptionConscious,
   consumptionEmotional,
   consumptionEssential,
 } from '@/features/expense/consts';
 import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
-import { useRetrospectives } from '@/features/retrospective/api/useRetrospectives';
+import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetrospective';
+import useDateRange from '@/shared/lib/useDateRange';
 
 import RetrospectiveCard from './RetrospectiveCard';
 import RetrospectiveDetailPopover from './RetrospectiveDetailPopover';
@@ -15,26 +15,30 @@ import RetrospectiveDetailPopover from './RetrospectiveDetailPopover';
 const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
   onMoveReview,
 }) => {
-  const { data: totalExpenses } = useExpenses({
-    period: { year: 2025, month: 4 },
+  const {
+    dateRange: { start, end },
+  } = useDateRange();
+
+  const { data: retrospectives = [] } = useRetrospectivesByRange({
+    start,
+    end,
   });
-  const { data: retrospectives } = useRetrospectives();
 
   const [consumptionKind, setConsumptionKind] =
     useState<ConsumptionKind | null>(null);
   const [open, setOpen] = useState<boolean>(false);
 
-  if (!retrospectives) {
-    return null;
-  }
+  const [reviewedExpenseCount, setReviewedExpenseCount] = useState<number>(0);
 
-  if (!totalExpenses) {
-    return;
-  }
+  useEffect(() => {
+    setReviewedExpenseCount(
+      retrospectives.reduce((acc, cur) => acc + cur.totalCount, 0)
+    );
+  }, [retrospectives]);
 
   return (
     <div className='flex-1 flex flex-col overflow-y-auto scroll'>
-      {totalExpenses.length === 0 ? (
+      {reviewedExpenseCount === 0 ? (
         <div className='flex-1 flex flex-col items-center justify-center text-center'>
           <span className='text-[15px] text-[#555] leading-[150%]'>
             아직 리뷰한 소비가 없어요.

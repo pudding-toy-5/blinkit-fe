@@ -10,9 +10,6 @@ export const convertExpenseToServerExpense = (
     getDateOnly(expendedDate)
   ).toISOString();
 
-  console.log(expendedDate);
-  console.log(expended_at);
-
   const serverExpense: ServerExpense = {
     uid: uid ?? '',
     expended_at,

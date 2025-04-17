@@ -9,6 +9,7 @@ import {
 import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
 import { Expense } from '@/features/expense/model/types/Expense';
 import { getConsumptionTitle } from '@/features/expense/utils';
+import useDateRange from '@/shared/lib/useDateRange';
 import { cn } from '@/shared/ui/styles/utils';
 
 import ReviewExpenseDrawer from './ReviewExpenseDrawer';
@@ -67,8 +68,9 @@ interface Props {
 const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
   const updateExpense = useUpdateExpense();
 
-  const start = new Date('2025-04-12');
-  const end = new Date('2025-04-18');
+  const {
+    dateRange: { start, end },
+  } = useDateRange();
 
   const { data: totalExpenseCount = 0 } = useExpenseCountByRange({
     start,

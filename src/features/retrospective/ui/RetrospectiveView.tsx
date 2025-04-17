@@ -7,6 +7,7 @@ import {
 } from '@/features/expense/consts';
 import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
 import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetrospective';
+import useDateRange from '@/shared/lib/useDateRange';
 
 import RetrospectiveCard from './RetrospectiveCard';
 import RetrospectiveDetailPopover from './RetrospectiveDetailPopover';
@@ -14,9 +15,13 @@ import RetrospectiveDetailPopover from './RetrospectiveDetailPopover';
 const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
   onMoveReview,
 }) => {
+  const {
+    dateRange: { start, end },
+  } = useDateRange();
+
   const { data: retrospectives = [] } = useRetrospectivesByRange({
-    start: new Date('2025-04-12'),
-    end: new Date('2025-04-18'),
+    start,
+    end,
   });
 
   const [consumptionKind, setConsumptionKind] =

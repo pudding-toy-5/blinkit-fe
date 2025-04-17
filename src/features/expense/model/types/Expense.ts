@@ -1,5 +1,7 @@
 import { Category } from '@/features/category/model/types/Category';
 
+import { ConsumptionKind } from './ConsumptionKind';
+
 // expense interfaces
 export interface DailyExpense {
   date: Date;
@@ -11,6 +13,7 @@ export interface ServerExpense {
   expended_at: string;
   categories?: Category[];
   category_uids?: string[];
+  consumption_kind?: ConsumptionKind;
   memo: string;
   amount: string;
 }
@@ -19,6 +22,7 @@ export interface Expense {
   uid: string;
   date: Date;
   categories: Category[];
+  consumptionKind?: ConsumptionKind;
   memo: string;
   amount: number;
 }

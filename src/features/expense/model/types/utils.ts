@@ -3,15 +3,12 @@ import { Expense, ServerExpense } from '@/features/expense/model/types/Expense';
 export const convertExpenseToServerExpense = (
   expense: Partial<Expense>
 ): ServerExpense => {
-  const { uid, date, memo, amount, categories } = expense;
+  const { uid, date, memo, amount, categories, consumptionKind } = expense;
 
   const expendedDate = date ?? new Date();
   const expended_at = addLocalTimezoneOffset(
     getDateOnly(expendedDate)
   ).toISOString();
-
-  console.log(expendedDate);
-  console.log(expended_at);
 
   const serverExpense: ServerExpense = {
     uid: uid ?? '',
@@ -19,6 +16,7 @@ export const convertExpenseToServerExpense = (
     memo: memo ?? '',
     amount: amount !== undefined ? amount.toString() : '0',
     category_uids: categories ? categories.map((category) => category.uid) : [],
+    consumption_kind: consumptionKind,
   };
 
   return serverExpense;
@@ -27,7 +25,8 @@ export const convertExpenseToServerExpense = (
 export const convertServerExpenseToExpense = (
   serverExpense: ServerExpense
 ): Expense => {
-  const { uid, expended_at, memo, amount, categories } = serverExpense;
+  const { uid, expended_at, memo, amount, categories, consumption_kind } =
+    serverExpense;
   const parsedDate = new Date(expended_at);
   const parsedAmount = parseInt(amount);
 
@@ -37,6 +36,7 @@ export const convertServerExpenseToExpense = (
     memo,
     amount: isNaN(parsedAmount) ? 0 : parsedAmount,
     categories,
+    consumptionKind: consumption_kind,
   } as Expense;
 };
 

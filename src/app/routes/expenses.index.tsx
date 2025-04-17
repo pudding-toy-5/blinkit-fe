@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import React from 'react';
 
-import { Button } from '@/components/ui/button';
 import {
   useDailyExpensesByPeriod,
   useTotalAmountByPeriod,
@@ -11,8 +10,8 @@ import AddExpenseButton from '@/features/expense/ui/AddExpenseButton';
 import DailyExpenseList from '@/features/expense/ui/DailyExpenseList';
 import MonthSelector from '@/features/expense/ui/MonthSelector';
 import Logo from '@/shared/ui/icons/Logo';
-import Setting from '@/shared/ui/icons/Setting';
 import UserLayout from '@/shared/ui/layout/UserLayout';
+import BottomNavBar from '@/widgets/BottomNavBar';
 
 export const Route = createFileRoute('/expenses/')({
   component: ExpensesPage,
@@ -52,11 +51,6 @@ export function ExpensesPage() {
       {!isCollapsed && (
         <header className='flex flex-row items-center px-5 py-4'>
           <Logo />
-          <Button variant='ghost' className='ml-auto size-6' asChild>
-            <Link to='/settings'>
-              <Setting size={24} />
-            </Link>
-          </Button>
         </header>
       )}
       <div className='px-5 py-4'>
@@ -74,6 +68,7 @@ export function ExpensesPage() {
         </div>
       </div>
       <DailyExpenseList dailyExpenses={dailyExpenses} onScroll={handleScroll} />
+      <BottomNavBar variant='accent' />
       <Link to='/expenses/new'>
         <AddExpenseButton />
       </Link>

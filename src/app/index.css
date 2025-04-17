@@ -173,6 +173,15 @@
   border: none;
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+
 /* 전체 래퍼에 적용 (예: #app, .wrapper 등) */
 .safe-area-wrapper {
   padding-top:    var(--safe-area-inset-top-legacy);

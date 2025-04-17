@@ -16,6 +16,7 @@ import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import UserLayout from '@/shared/ui/layout/UserLayout';
 import { cn } from '@/shared/ui/styles/utils';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
+import BottomNavBar from '@/widgets/BottomNavBar';
 
 export const Route = createFileRoute('/settings/')({
   component: RouteComponent,
@@ -73,12 +74,7 @@ function RouteComponent() {
 
   return (
     <UserLayout>
-      <SubPageHeader
-        title='설정'
-        onClickBack={() => {
-          void navigate({ to: '/expenses' });
-        }}
-      />
+      <SubPageHeader title='설정' />
       <ul className='flex flex-col list-none gap-6 pt-6 px-5'>
         {settingGroups.map((settingGroup) => (
           <li className='flex flex-col gap-4' key={settingGroup.text}>
@@ -163,6 +159,7 @@ function RouteComponent() {
           </li>
         ))}
       </ul>
+      <BottomNavBar variant='white' />
     </UserLayout>
   );
 }

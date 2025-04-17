@@ -1,6 +1,6 @@
 import IconProps from './types';
 
-const Setting: React.FC<IconProps> = ({ size = 16 }) => {
+const Settings: React.FC<IconProps> = ({ size = 16 }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -21,4 +21,4 @@ const Setting: React.FC<IconProps> = ({ size = 16 }) => {
   );
 };
 
-export default Setting;
+export default Settings;

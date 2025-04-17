@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from '@tanstack/react-router';
+import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 
 import Review from '@/shared/ui/icons/Review';
@@ -17,7 +17,7 @@ interface NavItemProps {
   icon: React.ReactNode;
   clickedIcon: React.ReactNode;
   isClicked: boolean;
-  onClick: () => void;
+  to: string;
 }
 
 const NavItem: React.FC<NavItemProps> = ({
@@ -25,13 +25,13 @@ const NavItem: React.FC<NavItemProps> = ({
   icon,
   clickedIcon,
   isClicked,
-  onClick,
+  to,
 }) => {
   return (
     <li className='flex-1 flex flex-col py-[9px] items-center'>
-      <a
+      <Link
         className='flex flex-col h-auto w-auto p-0 shadow-none items-center'
-        onClick={onClick}
+        to={to}
         aria-label={`${nav} 페이지로 이동`}
       >
         {isClicked ? clickedIcon : icon}
@@ -43,7 +43,7 @@ const NavItem: React.FC<NavItemProps> = ({
         >
           {nav}
         </span>
-      </a>
+      </Link>
     </li>
   );
 };
@@ -51,7 +51,6 @@ const NavItem: React.FC<NavItemProps> = ({
 const BottomNavBar: React.FC<{ variant: 'white' | 'accent' }> = ({
   variant = 'white',
 }) => {
-  const navigate = useNavigate();
   const pathname = useLocation({ select: (location) => location.pathname });
 
   const [selectedNav, setSelectedNav] = useState<BottomNavigationType>(
@@ -63,19 +62,19 @@ const BottomNavBar: React.FC<{ variant: 'white' | 'accent' }> = ({
       nav: BottomNavigation.record,
       icon: <Write size={24} color='#222222' />,
       clickedIcon: <WriteFilled size={24} color='#222222' />,
-      onClick: () => void navigate({ to: '/expenses' }),
+      to: '/expenses',
     },
     {
       nav: BottomNavigation.review,
       icon: <Review size={24} color='#222222' />,
       clickedIcon: <ReviewFilled size={24} color='#222222' />,
-      onClick: () => void navigate({ to: '/expenses/review' }),
+      to: '/expenses/review',
     },
     {
       nav: BottomNavigation.settings,
       icon: <Settings size={24} color='#222222' />,
       clickedIcon: <SettingsFilled size={24} color='#222222' />,
-      onClick: () => void navigate({ to: '/settings' }),
+      to: '/settings',
     },
   ];
 

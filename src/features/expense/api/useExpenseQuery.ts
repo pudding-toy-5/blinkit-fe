@@ -80,14 +80,14 @@ export const useExpensesByRange = ({
     ],
     queryFn: async () => {
       try {
-        const res = await userAxios.get(baseUrl, {
+        const res = await userAxios.get<ServerExpense[]>(baseUrl, {
           params: {
             start_date: formatDate(start, 'yyyy-MM-dd'),
             end_date: formatDate(end, 'yyyy-MM-dd'),
             consumption_kind: consumptionKind,
           },
         });
-        const serverExpenses = res.data as ServerExpense[];
+        const serverExpenses = res.data;
         const expenses = serverExpenses.map((serverExpense) =>
           convertServerExpenseToExpense(serverExpense)
         );

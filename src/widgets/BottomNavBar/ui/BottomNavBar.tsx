@@ -104,14 +104,14 @@ const BottomNavBar: React.FC<{ variant: 'white' | 'accent' }> = ({
         )}
       >
         <ul className='flex flex-row w-full'>
-          {navItems.map(({ nav, icon, clickedIcon, onClick }) => (
+          {navItems.map(({ nav, icon, clickedIcon, to }) => (
             <NavItem
               key={nav}
               nav={nav}
               icon={icon}
               clickedIcon={clickedIcon}
               isClicked={nav === selectedNav}
-              onClick={onClick}
+              to={to}
             />
           ))}
         </ul>

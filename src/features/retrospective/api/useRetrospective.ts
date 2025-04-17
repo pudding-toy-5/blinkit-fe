@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { formatDate } from 'date-fns';
 
 import { apiUrl } from '@/features/common/consts';
-import { getDateOnly } from '@/features/expense/model/types/utils';
 import {
   Retrospective,
   ServerRetrospective,
@@ -11,12 +11,12 @@ import userAxios from '@/shared/api/userAxios';
 
 import { fromServerRetrospective } from '../model/utils';
 
-const useRetrospectivesByPeriod = ({
-  startDate,
-  endDate,
+export const useRetrospectivesByStartEnd = ({
+  start,
+  end,
 }: {
-  startDate: Date;
-  endDate: Date;
+  start: Date;
+  end: Date;
 }) => {
   return useQuery<Retrospective[]>({
     queryKey: ['retrospective'],
@@ -26,8 +26,8 @@ const useRetrospectivesByPeriod = ({
           apiUrl + '/expense/expenses/consumption-retrospective',
           {
             params: {
-              start_date: getDateOnly(startDate),
-              end_date: getDateOnly(endDate),
+              start_date: formatDate(start, 'yyyy-MM-dd'),
+              end_date: formatDate(end, 'yyyy-MM-dd'),
             },
           }
         );
@@ -45,5 +45,3 @@ const useRetrospectivesByPeriod = ({
     },
   });
 };
-
-export default useRetrospectivesByPeriod;

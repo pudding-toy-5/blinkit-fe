@@ -32,6 +32,7 @@ const NavItem: React.FC<NavItemProps> = ({
       <a
         className='flex flex-col h-auto w-auto p-0 shadow-none items-center'
         onClick={onClick}
+        aria-label={`${nav} 페이지로 이동`}
       >
         {isClicked ? clickedIcon : icon}
         <span

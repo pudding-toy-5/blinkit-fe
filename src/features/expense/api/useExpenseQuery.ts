@@ -72,7 +72,12 @@ export const useExpensesByRange = ({
   consumptionKind: ConsumptionKind;
 }) => {
   return useQuery<Expense[]>({
-    queryKey: [...queryKeys.expenses, start, end, consumptionKind],
+    queryKey: [
+      ...queryKeys.expenses,
+      start.toISOString(),
+      end.toISOString(),
+      consumptionKind,
+    ],
     queryFn: async () => {
       try {
         const res = await userAxios.get(baseUrl, {
@@ -286,7 +291,7 @@ export const useExpenseCountByRange = ({
   end: Date;
 }) => {
   return useQuery<number>({
-    queryKey: ['expense-count', start, end],
+    queryKey: ['expense-count', start.toISOString(), end.toISOString()],
     queryFn: async () => {
       try {
         const res = await userAxios.get<{ expense_count: number }>(

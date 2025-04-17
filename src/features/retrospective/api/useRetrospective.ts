@@ -11,7 +11,7 @@ import userAxios from '@/shared/api/userAxios';
 
 import { fromServerRetrospective } from '../model/utils';
 
-export const useRetrospectivesByStartEnd = ({
+export const useRetrospectivesByRange = ({
   start,
   end,
 }: {

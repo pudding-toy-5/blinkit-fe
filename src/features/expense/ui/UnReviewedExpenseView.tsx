@@ -133,7 +133,7 @@ const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
         setConsumptionKind={setConsumptionKind}
       />
       {/* when scrollable height, pr-5. when not scrollable height, pr-4 (scroll width - 4px) */}
-      <div className='relative flex flex-col flex-1 bg-[#f5f3f0] pl-5 pr-4 pt-8 overflow-y-auto scroll'>
+      <div className='relative flex flex-col flex-1 bg-[#f5f3f0] px-5 pt-8 overflow-y-auto scroll'>
         {totalExpenseCount === 0 ? (
           <TotalExpenseEmptyPlaceholder />
         ) : (

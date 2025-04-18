@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - github-actions
 
 jobs:
   build-and-deploy:
@@ -43,7 +44,7 @@ jobs:
         with:
           host: ${{ secrets.BLINKIT_SERVER_HOST }}
           username: hannal # Assuming username is hannal based on paths
-          key: ${{ secrets.BLINKIT_SERVER_PUBKEY }} # Secret containing the SSH private key
+          key: ${{ secrets.SSH_PRIVATE_KEY }} # Corrected: Use the secret containing the PRIVATE key
           port: 22022 # Specified SSH port
           script: |
             set -e # Exit immediately if a command exits with a non-zero status.

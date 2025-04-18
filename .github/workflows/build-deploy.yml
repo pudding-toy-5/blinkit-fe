@@ -48,7 +48,8 @@ jobs:
       # Create a tar file of the source code (excluding node_modules and .git)
       - name: Create source code archive
         run: |
-          tar --exclude='.git' --exclude='node_modules' -czf /tmp/blinkit-fe-source.tar.gz .
+          tar --exclude='.git' --exclude='node_modules' -czf blinkit-fe-source.tar.gz .
+          ls -la blinkit-fe-source.tar.gz
           echo "Created archive of source code"
 
       # Deploy the files using scp
@@ -59,7 +60,7 @@ jobs:
           username: hannal
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22022
-          source: "/tmp/blinkit-fe-source.tar.gz"
+          source: "blinkit-fe-source.tar.gz"
           target: "/tmp/"
 
       # Extract the files and install/build on the server

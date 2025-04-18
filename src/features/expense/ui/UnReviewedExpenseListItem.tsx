@@ -88,6 +88,7 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
           width: liWidth
             ? `calc(${liWidth.toString()}px + ${buttonWidth.toString()}px + ${GAP.toString()}px)`
             : undefined,
+          marginLeft: '20px',
           transform: deleteWidth.to((w) => `translateX(-${w.toString()}px)`),
           willChange: 'transform',
         }}

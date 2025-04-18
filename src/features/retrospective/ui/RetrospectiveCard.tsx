@@ -72,7 +72,7 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
         <ul className='flex flex-col gap-4 mt-8'>
           {sortedItems.map((item) => (
             <li className='flex flex-row' key={item.category.uid}>
-              <CategoryTag tagName={item.category.name} size='small' />
+              <CategoryTag tagName={item.category.name} size='medium' />
               <span className='flex ml-auto items-center text-[17px] text-[#222] font-semibold'>
                 {Math.floor(item.totalAmount).toLocaleString()}원
               </span>

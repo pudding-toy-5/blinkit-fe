@@ -34,6 +34,9 @@ jobs:
           elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
             echo "DEPLOY_PATH=/home/hannal/blink/blinkit-fe-dev" >> $GITHUB_ENV
             echo "Deploying develop branch to /home/hannal/blink/blinkit-fe-dev"
+          elif [[ "${{ github.ref }}" == "refs/heads/github-actions" ]]; then
+            echo "DEPLOY_PATH=/home/hannal/blink/blinkit-fe-dev" >> $GITHUB_ENV
+            echo "Deploying develop branch to /home/hannal/blink/blinkit-fe-dev"
           else
             echo "Branch ${{ github.ref }} is not main or develop. Skipping deployment."
             exit 1 # Exit if not a deployable branch

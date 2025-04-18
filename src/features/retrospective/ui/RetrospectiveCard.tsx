@@ -81,14 +81,13 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
         </ul>
       )}
       <div className='flex flex-row justify-center items-center w-full mt-6 pt-4 border-t-[1px] border-[#efefef]'>
-        <Button
-          variant='ghost'
-          className='shadow-none h-auto has-[>svg]:p-0'
+        <button
+          className='flex flex-row gap-[2px] items-center'
           onClick={onClickRetrospectiveDetail}
         >
-          자세히보기
+          <span className='text-[13px] text-[#555]'>자세히보기</span>
           <ArrowRight size={16} color='#555555' />
-        </Button>
+        </button>
       </div>
     </div>
   );

@@ -148,6 +148,14 @@
     @apply bg-background text-foreground;
     font-family: 'Pretendard', ui-sans-serif, system-ui, sans-serif;
     background-color: white;
+    -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
+  }
+
+  html, body {
+    position: fixed;
+    overflow: hidden;
+    height: 100dvh;
+    width: 100%;
   }
 }
 

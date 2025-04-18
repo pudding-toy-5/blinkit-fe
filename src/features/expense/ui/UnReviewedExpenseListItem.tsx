@@ -93,7 +93,7 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
           willChange: 'transform',
         }}
       >
-        <div style={{ width: `${liWidth.toString()}px`, flexShrink: 0 }}>
+        <div style={{ width: `${(liWidth - 20).toString()}px`, flexShrink: 0 }}>
           <ReviewExpenseCard expense={expense} />
         </div>
 

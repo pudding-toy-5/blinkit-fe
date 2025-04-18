@@ -34,7 +34,7 @@ const ReviewTopNavBar: React.FC<NavBarProps> = ({
   onClickRetrospective,
 }) => {
   return (
-    <nav className='px-5 pt-4'>
+    <nav className='px-5 pt-4 border-b border-[#EFEFEF]'>
       <ul className='flex flex-row items-center justify-center gap-5'>
         <NavItem
           text='리뷰'

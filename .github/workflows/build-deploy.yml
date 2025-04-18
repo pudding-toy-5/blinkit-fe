@@ -1,0 +1,71 @@
+name: Build and Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8 # Adjust if needed, check your project's pnpm version
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Adjust if needed, align with your project's Node version
+          cache: 'pnpm'
+
+      - name: Determine Deployment Path
+        id: set_path
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "DEPLOY_PATH=/home/hannal/blink/blinkit-fe" >> $GITHUB_ENV
+            echo "Deploying main branch to /home/hannal/blink/blinkit-fe"
+          elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            echo "DEPLOY_PATH=/home/hannal/blink/blinkit-fe-dev" >> $GITHUB_ENV
+            echo "Deploying develop branch to /home/hannal/blink/blinkit-fe-dev"
+          else
+            echo "Branch ${{ github.ref }} is not main or develop. Skipping deployment."
+            exit 1 # Exit if not a deployable branch
+          fi
+
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@v1.0.3 # Using a specific version is recommended
+        with:
+          host: ${{ secrets.BLINKIT_SERVER_HOST }}
+          username: hannal # Assuming username is hannal based on paths
+          key: ${{ secrets.BLINKIT_SERVER_PUBKEY }} # Secret containing the SSH private key
+          port: 22022 # Specified SSH port
+          script: |
+            set -e # Exit immediately if a command exits with a non-zero status.
+            echo "Starting deployment to ${{ env.DEPLOY_PATH }} on host ${{ secrets.BLINKIT_SERVER_HOST }}"
+            # Ensure target directory exists on the server
+            mkdir -p ${{ env.DEPLOY_PATH }}
+            # Use rsync to copy source files efficiently, excluding .git and node_modules
+            # Requires rsync on the runner (default on ubuntu-latest) and the target server
+            echo "Syncing files via rsync..."
+            rsync -avz --delete --exclude='.git' --exclude='node_modules' ./ ${{ env.DEPLOY_PATH }}/
+            echo "File sync complete. Changing directory on remote server."
+            # Change directory to the deployment path on the server
+            cd ${{ env.DEPLOY_PATH }}
+            echo "Current directory on remote: $(pwd)"
+            # Install dependencies using pnpm on the server
+            echo "Running pnpm install on remote server..."
+            pnpm install
+            echo "pnpm install completed."
+            # Build the project using pnpm on the server
+            echo "Running pnpm build on remote server..."
+            pnpm build
+            echo "pnpm build completed."
+            echo "Deployment to ${{ env.DEPLOY_PATH }} completed successfully."
+            # Optional: Add any server restart commands here if needed
+            # e.g., sudo systemctl restart your-app-service

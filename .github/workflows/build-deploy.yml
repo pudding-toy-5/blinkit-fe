@@ -91,9 +91,11 @@ jobs:
             echo "현재 디렉토리: $(pwd)"
             
             # 의존성 설치 및 빌드 수행
-            echo "npm install 실행 중..."
-            npm install
-            echo "npm run build 실행 중..."
-            npm run build
+            echo "pnpm install 실행 중..."
+            # --no-frozen-lockfile 옵션은 lockfile을 업데이트 할 수 있도록 합니다
+            # --shamefully-hoist 옵션은 중첩된 의존성을 호이스팅하여 호환성 문제를 줄입니다
+            pnpm install --no-frozen-lockfile --shamefully-hoist
+            echo "pnpm build 실행 중..."
+            pnpm build
             
             echo "배포가 성공적으로 완료되었습니다!"

@@ -181,24 +181,28 @@
   display: none; /* Chrome, Safari, Opera */
 }
 
-
-/* 전체 래퍼에 적용 (예: #app, .wrapper 등) */
-.safe-area-wrapper {
-  padding-top:    var(--safe-area-inset-top-legacy);
-  padding-top:    var(--safe-area-inset-top);
-  padding-right:  var(--safe-area-inset-right-legacy);
-  padding-right:  var(--safe-area-inset-right);
-  padding-bottom: var(--safe-area-inset-bottom-legacy);
-  padding-bottom: var(--safe-area-inset-bottom);
-  padding-left:   var(--safe-area-inset-left-legacy);
-  padding-left:   var(--safe-area-inset-left);
-
-  /* 선택사항: 배경색 지정 시 뷰포트 끝까지 채우기 */
-  background-color: #fff;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
-
 [data-sonner-toast] {
   width: calc(100% - 40px) !important;
+}
+
+:root {
+  /* 구형 사파리 호환용 */
+  --safe-top:    constant(safe-area-inset-top);
+  --safe-bottom: constant(safe-area-inset-bottom);
+  --safe-left:   constant(safe-area-inset-left);
+  --safe-right:  constant(safe-area-inset-right);
+  /* 최신 사파리 */
+  --safe-top:    env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+  --safe-left:   env(safe-area-inset-left);
+  --safe-right:  env(safe-area-inset-right);
+}
+
+/* 루트 컨테이너에 패딩 적용 예시 */
+#root {
+  height: 100%;
+  padding-top:    var(--safe-top);
+  /* padding-bottom: var(--safe-bottom); */
+  padding-left:   var(--safe-left);
+  padding-right:  var(--safe-right);
 }

@@ -45,25 +45,36 @@ jobs:
             exit 1 # Exit if not a deployable branch
           fi
 
-      # Create a tar file of the source code (excluding node_modules and .git)
-      - name: Create source code archive
-        run: |
-          tar --exclude='.git' --exclude='node_modules' -czf blinkit-fe-source.tar.gz .
-          ls -la blinkit-fe-source.tar.gz
-          echo "Created archive of source code"
-
-      # Deploy the files using scp
-      - name: Deploy to Server
-        uses: appleboy/scp-action@v0.1.7
+      # 직접 서버에 디렉토리를 생성하고 소스 코드를 전송
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.BLINKIT_SERVER_HOST }}
           username: hannal
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22022
-          source: "blinkit-fe-source.tar.gz"
-          target: "/tmp/"
+          script: |
+            set -e # 오류가 발생하면 즉시 중단
+            echo "서버에 디렉토리 생성: ${{ env.DEPLOY_PATH }}"
+            # 배포 디렉토리가 없으면 생성
+            mkdir -p ${{ env.DEPLOY_PATH }}
+            # 기존에 있는 node_modules와 .git 폴더를 제외하고 디렉토리를 비웁니다
+            find ${{ env.DEPLOY_PATH }} -mindepth 1 -not -name "node_modules" -not -name ".git" -delete || true
+            echo "기존 파일 정리 완료"
 
-      # Extract the files and install/build on the server
+      # 파일 전송을 위해 rsync 사용
+      - name: Deploy files with rsync
+        uses: burnett01/rsync-deployments@5.2.1
+        with:
+          switches: -avz --delete --exclude=".git" --exclude="node_modules"
+          path: ./
+          remote_path: ${{ env.DEPLOY_PATH }}
+          remote_host: ${{ secrets.BLINKIT_SERVER_HOST }}
+          remote_port: 22022
+          remote_user: hannal
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # 서버에서 설치 및 빌드 수행
       - name: Setup and Build on Server
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -72,27 +83,17 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22022
           script: |
-            set -e # Exit immediately if a command exits with a non-zero status.
-            echo "Starting deployment to ${{ env.DEPLOY_PATH }}"
+            set -e # 오류 발생시 즉시 중단
+            echo "배포 시작: ${{ env.DEPLOY_PATH }}"
             
-            # Ensure target directory exists
-            mkdir -p ${{ env.DEPLOY_PATH }}
-            
-            # Extract the source code archive to the deployment path
-            tar -xzf /tmp/blinkit-fe-source.tar.gz -C ${{ env.DEPLOY_PATH }}
-            echo "Source code extracted to ${{ env.DEPLOY_PATH }}"
-            
-            # Change to the deployment directory
+            # 디렉토리로 이동
             cd ${{ env.DEPLOY_PATH }}
-            echo "Current directory: $(pwd)"
+            echo "현재 디렉토리: $(pwd)"
             
-            # Install dependencies and build
-            echo "Running pnpm install..."
+            # 의존성 설치 및 빌드 수행
+            echo "pnpm install 실행 중..."
             pnpm install
-            echo "Running pnpm build..."
+            echo "pnpm build 실행 중..."
             pnpm build
             
-            # Clean up
-            rm /tmp/blinkit-fe-source.tar.gz
-            
-            echo "Deployment completed successfully!"
+            echo "배포가 성공적으로 완료되었습니다!"

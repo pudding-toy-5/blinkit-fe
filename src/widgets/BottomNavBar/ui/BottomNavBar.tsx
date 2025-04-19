@@ -28,9 +28,9 @@ const NavItem: React.FC<NavItemProps> = ({
   to,
 }) => {
   return (
-    <li className='flex-1 flex flex-col py-[9px] items-center'>
+    <li className='flex-1 flex flex-col items-center'>
       <Link
-        className='flex flex-col h-auto w-auto p-0 shadow-none items-center justify-center'
+        className='flex flex-col h-full w-full py-[9px] shadow-none items-center justify-center hover:bg-[#efefef]'
         to={to}
         aria-label={`${nav} 페이지로 이동`}
       >

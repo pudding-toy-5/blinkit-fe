@@ -33,15 +33,15 @@ jobs:
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "DEPLOY_PATH=/home/hannal/blink/blinkit-fe" >> $GITHUB_ENV
-            echo "ENV_PATH=/home/hannal/blink/envfiles/fe-prod.env" >> $ENV_PATH
+            echo "ENV_PATH=/home/hannal/blink/envfiles/fe-prod.env" >> $GITHUB_ENV
             echo "Deploying main branch to /home/hannal/blink/blinkit-fe"
           elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
             echo "DEPLOY_PATH=/home/hannal/blink/blinkit-fe-dev" >> $GITHUB_ENV
-            echo "ENV_PATH=/home/hannal/blink/envfiles/fe-dev.env" >> $ENV_PATH
+            echo "ENV_PATH=/home/hannal/blink/envfiles/fe-dev.env" >> $GITHUB_ENV
             echo "Deploying develop branch to /home/hannal/blink/blinkit-fe-dev"
           elif [[ "${{ github.ref }}" == "refs/heads/github-actions" ]]; then
             echo "DEPLOY_PATH=/home/hannal/blink/blinkit-fe-dev" >> $GITHUB_ENV
-            echo "ENV_PATH=/home/hannal/blink/envfiles/fe-dev.env" >> $ENV_PATH
+            echo "ENV_PATH=/home/hannal/blink/envfiles/fe-dev.env" >> $GITHUB_ENV
             echo "Deploying github-actions branch to /home/hannal/blink/blinkit-fe-dev"
           else
             echo "Branch ${{ github.ref }} is not main, develop, or github-actions. Skipping deployment."

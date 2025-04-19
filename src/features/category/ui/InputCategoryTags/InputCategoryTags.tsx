@@ -41,14 +41,16 @@ const InputCategoryTags = React.forwardRef<
       className={cn(
         // caveat: :has() variant requires tailwind v3.4 or above: https://tailwindcss.com/blog/tailwindcss-v3-4#new-has-variant
         'has-[:focus-visible]:border-[#555]',
-        'min-h-12 flex flex-row w-full',
+        'min-h-12 w-full',
         'flex flex-row items-center rounded-md border border-[#ccc] bg-white px-4 py-3 text-[15px] ring-offset-white',
         'disabled:cursor-not-allowed disabled:opacity-50',
         'focus-visible:border-[#555555]',
         className
       )}
     >
-      <div className={cn('flex flex-row flex-1 flex-wrap gap-[8px] mr-5')}>
+      <div
+        className={cn('flex flex-row flex-1 flex-wrap gap-[8px] mr-5 min-w-0')}
+      >
         {value.map((item) => (
           <CategoryTag
             key={item}
@@ -61,7 +63,7 @@ const InputCategoryTags = React.forwardRef<
         ))}
         {value.length >= 0 && value.length < 3 && (
           <input
-            className='flex-1 outline-none placeholder:text-[#999] placeholder:text-[15px]'
+            className='flex-1 outline-none placeholder:text-[#999] placeholder:text-[15px] min-w-0'
             aria-label='카테고리 추가 입력'
             value={pendingDataPoint}
             placeholder={value.length === 0 ? placeholder : undefined}

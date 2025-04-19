@@ -100,7 +100,7 @@ const BottomNavBar: React.FC<{ variant: 'white' | 'accent' }> = ({
     >
       <nav
         className={cn(
-          'flex flex-row items-center w-full border-[1px] border-[#efefef] rounded-t-[16px] bg-white'
+          'flex flex-row items-center w-full border-[1px] border-[#efefef] rounded-t-[16px] bg-white overflow-hidden'
         )}
       >
         <ul className='flex flex-row w-full'>

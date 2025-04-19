@@ -30,7 +30,7 @@ const NavItem: React.FC<NavItemProps> = ({
   return (
     <li className='flex-1 flex flex-col py-[9px] items-center'>
       <Link
-        className='flex flex-col h-auto w-auto p-0 shadow-none items-center'
+        className='flex flex-col h-auto w-auto p-0 shadow-none items-center justify-center'
         to={to}
         aria-label={`${nav} 페이지로 이동`}
       >

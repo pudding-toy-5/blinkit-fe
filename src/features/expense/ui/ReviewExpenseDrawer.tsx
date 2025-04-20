@@ -94,7 +94,7 @@ const consumptions: Consumption[] = [
   consumptionEmotional,
 ];
 
-export interface Props {
+interface Props {
   isOpen: boolean;
   setConsumptionKind: (consumptionKind: ConsumptionKind) => void;
   onOpenChange: (open: boolean) => void;

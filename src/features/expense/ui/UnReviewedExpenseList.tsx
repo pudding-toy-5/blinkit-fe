@@ -1,18 +1,12 @@
 import { Expense } from '@/features/expense/model/types/Expense';
 
-import UnReviewedExpenseListItem from '../UnReviewedExpenseListItem';
+import UnReviewedExpenseListItem from './UnReviewedExpenseListItem';
 
-export interface Props {
+const UnReviewedExpenseList: React.FC<{
   expenses: Expense[];
   buttonWidth: number;
   onSelectExpense: (expense: Expense) => void;
-}
-
-const UnReviewedExpenseList: React.FC<Props> = ({
-  expenses,
-  buttonWidth,
-  onSelectExpense,
-}) => {
+}> = ({ expenses, buttonWidth, onSelectExpense }) => {
   return (
     <ul className='flex-1 flex flex-col gap-2 pb-2 pr-5'>
       {expenses.map((expense) => (

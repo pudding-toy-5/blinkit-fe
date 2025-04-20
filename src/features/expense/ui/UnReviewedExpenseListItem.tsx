@@ -20,7 +20,7 @@ export const AnimatedButton = animated.button as React.FC<
   >
 >;
 
-export interface Props {
+interface Props {
   expense: Expense;
   buttonWidth: number;
   onSelectReview: () => void;

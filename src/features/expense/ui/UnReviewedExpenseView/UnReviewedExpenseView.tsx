@@ -12,8 +12,8 @@ import { getConsumptionTitle } from '@/features/expense/utils';
 import useDateRange from '@/shared/lib/useDateRange';
 import { cn } from '@/shared/ui/styles/utils';
 
-import ReviewExpenseDrawer from './ReviewExpenseDrawer';
-import UnReviewedExpenseList from './UnReviewedExpenseList';
+import ReviewExpenseDrawer from '../ReviewExpenseDrawer';
+import UnReviewedExpenseList from '../UnReviewedExpenseList';
 
 const TotalExpenseEmptyPlaceholder: React.FC = () => {
   return (
@@ -61,7 +61,7 @@ const UnReviewedExpenseEmptyPlaceholder: React.FC<{
   );
 };
 
-interface Props {
+export interface Props {
   onMoveRetrospective: () => void;
 }
 

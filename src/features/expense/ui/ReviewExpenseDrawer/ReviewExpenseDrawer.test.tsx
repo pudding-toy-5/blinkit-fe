@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { describe, it } from 'vitest';
+import { describe, it, vi } from 'vitest';
 
 import ReviewExpenseDrawer, { type Props } from './ReviewExpenseDrawer';
 
@@ -25,9 +25,9 @@ describe('ReviewExpenseDrawer', () => {
     expect(container).toBeEmptyDOMElement();
   });
 
-  it('when isOpen is true, does not render empty.', () => {
-    const { container } = renderElement({ ...props, isOpen: true });
+  it('when isOpen is true, renders dialog.', () => {
+    const { getByRole } = renderElement({ ...props, isOpen: true });
 
-    expect(container).toBeInTheDocument();
+    expect(getByRole('dialog')).toBeInTheDocument();
   });
 });

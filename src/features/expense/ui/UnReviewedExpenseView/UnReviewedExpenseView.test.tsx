@@ -2,7 +2,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
 
-import * as expenseHooks from '@/features/expense/api/useExpenseQuery';
+import {
+  useExpenseCountByRange,
+  useExpensesByRange,
+  // useUpdateExpense,
+} from '@/features/expense/api/useExpenseQuery';
 
 import UnReviewedExpenseView, { Props } from './UnReviewedExpenseView';
 
@@ -21,11 +25,9 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
   <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 );
 
-const mockCount = expenseHooks.useExpenseCountByRange as ReturnType<
-  typeof vi.fn
->;
-const mockList = expenseHooks.useExpensesByRange as ReturnType<typeof vi.fn>;
-const mockUpdate = expenseHooks.useUpdateExpense as ReturnType<typeof vi.fn>;
+const mockCount = useExpenseCountByRange as ReturnType<typeof vi.fn>;
+const mockList = useExpensesByRange as ReturnType<typeof vi.fn>;
+// const mockUpdate = useUpdateExpense as ReturnType<typeof vi.fn>;
 
 describe('UnReviewedExpenseView', () => {
   const props: Props = {

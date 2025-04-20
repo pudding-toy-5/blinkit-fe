@@ -3,7 +3,6 @@ import { render } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
 
 import * as expenseHooks from '@/features/expense/api/useExpenseQuery';
-import { QueryClientTestProvider } from '@/test/utils/createQueryClient';
 
 import UnReviewedExpenseView, { Props } from './UnReviewedExpenseView';
 

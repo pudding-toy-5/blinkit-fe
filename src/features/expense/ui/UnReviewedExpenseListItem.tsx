@@ -88,11 +88,12 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
           width: liWidth
             ? `calc(${liWidth.toString()}px + ${buttonWidth.toString()}px + ${GAP.toString()}px)`
             : undefined,
+          marginLeft: '20px',
           transform: deleteWidth.to((w) => `translateX(-${w.toString()}px)`),
           willChange: 'transform',
         }}
       >
-        <div style={{ width: `${liWidth.toString()}px`, flexShrink: 0 }}>
+        <div style={{ width: `${(liWidth - 20).toString()}px`, flexShrink: 0 }}>
           <ReviewExpenseCard expense={expense} />
         </div>
 

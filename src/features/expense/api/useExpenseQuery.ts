@@ -295,7 +295,7 @@ export const useExpenseCountByRange = ({
     queryFn: async () => {
       try {
         const res = await userAxios.get<{ expense_count: number }>(
-          baseUrl + '/counts',
+          baseUrl + 'counts',
           {
             params: {
               start_date: formatDate(start, 'yyyy-MM-dd'),

@@ -1,0 +1,109 @@
+name: Build and Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - github-actions
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8 # Adjust if needed, check your project's pnpm version
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Adjust if needed, align with your project's Node version
+          cache: 'pnpm'
+
+      - name: Install dependencies on GitHub runner
+        run: pnpm install
+
+      - name: Determine Deployment Path
+        id: set_path
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "DEPLOY_PATH=/home/hannal/blink/blinkit-fe" >> $GITHUB_ENV
+            echo "ENV_PATH=/home/hannal/blink/envfiles/fe-prod.env" >> $GITHUB_ENV
+            echo "Deploying main branch to /home/hannal/blink/blinkit-fe"
+          elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            echo "DEPLOY_PATH=/home/hannal/blink/blinkit-fe-dev" >> $GITHUB_ENV
+            echo "ENV_PATH=/home/hannal/blink/envfiles/fe-dev.env" >> $GITHUB_ENV
+            echo "Deploying develop branch to /home/hannal/blink/blinkit-fe-dev"
+          elif [[ "${{ github.ref }}" == "refs/heads/github-actions" ]]; then
+            echo "DEPLOY_PATH=/home/hannal/blink/blinkit-fe-dev" >> $GITHUB_ENV
+            echo "ENV_PATH=/home/hannal/blink/envfiles/fe-dev.env" >> $GITHUB_ENV
+            echo "Deploying github-actions branch to /home/hannal/blink/blinkit-fe-dev"
+          else
+            echo "Branch ${{ github.ref }} is not main, develop, or github-actions. Skipping deployment."
+            exit 1 # Exit if not a deployable branch
+          fi
+
+      # 직접 서버에 디렉토리를 생성하고 소스 코드를 전송
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.BLINKIT_SERVER_HOST }}
+          username: hannal
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22022
+          script: |
+            set -e # 오류가 발생하면 즉시 중단
+            echo "서버에 디렉토리 생성: ${{ env.DEPLOY_PATH }}"
+            # 배포 디렉토리가 없으면 생성
+            mkdir -p ${{ env.DEPLOY_PATH }}
+            # 기존에 있는 node_modules와 .git 폴더를 제외하고 디렉토리를 비웁니다
+            find ${{ env.DEPLOY_PATH }} -mindepth 1 -not -name "node_modules" -not -name ".git" -delete || true
+            echo "기존 파일 정리 완료"
+
+      # 파일 전송을 위해 rsync 사용
+      - name: Deploy files with rsync
+        uses: burnett01/rsync-deployments@5.2.1
+        with:
+          switches: -avz --delete --exclude=".git" --exclude="node_modules"
+          path: ./
+          remote_path: ${{ env.DEPLOY_PATH }}
+          remote_host: ${{ secrets.BLINKIT_SERVER_HOST }}
+          remote_port: 22022
+          remote_user: hannal
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # 서버에서 설치 및 빌드 수행
+      - name: Setup and Build on Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.BLINKIT_SERVER_HOST }}
+          username: hannal
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22022
+          script: |
+            set -e # 오류 발생시 즉시 중단
+            echo "배포 시작: ${{ env.DEPLOY_PATH }}"
+            
+            # 디렉토리로 이동
+            cd ${{ env.DEPLOY_PATH }}
+            echo "현재 디렉토리: $(pwd)"
+
+            # 환경 변수 설정
+            echo "환경 변수 설정 중..."
+            cp ${{ env.ENV_PATH }} .env
+            echo "환경 변수 설정 완료"
+            
+            # 의존성 설치 및 빌드 수행
+            echo "pnpm install 실행 중..."
+            # --no-frozen-lockfile 옵션은 lockfile을 업데이트 할 수 있도록 합니다
+            # --shamefully-hoist 옵션은 중첩된 의존성을 호이스팅하여 호환성 문제를 줄입니다
+            pnpm install --no-frozen-lockfile --shamefully-hoist
+            echo "pnpm build 실행 중..."
+            pnpm build
+            
+            echo "배포가 성공적으로 완료되었습니다!"

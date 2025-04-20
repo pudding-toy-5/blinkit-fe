@@ -51,12 +51,12 @@ const ReviewExpenseCard: React.FC<{ expense: Expense }> = ({ expense }) => {
         {isMemoOverflowing && (
           <div className='mt-1'>
             <button
-              className='flex flex-row h-auto text-[13px] text-[#555] p-0 justify-start'
+              className='flex flex-row gap-[2px] h-auto text-[13px] text-[#555] p-0 items-center'
               onClick={() => {
                 setIsMemoOpen(!isMemoOpen);
               }}
             >
-              <span className='ml-[2px]'>{isMemoOpen ? '접기' : '더보기'}</span>
+              <span>{isMemoOpen ? '접기' : '더보기'}</span>
               <div
                 className={cn(
                   isMemoOpen ? 'rotate-[90deg]' : 'rotate-[-90deg]'

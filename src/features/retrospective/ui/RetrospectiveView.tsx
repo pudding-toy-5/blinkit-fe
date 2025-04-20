@@ -98,6 +98,7 @@ const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
               setOpen(true);
             }}
           />
+          <div className='h-4 w-full bg-white shrink-0' />
         </>
       )}
     </div>

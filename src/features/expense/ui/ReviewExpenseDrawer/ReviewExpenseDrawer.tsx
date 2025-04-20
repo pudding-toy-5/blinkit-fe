@@ -1,7 +1,7 @@
 import { PopoverArrow } from '@radix-ui/react-popover';
 import { useState } from 'react';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@/shared/ui/atoms/button';
 import {
   Drawer,
   DrawerClose,
@@ -10,12 +10,12 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-} from '@/components/ui/drawer';
+} from '@/shared/ui/atoms/drawer';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
+} from '@/shared/ui/atoms/popover';
 import {
   consumptionConscious,
   consumptionEmotional,

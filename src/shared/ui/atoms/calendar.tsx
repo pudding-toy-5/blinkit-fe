@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DayPicker } from 'react-day-picker';
 
-import { buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/shared/ui/atoms/button';
 import ArrowLeft from '@/shared/ui/icons/ArrowLeft';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import { cn } from '@/shared/ui/styles/utils';

@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/shared/ui/atoms/button';
 import {
   Drawer,
   DrawerClose,
@@ -12,8 +12,8 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '@/components/ui/drawer';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+} from '@/shared/ui/atoms/drawer';
+import { Form, FormControl, FormField, FormItem } from '@/shared/ui/atoms/form';
 import {
   useCategories,
   useDeleteCategory,

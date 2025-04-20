@@ -12,7 +12,7 @@ export const Route = createFileRoute('/settings/account')({
   component: RouteComponent,
 });
 
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem } from '@/shared/ui/atoms/form';
 import SubmitButton from '@/shared/ui/SubmitButton';
 
 interface AccountForm {

@@ -4,8 +4,8 @@
 
 import * as React from 'react';
 
-import { Button } from '@/components/ui/button';
-import { type InputProps } from '@/components/ui/input';
+import { Button } from '@/shared/ui/atoms/button';
+import { type InputProps } from '@/shared/ui/atoms/input';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import { cn } from '@/shared/ui/styles/utils';
 

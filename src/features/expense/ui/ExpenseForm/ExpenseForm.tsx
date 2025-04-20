@@ -2,14 +2,14 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
 
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/shared/ui/atoms/button';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from '@/components/ui/form';
+} from '@/shared/ui/atoms/form';
 import CategoriesPopover from '@/features/category/ui/CategoriesPopover';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import {

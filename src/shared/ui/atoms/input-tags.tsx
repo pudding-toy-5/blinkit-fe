@@ -6,8 +6,8 @@
 import { XIcon } from 'lucide-react';
 import * as React from 'react';
 
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Badge } from '@/shared/ui/atoms/badge';
+import { Button } from '@/shared/ui/atoms/button';
 import { cn } from '@/shared/ui/styles/utils';
 
 import { type InputProps } from './input';

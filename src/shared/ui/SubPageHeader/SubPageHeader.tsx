@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/shared/ui/atoms/button';
 import {
   Drawer,
   DrawerClose,
@@ -8,7 +8,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '@/components/ui/drawer';
+} from '@/shared/ui/atoms/drawer';
 import ArrowLeft from '@/shared/ui/icons/ArrowLeft';
 import X from '@/shared/ui/icons/X';
 import { cn } from '@/shared/ui/styles/utils';

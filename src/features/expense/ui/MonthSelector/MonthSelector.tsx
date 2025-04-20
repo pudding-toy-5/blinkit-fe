@@ -1,6 +1,6 @@
-import { Button } from '@/shared/ui/atoms/button';
 import Period from '@/features/expense/model/types/Period';
 import SelectMonthDrawer from '@/features/expense/ui/SelectMonthDrawer';
+import { Button } from '@/shared/ui/atoms/button';
 import ArrowLeftFilled from '@/shared/ui/icons/ArrowLeftFilled';
 import ArrowRightFilled from '@/shared/ui/icons/ArrowRightFilled';
 

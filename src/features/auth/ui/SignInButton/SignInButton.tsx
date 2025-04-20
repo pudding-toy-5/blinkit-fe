@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { Button } from '@/shared/ui/atoms/button';
 import { TOKEN_KEY } from '@/constants';
+import { Button } from '@/shared/ui/atoms/button';
 import { cn } from '@/shared/ui/styles/utils';
 
 import { Google, Naver } from './Icons';

@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 
+import { TOKEN_KEY } from '@/constants';
 import { Button, buttonVariants } from '@/shared/ui/atoms/button';
 import {
   Drawer,
@@ -11,7 +12,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/shared/ui/atoms/drawer';
-import { TOKEN_KEY } from '@/constants';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import UserLayout from '@/shared/ui/layout/UserLayout';
 import { cn } from '@/shared/ui/styles/utils';

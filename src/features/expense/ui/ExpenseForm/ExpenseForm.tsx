@@ -2,14 +2,6 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
 
-import { Button, buttonVariants } from '@/shared/ui/atoms/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '@/shared/ui/atoms/form';
 import CategoriesPopover from '@/features/category/ui/CategoriesPopover';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import {
@@ -18,6 +10,14 @@ import {
 } from '@/features/expense/consts';
 import { Expense } from '@/features/expense/model/types/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
+import { Button, buttonVariants } from '@/shared/ui/atoms/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from '@/shared/ui/atoms/form';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import LabeledTextarea from '@/shared/ui/LabeledTextarea';
 import { cn } from '@/shared/ui/styles/utils';

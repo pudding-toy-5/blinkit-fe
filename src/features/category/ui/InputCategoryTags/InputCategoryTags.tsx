@@ -4,9 +4,9 @@
 
 import * as React from 'react';
 
+import CategoryTag from '@/features/category/ui/CategoryTag';
 import { Button } from '@/shared/ui/atoms/button';
 import { type InputProps } from '@/shared/ui/atoms/input';
-import CategoryTag from '@/features/category/ui/CategoryTag';
 import { cn } from '@/shared/ui/styles/utils';
 
 export type InputCategoryTagProps = Omit<

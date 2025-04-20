@@ -2,6 +2,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import {
+  useCategories,
+  useDeleteCategory,
+  useUpdateCategory,
+} from '@/features/category/api/useCategoryQuery';
+import { Category } from '@/features/category/model/types/Category';
 import { Button, buttonVariants } from '@/shared/ui/atoms/button';
 import {
   Drawer,
@@ -14,12 +20,6 @@ import {
   DrawerTrigger,
 } from '@/shared/ui/atoms/drawer';
 import { Form, FormControl, FormField, FormItem } from '@/shared/ui/atoms/form';
-import {
-  useCategories,
-  useDeleteCategory,
-  useUpdateCategory,
-} from '@/features/category/api/useCategoryQuery';
-import { Category } from '@/features/category/model/types/Category';
 import UserLayout from '@/shared/ui/layout/UserLayout';
 import { cn } from '@/shared/ui/styles/utils';
 import SubPageHeader from '@/shared/ui/SubPageHeader';

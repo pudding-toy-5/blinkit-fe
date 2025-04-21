@@ -5,8 +5,8 @@ import {
 } from '@/features/expense/model/ConsumptionKind';
 
 export function getConsumptionTitle(kind: ConsumptionKind): string {
-  const entry = consumptionTextsMap[kind];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const entry = consumptionTextsMap.get(kind);
+
   if (!entry) {
     throw new Error(`Invalid ConsumptionKind: ${kind}`);
   }
@@ -15,8 +15,8 @@ export function getConsumptionTitle(kind: ConsumptionKind): string {
 }
 
 export function getConsumptionTexts(kind: ConsumptionKind): ConsumptionTexts {
-  const entry = consumptionMap[kind];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const entry = consumptionMap.get(kind);
+
   if (!entry) {
     throw new Error(`Invalid ConsumptionKind: ${kind}`);
   }

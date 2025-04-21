@@ -2,7 +2,7 @@ import { describe, it } from 'vitest';
 
 import { ServerUser, User } from '@/features/auth/model/User';
 
-import { fromUser, toUser } from '../convertUser';
+import { fromUser, toUser } from './convertUser';
 
 describe('fromUser', () => {
   const providedUser: User = {

@@ -1,8 +1,6 @@
 import { Expense, ServerExpense } from '@/features/expense/model/types/Expense';
 
-export const convertExpenseToServerExpense = (
-  expense: Partial<Expense>
-): ServerExpense => {
+export const fromExpense = (expense: Partial<Expense>): ServerExpense => {
   const { uid, date, memo, amount, categories, consumptionKind } = expense;
 
   const expendedDate = date ?? new Date();
@@ -22,9 +20,7 @@ export const convertExpenseToServerExpense = (
   return serverExpense;
 };
 
-export const convertServerExpenseToExpense = (
-  serverExpense: ServerExpense
-): Expense => {
+export const toExpense = (serverExpense: ServerExpense): Expense => {
   const { uid, expended_at, memo, amount, categories, consumption_kind } =
     serverExpense;
   const parsedDate = new Date(expended_at);

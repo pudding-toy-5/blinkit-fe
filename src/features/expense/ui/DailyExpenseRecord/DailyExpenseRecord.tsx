@@ -1,7 +1,7 @@
 import { useNavigate } from '@tanstack/react-router';
 
 import CategoryTag from '@/features/category/ui/CategoryTag';
-import { Expense } from '@/features/expense/model/types/Expense';
+import { Expense } from '@/features/expense/model/Expense';
 
 const DailyExpenseRecord: React.FC<Omit<Expense, 'date'>> = ({
   uid,

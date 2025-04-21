@@ -6,7 +6,7 @@ import {
   useDailyExpensesByPeriod,
   useTotalAmountByPeriod,
 } from '@/features/expense/api/useExpenseQuery';
-import Period from '@/features/expense/model/types/Period';
+import Period from '@/features/expense/model/Period';
 import AddExpenseButton from '@/features/expense/ui/AddExpenseButton';
 import DailyExpenseList from '@/features/expense/ui/DailyExpenseList';
 import MonthSelector from '@/features/expense/ui/MonthSelector';

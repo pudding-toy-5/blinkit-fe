@@ -2,11 +2,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import { TOKEN_KEY } from '@/constants';
+import { fromUser, toUser } from '@/features/auth/lib/convertUser';
 import { ServerUser, User } from '@/features/auth/model/User';
-import {
-  convertServerUserToUser,
-  convertUserToServerUser,
-} from '@/features/auth/model/utils';
 import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
 
@@ -15,9 +12,11 @@ export const useMe = () => {
     queryKey: ['me'],
     queryFn: async () => {
       try {
-        const res = await userAxios.get(`${apiUrl}/account/users/me`);
-        const serverUser = res.data as ServerUser;
-        const user = convertServerUserToUser(serverUser);
+        const res = await userAxios.get<ServerUser>(
+          `${apiUrl}/account/users/me`
+        );
+        const serverUser = res.data;
+        const user = toUser(serverUser);
         return user;
       } catch (error) {
         localStorage.removeItem(TOKEN_KEY);
@@ -36,11 +35,11 @@ export const useUpdateMe = () => {
   return useMutation({
     mutationFn: async (user: User): Promise<User> => {
       try {
-        const res = await userAxios.patch(
+        const res = await userAxios.patch<ServerUser>(
           `${apiUrl}/account/users/me`,
-          convertUserToServerUser(user)
+          fromUser(user)
         );
-        return convertServerUserToUser(res.data as ServerUser);
+        return toUser(res.data);
       } catch (error) {
         if (error instanceof AxiosError) {
           throw new Error('useUpdateMe failed: ' + error.message);

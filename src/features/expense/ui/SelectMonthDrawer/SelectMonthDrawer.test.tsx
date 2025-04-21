@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
 
-import Period from '@/features/expense/model/types/Period';
+import Period from '@/features/expense/model/Period';
 
 import SelectMonthDrawer, { SelectMonthDrawerProps } from './SelectMonthDrawer';
 

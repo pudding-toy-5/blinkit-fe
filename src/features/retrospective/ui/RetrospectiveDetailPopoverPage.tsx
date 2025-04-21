@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import { Category } from '@/features/category/model/types/Category';
 import CategoryFilter from '@/features/category/ui/CategoryFilter';
 import { useExpenses } from '@/features/expense/api/useExpenseQuery';
-import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
+import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { getConsumptionTexts } from '@/features/expense/utils';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';

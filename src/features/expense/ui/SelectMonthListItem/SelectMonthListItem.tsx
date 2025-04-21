@@ -1,4 +1,4 @@
-import Period from '@/features/expense/model/types/Period';
+import Period from '@/features/expense/model/Period';
 import { Button } from '@/shared/ui/atoms/button';
 
 export interface SelectMonthListItemProps {

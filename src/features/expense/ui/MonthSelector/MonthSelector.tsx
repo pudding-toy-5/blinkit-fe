@@ -1,4 +1,4 @@
-import Period from '@/features/expense/model/types/Period';
+import Period from '@/features/expense/model/Period';
 import SelectMonthDrawer from '@/features/expense/ui/SelectMonthDrawer';
 import { Button } from '@/shared/ui/atoms/button';
 import ArrowLeftFilled from '@/shared/ui/icons/ArrowLeftFilled';

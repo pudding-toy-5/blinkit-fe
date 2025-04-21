@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import { format } from 'date-fns';
 import { describe, it } from 'vitest';
 
-import { Expense } from '@/features/expense/model/types/Expense';
+import { Expense } from '@/features/expense/model/Expense';
 
 import ReviewExpenseCard from './ReviewExpenseCard';
 

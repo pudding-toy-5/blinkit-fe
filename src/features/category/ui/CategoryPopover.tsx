@@ -20,7 +20,7 @@ import {
   DrawerTrigger,
 } from '@/shared/ui/atoms/drawer';
 import { Form, FormControl, FormField, FormItem } from '@/shared/ui/atoms/form';
-import UserLayout from '@/shared/ui/layout/UserLayout';
+import Layout from '@/shared/ui/layout/Layout';
 import { cn } from '@/shared/ui/styles/utils';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
@@ -110,7 +110,7 @@ export default function CategoryPopover({
         height: '100%',
       }}
     >
-      <UserLayout>
+      <Layout>
         <SubPageHeader title='카테고리명 편집' onClose={onClose} />
         <Form {...form}>
           <form
@@ -184,7 +184,7 @@ export default function CategoryPopover({
             </div>
           </form>
         </Form>
-      </UserLayout>
+      </Layout>
     </div>
   );
 }

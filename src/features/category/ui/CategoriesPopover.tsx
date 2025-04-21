@@ -10,7 +10,7 @@ import CategoryTag from '@/features/category/ui/CategoryTag';
 import InputCategoryTags from '@/features/category/ui/InputCategoryTags';
 import { Button } from '@/shared/ui/atoms/button';
 import Ellipsis from '@/shared/ui/icons/Ellipsis';
-import UserLayout from '@/shared/ui/layout/UserLayout';
+import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 import CategoryPopover from './CategoryPopover';
@@ -124,7 +124,7 @@ export default function CategoriesPopover({
           }}
         />
       )}
-      <UserLayout>
+      <Layout>
         <SubPageHeader title='카테고리 설정' onClose={onClose} />
         <div className='mt-6 px-5'>
           <InputCategoryTags
@@ -201,7 +201,7 @@ export default function CategoriesPopover({
             완료
           </Button>
         </div>
-      </UserLayout>
+      </Layout>
     </div>
   );
 }

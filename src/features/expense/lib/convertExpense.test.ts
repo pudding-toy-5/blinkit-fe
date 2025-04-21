@@ -114,7 +114,7 @@ describe('toExpense', () => {
     expect(expense.date).toStrictEqual(new Date(serverExpense.expended_at));
     expect(expense.memo).toBe(serverExpense.memo);
     expect(expense.amount).toBe(parseInt(serverExpense.amount));
-    expect(expense.categories).toBe(serverExpense.categories);
+    expect(expense.categories).toStrictEqual(serverExpense.categories);
     expect(expense.consumptionKind).toBe(serverExpense.consumption_kind);
   });
 

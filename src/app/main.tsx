@@ -51,7 +51,9 @@ if (!rootElement.innerHTML) {
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
         {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
-        {process.env.NODE_ENV === 'development' && <TanStackRouterDevtools />}
+        {process.env.NODE_ENV === 'development' && (
+          <TanStackRouterDevtools router={router} />
+        )}
       </QueryClientProvider>
     </StrictMode>
   );

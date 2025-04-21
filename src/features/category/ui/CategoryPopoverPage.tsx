@@ -32,7 +32,7 @@ interface Props {
   onClose: () => void;
 }
 
-export default function CategoryPopover({
+export default function CategoryPopoverPage({
   category,
   onUpdateCategory,
   onDeleteCategory,

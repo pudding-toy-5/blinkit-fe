@@ -16,7 +16,7 @@ interface Props {
   onClose: () => void;
 }
 
-const RetrospectiveDetailPopover: React.FC<Props> = ({
+const RetrospectiveDetailPopoverPage: React.FC<Props> = ({
   consumptionKind,
   onClose,
 }) => {
@@ -91,4 +91,4 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
   );
 };
 
-export default RetrospectiveDetailPopover;
+export default RetrospectiveDetailPopoverPage;

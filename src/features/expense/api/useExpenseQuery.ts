@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 
 import { apiUrl } from '@/features/common/consts';
 import { queryKeys } from '@/features/expense/consts';
+import { fromExpense, toExpense } from '@/features/expense/lib/convertExpense';
 import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
 import {
   DailyExpense,
@@ -12,10 +13,6 @@ import {
   ServerExpense,
 } from '@/features/expense/model/types/Expense';
 import Period from '@/features/expense/model/types/Period';
-import {
-  convertExpenseToServerExpense,
-  convertServerExpenseToExpense,
-} from '@/features/expense/model/types/utils';
 import userAxios from '@/shared/api/userAxios';
 
 if (!apiUrl) {
@@ -47,11 +44,8 @@ export const useExpenses = ({
           },
           paramsSerializer: { indexes: null },
         });
-        const expenses = res.data.map((serverExpense) =>
-          convertServerExpenseToExpense(serverExpense)
-        );
 
-        return expenses;
+        return res.data.map(toExpense);
       } catch (error) {
         if (error instanceof AxiosError) {
           throw new Error('지출 목록 조회 실패: ' + error.message);
@@ -87,11 +81,8 @@ export const useExpensesByRange = ({
             consumption_kind: consumptionKind,
           },
         });
-        const serverExpenses = res.data;
-        const expenses = serverExpenses.map((serverExpense) =>
-          convertServerExpenseToExpense(serverExpense)
-        );
-        return expenses;
+
+        return res.data.map(toExpense);
       } catch (error) {
         if (error instanceof AxiosError) {
           throw new Error('지출 목록 조회 실패: ' + error.message);
@@ -108,17 +99,14 @@ export const useExpensesByPeriod = (period: Period) => {
     queryKey: [...queryKeys.expenses, period],
     queryFn: async () => {
       try {
-        const res = await userAxios.get(baseUrl, {
+        const res = await userAxios.get<ServerExpense[]>(baseUrl, {
           params: {
             year: year.toString(),
             month: month.toString(),
           },
         });
-        const serverExpenses = res.data as ServerExpense[];
-        const expenses = serverExpenses.map((serverExpense) =>
-          convertServerExpenseToExpense(serverExpense)
-        );
-        return expenses;
+
+        return res.data.map(toExpense);
       } catch (error) {
         if (error instanceof AxiosError) {
           throw new Error('지출 목록 조회 실패: ' + error.message);
@@ -134,10 +122,9 @@ export const useExpenseByUid = (uid: string) => {
     queryKey: [...queryKeys.expenses, uid],
     queryFn: async () => {
       try {
-        const res = await userAxios.get(`${baseUrl}${uid}`);
+        const res = await userAxios.get<ServerExpense>(`${baseUrl}${uid}`);
 
-        const serverExpense = res.data as ServerExpense;
-        return convertServerExpenseToExpense(serverExpense);
+        return toExpense(res.data);
       } catch (error) {
         if (error instanceof AxiosError) {
           throw new Error('지출 조회 실패 - uid: ' + uid + error.message);
@@ -154,12 +141,12 @@ export const useAddExpense = () => {
   return useMutation({
     mutationFn: async (expense: Omit<Expense, 'uid'>) => {
       try {
-        const res = await userAxios.post(
+        const res = await userAxios.post<ServerExpense>(
           baseUrl,
-          convertExpenseToServerExpense(expense)
+          fromExpense(expense)
         );
-        const serverExpense = res.data as ServerExpense;
-        return convertServerExpenseToExpense(serverExpense);
+
+        return toExpense(res.data);
       } catch (error) {
         if (error instanceof AxiosError) {
           throw new Error('지출 추가 실패: ' + error.message);
@@ -187,12 +174,12 @@ export const useUpdateExpense = () => {
           throw new Error('UpdateExpense - uid undefined');
         }
 
-        const res = await userAxios.patch(
+        const res = await userAxios.patch<ServerExpense>(
           `${baseUrl}${expense.uid}`,
-          convertExpenseToServerExpense(expense)
+          fromExpense(expense)
         );
-        const serverExpense = res.data as ServerExpense;
-        return convertServerExpenseToExpense(serverExpense);
+
+        return toExpense(res.data);
       } catch (error) {
         if (error instanceof AxiosError) {
           throw new Error('지출 업데이트 실패: ' + error.message);

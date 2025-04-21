@@ -2,8 +2,8 @@ import { useLocation, useNavigate } from '@tanstack/react-router';
 import { AxiosError } from 'axios';
 import React from 'react';
 
+import { toUser } from '@/features/auth/lib/convertUser';
 import { ServerUser } from '@/features/auth/model/User';
-import { convertServerUserToUser } from '@/features/auth/model/utils';
 import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
 import FullScreenSpinner from '@/shared/ui/FullScreenSpinner';
@@ -23,7 +23,7 @@ const AuthGuard: React.FC<{
         const res = await userAxios.get<ServerUser>(
           `${apiUrl}/account/users/me`
         );
-        const user = convertServerUserToUser(res.data);
+        const user = toUser(res.data);
 
         if (res.status === 200) {
           if (

@@ -7,12 +7,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 // tanstack-router
 import { createRouter, RouterProvider } from '@tanstack/react-router';
+import { TanStackRouterDevtools } from 'node_modules/@tanstack/react-router-devtools/dist/esm/TanStackRouterDevtools';
 import { StrictMode } from 'react';
 import ReactDom from 'react-dom/client';
 
-import Toaster from '@/shared/ui/Toaster';
-
-import { routeTree } from './routes.custom';
+import { routeTree } from './routeTree.gen';
 
 const router = createRouter({ routeTree });
 const queryClient = new QueryClient();
@@ -51,8 +50,8 @@ if (!rootElement.innerHTML) {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-        <Toaster />
         {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
+        {process.env.NODE_ENV === 'development' && <TanStackRouterDevtools />}
       </QueryClientProvider>
     </StrictMode>
   );

@@ -8,7 +8,7 @@ import {
   EXPENSE_AMOUNT_MAX,
   EXPENSE_MEMO_MAX_LEN,
 } from '@/features/expense/consts';
-import { Expense } from '@/features/expense/model/types/Expense';
+import { Expense } from '@/features/expense/model/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
 import { Button, buttonVariants } from '@/shared/ui/atoms/button';
 import {

@@ -1,4 +1,4 @@
-import { Expense } from '@/features/expense/model/types/Expense';
+import { Expense } from '@/features/expense/model/Expense';
 
 import UnReviewedExpenseListItem from '../UnReviewedExpenseListItem';
 

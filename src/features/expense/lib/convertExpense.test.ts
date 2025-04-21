@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest';
 
-import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
-import { Expense, ServerExpense } from '@/features/expense/model/types/Expense';
+import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
+import { Expense, ServerExpense } from '@/features/expense/model/Expense';
 
 import {
   addLocalTimezoneOffset,

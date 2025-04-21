@@ -1,4 +1,4 @@
-import { DailyExpense } from '@/features/expense/model/types/Expense';
+import { DailyExpense } from '@/features/expense/model/Expense';
 import DailyExpenseItem from '@/features/expense/ui/DailyExpenseListItem';
 import { cn } from '@/shared/ui/styles/utils';
 

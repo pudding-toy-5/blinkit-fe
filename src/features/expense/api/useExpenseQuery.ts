@@ -6,13 +6,13 @@ import { useMemo } from 'react';
 import { apiUrl } from '@/features/common/consts';
 import { queryKeys } from '@/features/expense/consts';
 import { fromExpense, toExpense } from '@/features/expense/lib/convertExpense';
-import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
+import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import {
   DailyExpense,
   Expense,
   ServerExpense,
-} from '@/features/expense/model/types/Expense';
-import Period from '@/features/expense/model/types/Period';
+} from '@/features/expense/model/Expense';
+import Period from '@/features/expense/model/Period';
 import userAxios from '@/shared/api/userAxios';
 
 if (!apiUrl) {

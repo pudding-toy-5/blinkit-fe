@@ -1,4 +1,4 @@
-import { Expense, ServerExpense } from '@/features/expense/model/types/Expense';
+import { Expense, ServerExpense } from '@/features/expense/model/Expense';
 
 export const fromExpense = (expense: Partial<Expense>): ServerExpense => {
   const { uid, date, memo, amount, categories, consumptionKind } = expense;

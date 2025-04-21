@@ -6,8 +6,8 @@ import {
   consumptionEmotional,
   consumptionEssential,
 } from '@/features/expense/consts';
-import { Consumption } from '@/features/expense/model/types/ConsumptionKind';
-import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
+import { Consumption } from '@/features/expense/model/ConsumptionKind';
+import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { Button } from '@/shared/ui/atoms/button';
 import {
   Drawer,

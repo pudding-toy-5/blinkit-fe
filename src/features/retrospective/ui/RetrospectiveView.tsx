@@ -5,7 +5,7 @@ import {
   consumptionEmotional,
   consumptionEssential,
 } from '@/features/expense/consts';
-import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
+import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetrospective';
 import useDateRange from '@/shared/lib/useDateRange';
 

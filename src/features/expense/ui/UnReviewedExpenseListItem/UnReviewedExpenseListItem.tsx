@@ -2,7 +2,7 @@ import { animated, type AnimatedProps, useSpring } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { Expense } from '@/features/expense/model/types/Expense';
+import { Expense } from '@/features/expense/model/Expense';
 import ReviewExpenseCard from '@/features/expense/ui/ReviewExpenseCard';
 import { cn } from '@/shared/ui/styles/utils';
 

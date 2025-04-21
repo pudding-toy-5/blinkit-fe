@@ -2,7 +2,7 @@ import {
   Consumption,
   ConsumptionKind,
   ConsumptionTexts,
-} from './model/types/ConsumptionKind';
+} from '@/features/expense/model/ConsumptionKind';
 
 export const EXPENSE_MEMO_MAX_LEN = 120;
 

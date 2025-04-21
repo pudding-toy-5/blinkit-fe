@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 
 import AuthGuard from '@/features/auth/ui/AuthGuard';
 import { useAddExpense } from '@/features/expense/api/useExpenseQuery';
-import { Expense } from '@/features/expense/model/types/Expense';
+import { Expense } from '@/features/expense/model/Expense';
 import ExpenseForm from '@/features/expense/ui/ExpenseForm';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 

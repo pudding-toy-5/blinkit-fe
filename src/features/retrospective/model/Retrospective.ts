@@ -1,5 +1,5 @@
 import { Category } from '@/features/category/model/types/Category';
-import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
+import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 
 export interface ServerRetrospectiveCategory {
   category: Category;

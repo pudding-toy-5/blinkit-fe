@@ -1,6 +1,6 @@
 import { X } from 'lucide-react';
 
-import Period from '@/features/expense/model/types/Period';
+import Period from '@/features/expense/model/Period';
 import { Button } from '@/shared/ui/atoms/button';
 import {
   Drawer,

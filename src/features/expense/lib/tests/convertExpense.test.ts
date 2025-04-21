@@ -8,7 +8,7 @@ import {
   fromExpense,
   getDateOnly,
   toExpense,
-} from './convertExpense';
+} from '../convertExpense';
 
 describe('fromExpense', () => {
   it('converts undefined uid and memo to string.', () => {

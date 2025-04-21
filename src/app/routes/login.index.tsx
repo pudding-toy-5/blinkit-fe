@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute, Link, redirect } from '@tanstack/react-router';
 import { AxiosError } from 'axios';
 
 import { TOKEN_KEY } from '@/constants';
@@ -48,13 +48,9 @@ function RouteComponent() {
           과
         </p>
         <p className='text-[13px] text-[#555]'>
-          <a
-            href='https://blink-it.me/about/agreements/privacy.html'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
+          <Link to='/privacy' target='_blank' rel='noopener noreferrer'>
             <u>개인정보 수집 및 이용</u>
-          </a>
+          </Link>
           에 동의하게 됩니다.
         </p>
       </div>

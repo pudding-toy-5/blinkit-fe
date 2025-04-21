@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as PrivacyImport } from './routes/privacy'
 import { Route as IndexImport } from './routes/index'
 import { Route as SettingsIndexImport } from './routes/settings.index'
 import { Route as LoginIndexImport } from './routes/login.index'
@@ -22,6 +23,12 @@ import { Route as ExpensesNewIndexImport } from './routes/expenses.new.index'
 import { Route as ExpensesUidIndexImport } from './routes/expenses.$uid.index'
 
 // Create/Update Routes
+
+const PrivacyRoute = PrivacyImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -88,6 +95,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyImport
+      parentRoute: typeof rootRoute
+    }
     '/settings/account': {
       id: '/settings/account'
       path: '/settings/account'
@@ -151,6 +165,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/privacy': typeof PrivacyRoute
   '/settings/account': typeof SettingsAccountRoute
   '/expenses': typeof ExpensesIndexRoute
   '/login': typeof LoginIndexRoute
@@ -163,6 +178,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/privacy': typeof PrivacyRoute
   '/settings/account': typeof SettingsAccountRoute
   '/expenses': typeof ExpensesIndexRoute
   '/login': typeof LoginIndexRoute
@@ -176,6 +192,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/privacy': typeof PrivacyRoute
   '/settings/account': typeof SettingsAccountRoute
   '/expenses/': typeof ExpensesIndexRoute
   '/login/': typeof LoginIndexRoute
@@ -190,6 +207,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/privacy'
     | '/settings/account'
     | '/expenses'
     | '/login'
@@ -201,6 +219,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/privacy'
     | '/settings/account'
     | '/expenses'
     | '/login'
@@ -212,6 +231,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/privacy'
     | '/settings/account'
     | '/expenses/'
     | '/login/'
@@ -225,6 +245,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PrivacyRoute: typeof PrivacyRoute
   SettingsAccountRoute: typeof SettingsAccountRoute
   ExpensesIndexRoute: typeof ExpensesIndexRoute
   LoginIndexRoute: typeof LoginIndexRoute
@@ -237,6 +258,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PrivacyRoute: PrivacyRoute,
   SettingsAccountRoute: SettingsAccountRoute,
   ExpensesIndexRoute: ExpensesIndexRoute,
   LoginIndexRoute: LoginIndexRoute,
@@ -258,6 +280,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/privacy",
         "/settings/account",
         "/expenses/",
         "/login/",
@@ -270,6 +293,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/privacy": {
+      "filePath": "privacy.tsx"
     },
     "/settings/account": {
       "filePath": "settings.account.tsx"

@@ -28,7 +28,7 @@ export const toExpense = (serverExpense: ServerExpense): Expense => {
 
   return {
     uid,
-    date: isNaN(parsedDate.getTime()) ? new Date() : parsedDate,
+    date: isNaN(parsedDate.getTime()) ? getDateOnly(new Date()) : parsedDate,
     memo,
     amount: isNaN(parsedAmount) ? 0 : parsedAmount,
     categories,

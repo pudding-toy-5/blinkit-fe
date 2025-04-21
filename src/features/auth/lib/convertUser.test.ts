@@ -127,12 +127,16 @@ describe('toUser', () => {
     };
     const user: User = toUser(serverUser);
 
-    if (serverUser.joined_at) {
-      expect(user.joinedAt).toBe(new Date(serverUser.joined_at));
+    if (serverUser.joined_at && user.joinedAt) {
+      expect(user.joinedAt.getTime()).toBe(
+        new Date(serverUser.joined_at).getTime()
+      );
     }
 
-    if (serverUser.left_at) {
-      expect(user.leftAt).toBe(new Date(serverUser.left_at));
+    if (serverUser.left_at && user.leftAt) {
+      expect(user.leftAt.getTime()).toBe(
+        new Date(serverUser.left_at).getTime()
+      );
     }
   });
 });

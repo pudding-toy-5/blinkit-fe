@@ -8,7 +8,7 @@ import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
 import FullScreenSpinner from '@/shared/ui/FullScreenSpinner';
 
-const UserLayout: React.FC<{
+const ProtectedRoute: React.FC<{
   children?: React.ReactNode;
 }> = ({ children }) => {
   const navigate = useNavigate();
@@ -62,4 +62,4 @@ const UserLayout: React.FC<{
   return <>{children}</>;
 };
 
-export default UserLayout;
+export default ProtectedRoute;

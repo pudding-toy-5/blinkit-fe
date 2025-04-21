@@ -18,7 +18,7 @@ describe('fromUser', () => {
   };
 
   it('converts correct user uid and email.', () => {
-    const user: User = { ...providedUser };
+    const user: User = { ...providedUser, uid: 'uid', email: 'email' };
     const serverUser: ServerUser = fromUser(user);
 
     expect(serverUser.uid).toBe(user.uid);

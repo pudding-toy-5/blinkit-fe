@@ -7,7 +7,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 // tanstack-router
 import { createRouter, RouterProvider } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from 'node_modules/@tanstack/react-router-devtools/dist/esm/TanStackRouterDevtools';
 import { StrictMode } from 'react';
 import ReactDom from 'react-dom/client';
 
@@ -37,6 +36,7 @@ function insertClarity(key: string) {
 
 if (import.meta.env.PROD) {
   const CLARITY_KEY = import.meta.env.VITE_CLARITY_KEY as string;
+  import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
   // Clarity.init(CLARITY_KEY);
   insertClarity(CLARITY_KEY);

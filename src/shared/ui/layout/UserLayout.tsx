@@ -7,7 +7,6 @@ import { convertServerUserToUser } from '@/features/auth/model/utils';
 import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
 import FullScreenSpinner from '@/shared/ui/FullScreenSpinner';
-import Layout from '@/shared/ui/layout/Layout';
 
 const UserLayout: React.FC<{
   children?: React.ReactNode;
@@ -60,7 +59,7 @@ const UserLayout: React.FC<{
     return <FullScreenSpinner />;
   }
 
-  return <Layout>{children}</Layout>;
+  return <>{children}</>;
 };
 
 export default UserLayout;

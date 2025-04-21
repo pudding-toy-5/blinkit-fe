@@ -5,7 +5,6 @@ import { describe, it, vi } from 'vitest';
 import {
   useExpenseCountByRange,
   useExpensesByRange,
-  // useUpdateExpense,
 } from '@/features/expense/api/useExpenseQuery';
 
 import UnReviewedExpenseView, { Props } from './UnReviewedExpenseView';
@@ -15,7 +14,6 @@ vi.mock('@/features/expense/api/useExpenseQuery');
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // ✅ turns retries off
       retry: false,
     },
   },
@@ -27,7 +25,6 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 
 const mockCount = useExpenseCountByRange as ReturnType<typeof vi.fn>;
 const mockList = useExpensesByRange as ReturnType<typeof vi.fn>;
-// const mockUpdate = useUpdateExpense as ReturnType<typeof vi.fn>;
 
 describe('UnReviewedExpenseView', () => {
   const props: Props = {

@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@/shared/ui/atoms/button';
 import { cn } from '@/shared/ui/styles/utils';
 
 export interface SubmitButtonProps extends React.ComponentProps<'button'> {

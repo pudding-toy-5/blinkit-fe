@@ -1,6 +1,7 @@
 import { X } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import Period from '@/features/expense/model/types/Period';
+import { Button } from '@/shared/ui/atoms/button';
 import {
   Drawer,
   DrawerClose,
@@ -8,8 +9,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '@/components/ui/drawer';
-import Period from '@/features/expense/model/types/Period';
+} from '@/shared/ui/atoms/drawer';
 
 import SelectMonthList from '../SelectMonthList';
 

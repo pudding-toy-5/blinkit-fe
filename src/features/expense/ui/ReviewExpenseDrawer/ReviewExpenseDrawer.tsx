@@ -1,7 +1,14 @@
 import { PopoverArrow } from '@radix-ui/react-popover';
 import { useState } from 'react';
 
-import { Button } from '@/components/ui/button';
+import {
+  consumptionConscious,
+  consumptionEmotional,
+  consumptionEssential,
+} from '@/features/expense/consts';
+import { Consumption } from '@/features/expense/model/types/ConsumptionKind';
+import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
+import { Button } from '@/shared/ui/atoms/button';
 import {
   Drawer,
   DrawerClose,
@@ -10,19 +17,12 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-} from '@/components/ui/drawer';
+} from '@/shared/ui/atoms/drawer';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
-import {
-  consumptionConscious,
-  consumptionEmotional,
-  consumptionEssential,
-} from '@/features/expense/consts';
-import { Consumption } from '@/features/expense/model/types/ConsumptionKind';
-import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
+} from '@/shared/ui/atoms/popover';
 import Check from '@/shared/ui/icons/Check';
 import Exclamation from '@/shared/ui/icons/Exclamation';
 import X from '@/shared/ui/icons/X';

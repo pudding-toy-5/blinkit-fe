@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/shared/ui/atoms/button';
+import { Input } from '@/shared/ui/atoms/input';
 import Delete from '@/shared/ui/icons/Delete';
 
 import { cn } from '../styles/utils';

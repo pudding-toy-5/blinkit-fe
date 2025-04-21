@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
+import { Button } from '@/shared/ui/atoms/button';
+import { Calendar } from '@/shared/ui/atoms/calendar';
 import {
   Drawer,
   DrawerClose,
@@ -11,7 +11,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '@/components/ui/drawer';
+} from '@/shared/ui/atoms/drawer';
 import X from '@/shared/ui/icons/X';
 import SubmitButton from '@/shared/ui/SubmitButton';
 

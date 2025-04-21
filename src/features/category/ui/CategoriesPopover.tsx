@@ -1,7 +1,6 @@
 import React from 'react';
 import { toast } from 'sonner';
 
-import { Button } from '@/components/ui/button';
 import {
   useAddCategory,
   useCategories,
@@ -9,6 +8,7 @@ import {
 import { Category } from '@/features/category/model/types/Category';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import InputCategoryTags from '@/features/category/ui/InputCategoryTags';
+import { Button } from '@/shared/ui/atoms/button';
 import Ellipsis from '@/shared/ui/icons/Ellipsis';
 import UserLayout from '@/shared/ui/layout/UserLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';

@@ -1,6 +1,6 @@
-import { ServerUser, User } from './User';
+import { ServerUser, User } from '@/features/auth/model/User';
 
-export const convertUserToServerUser = (user: User): ServerUser => {
+export const fromUser = (user: User): ServerUser => {
   const {
     uid,
     email,
@@ -26,7 +26,7 @@ export const convertUserToServerUser = (user: User): ServerUser => {
   };
 };
 
-export const convertServerUserToUser = (serverUser: ServerUser): User => {
+export const toUser = (serverUser: ServerUser): User => {
   const {
     uid,
     email,

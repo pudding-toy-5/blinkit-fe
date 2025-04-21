@@ -1,0 +1,1 @@
+expect(user.joinedAt?.getTime()).toBe(new Date(serverUser.joined_at).getTime());

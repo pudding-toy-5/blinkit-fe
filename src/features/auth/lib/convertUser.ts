@@ -45,8 +45,8 @@ export const toUser = (serverUser: ServerUser): User => {
     firstName: first_name ?? undefined,
     lastName: last_name ?? undefined,
     nickname: nickname ?? undefined,
-    isStaff: is_staff === 'true', // required on update
-    isSuperuser: is_superuser === 'true', // required on update
+    isStaff: Boolean(is_staff), // required on update
+    isSuperuser: Boolean(is_superuser), // required on update
     joinedAt: joined_at ? new Date(joined_at) : undefined,
     leftAt: left_at ? new Date(left_at) : undefined,
   };

@@ -8,7 +8,7 @@ import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
 import FullScreenSpinner from '@/shared/ui/FullScreenSpinner';
 
-const ProtectedRoute: React.FC<{
+const AuthGuard: React.FC<{
   children?: React.ReactNode;
 }> = ({ children }) => {
   const navigate = useNavigate();
@@ -62,4 +62,4 @@ const ProtectedRoute: React.FC<{
   return <>{children}</>;
 };
 
-export default ProtectedRoute;
+export default AuthGuard;

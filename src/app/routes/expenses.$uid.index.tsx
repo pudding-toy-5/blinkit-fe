@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { toast } from 'sonner';
 
-import ProtectedRoute from '@/features/auth/ui/ProtectedRoute';
+import AuthGuard from '@/features/auth/ui/AuthGuard';
 import {
   useDeleteExpense,
   useExpenseByUid,
@@ -13,9 +13,9 @@ import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/expenses/$uid/')({
   component: () => (
-    <ProtectedRoute>
+    <AuthGuard>
       <RouteComponent />
-    </ProtectedRoute>
+    </AuthGuard>
   ),
 });
 

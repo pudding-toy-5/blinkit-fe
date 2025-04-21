@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 
 import { TOKEN_KEY } from '@/constants';
-import ProtectedRoute from '@/features/auth/ui/ProtectedRoute';
+import AuthGuard from '@/features/auth/ui/AuthGuard';
 import { Button, buttonVariants } from '@/shared/ui/atoms/button';
 import {
   Drawer,
@@ -20,9 +20,9 @@ import BottomNavBar from '@/widgets/BottomNavBar';
 
 export const Route = createFileRoute('/settings/')({
   component: () => (
-    <ProtectedRoute>
+    <AuthGuard>
       <RouteComponent />
-    </ProtectedRoute>
+    </AuthGuard>
   ),
 });
 

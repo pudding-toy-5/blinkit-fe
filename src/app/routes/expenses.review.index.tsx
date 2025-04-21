@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import React from 'react';
 
-import ProtectedRoute from '@/features/auth/ui/ProtectedRoute';
+import AuthGuard from '@/features/auth/ui/AuthGuard';
 import UnReviewedExpenseView from '@/features/expense/ui/UnReviewedExpenseView';
 import RetrospectiveView from '@/features/retrospective/ui/RetrospectiveView';
 import Logo from '@/shared/ui/icons/Logo';
@@ -10,9 +10,9 @@ import ReviewTopNavBar from '@/widgets/ReviewTopNavBar';
 
 export const Route = createFileRoute('/expenses/review/')({
   component: () => (
-    <ProtectedRoute>
+    <AuthGuard>
       <RouteComponent />
-    </ProtectedRoute>
+    </AuthGuard>
   ),
 });
 

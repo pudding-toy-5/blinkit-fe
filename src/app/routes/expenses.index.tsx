@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import React from 'react';
 
-import ProtectedRoute from '@/features/auth/ui/ProtectedRoute';
+import AuthGuard from '@/features/auth/ui/AuthGuard';
 import {
   useDailyExpensesByPeriod,
   useTotalAmountByPeriod,
@@ -15,9 +15,9 @@ import BottomNavBar from '@/widgets/BottomNavBar';
 
 export const Route = createFileRoute('/expenses/')({
   component: () => (
-    <ProtectedRoute>
+    <AuthGuard>
       <ExpensesPage />
-    </ProtectedRoute>
+    </AuthGuard>
   ),
 });
 

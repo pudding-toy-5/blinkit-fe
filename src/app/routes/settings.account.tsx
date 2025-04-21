@@ -4,15 +4,15 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import { useMe, useUpdateMe } from '@/features/auth/api/useAuth';
-import ProtectedRoute from '@/features/auth/ui/ProtectedRoute';
+import AuthGuard from '@/features/auth/ui/AuthGuard';
 import LabeledTextInput from '@/shared/ui/LabeledTextInput';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/settings/account')({
   component: () => (
-    <ProtectedRoute>
+    <AuthGuard>
       <RouteComponent />
-    </ProtectedRoute>
+    </AuthGuard>
   ),
 });
 

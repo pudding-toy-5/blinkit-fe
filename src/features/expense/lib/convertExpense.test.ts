@@ -118,10 +118,16 @@ describe('toExpense', () => {
     expect(expense.consumptionKind).toBe(serverExpense.consumption_kind);
   });
 
-  it('when expended_at is not valid, returns new Date.', () => {
+  it('when expended_at is not valid, converts date to new Date.', () => {
     const expense = toExpense({ ...serverExpense, expended_at: 'nan-string' });
 
     expect(expense.date).toStrictEqual(getDateOnly(new Date()));
+  });
+
+  it('when amount is not valid, converts amount to zero.', () => {
+    const expense = toExpense({ ...serverExpense, amount: 'not-valid-amount' });
+
+    expect(expense.amount).toBe(0);
   });
 });
 
@@ -138,5 +144,15 @@ describe('getDateOnly', () => {
     expect(converted.getMinutes()).toBe(0);
     expect(converted.getSeconds()).toBe(0);
     expect(converted.getMilliseconds()).toBe(0);
+  });
+});
+
+describe('addLocalTimezoneOffset', () => {
+  it('returns offsetMs added date.', () => {
+    const date = new Date();
+
+    const converted = addLocalTimezoneOffset(date);
+
+    expect(converted.getTime()).toBe(date.getTime() + 9 * 60 * 60 * 1000);
   });
 });

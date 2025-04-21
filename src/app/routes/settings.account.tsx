@@ -4,12 +4,16 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import { useMe, useUpdateMe } from '@/features/auth/api/useAuth';
+import ProtectedRoute from '@/features/auth/ui/ProtectedRoute';
 import LabeledTextInput from '@/shared/ui/LabeledTextInput';
-import UserLayout from '@/shared/ui/layout/UserLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/settings/account')({
-  component: RouteComponent,
+  component: () => (
+    <ProtectedRoute>
+      <RouteComponent />
+    </ProtectedRoute>
+  ),
 });
 
 import { Form, FormControl, FormField, FormItem } from '@/shared/ui/atoms/form';
@@ -103,7 +107,7 @@ function RouteComponent() {
   };
 
   return (
-    <UserLayout>
+    <>
       <SubPageHeader
         title='회원정보'
         onClickBack={() => {
@@ -164,6 +168,6 @@ function RouteComponent() {
           </div>
         </form>
       </Form>
-    </UserLayout>
+    </>
   );
 }

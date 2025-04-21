@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import React from 'react';
 
+import ProtectedRoute from '@/features/auth/ui/ProtectedRoute';
 import {
   useDailyExpensesByPeriod,
   useTotalAmountByPeriod,
@@ -10,11 +11,14 @@ import AddExpenseButton from '@/features/expense/ui/AddExpenseButton';
 import DailyExpenseList from '@/features/expense/ui/DailyExpenseList';
 import MonthSelector from '@/features/expense/ui/MonthSelector';
 import Logo from '@/shared/ui/icons/Logo';
-import UserLayout from '@/shared/ui/layout/UserLayout';
 import BottomNavBar from '@/widgets/BottomNavBar';
 
 export const Route = createFileRoute('/expenses/')({
-  component: ExpensesPage,
+  component: () => (
+    <ProtectedRoute>
+      <ExpensesPage />
+    </ProtectedRoute>
+  ),
 });
 
 export function ExpensesPage() {
@@ -47,7 +51,7 @@ export function ExpensesPage() {
   const { totalAmount } = useTotalAmountByPeriod(period);
 
   return (
-    <UserLayout>
+    <>
       {!isCollapsed && (
         <header className='flex flex-row items-center px-5 py-4'>
           <Logo />
@@ -72,7 +76,7 @@ export function ExpensesPage() {
       <Link to='/expenses/new'>
         <AddExpenseButton />
       </Link>
-    </UserLayout>
+    </>
   );
 }
 

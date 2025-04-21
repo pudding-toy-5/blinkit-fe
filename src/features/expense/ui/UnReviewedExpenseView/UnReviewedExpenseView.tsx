@@ -6,9 +6,9 @@ import {
   useExpensesByRange,
   useUpdateExpense,
 } from '@/features/expense/api/useExpenseQuery';
+import { getConsumptionTitle } from '@/features/expense/lib/consumption';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { Expense } from '@/features/expense/model/Expense';
-import { getConsumptionTitle } from '@/features/expense/utils';
 import useDateRange from '@/shared/lib/useDateRange';
 import { cn } from '@/shared/ui/styles/utils';
 

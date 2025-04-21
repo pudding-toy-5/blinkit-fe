@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
 
-import CategoriesPopover from '@/features/category/ui/CategoriesPopover';
+import CategoriesPopoverPage from '@/features/category/ui/CategoriesPopoverPage';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import {
   EXPENSE_AMOUNT_MAX,
@@ -81,7 +81,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
   return (
     <Form {...form}>
       {open && (
-        <CategoriesPopover
+        <CategoriesPopoverPage
           selectedCategories={categories}
           setSelectedCategories={(values) => {
             form.setValue('categories', values);

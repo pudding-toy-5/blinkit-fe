@@ -10,7 +10,7 @@ import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetros
 import useDateRange from '@/shared/lib/useDateRange';
 
 import RetrospectiveCard from './RetrospectiveCard';
-import RetrospectiveDetailPopover from './RetrospectiveDetailPopover';
+import RetrospectiveDetailPopoverPage from './RetrospectiveDetailPopoverPage';
 
 const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
   onMoveReview,
@@ -55,7 +55,7 @@ const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
       ) : (
         <>
           {open && consumptionKind && (
-            <RetrospectiveDetailPopover
+            <RetrospectiveDetailPopoverPage
               consumptionKind={consumptionKind}
               onClose={() => {
                 setOpen(false);

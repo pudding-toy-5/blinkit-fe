@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { toast } from 'sonner';
 
+import AuthGuard from '@/features/auth/ui/AuthGuard';
 import {
   useDeleteExpense,
   useExpenseByUid,
@@ -8,11 +9,14 @@ import {
 } from '@/features/expense/api/useExpenseQuery';
 import { Expense } from '@/features/expense/model/types/Expense';
 import ExpenseForm from '@/features/expense/ui/ExpenseForm';
-import UserLayout from '@/shared/ui/layout/UserLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/expenses/$uid/')({
-  component: RouteComponent,
+  component: () => (
+    <AuthGuard>
+      <RouteComponent />
+    </AuthGuard>
+  ),
 });
 
 export function RouteComponent() {
@@ -25,12 +29,12 @@ export function RouteComponent() {
 
   if (isLoading) {
     return (
-      <UserLayout>
+      <>
         <SubPageHeader title='지출 내역 수정' />
         <div className='flex flex-1 justify-center items-center'>
           <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-[#222]' />
         </div>
-      </UserLayout>
+      </>
     );
   }
 
@@ -74,7 +78,7 @@ export function RouteComponent() {
   };
 
   return (
-    <UserLayout>
+    <>
       <SubPageHeader
         title='지출 내역 수정'
         onClickBack={() => {
@@ -83,7 +87,7 @@ export function RouteComponent() {
         onDelete={handleDelete}
       />
       <ExpenseForm expense={expense} onSubmit={handleSubmit} />
-    </UserLayout>
+    </>
   );
 }
 

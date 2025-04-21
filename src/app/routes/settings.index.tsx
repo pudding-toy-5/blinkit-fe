@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 
 import { TOKEN_KEY } from '@/constants';
+import AuthGuard from '@/features/auth/ui/AuthGuard';
 import { Button, buttonVariants } from '@/shared/ui/atoms/button';
 import {
   Drawer,
@@ -13,13 +14,16 @@ import {
   DrawerTrigger,
 } from '@/shared/ui/atoms/drawer';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
-import UserLayout from '@/shared/ui/layout/UserLayout';
 import { cn } from '@/shared/ui/styles/utils';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 import BottomNavBar from '@/widgets/BottomNavBar';
 
 export const Route = createFileRoute('/settings/')({
-  component: RouteComponent,
+  component: () => (
+    <AuthGuard>
+      <RouteComponent />
+    </AuthGuard>
+  ),
 });
 
 interface SettingItem {
@@ -73,7 +77,7 @@ function RouteComponent() {
   ];
 
   return (
-    <UserLayout>
+    <>
       <SubPageHeader title='설정' />
       <ul className='flex flex-col list-none gap-6 pt-6 px-5'>
         {settingGroups.map((settingGroup) => (
@@ -160,6 +164,6 @@ function RouteComponent() {
         ))}
       </ul>
       <BottomNavBar variant='white' />
-    </UserLayout>
+    </>
   );
 }

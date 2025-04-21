@@ -6,7 +6,6 @@ import SignInButton from '@/features/auth/ui/SignInButton';
 import { apiUrl } from '@/features/common/consts';
 import Onboarding from '@/features/onboarding/ui/Onboarding';
 import userAxios from '@/shared/api/userAxios';
-import GuestLayout from '@/shared/ui/layout/GuestLayout';
 
 export const Route = createFileRoute('/login/')({
   loader: async () => {
@@ -30,7 +29,7 @@ export const Route = createFileRoute('/login/')({
 
 function RouteComponent() {
   return (
-    <GuestLayout>
+    <>
       <Onboarding />
       <div className='flex flex-col gap-3 w-full px-5 mt-auto'>
         <SignInButton service='google' />
@@ -54,6 +53,6 @@ function RouteComponent() {
           에 동의하게 됩니다.
         </p>
       </div>
-    </GuestLayout>
+    </>
   );
 }

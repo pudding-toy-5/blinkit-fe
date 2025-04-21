@@ -10,10 +10,10 @@ import CategoryTag from '@/features/category/ui/CategoryTag';
 import InputCategoryTags from '@/features/category/ui/InputCategoryTags';
 import { Button } from '@/shared/ui/atoms/button';
 import Ellipsis from '@/shared/ui/icons/Ellipsis';
-import UserLayout from '@/shared/ui/layout/UserLayout';
+import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
-import CategoryPopover from './CategoryPopover';
+import CategoryPopoverPage from './CategoryPopoverPage';
 
 interface Props {
   selectedCategories: Category[];
@@ -21,7 +21,7 @@ interface Props {
   onClose: () => void;
 }
 
-export default function CategoriesPopover({
+export default function CategoriesPopoverPage({
   selectedCategories,
   setSelectedCategories,
   onClose,
@@ -115,7 +115,7 @@ export default function CategoriesPopover({
   return (
     <div className='fixed z-10 top-0 left-0 w-full h-full flex flex-col overflow-hidden'>
       {open && category && (
-        <CategoryPopover
+        <CategoryPopoverPage
           category={category}
           onUpdateCategory={onUpdateCategory}
           onDeleteCategory={onDeleteCategory}
@@ -124,7 +124,7 @@ export default function CategoriesPopover({
           }}
         />
       )}
-      <UserLayout>
+      <Layout>
         <SubPageHeader title='카테고리 설정' onClose={onClose} />
         <div className='mt-6 px-5'>
           <InputCategoryTags
@@ -201,7 +201,7 @@ export default function CategoriesPopover({
             완료
           </Button>
         </div>
-      </UserLayout>
+      </Layout>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import CategoryFilter from '@/features/category/ui/CategoryFilter';
 import { useExpenses } from '@/features/expense/api/useExpenseQuery';
 import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
 import { getConsumptionTexts } from '@/features/expense/utils';
-import UserLayout from '@/shared/ui/layout/UserLayout';
+import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 import RetrospectiveCardList from './RetrospectiveCardList';
@@ -16,7 +16,7 @@ interface Props {
   onClose: () => void;
 }
 
-const RetrospectiveDetailPopover: React.FC<Props> = ({
+const RetrospectiveDetailPopoverPage: React.FC<Props> = ({
   consumptionKind,
   onClose,
 }) => {
@@ -66,7 +66,7 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
 
   return (
     <div className='fixed z-10 top-0 left-0 w-full h-dvh flex flex-col overflow-hidden'>
-      <UserLayout>
+      <Layout>
         <SubPageHeader onClickBack={onClose} />
         <RetrospectiveDetailHeader
           title={title}
@@ -86,9 +86,9 @@ const RetrospectiveDetailPopover: React.FC<Props> = ({
           </span>
           <RetrospectiveCardList expenses={filteredExpenses} />
         </div>
-      </UserLayout>
+      </Layout>
     </div>
   );
 };
 
-export default RetrospectiveDetailPopover;
+export default RetrospectiveDetailPopoverPage;

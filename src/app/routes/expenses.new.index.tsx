@@ -1,14 +1,18 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { toast } from 'sonner';
 
+import AuthGuard from '@/features/auth/ui/AuthGuard';
 import { useAddExpense } from '@/features/expense/api/useExpenseQuery';
 import { Expense } from '@/features/expense/model/types/Expense';
 import ExpenseForm from '@/features/expense/ui/ExpenseForm';
-import UserLayout from '@/shared/ui/layout/UserLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/expenses/new/')({
-  component: RouteComponent,
+  component: () => (
+    <AuthGuard>
+      <RouteComponent />
+    </AuthGuard>
+  ),
 });
 
 export function RouteComponent() {
@@ -38,7 +42,7 @@ export function RouteComponent() {
   };
 
   return (
-    <UserLayout>
+    <>
       <SubPageHeader
         title='지출 내역 추가'
         onClickBack={() => {
@@ -46,7 +50,7 @@ export function RouteComponent() {
         }}
       />
       <ExpenseForm expense={initialExpense} onSubmit={handleSubmit} />
-    </UserLayout>
+    </>
   );
 }
 

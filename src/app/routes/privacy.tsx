@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import GuestLayout from '@/shared/ui/layout/GuestLayout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
 export const Route = createFileRoute('/privacy')({
@@ -9,7 +8,7 @@ export const Route = createFileRoute('/privacy')({
 
 function RouteComponent() {
   return (
-    <GuestLayout>
+    <>
       <SubPageHeader title='개인정보 처리방침' />
       <article className='prose prose-neutral'>
         <header>
@@ -264,6 +263,6 @@ function RouteComponent() {
         </p>
         <p>이 개인정보 처리방침은 2025년 04월 11일부터 적용됩니다.</p>
       </article>
-    </GuestLayout>
+    </>
   );
 }

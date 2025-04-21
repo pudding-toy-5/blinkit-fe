@@ -30,7 +30,7 @@ describe('fromExpense', () => {
 
     const serverExpense = fromExpense(expense);
 
-    expect(serverExpense.expended_at).not.toBe(undefined);
+    expect(serverExpense.expended_at).not.toBeUndefined();
   });
 
   it('converts undefined amount to zero.', () => {
@@ -60,7 +60,7 @@ describe('fromExpense', () => {
 
     const serverExpense = fromExpense(expense);
 
-    expect(serverExpense.consumption_kind).toBe(undefined);
+    expect(serverExpense.consumption_kind).toBeUndefined();
   });
 
   it('converts correct uid, memo, date, amount, categories, consumptionKind.', () => {

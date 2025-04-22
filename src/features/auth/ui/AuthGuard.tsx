@@ -1,3 +1,4 @@
+import Clarity from '@microsoft/clarity';
 import { useLocation, useNavigate } from '@tanstack/react-router';
 import { AxiosError } from 'axios';
 import React from 'react';
@@ -33,6 +34,11 @@ const AuthGuard: React.FC<{
             void navigate({ to: '/settings/account' });
             return;
           }
+
+          if (user.isStaff) {
+            Clarity.identify('staff');
+          }
+
           setIsAuthorized(true);
         }
       } catch (error) {

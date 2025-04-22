@@ -35,7 +35,7 @@ const AuthGuard: React.FC<{
             return;
           }
 
-          if (user.isStaff) {
+          if (user.isStaff && window.__clarityInitialized) {
             Clarity.identify('staff');
           }
 

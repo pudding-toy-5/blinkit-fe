@@ -6,14 +6,13 @@ import Clarity from '@microsoft/clarity';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 // tanstack-router
-import { createRouter, RouterProvider } from '@tanstack/react-router';
+import { RouterProvider } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { StrictMode } from 'react';
 import ReactDom from 'react-dom/client';
 
-import { routeTree } from './routeTree.gen';
+import { router } from './router/index';
 
-const router = createRouter({ routeTree });
 const queryClient = new QueryClient();
 
 declare module '@tanstack/react-router' {

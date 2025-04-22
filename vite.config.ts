@@ -9,11 +9,16 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    TanStackRouterVite({
+      target: 'react',
+      autoCodeSplitting: true,
+      routesDirectory: './src/pages',
+      generatedRouteTree: './src/app/router/routeTree.gen.ts',
+    }),
     react(),
     tailwindcss(),
     tsconfigPaths(),
     dts({ tsconfigPath: './tsconfig.app.json' }),
-    TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
   ],
   server: {
     port: 3000,

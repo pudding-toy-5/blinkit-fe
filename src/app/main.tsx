@@ -1,7 +1,7 @@
 import 'pretendard/dist/web/static/pretendard.css';
 import './index.css';
 
-// import Clarity from '@microsoft/clarity';
+import Clarity from '@microsoft/clarity';
 // tanstack-query
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -21,25 +21,11 @@ declare module '@tanstack/react-router' {
     router: typeof router;
   }
 }
-function insertClarity(key: string) {
-  const clarityScript = document.createElement('script');
-  clarityScript.async = true;
-  clarityScript.src = `https://www.clarity.ms/tag/${key}`;
-  document.head.appendChild(clarityScript);
-
-  // window.clarity 초기화
-  (window as any).clarity =
-    (window as any).clarity ||
-    function (...args: any[]) {
-      ((window as any).clarity.q = (window as any).clarity.q || []).push(args);
-    };
-}
 
 if (import.meta.env.PROD) {
   const CLARITY_KEY = import.meta.env.VITE_CLARITY_KEY as string;
 
-  // Clarity.init(CLARITY_KEY);
-  insertClarity(CLARITY_KEY);
+  Clarity.init(CLARITY_KEY);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

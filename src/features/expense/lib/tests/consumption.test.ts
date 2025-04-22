@@ -2,8 +2,6 @@ import {
   consumptionConsciousTexts,
   consumptionEmotionalTexts,
   consumptionEssentialTexts,
-  consumptionMap,
-  consumptionTextsMap,
 } from '@/features/expense/consts';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 

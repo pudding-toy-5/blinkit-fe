@@ -3,9 +3,9 @@ import { AxiosError } from 'axios';
 
 import { queryKeys } from '@/features/category/consts';
 import { Category } from '@/features/category/model/types/Category';
-import { apiUrl } from '@/features/common/consts';
 import { queryKeys as expenseQueryKeys } from '@/features/expense/consts';
 import userAxios from '@/shared/api/userAxios';
+import { apiUrl } from '@/shared/consts';
 
 const baseUrl = apiUrl + '/expense/categories';
 

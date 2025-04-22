@@ -3,7 +3,6 @@ import { AxiosError } from 'axios';
 import { formatDate } from 'date-fns';
 import { useMemo } from 'react';
 
-import { apiUrl } from '@/features/common/consts';
 import { queryKeys } from '@/features/expense/consts';
 import { fromExpense, toExpense } from '@/features/expense/lib/convertExpense';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
@@ -14,6 +13,7 @@ import {
 } from '@/features/expense/model/Expense';
 import Period from '@/features/expense/model/Period';
 import userAxios from '@/shared/api/userAxios';
+import { apiUrl } from '@/shared/consts';
 
 if (!apiUrl) {
   throw new Error('API URL이 설정되지 않았습니다.');

@@ -4,8 +4,8 @@ import { AxiosError } from 'axios';
 import { TOKEN_KEY } from '@/constants';
 import { fromUser, toUser } from '@/features/auth/lib/convertUser';
 import { ServerUser, User } from '@/features/auth/model/User';
-import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
+import { apiUrl } from '@/shared/consts';
 
 export const useMe = () => {
   return useQuery<User>({

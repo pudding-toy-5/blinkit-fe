@@ -10,17 +10,17 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as PrivacyImport } from './routes/privacy'
-import { Route as IndexImport } from './routes/index'
-import { Route as SettingsIndexImport } from './routes/settings.index'
-import { Route as LoginIndexImport } from './routes/login.index'
-import { Route as ExpensesIndexImport } from './routes/expenses.index'
-import { Route as SettingsAccountImport } from './routes/settings.account'
-import { Route as LoginServiceIndexImport } from './routes/login.$service.index'
-import { Route as ExpensesReviewIndexImport } from './routes/expenses.review.index'
-import { Route as ExpensesNewIndexImport } from './routes/expenses.new.index'
-import { Route as ExpensesUidIndexImport } from './routes/expenses.$uid.index'
+import { Route as rootRoute } from './../../pages/__root'
+import { Route as PrivacyImport } from './../../pages/privacy'
+import { Route as IndexImport } from './../../pages/index'
+import { Route as SettingsIndexImport } from './../../pages/settings.index'
+import { Route as LoginIndexImport } from './../../pages/login.index'
+import { Route as ExpensesIndexImport } from './../../pages/expenses.index'
+import { Route as SettingsAccountImport } from './../../pages/settings.account'
+import { Route as LoginServiceIndexImport } from './../../pages/login.$service.index'
+import { Route as ExpensesReviewIndexImport } from './../../pages/expenses.review.index'
+import { Route as ExpensesNewIndexImport } from './../../pages/expenses.new.index'
+import { Route as ExpensesUidIndexImport } from './../../pages/expenses.$uid.index'
 
 // Create/Update Routes
 

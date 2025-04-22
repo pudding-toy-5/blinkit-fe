@@ -43,7 +43,7 @@ export const useCategoryByUid = (uid: string) => {
     queryKey: [...queryKeys.categories, uid],
     queryFn: async () => {
       try {
-        const res = await userAxios.get<Category>(baseUrl);
+        const res = await userAxios.get<Category>(`${baseUrl}/${uid}`);
         return res.data;
       } catch (error) {
         if (error instanceof AxiosError) {

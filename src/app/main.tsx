@@ -26,6 +26,7 @@ if (import.meta.env.PROD) {
   const CLARITY_KEY = import.meta.env.VITE_CLARITY_KEY as string;
 
   Clarity.init(CLARITY_KEY);
+  window.__clarityInitialized = true;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

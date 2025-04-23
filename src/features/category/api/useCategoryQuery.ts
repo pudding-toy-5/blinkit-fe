@@ -89,7 +89,8 @@ export const useUpdateCategory = () => {
     mutationFn: async (category: Category) => {
       try {
         const res = await userAxios.patch<Category>(
-          `${baseUrl}/${category.uid}`
+          `${baseUrl}/${category.uid}`,
+          category
         );
         return res.data;
       } catch (error) {

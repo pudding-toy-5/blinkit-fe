@@ -61,7 +61,7 @@ export const useCategoryByUid = (uid: string) => {
 export const useAddCategory = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<Omit<Category, 'uid'>, Error, Omit<Category, 'uid'>>({
+  return useMutation<Category, Error, Omit<Category, 'uid'>>({
     mutationFn: async (category: Omit<Category, 'uid'>) => {
       try {
         const res = await userAxios.post<Category>(baseUrl, category);
@@ -112,7 +112,7 @@ export const useUpdateCategory = () => {
 export const useDeleteCategory = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<string, Error, string>({
     mutationFn: async (uid: string) => {
       try {
         await userAxios.delete(`${baseUrl}/${uid}`);

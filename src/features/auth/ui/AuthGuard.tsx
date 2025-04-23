@@ -55,7 +55,7 @@ const AuthGuard: React.FC<{
     };
 
     void checkAuth();
-  }, [navigate]);
+  }, [navigate, location.pathname]);
 
   if (loading) {
     return <FullScreenSpinner />;

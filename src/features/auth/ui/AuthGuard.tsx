@@ -13,7 +13,7 @@ const AuthGuard: React.FC<{
   children?: React.ReactNode;
 }> = ({ children }) => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const pathname = useLocation({ select: (location) => location.pathname });
 
   const [isAuthorized, setIsAuthorized] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
@@ -27,10 +27,7 @@ const AuthGuard: React.FC<{
         const user = toUser(res.data);
 
         if (res.status === 200) {
-          if (
-            location.pathname !== '/settings/account' &&
-            !user.nickname?.trim()
-          ) {
+          if (pathname !== '/settings/account' && !user.nickname?.trim()) {
             void navigate({ to: '/settings/account' });
             return;
           }
@@ -55,7 +52,7 @@ const AuthGuard: React.FC<{
     };
 
     void checkAuth();
-  }, [navigate, location.pathname]);
+  }, [navigate, pathname]);
 
   if (loading) {
     return <FullScreenSpinner />;

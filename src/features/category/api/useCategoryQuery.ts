@@ -47,7 +47,7 @@ export const useCategoryByUid = (uid: string) => {
         return res.data;
       } catch (error) {
         if (error instanceof AxiosError) {
-          throw new Error(`엔티티 목록 조회 실패:  ${error.message}`);
+          throw new Error(`카테고리 조회 실패 - uid: ${uid}. ${error.message}`);
         }
         throw error;
       }

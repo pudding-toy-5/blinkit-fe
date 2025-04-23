@@ -3,9 +3,9 @@ import { AxiosError } from 'axios';
 
 import { TOKEN_KEY } from '@/constants';
 import SignInButton from '@/features/auth/ui/SignInButton';
-import { apiUrl } from '@/features/common/consts';
 import Onboarding from '@/features/onboarding/ui/Onboarding';
 import userAxios from '@/shared/api/userAxios';
+import { apiUrl } from '@/shared/consts';
 
 export const Route = createFileRoute('/login/')({
   loader: async () => {

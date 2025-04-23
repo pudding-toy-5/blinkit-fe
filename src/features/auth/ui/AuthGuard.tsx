@@ -5,8 +5,8 @@ import React from 'react';
 
 import { toUser } from '@/features/auth/lib/convertUser';
 import { ServerUser } from '@/features/auth/model/User';
-import { apiUrl } from '@/features/common/consts';
 import userAxios from '@/shared/api/userAxios';
+import { apiUrl } from '@/shared/consts';
 import FullScreenSpinner from '@/shared/ui/FullScreenSpinner';
 
 const AuthGuard: React.FC<{

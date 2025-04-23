@@ -1,61 +1,134 @@
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
 import { queryKeys } from '@/features/category/consts';
 import { Category } from '@/features/category/model/types/Category';
-import { apiUrl } from '@/features/common/consts';
-import { createEntityHooks } from '@/features/common/useEntityQuery';
 import { queryKeys as expenseQueryKeys } from '@/features/expense/consts';
+import userAxios from '@/shared/api/userAxios';
+import { apiUrl } from '@/shared/consts';
 
-if (!apiUrl) {
-  throw new Error('API URL이 설정되지 않았습니다.');
-}
 const baseUrl = apiUrl + '/expense/categories';
 
-const {
-  useEntities: useCategoriesQuery,
-  // useEntityByUid: useCategoryByUidQuery,
-  useAddEntity: useAddCategory,
-  useUpdateEntity: useUpdateCategoryQuery,
-  useDeleteEntity: useDeleteCategoryQuery,
-} = createEntityHooks<Category>(queryKeys.categories, baseUrl);
+export const useCategories = () => {
+  const {
+    data: categories,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<Category[]>({
+    queryKey: queryKeys.categories,
+    queryFn: async () => {
+      try {
+        const res = await userAxios.get<Category[]>(baseUrl);
+        return res.data;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error(`카테고리 리스트 조회 실패: ${error.message}`);
+        }
+        throw error;
+      }
+    },
+  });
 
-const useCategories = () => {
-  const { data: categories, isLoading, isError, error } = useCategoriesQuery();
   return { categories, isLoading, isError, error };
 };
 
-const useCategoryByUid = (uid: string) => {
-  // const { data: category, isLoading, isError, error } = useCategoryByUidQuery(uid);
-  // return { category, isLoading, isError, error };
-  const { categories, isLoading, isError, error } = useCategories();
-  const category = categories?.find((category) => category.uid === uid);
+export const useCategoryByUid = (uid: string) => {
+  const {
+    data: category,
+    isLoading,
+    error,
+    isError,
+  } = useQuery<Category>({
+    queryKey: [...queryKeys.categories, uid],
+    queryFn: async () => {
+      try {
+        const res = await userAxios.get<Category>(`${baseUrl}/${uid}`);
+        return res.data;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error(`카테고리 조회 실패 - uid: ${uid}. ${error.message}`);
+        }
+        throw error;
+      }
+    },
+    enabled: Boolean(uid),
+  });
+
   return { category, isLoading, isError, error };
 };
 
-const useUpdateCategory = () => {
-  const qc = useQueryClient();
-  return useUpdateCategoryQuery({
+export const useAddCategory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<Omit<Category, 'uid'>, Error, Omit<Category, 'uid'>>({
+    mutationFn: async (category: Omit<Category, 'uid'>) => {
+      try {
+        const res = await userAxios.post<Category>(baseUrl, category);
+        return res.data;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error(`카테고리 추가 실패: ${error.message}`);
+        }
+        throw error;
+      }
+    },
     onSuccess: () => {
-      void qc.invalidateQueries({ queryKey: expenseQueryKeys.expenses });
-      void qc.invalidateQueries({ queryKey: queryKeys.categories });
+      void queryClient.invalidateQueries({ queryKey: queryKeys.categories });
+      void queryClient.invalidateQueries({
+        queryKey: expenseQueryKeys.expenses,
+      });
     },
   });
 };
 
-const useDeleteCategory = () => {
-  const qc = useQueryClient();
-  return useDeleteCategoryQuery({
+export const useUpdateCategory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<Category, Error, Category>({
+    mutationFn: async (category: Category) => {
+      try {
+        const res = await userAxios.patch<Category>(
+          `${baseUrl}/${category.uid}`,
+          category
+        );
+        return res.data;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error(`카테고리 업데이트 실패: ${error.message}`);
+        }
+        throw error;
+      }
+    },
     onSuccess: () => {
-      void qc.invalidateQueries({ queryKey: expenseQueryKeys.expenses });
-      void qc.invalidateQueries({ queryKey: queryKeys.categories });
+      void queryClient.invalidateQueries({ queryKey: queryKeys.categories });
+      void queryClient.invalidateQueries({
+        queryKey: expenseQueryKeys.expenses,
+      });
     },
   });
 };
 
-export {
-  useAddCategory,
-  useCategories,
-  useCategoryByUid,
-  useDeleteCategory,
-  useUpdateCategory,
+export const useDeleteCategory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (uid: string) => {
+      try {
+        await userAxios.delete(`${baseUrl}/${uid}`);
+        return uid;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error(`카테고리 ${uid} 삭제 실패: ${error.message}`);
+        }
+        throw error;
+      }
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: queryKeys.categories });
+      void queryClient.invalidateQueries({
+        queryKey: expenseQueryKeys.expenses,
+      });
+    },
+  });
 };

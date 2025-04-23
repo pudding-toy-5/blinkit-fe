@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { formatDate } from 'date-fns';
 
-import { apiUrl } from '@/features/common/consts';
 import {
   Retrospective,
   ServerRetrospective,
 } from '@/features/retrospective/model/Retrospective';
 import userAxios from '@/shared/api/userAxios';
+import { apiUrl } from '@/shared/consts';
 
 import { fromServerRetrospective } from '../model/utils';
 

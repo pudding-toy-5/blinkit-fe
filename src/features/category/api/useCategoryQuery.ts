@@ -112,7 +112,7 @@ export const useUpdateCategory = () => {
 export const useDeleteCategory = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<string, Error, string>({
     mutationFn: async (uid: string) => {
       try {
         await userAxios.delete(`${baseUrl}/${uid}`);

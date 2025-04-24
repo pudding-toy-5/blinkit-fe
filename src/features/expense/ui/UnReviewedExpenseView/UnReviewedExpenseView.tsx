@@ -92,7 +92,7 @@ const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
     if (measureRef.current) {
       setButtonWidth(measureRef.current.scrollWidth);
     }
-  }, []);
+  }, [measureRef]);
 
   const handleSelectExpense = (expense: Expense) => {
     setSelectedExpense(expense);

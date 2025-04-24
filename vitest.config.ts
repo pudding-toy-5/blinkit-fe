@@ -30,6 +30,7 @@ export default defineConfig({
       reportOnFailure: true,
       exclude: [
         'node_modules',
+        'dist',
         // test
         'playwright.config.ts',
         'vitest.config.ts',

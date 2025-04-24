@@ -26,6 +26,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
           ),
           title: 'text-[13px] text-white',
         },
+        duration: 2000,
       }}
       style={
         {

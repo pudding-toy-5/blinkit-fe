@@ -41,7 +41,8 @@
     "vitest.setup.ts",
     // playwright
     "**.spec.ts",
-    "playwright.config.ts"
+    "playwright.config.ts",
+    "src/shared/types/global.d.ts"
   ],
   "exclude": [
     "e2e"

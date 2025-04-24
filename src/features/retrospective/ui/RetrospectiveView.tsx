@@ -5,12 +5,12 @@ import {
   consumptionEmotional,
   consumptionEssential,
 } from '@/features/expense/consts';
-import { ConsumptionKind } from '@/features/expense/model/types/ConsumptionKind';
+import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetrospective';
 import useDateRange from '@/shared/lib/useDateRange';
 
 import RetrospectiveCard from './RetrospectiveCard';
-import RetrospectiveDetailPopover from './RetrospectiveDetailPopover';
+import RetrospectiveDetailPopoverPage from './RetrospectiveDetailPopoverPage';
 
 const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
   onMoveReview,
@@ -55,7 +55,7 @@ const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
       ) : (
         <>
           {open && consumptionKind && (
-            <RetrospectiveDetailPopover
+            <RetrospectiveDetailPopoverPage
               consumptionKind={consumptionKind}
               onClose={() => {
                 setOpen(false);

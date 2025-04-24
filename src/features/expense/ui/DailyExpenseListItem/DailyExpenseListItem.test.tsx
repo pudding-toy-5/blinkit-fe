@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { describe, it } from 'vitest';
 
-import { DailyExpense, Expense } from '@/features/expense/model/types/Expense';
+import { DailyExpense, Expense } from '@/features/expense/model/Expense';
 
 import DailyExpenseListItem from './DailyExpenseListItem';
 

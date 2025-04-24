@@ -1,4 +1,4 @@
-import { Expense } from '@/features/expense/model/types/Expense';
+import { Expense } from '@/features/expense/model/Expense';
 import ReviewExpenseCard from '@/features/expense/ui/ReviewExpenseCard';
 
 const RetrospectiveCardList: React.FC<{ expenses: Expense[] }> = ({

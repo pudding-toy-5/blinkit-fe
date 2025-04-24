@@ -4,7 +4,7 @@ import CategoryTag from '@/features/category/ui/CategoryTag';
 import {
   Consumption,
   ConsumptionKind,
-} from '@/features/expense/model/types/ConsumptionKind';
+} from '@/features/expense/model/ConsumptionKind';
 import {
   Retrospective,
   RetrospectiveCategory,

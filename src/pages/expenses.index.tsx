@@ -58,9 +58,6 @@ export function ExpensesPage() {
         </header>
       )}
       <div className='px-5 py-4'>
-        {!isCollapsed && (
-          <h1 className='text-[22px] font-semibold mb-4'>기록</h1>
-        )}
         <MonthSelector period={period} onSetPeriod={setPeriod} />
         <div className='flex flex-col mt-4'>
           <span className='text-[15px] text-[#555] font-semibold'>

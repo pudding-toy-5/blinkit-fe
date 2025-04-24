@@ -44,7 +44,7 @@ const UnReviewedExpenseListItem: React.FC<Props> = ({
     if (liRef.current) {
       setLiWidth(liRef.current.offsetWidth);
     }
-  }, []);
+  }, [buttonWidth, liRef]);
 
   useEffect(() => {
     void api.start({ deleteWidth: isOpen ? buttonWidth + GAP : 0 });

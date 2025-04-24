@@ -60,10 +60,12 @@ export const useExpensesByRange = ({
   start,
   end,
   consumptionKind,
+  categoryUids,
 }: {
   start: Date;
   end: Date;
   consumptionKind: ConsumptionKind;
+  categoryUids?: string[];
 }) => {
   return useQuery<Expense[]>({
     queryKey: [
@@ -71,6 +73,7 @@ export const useExpensesByRange = ({
       start.toISOString(),
       end.toISOString(),
       consumptionKind,
+      categoryUids,
     ],
     queryFn: async () => {
       try {
@@ -79,6 +82,10 @@ export const useExpensesByRange = ({
             start_date: formatDate(start, 'yyyy-MM-dd'),
             end_date: formatDate(end, 'yyyy-MM-dd'),
             consumption_kind: consumptionKind,
+            category_uids: categoryUids,
+          },
+          paramsSerializer: {
+            indexes: null,
           },
         });
 

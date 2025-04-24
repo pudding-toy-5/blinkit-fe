@@ -42,7 +42,7 @@ const ReviewExpenseCard: React.FC<{ expense: Expense }> = ({ expense }) => {
           ref={memoRef}
           aria-label='메모'
           className={cn(
-            'text-[15px] text-[#555] leading-[150%] mt-1',
+            'text-[15px] text-[#555] leading-[150%] mt-1 break-words',
             !isMemoOpen && 'line-clamp-1'
           )}
         >

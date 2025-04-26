@@ -130,7 +130,7 @@ export default function CategoriesPopoverPage({
           <InputCategoryTags
             value={values}
             onChange={handleValues}
-            placeholder='카테고리명을 입력해주세요. (예: 카페)'
+            placeholder='카테고리를 선택하거나 입력해주세요.'
             maxLength={20}
           />
         </div>

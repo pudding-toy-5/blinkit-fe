@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
 import {
@@ -29,16 +29,20 @@ export default function CategoriesPopoverPage({
   const addCategory = useAddCategory();
   const { categories } = useCategories();
 
-  const [values, setValues] = React.useState<string[]>(
+  const [values, setValues] = useState<string[]>(
     selectedCategories.map((selectedCategory) => selectedCategory.name)
   );
 
-  const [open, setOpen] = React.useState<boolean>(false);
-  const [category, setCategory] = React.useState<Category | undefined>(
-    undefined
+  const [open, setOpen] = useState<boolean>(false);
+  const [category, setCategory] = useState<Category | undefined>(undefined);
+
+  const submitButtonText = useMemo(
+    () =>
+      values.length === 0 ? '완료' : `${values.length.toString()}개 설정 완료`,
+    [values]
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     setValues(
       selectedCategories.map((selectedCategory) => selectedCategory.name)
     );
@@ -136,7 +140,7 @@ export default function CategoriesPopoverPage({
         </div>
 
         <div className='flex flex-col flex-1 overflow-hidden'>
-          <p className='text-[13px] font-semibold text-[#999] my-4 px-5'>
+          <p className='text-[13px] font-semibold text-[#999] mt-6 mb-4 px-5'>
             내가 추가한 카테고리
           </p>
           <div className='flex-1 overflow-hidden'>
@@ -200,7 +204,7 @@ export default function CategoriesPopoverPage({
               !categories || categories.length === 0 || values.length === 0
             }
           >
-            완료
+            {submitButtonText}
           </Button>
         </div>
       </Layout>

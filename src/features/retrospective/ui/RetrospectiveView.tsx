@@ -12,9 +12,7 @@ import useDateRange from '@/shared/lib/useDateRange';
 import RetrospectiveCard from './RetrospectiveCard';
 import RetrospectiveDetailPopoverPage from './RetrospectiveDetailPopoverPage';
 
-const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
-  onMoveReview,
-}) => {
+const RetrospectiveView: React.FC = () => {
   const {
     dateRange: { start, end },
   } = useDateRange();
@@ -55,10 +53,7 @@ const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
               <br />
               리뷰 탭으로 이동해 소비를 분류해주세요.
             </span>
-            <button
-              className='text-[13px] text-[#555] rounded-full px-3 py-2 bg-[#efefef] mt-4'
-              onClick={onMoveReview}
-            >
+            <button className='text-[13px] text-[#555] rounded-full px-3 py-2 bg-[#efefef] mt-4'>
               리뷰 탭으로 이동하기
             </button>
           </div>

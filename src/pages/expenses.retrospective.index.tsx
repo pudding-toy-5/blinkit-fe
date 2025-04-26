@@ -8,7 +8,7 @@ import Logo from '@/shared/ui/icons/Logo';
 import BottomNavBar from '@/widgets/BottomNavBar';
 import ReviewTopNavBar from '@/widgets/ReviewTopNavBar';
 
-export const Route = createFileRoute('/expenses/review/')({
+export const Route = createFileRoute('/expenses/retrospective/')({
   component: () => (
     <AuthGuard>
       <RouteComponent />
@@ -17,32 +17,13 @@ export const Route = createFileRoute('/expenses/review/')({
 });
 
 function RouteComponent() {
-  const [isRetrospective, setIsRetrospective] = React.useState<boolean>(false);
-
   return (
     <>
       <header className='px-5 py-4'>
         <Logo />
       </header>
-      <ReviewTopNavBar
-        isRetrospective={isRetrospective}
-        onClickReview={() => {
-          setIsRetrospective(false);
-        }}
-        onClickRetrospective={() => {
-          setIsRetrospective(true);
-        }}
-      />
-      {isRetrospective ? (
-        <RetrospectiveView />
-      ) : (
-        <UnReviewedExpenseView
-          onMoveRetrospective={() => {
-            setIsRetrospective(true);
-          }}
-        />
-      )}
-      <BottomNavBar variant={isRetrospective ? 'white' : 'accent'} />
+      <RetrospectiveView />
+      <BottomNavBar variant='white' />
     </>
   );
 }

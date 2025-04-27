@@ -170,7 +170,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                 </FormLabel>
                 <button
                   type='button'
-                  id='categories'
                   aria-label='카테고리 설정 버튼'
                   className='flex flex-row items-center gap-1 ml-auto'
                   onClick={() => {

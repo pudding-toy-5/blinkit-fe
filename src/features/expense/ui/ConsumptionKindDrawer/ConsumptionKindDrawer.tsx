@@ -98,27 +98,21 @@ const consumptions: Consumption[] = [
 
 export interface Props {
   isOpen: boolean;
+  onClose: () => void;
   setConsumptionKind: (consumptionKind: ConsumptionKind) => void;
-  onOpenChange: (open: boolean) => void;
 }
 
 const ConsumptionKindDrawer: React.FC<Props> = ({
   isOpen,
+  onClose,
   setConsumptionKind,
-  onOpenChange,
 }) => {
-  const [selectedKind, setSelectedKind] = useState<ConsumptionKind | null>(
-    null
+  const [selectedKind, setSelectedKind] = useState<ConsumptionKind>(
+    ConsumptionKind.none
   );
 
   return (
-    <Drawer
-      open={isOpen}
-      onOpenChange={onOpenChange}
-      onClose={() => {
-        setSelectedKind(null);
-      }}
-    >
+    <Drawer open={isOpen} onClose={onClose}>
       <DrawerContent className='px-5 py-6 rounded-t-[20px] bg-white'>
         <DrawerHeader className='flex flex-col gap-0 p-0'>
           <div className='flex flex-row'>
@@ -152,15 +146,16 @@ const ConsumptionKindDrawer: React.FC<Props> = ({
         </div>
         <DrawerFooter className='mt-8 p-0'>
           <Button
+            type='button'
             className='h-13 rounded-full text-white bg-[#222] font-semibold disabled:bg-[#CCC]'
             onClick={() => {
-              if (selectedKind) {
+              if (selectedKind !== ConsumptionKind.none) {
                 setConsumptionKind(selectedKind);
-                setSelectedKind(null);
-                onOpenChange(false);
+                setSelectedKind(ConsumptionKind.none);
+                onClose();
               }
             }}
-            disabled={selectedKind === null}
+            disabled={selectedKind === ConsumptionKind.none}
           >
             완료
           </Button>

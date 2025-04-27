@@ -17,13 +17,11 @@ import RetrospectiveDetailPopoverPage from './RetrospectiveDetailPopoverPage';
 // } from './RetrospectiveSummary';
 
 const RetrospectiveView: React.FC = () => {
-  const {
-    dateRange: { start, end },
-  } = useDateRange();
+  const { dateRange, setDateRange } = useDateRange();
 
   const { data: retrospectives = [] } = useRetrospectivesByRange({
-    start,
-    end,
+    start: dateRange?.from ?? new Date('2025-04-01'),
+    end: dateRange?.to ?? new Date('2025-05-31'),
   });
 
   const [consumptionKind, setConsumptionKind] = useState<ConsumptionKind>(

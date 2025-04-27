@@ -21,13 +21,11 @@ const RetrospectiveDetailPopoverPage: React.FC<Props> = ({
   consumptionKind,
   onClose,
 }) => {
-  const {
-    dateRange: { start, end },
-  } = useDateRange();
+  const { dateRange } = useDateRange();
 
   const { data: expenses = [] } = useExpensesByRange({
-    start,
-    end,
+    start: dateRange?.from ?? new Date('2025-04-01'),
+    end: dateRange?.to ?? new Date('2025-05-31'),
     consumptionKind,
   });
 
@@ -47,8 +45,8 @@ const RetrospectiveDetailPopoverPage: React.FC<Props> = ({
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
   const { data: filteredExpenses = [] } = useExpensesByRange({
-    start,
-    end,
+    start: dateRange?.from ?? new Date('2025-04-01'),
+    end: dateRange?.to ?? new Date('2025-05-31'),
     consumptionKind,
     categoryUids: selectedCategories.map((c) => c.uid),
   });

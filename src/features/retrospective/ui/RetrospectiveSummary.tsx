@@ -1,0 +1,94 @@
+import { useMemo } from 'react';
+
+import { getConsumptionTitle } from '@/features/expense/lib/consumption';
+import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
+
+export interface ItemProps {
+  color: '#28a745' | '#e7b60f' | '#ff6b6b';
+  title: string;
+  percentage: number;
+  amount: number;
+}
+
+const SummaryItem: React.FC<ItemProps> = ({
+  color,
+  title,
+  percentage,
+  amount,
+}) => {
+  return (
+    <li className='flex flex-row items-center gap-2'>
+      <div className='size-4 rounded-full' style={{ backgroundColor: color }} />
+      <div className='flex flex-col'>
+        <span className='text-[17px] text-[#222] font-semibold'>{title}</span>
+        <span className='text-[13px] text-[#555]'>{percentage}%</span>
+      </div>
+      <span className='text-[17px] text-[#222] font-semibold ml-auto'>{`${amount.toLocaleString()}원`}</span>
+    </li>
+  );
+};
+
+export interface RetrospectiveSummaryProps {
+  essential: number;
+  conscious: number;
+  emotional: number;
+}
+
+const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
+  essential,
+  conscious,
+  emotional,
+}) => {
+  const total = essential + conscious + emotional;
+
+  const summaries: ItemProps[] = [
+    {
+      color: '#28a745',
+      title: getConsumptionTitle(ConsumptionKind.essential),
+      percentage: Number(((essential / total) * 100).toFixed(2)),
+      amount: essential,
+    },
+    {
+      color: '#e7b60f',
+      title: getConsumptionTitle(ConsumptionKind.conscious),
+      percentage: Number(((conscious / total) * 100).toFixed(2)),
+      amount: conscious,
+    },
+    {
+      color: '#ff6b6b',
+      title: getConsumptionTitle(ConsumptionKind.emotional),
+      percentage: Number(((emotional / total) * 100).toFixed(2)),
+      amount: emotional,
+    },
+  ];
+
+  return (
+    <header className='flex flex-col'>
+      <span className='text-[22px] text-[#222] font-semibold'>
+        {total.toLocaleString()}원
+      </span>
+      <div className='flex flex-row w-full h-6 rounded-[4px] bg-gray-100 mt-4 mb-8 overflow-hidden'>
+        {summaries.map(({ color, percentage }) => (
+          <div
+            style={{
+              width: `${percentage.toString()}%`,
+              backgroundColor: color,
+            }}
+          />
+        ))}
+      </div>
+      <ul className='flex flex-col gap-6'>
+        {summaries.map(({ color, title, percentage, amount }) => (
+          <SummaryItem
+            color={color}
+            title={title}
+            percentage={percentage}
+            amount={amount}
+          />
+        ))}
+      </ul>
+    </header>
+  );
+};
+
+export default RetrospectiveSummary;

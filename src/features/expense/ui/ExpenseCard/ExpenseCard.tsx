@@ -5,7 +5,7 @@ import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { Expense } from '@/features/expense/model/Expense';
 import { cn } from '@/shared/ui/styles/utils';
 
-const DailyExpenseRecord: React.FC<Omit<Expense, 'date'>> = ({
+const ExpenseCard: React.FC<Omit<Expense, 'date'>> = ({
   uid,
   categories,
   amount,
@@ -57,4 +57,4 @@ const DailyExpenseRecord: React.FC<Omit<Expense, 'date'>> = ({
   );
 };
 
-export default DailyExpenseRecord;
+export default ExpenseCard;

@@ -53,10 +53,10 @@ const RetrospectiveView: React.FC = () => {
 
     return [
       {
-        retrospective: essential,
-        consumption: consumptionEssential,
+        retrospective: emotional,
+        consumption: consumptionEmotional,
         onClickRetrospectiveDetail: () => {
-          setConsumptionKind(ConsumptionKind.essential);
+          setConsumptionKind(ConsumptionKind.emotional);
           setOpen(true);
         },
       },
@@ -69,10 +69,10 @@ const RetrospectiveView: React.FC = () => {
         },
       },
       {
-        retrospective: emotional,
-        consumption: consumptionEmotional,
+        retrospective: essential,
+        consumption: consumptionEssential,
         onClickRetrospectiveDetail: () => {
-          setConsumptionKind(ConsumptionKind.emotional);
+          setConsumptionKind(ConsumptionKind.essential);
           setOpen(true);
         },
       },

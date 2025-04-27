@@ -64,7 +64,7 @@ const RetrospectiveView: React.FC = () => {
         retrospective: conscious,
         consumption: consumptionConscious,
         onClickRetrospectiveDetail: () => {
-          setConsumptionKind(ConsumptionKind.essential);
+          setConsumptionKind(ConsumptionKind.conscious);
           setOpen(true);
         },
       },
@@ -72,7 +72,7 @@ const RetrospectiveView: React.FC = () => {
         retrospective: emotional,
         consumption: consumptionEmotional,
         onClickRetrospectiveDetail: () => {
-          setConsumptionKind(ConsumptionKind.essential);
+          setConsumptionKind(ConsumptionKind.emotional);
           setOpen(true);
         },
       },

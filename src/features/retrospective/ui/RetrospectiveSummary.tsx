@@ -42,6 +42,10 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
   const total = essential + conscious + emotional;
 
   const calculatePercentage = (amount: number) => {
+    if (total === 0) {
+      return 0;
+    }
+
     return Number(((amount / total) * 100).toFixed(2));
   };
 

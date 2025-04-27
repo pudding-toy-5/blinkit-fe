@@ -108,7 +108,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
             <FormItem className='flex flex-row'>
               <FormLabel
                 htmlFor='date'
-                className='text-[15px] font-semibold text-[#222] p-0'
+                className='text-[15px] font-semibold text-[#222]'
               >
                 날짜
               </FormLabel>
@@ -196,7 +196,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
           name='amount'
           render={({ field }) => (
             <FormItem className='flex flex-col gap-2'>
-              <FormLabel className='text-[15px] font-semibold'>금액</FormLabel>
+              <FormLabel className='text-[15px] font-semibold text-[#222]'>
+                금액
+              </FormLabel>
               <FormControl>
                 <NumericFormat
                   inputMode='numeric'
@@ -232,7 +234,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
           name='consumptionKind'
           render={({ field }) => (
             <FormItem className='flex flex-row'>
-              <FormLabel>소비 분류</FormLabel>
+              <FormLabel className='text-[15px] font-semibold text-[#222]'>
+                소비 분류
+              </FormLabel>
               <FormControl>
                 <button
                   type='button'

@@ -1,5 +1,8 @@
+import { useMemo } from 'react';
+
 import { getConsumptionTitle } from '@/features/expense/lib/consumption';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
+import { CONSUMPTION_COLORS } from '@/shared/consts';
 
 export interface ItemProps {
   color: '#28a745' | '#e7b60f' | '#ff6b6b';
@@ -37,36 +40,44 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
   conscious,
   emotional,
 }) => {
-  const total = essential + conscious + emotional;
+  const total = useMemo(() => {
+    return essential + conscious + emotional;
+  }, [essential, conscious, emotional]);
 
-  const calculatePercentage = (amount: number) => {
-    if (total === 0) {
-      return 0;
-    }
+  const calculatePercentage = useMemo(
+    () => (amount: number) => {
+      if (total === 0) {
+        return 0;
+      }
 
-    return Number(((amount / total) * 100).toFixed(2));
-  };
+      return Number(((amount / total) * 100).toFixed(2));
+    },
+    [total]
+  );
 
-  const summaries: ItemProps[] = [
-    {
-      color: '#28a745',
-      title: getConsumptionTitle(ConsumptionKind.essential),
-      percentage: calculatePercentage(essential),
-      amount: essential,
-    },
-    {
-      color: '#e7b60f',
-      title: getConsumptionTitle(ConsumptionKind.conscious),
-      percentage: calculatePercentage(conscious),
-      amount: conscious,
-    },
-    {
-      color: '#ff6b6b',
-      title: getConsumptionTitle(ConsumptionKind.emotional),
-      percentage: calculatePercentage(emotional),
-      amount: emotional,
-    },
-  ];
+  const summaries: ItemProps[] = useMemo(
+    () => [
+      {
+        color: CONSUMPTION_COLORS[ConsumptionKind.essential],
+        title: getConsumptionTitle(ConsumptionKind.essential),
+        percentage: calculatePercentage(essential),
+        amount: essential,
+      },
+      {
+        color: CONSUMPTION_COLORS[ConsumptionKind.conscious],
+        title: getConsumptionTitle(ConsumptionKind.conscious),
+        percentage: calculatePercentage(conscious),
+        amount: conscious,
+      },
+      {
+        color: CONSUMPTION_COLORS[ConsumptionKind.emotional],
+        title: getConsumptionTitle(ConsumptionKind.emotional),
+        percentage: calculatePercentage(emotional),
+        amount: emotional,
+      },
+    ],
+    [essential, emotional, conscious, calculatePercentage]
+  );
 
   return (
     <header className='flex flex-col'>

@@ -20,15 +20,18 @@ const DailyExpenseListItem: React.FC<DailyExpense> = ({ date, expenses }) => {
         {dateString}
       </p>
       <ul className='flex flex-col gap-2'>
-        {expenses.map(({ uid, categories, amount, memo }: Expense) => (
-          <DailyExpenseRecord
-            key={uid}
-            uid={uid}
-            categories={categories}
-            amount={amount}
-            memo={memo}
-          />
-        ))}
+        {expenses.map(
+          ({ uid, categories, amount, memo, consumptionKind }: Expense) => (
+            <DailyExpenseRecord
+              key={uid}
+              uid={uid}
+              categories={categories}
+              amount={amount}
+              memo={memo}
+              consumptionKind={consumptionKind}
+            />
+          )
+        )}
       </ul>
     </li>
   );

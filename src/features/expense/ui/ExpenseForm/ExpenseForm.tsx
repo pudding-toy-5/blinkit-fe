@@ -248,7 +248,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                   }}
                 >
                   <span className='text-[15px] text-[#28a745]'>
-                    {consumptionKind === ConsumptionKind.none
+                    {consumptionKind === ConsumptionKind.none ||
+                    consumptionKind === undefined
                       ? '소비를 리뷰하세요'
                       : getConsumptionTitle(consumptionKind)}
                   </span>

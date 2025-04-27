@@ -19,7 +19,7 @@ const SummaryItem: React.FC<ItemProps> = ({
   return (
     <li className='flex flex-row items-center gap-2'>
       <div className='size-4 rounded-full' style={{ backgroundColor: color }} />
-      <div className='flex flex-col'>
+      <div className='flex flex-col gap-1'>
         <span className='text-[17px] text-[#222] font-semibold'>{title}</span>
         <span className='text-[13px] text-[#555]'>{percentage}%</span>
       </div>

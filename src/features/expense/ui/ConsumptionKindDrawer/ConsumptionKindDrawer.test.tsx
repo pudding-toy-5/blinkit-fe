@@ -6,16 +6,16 @@ import ConsumptionKindDrawer, { type Props } from './ConsumptionKindDrawer';
 describe('ReviewExpenseDrawer', () => {
   const props: Props = {
     isOpen: false,
+    onClose: vi.fn(),
     setConsumptionKind: vi.fn(),
-    onOpenChange: vi.fn(),
   };
 
-  const renderElement = ({ isOpen, setConsumptionKind, onOpenChange }: Props) =>
+  const renderElement = ({ isOpen, onClose, setConsumptionKind }: Props) =>
     render(
       <ConsumptionKindDrawer
         isOpen={isOpen}
+        onClose={onClose}
         setConsumptionKind={setConsumptionKind}
-        onOpenChange={onOpenChange}
       />
     );
 

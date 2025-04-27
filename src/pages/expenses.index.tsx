@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import React from 'react';
+import { useState } from 'react';
 
 import AuthGuard from '@/features/auth/ui/AuthGuard';
 import {
@@ -22,41 +22,20 @@ export const Route = createFileRoute('/expenses/')({
 });
 
 export function ExpensesPage() {
-  // month Selector
   const current = new Date();
-  const [period, setPeriod] = React.useState<Period>({
+  const [period, setPeriod] = useState<Period>({
     year: current.getFullYear(),
     month: current.getMonth() + 1,
   });
 
-  // scroll event
-  const [isCollapsed, setIsCollapsed] = React.useState<boolean>(false);
-  const [prevScrollTop, setPrevScrollTop] = React.useState<number>(0);
-
-  const handleScroll = (e: React.UIEvent<HTMLUListElement>) => {
-    const currentScrollTop = e.currentTarget.scrollTop;
-    if (currentScrollTop > prevScrollTop) {
-      // setIsCollapsed(true);
-      setIsCollapsed(false);
-    } else {
-      // setIsCollapsed(false);
-      setIsCollapsed(false);
-    }
-
-    setPrevScrollTop(currentScrollTop);
-  };
-
-  // api hooks
   const { dailyExpenses } = useDailyExpensesByPeriod(period);
   const { totalAmount } = useTotalAmountByPeriod(period);
 
   return (
     <>
-      {!isCollapsed && (
-        <header className='flex flex-row items-center px-5 py-4'>
-          <Logo />
-        </header>
-      )}
+      <header className='flex flex-row items-center px-5 py-4'>
+        <Logo />
+      </header>
       <div className='px-5 py-4'>
         <MonthSelector period={period} onSetPeriod={setPeriod} />
         <div className='flex flex-col mt-4'>
@@ -68,7 +47,7 @@ export function ExpensesPage() {
           </span>
         </div>
       </div>
-      <DailyExpenseList dailyExpenses={dailyExpenses} onScroll={handleScroll} />
+      <DailyExpenseList dailyExpenses={dailyExpenses} />
       <BottomNavBar variant='accent' />
       <Link to='/expenses/new'>
         <AddExpenseButton />

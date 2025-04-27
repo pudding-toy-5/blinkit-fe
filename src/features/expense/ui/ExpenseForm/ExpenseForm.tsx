@@ -12,7 +12,7 @@ import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { Expense } from '@/features/expense/model/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
 import ConsumptionKindDrawer from '@/features/expense/ui/ConsumptionKindDrawer';
-import { Button, buttonVariants } from '@/shared/ui/atoms/button';
+import { Button } from '@/shared/ui/atoms/button';
 import {
   Form,
   FormControl,
@@ -26,14 +26,8 @@ import { cn } from '@/shared/ui/styles/utils';
 
 const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
   return (
-    <div
-      className={cn(
-        buttonVariants({ variant: 'ghost' }),
-        'has-[>svg]:p-0',
-        'flex flex-row items-center h-4 w-auto ml-auto p-0'
-      )}
-    >
-      <span className='inline-flex items-center mr-1 text-[15px] font-normal text-[#28a745] relative top-[1px]'>
+    <div className='flex flex-row items-center gap-1 ml-auto'>
+      <span className='text-[15px] text-[#28a745]'>
         {`${date.getFullYear().toString()}년 ${(date.getMonth() + 1).toString()}월 ${date.getDate().toString()}일`}
       </span>
       <ArrowRight size={16} color='#28a745' />
@@ -241,12 +235,12 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
               <FormControl>
                 <button
                   type='button'
-                  className='flex flex-row items-center h-4 w-auto ml-auto p-0'
+                  className='flex flex-row items-center gap-1 ml-auto'
                   onClick={() => {
                     setReviewOpen(true);
                   }}
                 >
-                  <span className='text-[15px] text-[#28a745] mr-[4px]'>
+                  <span className='text-[15px] text-[#28a745]'>
                     {consumptionKind === ConsumptionKind.none
                       ? '소비를 리뷰하세요'
                       : consumptionKind}
@@ -267,7 +261,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
         <div className='fixed bottom-0 left-0 right-0 w-full min-w-[360px] max-w-[430px] mx-auto px-5 py-4 bg-white border-t border-gray-100'>
           <Button
             type='submit'
-            // origin: mt-auto
             className='w-full h-13 text-[15px] font-semibold mt-auto rounded-full'
             disabled={disabled}
           >

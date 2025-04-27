@@ -246,7 +246,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                     setReviewOpen(true);
                   }}
                 >
-                  <span>
+                  <span className='text-[15px] text-[#28a745] mr-[4px]'>
                     {consumptionKind === ConsumptionKind.none
                       ? '소비를 리뷰하세요'
                       : consumptionKind}

@@ -28,6 +28,7 @@ export function RouteComponent() {
     date: new Date(),
     memo: '',
     categories: [],
+    consumptionKind: ConsumptionKind.none,
     amount: 0,
     consumptionKind: ConsumptionKind.none,
   };

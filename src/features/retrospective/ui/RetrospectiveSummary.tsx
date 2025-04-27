@@ -89,6 +89,7 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
       <ul className='flex flex-col gap-6'>
         {summaries.map(({ color, title, percentage, amount }) => (
           <SummaryItem
+            key={title}
             color={color}
             title={title}
             percentage={percentage}

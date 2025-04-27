@@ -82,7 +82,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
     }
 
     return false;
-  }, [memo, categories, amount, consumptionKind]);
+  }, [memo, categories.length, amount, consumptionKind]);
 
   return (
     <Form {...form}>

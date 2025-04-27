@@ -3,7 +3,7 @@ import { describe, it, vi } from 'vitest';
 
 import ConsumptionKindDrawer, { type Props } from './ConsumptionKindDrawer';
 
-describe('ReviewExpenseDrawer', () => {
+describe('ConsumptionKindDrawer', () => {
   const props: Props = {
     isOpen: false,
     onClose: vi.fn(),

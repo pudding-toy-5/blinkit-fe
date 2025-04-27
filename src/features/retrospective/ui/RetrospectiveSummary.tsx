@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { getConsumptionTitle } from '@/features/expense/lib/consumption';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 

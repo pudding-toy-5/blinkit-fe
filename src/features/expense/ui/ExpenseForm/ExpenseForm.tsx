@@ -258,7 +258,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                 isOpen={consumptionKindOpen}
                 onClose={() => {
                   setConsumptionKindOpen(false);
-                  console.log(consumptionKindOpen);
                 }}
                 setConsumptionKind={(kind) => {
                   field.onChange(kind);

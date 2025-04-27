@@ -68,8 +68,9 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
         {total.toLocaleString()}원
       </span>
       <div className='flex flex-row w-full h-6 rounded-[4px] bg-gray-100 mt-4 mb-8 overflow-hidden'>
-        {summaries.map(({ color, percentage }) => (
+        {summaries.map(({ color, percentage, title: key }) => (
           <div
+            key={key}
             style={{
               width: `${percentage.toString()}%`,
               backgroundColor: color,

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
 
@@ -8,8 +8,10 @@ import {
   EXPENSE_AMOUNT_MAX,
   EXPENSE_MEMO_MAX_LEN,
 } from '@/features/expense/consts';
+import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { Expense } from '@/features/expense/model/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
+import ReviewExpenseDrawer from '@/features/expense/ui/ReviewExpenseDrawer';
 import { Button, buttonVariants } from '@/shared/ui/atoms/button';
 import {
   Form,
@@ -45,13 +47,16 @@ export interface ExpenseFormProps {
 }
 
 const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
-  const [open, setOpen] = React.useState<boolean>(false);
+  const [reviewOpen, setReviewOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+
   const form = useForm<Omit<Expense, 'uid'>>({
     defaultValues: {
       date: expense.date,
       memo: expense.memo,
       categories: expense.categories,
       amount: expense.amount === 0 ? undefined : expense.amount,
+      consumptionKind: ConsumptionKind.none,
     },
     mode: 'onChange',
   });
@@ -61,8 +66,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
   const memo = watch('memo');
   const categories = watch('categories');
   const amount = watch('amount');
+  const consumptionKind = watch('consumptionKind');
 
-  const disabled = React.useMemo(() => {
+  const disabled = useMemo(() => {
     if (memo.length === 0 || memo.length > 120) {
       return true;
     }
@@ -75,8 +81,12 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
       return true;
     }
 
+    if (!consumptionKind || consumptionKind === ConsumptionKind.none) {
+      return true;
+    }
+
     return false;
-  }, [memo, categories, amount]);
+  }, [memo, categories, amount, consumptionKind]);
 
   return (
     <Form {...form}>
@@ -218,6 +228,38 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                     'focus-visible:border-[#555555]'
                   )}
                 />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='consumptionKind'
+          render={({ field }) => (
+            <FormItem className='flex flex-row'>
+              <FormLabel>소비 분류</FormLabel>
+              <FormControl>
+                <button
+                  type='button'
+                  className='flex flex-row items-center h-4 w-auto ml-auto p-0'
+                  onClick={() => {
+                    setReviewOpen(true);
+                  }}
+                >
+                  <span>
+                    {consumptionKind === ConsumptionKind.none
+                      ? '소비를 리뷰하세요'
+                      : consumptionKind}
+                  </span>
+                  <ArrowRight size={16} color='#28a745' />
+                  <ReviewExpenseDrawer
+                    isOpen={reviewOpen}
+                    onOpenChange={setReviewOpen}
+                    setConsumptionKind={(kind) => {
+                      field.onChange(kind);
+                    }}
+                  />
+                </button>
               </FormControl>
             </FormItem>
           )}

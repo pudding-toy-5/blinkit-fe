@@ -28,13 +28,13 @@ export const toServerRetrospectiveCategory = ({
 export const fromServerRetrospective = ({
   consumption_kind: consumptionKind,
   total_count: totalCount,
-  total_amount: totalAmount,
+  total_amount,
   items,
 }: ServerRetrospective): Retrospective => {
   return {
     consumptionKind,
     totalCount,
-    totalAmount,
+    totalAmount: Math.trunc(total_amount),
     items: items.map((item) => fromServerRetrospectiveCategory(item)),
   };
 };

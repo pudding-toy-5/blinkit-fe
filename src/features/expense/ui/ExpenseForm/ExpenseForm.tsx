@@ -159,7 +159,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
           control={form.control}
           name='categories'
           render={({ field }) => (
-            <FormItem>
+            <FormItem className='flex flex-col gap-4'>
               <div className='flex flex-row items-center'>
                 <FormLabel
                   htmlFor='categories'
@@ -171,12 +171,13 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                   type='button'
                   id='categories'
                   aria-label='카테고리 설정 버튼'
-                  className='rounded-full bg-[#efefef] hover:bg-accent h-[28px] w-[39px] items-center text-[13px] text-[#555] ml-auto py-1 px-2 shadow-none font-normal'
+                  className='flex flex-row items-center gap-1 ml-auto'
                   onClick={() => {
                     setCategoryOpen(true);
                   }}
                 >
-                  설정
+                  <span className='text-[15px] text-[#28a745]'>설정</span>
+                  <ArrowRight size={16} color='#28a745' />
                 </button>
               </div>
               <div className='flex flex-row gap-2 flex-wrap'>

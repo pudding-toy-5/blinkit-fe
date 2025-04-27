@@ -41,23 +41,27 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
 }) => {
   const total = essential + conscious + emotional;
 
+  const calculatePercentage = (amount: number) => {
+    return Number(((amount / total) * 100).toFixed(2));
+  };
+
   const summaries: ItemProps[] = [
     {
       color: '#28a745',
       title: getConsumptionTitle(ConsumptionKind.essential),
-      percentage: Number(((essential / total) * 100).toFixed(2)),
+      percentage: calculatePercentage(essential),
       amount: essential,
     },
     {
       color: '#e7b60f',
       title: getConsumptionTitle(ConsumptionKind.conscious),
-      percentage: Number(((conscious / total) * 100).toFixed(2)),
+      percentage: calculatePercentage(conscious),
       amount: conscious,
     },
     {
       color: '#ff6b6b',
       title: getConsumptionTitle(ConsumptionKind.emotional),
-      percentage: Number(((emotional / total) * 100).toFixed(2)),
+      percentage: calculatePercentage(emotional),
       amount: emotional,
     },
   ];

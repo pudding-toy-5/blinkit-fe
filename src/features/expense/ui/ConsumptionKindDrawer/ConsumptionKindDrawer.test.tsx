@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
 
-import ReviewExpenseDrawer, { type Props } from './ReviewExpenseDrawer';
+import ConsumptionKindDrawer, { type Props } from './ConsumptionKindDrawer';
 
 describe('ReviewExpenseDrawer', () => {
   const props: Props = {
@@ -12,7 +12,7 @@ describe('ReviewExpenseDrawer', () => {
 
   const renderElement = ({ isOpen, setConsumptionKind, onOpenChange }: Props) =>
     render(
-      <ReviewExpenseDrawer
+      <ConsumptionKindDrawer
         isOpen={isOpen}
         setConsumptionKind={setConsumptionKind}
         onOpenChange={onOpenChange}

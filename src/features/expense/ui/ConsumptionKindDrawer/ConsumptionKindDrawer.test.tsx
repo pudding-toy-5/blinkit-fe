@@ -1,21 +1,21 @@
 import { render } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
 
-import ReviewExpenseDrawer, { type Props } from './ReviewExpenseDrawer';
+import ConsumptionKindDrawer, { type Props } from './ConsumptionKindDrawer';
 
-describe('ReviewExpenseDrawer', () => {
+describe('ConsumptionKindDrawer', () => {
   const props: Props = {
     isOpen: false,
+    onClose: vi.fn(),
     setConsumptionKind: vi.fn(),
-    onOpenChange: vi.fn(),
   };
 
-  const renderElement = ({ isOpen, setConsumptionKind, onOpenChange }: Props) =>
+  const renderElement = ({ isOpen, onClose, setConsumptionKind }: Props) =>
     render(
-      <ReviewExpenseDrawer
+      <ConsumptionKindDrawer
         isOpen={isOpen}
+        onClose={onClose}
         setConsumptionKind={setConsumptionKind}
-        onOpenChange={onOpenChange}
       />
     );
 

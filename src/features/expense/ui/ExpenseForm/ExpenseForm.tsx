@@ -97,7 +97,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
         />
       )}
       <form
-        className='flex flex-col gap-8 h-screen pt-6 px-5'
+        className='flex flex-col gap-6 h-screen pt-6 px-5'
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
       >

@@ -247,15 +247,18 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                       : consumptionKind}
                   </span>
                   <ArrowRight size={16} color='#28a745' />
-                  <ConsumptionKindDrawer
-                    isOpen={reviewOpen}
-                    onOpenChange={setReviewOpen}
-                    setConsumptionKind={(kind) => {
-                      field.onChange(kind);
-                    }}
-                  />
                 </button>
               </FormControl>
+              <ConsumptionKindDrawer
+                isOpen={consumptionKindOpen}
+                onClose={() => {
+                  setConsumptionKindOpen(false);
+                  console.log(consumptionKindOpen);
+                }}
+                setConsumptionKind={(kind) => {
+                  field.onChange(kind);
+                }}
+              />
             </FormItem>
           )}
         />

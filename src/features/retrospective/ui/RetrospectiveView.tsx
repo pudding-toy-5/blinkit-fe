@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import {
   consumptionConscious,
@@ -10,9 +10,11 @@ import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetrospective';
 import useDateRange from '@/shared/lib/useDateRange';
 
-import RetrospectiveCard from './RetrospectiveCard';
+import RetrospectiveCard, { RetrospectiveCardProps } from './RetrospectiveCard';
 import RetrospectiveDetailPopoverPage from './RetrospectiveDetailPopoverPage';
-import RetrospectiveHeader from './RetrospectiveHeader';
+import RetrospectiveSummary, {
+  RetrospectiveSummaryProps,
+} from './RetrospectiveSummary';
 
 const RetrospectiveView: React.FC = () => {
   const {
@@ -28,6 +30,74 @@ const RetrospectiveView: React.FC = () => {
     ConsumptionKind.none
   );
   const [open, setOpen] = useState<boolean>(false);
+
+  const sortedRetrospectiveCards: RetrospectiveCardProps[] = useMemo(() => {
+    const essential = retrospectives.find(
+      (retrospective) =>
+        retrospective.consumptionKind === ConsumptionKind.essential
+    );
+
+    const conscious = retrospectives.find(
+      (retrospective) =>
+        retrospective.consumptionKind === ConsumptionKind.conscious
+    );
+
+    const emotional = retrospectives.find(
+      (retrospective) =>
+        retrospective.consumptionKind === ConsumptionKind.emotional
+    );
+
+    if (!essential || !conscious || !emotional) {
+      return [];
+    }
+
+    return [
+      {
+        retrospective: essential,
+        consumption: consumptionEssential,
+        onClickRetrospectiveDetail: () => {
+          setConsumptionKind(ConsumptionKind.essential);
+          setOpen(true);
+        },
+      },
+      {
+        retrospective: conscious,
+        consumption: consumptionConscious,
+        onClickRetrospectiveDetail: () => {
+          setConsumptionKind(ConsumptionKind.essential);
+          setOpen(true);
+        },
+      },
+      {
+        retrospective: emotional,
+        consumption: consumptionEmotional,
+        onClickRetrospectiveDetail: () => {
+          setConsumptionKind(ConsumptionKind.essential);
+          setOpen(true);
+        },
+      },
+    ];
+  }, [retrospectives]);
+
+  const amounts: RetrospectiveSummaryProps = useMemo(() => {
+    return {
+      essential:
+        retrospectives.find(
+          (retrospective) =>
+            retrospective.consumptionKind === ConsumptionKind.essential
+        )?.totalAmount ?? 0,
+      conscious:
+        retrospectives.find(
+          (retrospective) =>
+            retrospective.consumptionKind === ConsumptionKind.conscious
+        )?.totalAmount ?? 0,
+      emotional:
+        retrospectives.find(
+          (retrospective) =>
+            retrospective.consumptionKind === ConsumptionKind.emotional
+        )?.totalAmount ?? 0,
+    };
+  }, [retrospectives]);
 
   const isRecordEmpty = useMemo(
     () => retrospectives.reduce((acc, cur) => (acc += cur.totalCount), 0) === 0,
@@ -65,65 +135,26 @@ const RetrospectiveView: React.FC = () => {
         />
       )}
       <div className='flex-1 flex flex-col overflow-y-auto scroll'>
-        {/* <SelectPeriodDrawer /> */}
-        <RetrospectiveHeader
-          amount={{
-            total: retrospectives.reduce(
-              (acc, cur) => (acc += cur.totalAmount),
-              0
-            ),
-            essential:
-              retrospectives.find(
-                (retrospective) =>
-                  retrospective.consumptionKind === ConsumptionKind.essential
-              )?.totalAmount ?? 0,
-            conscious:
-              retrospectives.find(
-                (retrospective) =>
-                  retrospective.consumptionKind === ConsumptionKind.conscious
-              )?.totalAmount ?? 0,
-            emotional:
-              retrospectives.find(
-                (retrospective) =>
-                  retrospective.consumptionKind === ConsumptionKind.emotional
-              )?.totalAmount ?? 0,
-          }}
-        />
-        <RetrospectiveCard
-          consumption={consumptionEmotional}
-          retrospective={retrospectives.find(
-            (retrospective) =>
-              retrospective.consumptionKind === ConsumptionKind.emotional
-          )}
-          onClickRetrospectiveDetail={() => {
-            setConsumptionKind(ConsumptionKind.emotional);
-            setOpen(true);
-          }}
-        />
-        <div className='h-2 bg-[#F5F3F0] shrink-0' />
-        <RetrospectiveCard
-          consumption={consumptionConscious}
-          retrospective={retrospectives.find(
-            (retrospective) =>
-              retrospective.consumptionKind === ConsumptionKind.conscious
-          )}
-          onClickRetrospectiveDetail={() => {
-            setConsumptionKind(ConsumptionKind.conscious);
-            setOpen(true);
-          }}
-        />
-        <div className='h-2 bg-[#F5F3F0] shrink-0' />
-        <RetrospectiveCard
-          consumption={consumptionEssential}
-          retrospective={retrospectives.find(
-            (retrospective) =>
-              retrospective.consumptionKind === ConsumptionKind.essential
-          )}
-          onClickRetrospectiveDetail={() => {
-            setConsumptionKind(ConsumptionKind.essential);
-            setOpen(true);
-          }}
-        />
+        <div className='px-5 py-4'>
+          <RetrospectiveSummary
+            essential={amounts.essential}
+            conscious={amounts.conscious}
+            emotional={amounts.emotional}
+          />
+        </div>
+        {sortedRetrospectiveCards.map(
+          ({ retrospective, consumption, onClickRetrospectiveDetail }) => (
+            <>
+              <div className='h-2 bg-[#F5F3F0] shrink-0' />
+              <RetrospectiveCard
+                key={retrospective?.consumptionKind}
+                retrospective={retrospective}
+                consumption={consumption}
+                onClickRetrospectiveDetail={onClickRetrospectiveDetail}
+              />
+            </>
+          )
+        )}
         <div className='h-4 w-full bg-white shrink-0' />
       </div>
     </>

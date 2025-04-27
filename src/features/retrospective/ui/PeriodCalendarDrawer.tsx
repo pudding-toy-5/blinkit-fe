@@ -30,7 +30,7 @@ const PeriodCalendarDrawer: React.FC<Props> = ({
   dateRange,
   setDateRange,
 }) => {
-  const [selected, onSelect] = useState<DateRange | undefined>(undefined);
+  const [selected, setSelected] = useState<DateRange | undefined>(dateRange);
 
   return (
     <Drawer>
@@ -50,8 +50,8 @@ const PeriodCalendarDrawer: React.FC<Props> = ({
         <div className='flex flex-col w-full mx-auto items-center mt-6'>
           <Calendar
             mode='range'
-            selected={dateRange}
-            onSelect={setDateRange}
+            selected={selected}
+            onSelect={setSelected}
             locale={ko}
             className='w-full p-0'
             classNames={{
@@ -85,7 +85,9 @@ const PeriodCalendarDrawer: React.FC<Props> = ({
                 text='선택'
                 state='default'
                 className='text-[15px]'
-                onClick={() => {}}
+                onClick={() => {
+                  setDateRange(selected);
+                }}
               />
             </DrawerClose>
           </DrawerFooter>

@@ -8,6 +8,7 @@ import {
   EXPENSE_AMOUNT_MAX,
   EXPENSE_MEMO_MAX_LEN,
 } from '@/features/expense/consts';
+import { getConsumptionTitle } from '@/features/expense/lib/consumption';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { Expense } from '@/features/expense/model/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
@@ -249,7 +250,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                   <span className='text-[15px] text-[#28a745]'>
                     {consumptionKind === ConsumptionKind.none
                       ? '소비를 리뷰하세요'
-                      : consumptionKind}
+                      : getConsumptionTitle(consumptionKind)}
                   </span>
                   <ArrowRight size={16} color='#28a745' />
                 </button>

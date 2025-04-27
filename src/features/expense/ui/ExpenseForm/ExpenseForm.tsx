@@ -11,7 +11,7 @@ import {
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { Expense } from '@/features/expense/model/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
-import ReviewExpenseDrawer from '@/features/expense/ui/ReviewExpenseDrawer';
+import ConsumptionKindDrawer from '@/features/expense/ui/ConsumptionKindDrawer';
 import { Button, buttonVariants } from '@/shared/ui/atoms/button';
 import {
   Form,
@@ -252,7 +252,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                       : consumptionKind}
                   </span>
                   <ArrowRight size={16} color='#28a745' />
-                  <ReviewExpenseDrawer
+                  <ConsumptionKindDrawer
                     isOpen={reviewOpen}
                     onOpenChange={setReviewOpen}
                     setConsumptionKind={(kind) => {

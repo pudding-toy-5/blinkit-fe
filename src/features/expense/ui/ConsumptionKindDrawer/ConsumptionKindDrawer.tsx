@@ -102,7 +102,7 @@ export interface Props {
   onOpenChange: (open: boolean) => void;
 }
 
-const ReviewExpenseDrawer: React.FC<Props> = ({
+const ConsumptionKindDrawer: React.FC<Props> = ({
   isOpen,
   setConsumptionKind,
   onOpenChange,
@@ -170,4 +170,4 @@ const ReviewExpenseDrawer: React.FC<Props> = ({
   );
 };
 
-export default ReviewExpenseDrawer;
+export default ConsumptionKindDrawer;

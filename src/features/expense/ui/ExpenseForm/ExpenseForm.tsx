@@ -51,7 +51,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
       memo: expense.memo,
       categories: expense.categories,
       amount: expense.amount === 0 ? undefined : expense.amount,
-      consumptionKind: ConsumptionKind.none,
+      consumptionKind: expense.consumptionKind ?? ConsumptionKind.none,
     },
     mode: 'onChange',
   });

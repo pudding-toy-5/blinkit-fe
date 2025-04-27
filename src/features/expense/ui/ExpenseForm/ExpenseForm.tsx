@@ -41,7 +41,8 @@ export interface ExpenseFormProps {
 }
 
 const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
-  const [reviewOpen, setReviewOpen] = useState<boolean>(false);
+  const [consumptionKindOpen, setConsumptionKindOpen] =
+    useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
   const form = useForm<Omit<Expense, 'uid'>>({
@@ -237,7 +238,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                   type='button'
                   className='flex flex-row items-center gap-1 ml-auto'
                   onClick={() => {
-                    setReviewOpen(true);
+                    setConsumptionKindOpen(true);
                   }}
                 >
                   <span className='text-[15px] text-[#28a745]'>

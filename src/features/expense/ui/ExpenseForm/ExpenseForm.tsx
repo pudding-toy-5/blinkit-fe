@@ -43,7 +43,7 @@ export interface ExpenseFormProps {
 const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
   const [consumptionKindOpen, setConsumptionKindOpen] =
     useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(false);
+  const [categoryOpen, setCategoryOpen] = useState<boolean>(false);
 
   const form = useForm<Omit<Expense, 'uid'>>({
     defaultValues: {
@@ -85,14 +85,14 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
 
   return (
     <Form {...form}>
-      {open && (
+      {categoryOpen && (
         <CategoriesPopoverPage
           selectedCategories={categories}
           setSelectedCategories={(values) => {
             form.setValue('categories', values);
           }}
           onClose={() => {
-            setOpen(false);
+            setCategoryOpen(false);
           }}
         />
       )}
@@ -167,17 +167,17 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                 >
                   카테고리
                 </FormLabel>
-                <Button
+                <button
                   type='button'
                   id='categories'
                   aria-label='카테고리 설정 버튼'
                   className='rounded-full bg-[#efefef] hover:bg-accent h-[28px] w-[39px] items-center text-[13px] text-[#555] ml-auto py-1 px-2 shadow-none font-normal'
                   onClick={() => {
-                    setOpen(true);
+                    setCategoryOpen(true);
                   }}
                 >
                   설정
-                </Button>
+                </button>
               </div>
               <div className='flex flex-row gap-2 flex-wrap'>
                 {field.value.map((category) => (

@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 
 import {
@@ -51,11 +52,13 @@ const RetrospectiveView: React.FC = () => {
             <span className='text-[15px] text-[#555] leading-[150%]'>
               아직 리뷰한 소비가 없어요.
               <br />
-              리뷰 탭으로 이동해 소비를 분류해주세요.
+              기록 화면으로 이동해 소비를 분류해주세요.
             </span>
-            <button className='text-[13px] text-[#555] rounded-full px-3 py-2 bg-[#efefef] mt-4'>
-              리뷰 탭으로 이동하기
-            </button>
+            <Link to='/expenses'>
+              <button className='text-[13px] text-[#555] rounded-full px-3 py-2 bg-[#efefef] mt-4'>
+                기록 화면으로 이동하기
+              </button>
+            </Link>
           </div>
         ) : (
           <>

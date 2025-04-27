@@ -145,7 +145,7 @@ const RetrospectiveView: React.FC = () => {
         {sortedRetrospectiveCards.map(
           ({ retrospective, consumption, onClickRetrospectiveDetail }) => (
             <>
-              <div className='h-2 bg-[#F5F3F0] shrink-0' />
+              <div className='h-3 bg-[#F5F3F0] shrink-0' />
               <RetrospectiveCard
                 key={retrospective?.consumptionKind}
                 retrospective={retrospective}

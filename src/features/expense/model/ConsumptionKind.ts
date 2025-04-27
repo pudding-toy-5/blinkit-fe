@@ -1,8 +1,8 @@
 export const ConsumptionKind = {
   none: 'none',
-  essential: 'essential',
-  conscious: 'conscious',
-  emotional: 'emotional',
+  essential: '필수 소비',
+  conscious: '의식적 소비',
+  emotional: '감정적 소비',
 };
 
 export type ConsumptionKind =

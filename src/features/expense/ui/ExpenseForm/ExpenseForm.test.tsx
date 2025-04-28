@@ -65,16 +65,14 @@ describe('ExpenseForm', () => {
     });
   });
 
-  describe('consumptionKind', () => {
-    it('renders label.', () => {
-      const { getByLabelText } = renderElement({ ...props });
-      const label = getByLabelText('소비 분류');
-      expect(label).toBeInTheDocument();
-    });
-  });
-
   describe('submit button', () => {
-    it('renders 저장 text.', () => {
+    it('renders 추가 when expense is not provided.', () => {
+      const { getByRole } = renderElement({ ...props });
+      const submitButton = getByRole('button', { name: '추가' });
+      expect(submitButton).toBeInTheDocument();
+    });
+
+    it('renders 저장 when expense is provided.', () => {
       const { getByRole } = renderElement({
         ...props,
       });

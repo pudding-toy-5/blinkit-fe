@@ -114,7 +114,7 @@ const ConsumptionKindDrawer: React.FC<Props> = ({
 
   return (
     <Drawer open={isOpen} onClose={onClose}>
-      <DrawerContent className='px-5 py-6 rounded-t-[20px] bg-white'>
+      <DrawerContent className='px-5 py-6 !rounded-t-[20px] bg-white'>
         <DrawerHeader className='flex flex-col gap-0 p-0'>
           <div className='flex flex-row'>
             <div className='flex-1' />

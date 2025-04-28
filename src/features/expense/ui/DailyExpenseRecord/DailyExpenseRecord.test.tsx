@@ -1,18 +1,16 @@
 import { render } from '@testing-library/react';
 import { describe, it } from 'vitest';
 
-import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { Expense } from '@/features/expense/model/Expense';
 
-import ExpenseCard from './ExpenseCard';
+import DailyExpenseRecord from './DailyExpenseRecord';
 
-describe('ExpenseCard', () => {
+describe('DailyExpenseRecord', () => {
   const expenseProps: Omit<Expense, 'date'> = {
     uid: 'test-id',
     categories: [],
     amount: 1234567890,
     memo: 'description',
-    consumptionKind: ConsumptionKind.none,
   };
 
   const renderDailyExpenseRecord = ({
@@ -22,7 +20,7 @@ describe('ExpenseCard', () => {
     memo,
   }: Omit<Expense, 'date'>) => {
     return render(
-      <ExpenseCard
+      <DailyExpenseRecord
         uid={uid}
         categories={categories}
         amount={amount}

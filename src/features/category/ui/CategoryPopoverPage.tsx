@@ -92,7 +92,7 @@ export default function CategoryPopoverPage({
   const onDelete = () => {
     deleteCategory.mutate(category.uid, {
       onSuccess: () => {
-        toast.success(category.name + '카테고리를 삭제했어요.');
+        toast.success(category.name + ' 카테고리를 삭제했어요.');
         onDeleteCategory(category.uid);
         onClose();
       },

@@ -1,6 +1,6 @@
 export const BottomNavigation = {
   record: '기록',
-  retrospective: '회고',
+  review: '리뷰',
   settings: '설정',
 };
 

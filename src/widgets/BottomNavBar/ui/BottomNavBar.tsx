@@ -65,10 +65,10 @@ const BottomNavBar: React.FC<{ variant: 'white' | 'accent' }> = ({
       to: '/expenses',
     },
     {
-      nav: BottomNavigation.retrospective,
+      nav: BottomNavigation.review,
       icon: <Review size={24} color='#222222' />,
       clickedIcon: <ReviewFilled size={24} color='#222222' />,
-      to: '/expenses/retrospective',
+      to: '/expenses/review',
     },
     {
       nav: BottomNavigation.settings,
@@ -81,7 +81,7 @@ const BottomNavBar: React.FC<{ variant: 'white' | 'accent' }> = ({
   useEffect(() => {
     const pathToNav = {
       '/expenses': BottomNavigation.record,
-      '/expenses/retrospective': BottomNavigation.retrospective,
+      '/expenses/review': BottomNavigation.review,
       '/settings': BottomNavigation.settings,
     };
 

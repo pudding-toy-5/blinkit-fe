@@ -77,12 +77,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
       return true;
     }
 
-    if (!consumptionKind || consumptionKind === ConsumptionKind.none) {
-      return true;
-    }
-
     return false;
-  }, [memo, categories.length, amount, consumptionKind]);
+  }, [memo, categories.length, amount]);
 
   return (
     <Form {...form}>

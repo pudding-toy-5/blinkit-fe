@@ -15,7 +15,7 @@ describe('ExpenseCard', () => {
     consumptionKind: ConsumptionKind.none,
   };
 
-  const renderDailyExpenseRecord = ({
+  const renderElement = ({
     uid,
     categories,
     amount,
@@ -32,7 +32,7 @@ describe('ExpenseCard', () => {
   };
 
   it('renders listitem with aria-labelledby.', () => {
-    const { getByRole } = renderDailyExpenseRecord({ ...expenseProps });
+    const { getByRole } = renderElement({ ...expenseProps });
     const listitem = getByRole('listitem');
 
     expect(listitem).toBeInTheDocument();
@@ -43,7 +43,7 @@ describe('ExpenseCard', () => {
   });
 
   it('renders amount with label and localeString.', () => {
-    const { getByLabelText, getByText } = renderDailyExpenseRecord({
+    const { getByLabelText, getByText } = renderElement({
       ...expenseProps,
     });
 
@@ -56,7 +56,7 @@ describe('ExpenseCard', () => {
   });
 
   it('renders memo with label and text.', () => {
-    const { getByLabelText, getByText } = renderDailyExpenseRecord({
+    const { getByLabelText, getByText } = renderElement({
       ...expenseProps,
     });
 

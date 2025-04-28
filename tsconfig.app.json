@@ -45,6 +45,9 @@
     "src/shared/types/global.d.ts"
   ],
   "exclude": [
-    "e2e"
+    "e2e",
+    "**/tests/**",
+    "**/*.test.ts",
+    "**/*.test.tsx",
   ]
 }

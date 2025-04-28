@@ -15,6 +15,7 @@ import {
   DrawerTrigger,
 } from '@/shared/ui/atoms/drawer';
 import X from '@/shared/ui/icons/X';
+import { cn } from '@/shared/ui/styles/utils';
 import SubmitButton from '@/shared/ui/SubmitButton';
 
 export interface Props {
@@ -51,14 +52,33 @@ const PeriodCalendarDrawer: React.FC<Props> = ({
             selected={selected}
             onSelect={setSelected}
             locale={ko}
+            defaultMonth={selected?.to}
             className='w-full p-0'
             classNames={{
               caption_label: 'font-[17px]',
               head_cell: 'w-[14.2857143%] font-normal',
-              row: 'flex w-full mt-0',
+              table: 'w-full',
+              row: 'flex w-full mt-[2px]',
               cell: 'w-[14.2857143%] aspect-square',
-              day: 'h-full w-full rounded-full font-[15px] hover:bg-[#89f336]/50',
-              day_selected: 'bg-[#89f336] text-[#222]',
+              day: 'h-full w-full font-[15px]',
+              day_selected: 'bg-[#DAFBC1]',
+              day_range_start: cn(
+                'relative',
+                '!bg-[#89f336] text-[#222] rounded-full',
+                "[&:before]:content-['']",
+                '[&:before]:absolute [&:before]:inset-0 ',
+                '[&:before]:size-full [&:before]:-z-10',
+                '[&:before]:bg-[#DAFBC1] [&:before]:rounded-l-full'
+              ),
+              day_range_end: cn(
+                'relative',
+                '!bg-[#89f336] text-[#222] rounded-full',
+                "[&:before]:content-['']",
+                '[&:before]:absolute [&:before]:inset-0 ',
+                '[&:before]:size-full [&:before]:-z-10',
+                '[&:before]:bg-[#DAFBC1] [&:before]:rounded-r-full'
+              ),
+              day_range_middle: 'bg-[#DAFBC1] text-[#222]',
               day_today: 'text-[#28a745]',
               day_disabled: 'text-[#999999]',
             }}
@@ -73,7 +93,7 @@ const PeriodCalendarDrawer: React.FC<Props> = ({
               className='text-[15px] text-[#555555] font-semibold'
               variant='ghost'
               onClick={() => {
-                setDateRange(undefined);
+                setSelected(undefined);
               }}
             >
               재설정

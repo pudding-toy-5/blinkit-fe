@@ -59,7 +59,7 @@ const PeriodCalendarDrawer: React.FC<Props> = ({
               head_cell: 'w-[14.2857143%] font-normal',
               table: 'w-full',
               row: 'flex w-full mt-[2px]',
-              cell: 'w-[14.2857143%] aspect-square',
+              cell: 'w-[14.2857143%] aspect-square first:rounded-l-full last:rounded-r-full overflow-hidden',
               day: 'h-full w-full font-[15px]',
               day_selected: 'bg-[#DAFBC1]',
               day_range_start: cn(

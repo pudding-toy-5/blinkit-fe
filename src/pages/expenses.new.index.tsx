@@ -48,7 +48,9 @@ export function RouteComponent() {
                 void navigate({ to: '/expenses' });
               },
               onError: () => {
-                toast.error('지출내역을 추가하는데 실패했어요.');
+                toast.error(
+                  '지출내역 업데이트에 실패했어요. 소비 종류가 기본값으로 설정되었습니다.'
+                );
               },
             }
           );

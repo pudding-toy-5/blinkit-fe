@@ -99,17 +99,18 @@ const consumptions: Consumption[] = [
 export interface Props {
   isOpen: boolean;
   onClose: () => void;
+  consumptionKind: ConsumptionKind;
   setConsumptionKind: (consumptionKind: ConsumptionKind) => void;
 }
 
 const ConsumptionKindDrawer: React.FC<Props> = ({
   isOpen,
   onClose,
+  consumptionKind,
   setConsumptionKind,
 }) => {
-  const [selectedKind, setSelectedKind] = useState<ConsumptionKind>(
-    ConsumptionKind.none
-  );
+  const [selectedKind, setSelectedKind] =
+    useState<ConsumptionKind>(consumptionKind);
 
   return (
     <Drawer open={isOpen} onClose={onClose}>

@@ -1,14 +1,15 @@
 import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 
-import Review from '@/shared/ui/icons/Review';
-import ReviewFilled from '@/shared/ui/icons/ReviewFilled';
+import Retrospective from '@/shared/ui/icons/Retrospective';
+import RetrospectiveFilled from '@/shared/ui/icons/RetrospectiveFilled';
 import Settings from '@/shared/ui/icons/Settings';
 import SettingsFilled from '@/shared/ui/icons/SettingsFilled';
 import Write from '@/shared/ui/icons/Write';
 import WriteFilled from '@/shared/ui/icons/WriteFilled';
 import { cn } from '@/shared/ui/styles/utils';
 
+import RetrospectiveFilled from '../../../shared/ui/icons/RetrospectiveFilled';
 import { type BottomNavigationType } from '../model/BottomNavigation';
 import { BottomNavigation } from '../model/BottomNavigation';
 
@@ -66,8 +67,8 @@ const BottomNavBar: React.FC<{ variant: 'white' | 'accent' }> = ({
     },
     {
       nav: BottomNavigation.retrospective,
-      icon: <Review size={24} color='#222222' />,
-      clickedIcon: <ReviewFilled size={24} color='#222222' />,
+      icon: <Retrospective size={24} color='#222222' />,
+      clickedIcon: <RetrospectiveFilled size={24} color='#222222' />,
       to: '/expenses/retrospective',
     },
     {

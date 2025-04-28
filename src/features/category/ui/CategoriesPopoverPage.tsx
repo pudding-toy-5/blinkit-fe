@@ -188,7 +188,7 @@ export default function CategoriesPopoverPage({
           </div>
         </div>
         <Button
-          className='h-13 rounded-full text-[15px] w-full mt-auto mb-8 disabled:bg-[#ccc] bg-[#222]'
+          className='h-13 rounded-full text-[15px] w-full mt-auto mb-8 disabled:bg-[#ccc] bg-[#222] px-5'
           onClick={() => {
             setSelectedCategories(
               categories

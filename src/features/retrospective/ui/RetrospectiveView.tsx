@@ -38,10 +38,10 @@ const CalendarTrigger: React.FC<{ dateRange: DateRange | undefined }> = ({
 
     const fromText = isCurrentYear()
       ? formatDate(dateRange.from, 'M월 d일')
-      : formatDate(dateRange.to, 'yyyy년 M월 d일');
+      : formatDate(dateRange.from, 'yyyy년 M월 d일');
 
     const toText = isCurrentYear()
-      ? formatDate(dateRange.from, 'M월 d일')
+      ? formatDate(dateRange.to, 'M월 d일')
       : formatDate(dateRange.to, 'yyyy년 M월 d일');
 
     return `${fromText} - ${toText}`;

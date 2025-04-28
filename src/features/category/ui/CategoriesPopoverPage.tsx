@@ -187,26 +187,24 @@ export default function CategoriesPopoverPage({
             )}
           </div>
         </div>
-        <div className='fixed bottom-0 left-0 right-0 w-full min-w-[360px] max-w-[430px] mx-auto px-5 py-4 bg-white border-t border-gray-100'>
-          <Button
-            className='h-13 rounded-full text-[15px] w-full'
-            onClick={() => {
-              setSelectedCategories(
-                categories
-                  ? categories.filter((c) =>
-                      values.find((value) => value === c.name)
-                    )
-                  : []
-              );
-              onClose();
-            }}
-            disabled={
-              !categories || categories.length === 0 || values.length === 0
-            }
-          >
-            {submitButtonText}
-          </Button>
-        </div>
+        <button
+          className='h-13 rounded-full text-[15px] text-white mt-auto mb-8 mx-5 disabled:bg-[#ccc] bg-[#222]'
+          onClick={() => {
+            setSelectedCategories(
+              categories
+                ? categories.filter((c) =>
+                    values.find((value) => value === c.name)
+                  )
+                : []
+            );
+            onClose();
+          }}
+          disabled={
+            !categories || categories.length === 0 || values.length === 0
+          }
+        >
+          {submitButtonText}
+        </button>
       </Layout>
     </div>
   );

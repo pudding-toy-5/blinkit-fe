@@ -13,7 +13,6 @@ import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { Expense } from '@/features/expense/model/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
 import ConsumptionKindDrawer from '@/features/expense/ui/ConsumptionKindDrawer';
-import { Button } from '@/shared/ui/atoms/button';
 import {
   Form,
   FormControl,
@@ -94,7 +93,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
         />
       )}
       <form
-        className='flex flex-col gap-6 h-screen pt-6 px-5'
+        className='flex-1 flex flex-col gap-6 h-screen pt-6 px-5'
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -265,15 +264,13 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
             </FormItem>
           )}
         />
-        <div className='fixed bottom-0 left-0 right-0 w-full min-w-[360px] max-w-[430px] mx-auto px-5 py-4 bg-white border-t border-gray-100'>
-          <Button
-            type='submit'
-            className='w-full h-13 text-[15px] font-semibold mt-auto rounded-full'
-            disabled={disabled}
-          >
-            저장
-          </Button>
-        </div>
+        <button
+          type='submit'
+          className='w-full h-13 text-[15px] text-white font-semibold mt-auto mb-8 rounded-full disabled:bg-[#ccc] bg-[#222]'
+          disabled={disabled}
+        >
+          저장
+        </button>
       </form>
     </Form>
   );

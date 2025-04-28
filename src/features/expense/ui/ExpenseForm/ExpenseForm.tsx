@@ -257,6 +257,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                 onClose={() => {
                   setConsumptionKindOpen(false);
                 }}
+                consumptionKind={consumptionKind ?? ConsumptionKind.none}
                 setConsumptionKind={(kind) => {
                   field.onChange(kind);
                 }}

@@ -74,7 +74,7 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
           />
           <DrawerFooter className='flex flex-row items-center w-full pb-0 pt-4 px-auto'>
             <Button
-              className='text-[15px] text-[#555555] h-13'
+              className='text-[15px] text-[#28a745] font-semibold h-13'
               variant='ghost'
               onClick={() => {
                 setDate(today);

@@ -13,7 +13,7 @@ import useDateRange from '@/shared/lib/useDateRange';
 import RetrospectiveCard from './RetrospectiveCard';
 import RetrospectiveDetailPopoverPage from './RetrospectiveDetailPopoverPage';
 
-const RetrospectiveView: React.FC<> = () => {
+const RetrospectiveView: React.FC = () => {
   const {
     dateRange: { start, end },
   } = useDateRange();

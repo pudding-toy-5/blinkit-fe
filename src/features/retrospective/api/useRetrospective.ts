@@ -3,6 +3,10 @@ import { AxiosError } from 'axios';
 import { formatDate } from 'date-fns';
 
 import {
+  addLocalTimezoneOffset,
+  getDateOnly,
+} from '@/features/expense/lib/convertExpense';
+import {
   Retrospective,
   ServerRetrospective,
 } from '@/features/retrospective/model/Retrospective';
@@ -26,8 +30,14 @@ export const useRetrospectivesByRange = ({
           apiUrl + '/expense/expenses/consumption-retrospective',
           {
             params: {
-              start_date: formatDate(start, 'yyyy-MM-dd'),
-              end_date: formatDate(end, 'yyyy-MM-dd'),
+              start_date: formatDate(
+                addLocalTimezoneOffset(getDateOnly(start)),
+                'yyyy-MM-dd'
+              ),
+              end_date: formatDate(
+                addLocalTimezoneOffset(getDateOnly(end)),
+                'yyyy-MM-dd'
+              ),
             },
           }
         );

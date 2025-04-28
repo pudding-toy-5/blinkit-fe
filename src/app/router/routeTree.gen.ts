@@ -18,7 +18,7 @@ import { Route as LoginIndexImport } from './../../pages/login.index'
 import { Route as ExpensesIndexImport } from './../../pages/expenses.index'
 import { Route as SettingsAccountImport } from './../../pages/settings.account'
 import { Route as LoginServiceIndexImport } from './../../pages/login.$service.index'
-import { Route as ExpensesRetrospectiveIndexImport } from './../../pages/expenses.retrospective.index'
+import { Route as ExpensesReviewIndexImport } from './../../pages/expenses.review.index'
 import { Route as ExpensesNewIndexImport } from './../../pages/expenses.new.index'
 import { Route as ExpensesUidIndexImport } from './../../pages/expenses.$uid.index'
 
@@ -66,13 +66,11 @@ const LoginServiceIndexRoute = LoginServiceIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ExpensesRetrospectiveIndexRoute = ExpensesRetrospectiveIndexImport.update(
-  {
-    id: '/expenses/retrospective/',
-    path: '/expenses/retrospective/',
-    getParentRoute: () => rootRoute,
-  } as any,
-)
+const ExpensesReviewIndexRoute = ExpensesReviewIndexImport.update({
+  id: '/expenses/review/',
+  path: '/expenses/review/',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const ExpensesNewIndexRoute = ExpensesNewIndexImport.update({
   id: '/expenses/new/',
@@ -146,11 +144,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExpensesNewIndexImport
       parentRoute: typeof rootRoute
     }
-    '/expenses/retrospective/': {
-      id: '/expenses/retrospective/'
-      path: '/expenses/retrospective'
-      fullPath: '/expenses/retrospective'
-      preLoaderRoute: typeof ExpensesRetrospectiveIndexImport
+    '/expenses/review/': {
+      id: '/expenses/review/'
+      path: '/expenses/review'
+      fullPath: '/expenses/review'
+      preLoaderRoute: typeof ExpensesReviewIndexImport
       parentRoute: typeof rootRoute
     }
     '/login/$service/': {
@@ -174,7 +172,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsIndexRoute
   '/expenses/$uid': typeof ExpensesUidIndexRoute
   '/expenses/new': typeof ExpensesNewIndexRoute
-  '/expenses/retrospective': typeof ExpensesRetrospectiveIndexRoute
+  '/expenses/review': typeof ExpensesReviewIndexRoute
   '/login/$service': typeof LoginServiceIndexRoute
 }
 
@@ -187,7 +185,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsIndexRoute
   '/expenses/$uid': typeof ExpensesUidIndexRoute
   '/expenses/new': typeof ExpensesNewIndexRoute
-  '/expenses/retrospective': typeof ExpensesRetrospectiveIndexRoute
+  '/expenses/review': typeof ExpensesReviewIndexRoute
   '/login/$service': typeof LoginServiceIndexRoute
 }
 
@@ -201,7 +199,7 @@ export interface FileRoutesById {
   '/settings/': typeof SettingsIndexRoute
   '/expenses/$uid/': typeof ExpensesUidIndexRoute
   '/expenses/new/': typeof ExpensesNewIndexRoute
-  '/expenses/retrospective/': typeof ExpensesRetrospectiveIndexRoute
+  '/expenses/review/': typeof ExpensesReviewIndexRoute
   '/login/$service/': typeof LoginServiceIndexRoute
 }
 
@@ -216,7 +214,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/expenses/$uid'
     | '/expenses/new'
-    | '/expenses/retrospective'
+    | '/expenses/review'
     | '/login/$service'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -228,7 +226,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/expenses/$uid'
     | '/expenses/new'
-    | '/expenses/retrospective'
+    | '/expenses/review'
     | '/login/$service'
   id:
     | '__root__'
@@ -240,7 +238,7 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/expenses/$uid/'
     | '/expenses/new/'
-    | '/expenses/retrospective/'
+    | '/expenses/review/'
     | '/login/$service/'
   fileRoutesById: FileRoutesById
 }
@@ -254,7 +252,7 @@ export interface RootRouteChildren {
   SettingsIndexRoute: typeof SettingsIndexRoute
   ExpensesUidIndexRoute: typeof ExpensesUidIndexRoute
   ExpensesNewIndexRoute: typeof ExpensesNewIndexRoute
-  ExpensesRetrospectiveIndexRoute: typeof ExpensesRetrospectiveIndexRoute
+  ExpensesReviewIndexRoute: typeof ExpensesReviewIndexRoute
   LoginServiceIndexRoute: typeof LoginServiceIndexRoute
 }
 
@@ -267,7 +265,7 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsIndexRoute: SettingsIndexRoute,
   ExpensesUidIndexRoute: ExpensesUidIndexRoute,
   ExpensesNewIndexRoute: ExpensesNewIndexRoute,
-  ExpensesRetrospectiveIndexRoute: ExpensesRetrospectiveIndexRoute,
+  ExpensesReviewIndexRoute: ExpensesReviewIndexRoute,
   LoginServiceIndexRoute: LoginServiceIndexRoute,
 }
 
@@ -289,7 +287,7 @@ export const routeTree = rootRoute
         "/settings/",
         "/expenses/$uid/",
         "/expenses/new/",
-        "/expenses/retrospective/",
+        "/expenses/review/",
         "/login/$service/"
       ]
     },
@@ -317,8 +315,8 @@ export const routeTree = rootRoute
     "/expenses/new/": {
       "filePath": "expenses.new.index.tsx"
     },
-    "/expenses/retrospective/": {
-      "filePath": "expenses.retrospective.index.tsx"
+    "/expenses/review/": {
+      "filePath": "expenses.review.index.tsx"
     },
     "/login/$service/": {
       "filePath": "login.$service.index.tsx"

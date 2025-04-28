@@ -1,6 +1,6 @@
 import IconProps from './types';
 
-const Review: React.FC<IconProps> = ({ size = 24, color = 'black' }) => {
+const Retrospective: React.FC<IconProps> = ({ size = 24, color = 'black' }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -19,4 +19,4 @@ const Review: React.FC<IconProps> = ({ size = 24, color = 'black' }) => {
   );
 };
 
-export default Review;
+export default Retrospective;

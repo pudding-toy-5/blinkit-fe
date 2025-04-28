@@ -65,18 +65,18 @@ const PeriodCalendarDrawer: React.FC<Props> = ({
               day_range_start: cn(
                 'relative',
                 '!bg-[#89f336] text-[#222] rounded-full',
-                "[&:before]:content-['']",
-                '[&:before]:absolute [&:before]:inset-0 ',
-                '[&:before]:size-full [&:before]:-z-10',
-                '[&:before]:bg-[#DAFBC1] [&:before]:rounded-l-full'
+                "before:content-['']",
+                'before:absolute before:inset-0 ',
+                'before:size-full before:-z-10',
+                'before:bg-[#DAFBC1] before:rounded-l-full'
               ),
               day_range_end: cn(
                 'relative',
                 '!bg-[#89f336] text-[#222] rounded-full',
-                "[&:before]:content-['']",
-                '[&:before]:absolute [&:before]:inset-0 ',
-                '[&:before]:size-full [&:before]:-z-10',
-                '[&:before]:bg-[#DAFBC1] [&:before]:rounded-r-full'
+                "before:content-['']",
+                'before:absolute before:inset-0 ',
+                'before:size-full before:-z-10',
+                'before:bg-[#DAFBC1] before:rounded-r-full'
               ),
               day_range_middle: 'bg-[#DAFBC1] text-[#222]',
               day_today: 'text-[#28a745]',

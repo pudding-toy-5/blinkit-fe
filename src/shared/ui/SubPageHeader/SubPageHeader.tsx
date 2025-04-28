@@ -80,7 +80,9 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
                 삭제
               </Button>
               <DrawerClose asChild>
-                <button className='h-auto w-auto mt-[25px]'>취소</button>
+                <button className='h-auto w-auto mx-auto mt-[25px] text-[15px] text-[#555] font-semibold'>
+                  취소
+                </button>
               </DrawerClose>
             </DrawerFooter>
           </DrawerContent>

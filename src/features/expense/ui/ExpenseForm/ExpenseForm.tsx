@@ -138,7 +138,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                 <LabeledTextarea
                   label='메모'
                   id='memo'
-                  placeholder={`어디서, 무엇을 결제하셨나요?\r\n그때 기분과 소비 이유도 같이 기록해요.`}
+                  placeholder={`어디서, 무엇을 결제했나요?\r\n그때 기분과 소비 이유도 함께 기록해요.`}
                   value={field.value}
                   onChange={(e) => {
                     if (e.length <= EXPENSE_MEMO_MAX_LEN) {

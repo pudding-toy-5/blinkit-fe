@@ -187,8 +187,8 @@ export default function CategoriesPopoverPage({
             )}
           </div>
         </div>
-        <Button
-          className='h-13 rounded-full text-[15px] w-full mt-auto mb-8 disabled:bg-[#ccc] bg-[#222] px-5'
+        <button
+          className='h-13 rounded-full text-[15px] text-white mt-auto mb-8 mx-5 disabled:bg-[#ccc] bg-[#222]'
           onClick={() => {
             setSelectedCategories(
               categories
@@ -204,7 +204,7 @@ export default function CategoriesPopoverPage({
           }
         >
           {submitButtonText}
-        </Button>
+        </button>
       </Layout>
     </div>
   );

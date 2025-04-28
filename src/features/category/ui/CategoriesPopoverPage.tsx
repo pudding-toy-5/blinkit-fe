@@ -140,7 +140,7 @@ export default function CategoriesPopoverPage({
         </div>
 
         <div className='flex flex-col flex-1 overflow-hidden'>
-          <p className='text-[13px] font-semibold text-[#999] mt-6 mb-4 px-5'>
+          <p className='text-[13px] font-semibold text-[#999] mt-8 mb-4 px-5'>
             내가 추가한 카테고리
           </p>
           <div className='flex-1 overflow-hidden'>

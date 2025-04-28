@@ -44,7 +44,7 @@ const ExpenseCard: React.FC<Omit<Expense, 'date'>> = ({
       </div>
       <span
         aria-label='메모'
-        className='text-[15px] leading-[150%] mt-1 break-words'
+        className='text-[15px] text-[#555] leading-[150%] mt-1 break-words'
       >
         {memo}
       </span>

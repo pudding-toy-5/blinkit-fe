@@ -75,14 +75,12 @@ const SubPageHeader: React.FC<SubPageHeaderProps> = ({
                 선택한 내역이 지출 내역에서 삭제돼요.
               </DrawerDescription>
             </DrawerHeader>
-            <DrawerFooter className='p-0 mt-9'>
+            <DrawerFooter className='p-0 mt-9 gap-0'>
               <Button className='h-13 rounded-full' onClick={onDelete}>
                 삭제
               </Button>
-              <DrawerClose>
-                <Button variant='ghost' className='h-13 w-full rounded-full'>
-                  취소
-                </Button>
+              <DrawerClose asChild>
+                <button className='h-auto w-auto mt-[25px]'>취소</button>
               </DrawerClose>
             </DrawerFooter>
           </DrawerContent>

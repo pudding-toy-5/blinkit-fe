@@ -1,5 +1,7 @@
 import { Link } from '@tanstack/react-router';
+import { formatDate } from 'date-fns';
 import { useMemo, useState } from 'react';
+import { DateRange } from 'react-day-picker';
 
 import {
   consumptionConscious,
@@ -9,12 +11,53 @@ import {
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetrospective';
 import useDateRange from '@/shared/lib/useDateRange';
+import ArrowLeft from '@/shared/ui/icons/ArrowLeft';
 
+import PeriodCalendarDrawer from './PeriodCalendarDrawer';
 import RetrospectiveCard, { RetrospectiveCardProps } from './RetrospectiveCard';
 import RetrospectiveDetailPopoverPage from './RetrospectiveDetailPopoverPage';
 // import RetrospectiveSummary, {
 //   RetrospectiveSummaryProps,
 // } from './RetrospectiveSummary';
+
+const CalendarTrigger: React.FC<{ dateRange: DateRange | undefined }> = ({
+  dateRange,
+}) => {
+  const getTriggerText = (dateRange: DateRange | undefined) => {
+    if (!dateRange?.from || !dateRange.to) {
+      return '전체 기간';
+    }
+
+    const currentYear = new Date().getFullYear();
+
+    const fromYear = dateRange.from.getFullYear();
+    const toYear = dateRange.to.getFullYear();
+
+    const isCurrentYear = () =>
+      fromYear === currentYear && toYear === currentYear;
+
+    const fromText = isCurrentYear()
+      ? formatDate(dateRange.from, 'M월 d일')
+      : formatDate(dateRange.to, 'yyyy년 M월 d일');
+
+    const toText = isCurrentYear()
+      ? formatDate(dateRange.from, 'M월 d일')
+      : formatDate(dateRange.to, 'yyyy년 M월 d일');
+
+    return `${fromText} - ${toText}`;
+  };
+
+  return (
+    <div className='flex flex-row gap-1'>
+      <span className='text-[15px] text-[#222] font-semibold'>
+        {getTriggerText(dateRange)}
+      </span>
+      <div className='rotate-[-90deg]'>
+        <ArrowLeft size={16} color='#222' />
+      </div>
+    </div>
+  );
+};
 
 const RetrospectiveView: React.FC = () => {
   const { dateRange, setDateRange } = useDateRange();
@@ -125,7 +168,12 @@ const RetrospectiveView: React.FC = () => {
         />
       )}
       <div className='flex-1 flex flex-col overflow-y-auto scroll'>
-        {/* <div className='px-5 py-4'>
+        <div className='px-5 py-4'>
+          <PeriodCalendarDrawer
+            trigger={<CalendarTrigger dateRange={dateRange} />}
+            dateRange={dateRange}
+            setDateRange={setDateRange}
+          />
           <RetrospectiveSummary
             essential={amounts.essential}
             conscious={amounts.conscious}

@@ -21,11 +21,11 @@ const ExpenseCard: React.FC<Omit<Expense, 'date'>> = ({
   return (
     <li
       aria-labelledby={`expense-${uid}`}
-      className='flex flex-col p-4 rounded-[8px] bg-white'
+      className='flex flex-col px-4 py-5 rounded-[8px] bg-white'
       onClick={onClick}
     >
       <div className='flex flex-row gap-1 items-center'>
-        <span aria-label='지출 금액' className='text-[15px] font-semibold'>
+        <span aria-label='지출 금액' className='text-[17px] font-semibold'>
           {amount.toLocaleString()}원
         </span>
         <span
@@ -44,11 +44,11 @@ const ExpenseCard: React.FC<Omit<Expense, 'date'>> = ({
       </div>
       <span
         aria-label='메모'
-        className='text-[15px] leading-[150%] mt-2 break-words'
+        className='text-[15px] leading-[150%] mt-1 break-words'
       >
         {memo}
       </span>
-      <div className='flex flex-row flex-wrap gap-x-1 gap-y-1.5 mt-6 w-full'>
+      <div className='flex flex-row flex-wrap gap-x-1 gap-y-1.5 mt-4 w-full'>
         {categories.map((category) => (
           <CategoryTag key={category.uid} tagName={category.name} />
         ))}

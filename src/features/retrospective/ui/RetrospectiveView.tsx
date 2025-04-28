@@ -75,7 +75,7 @@ const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
                 setOpen(true);
               }}
             />
-            <div className='h-2 bg-[#F5F3F0] shrink-0' />
+            <div className='h-3 bg-[#F5F3F0] shrink-0' />
             <RetrospectiveCard
               consumption={consumptionConscious}
               retrospective={retrospectives.find(
@@ -87,7 +87,7 @@ const RetrospectiveView: React.FC<{ onMoveReview: () => void }> = ({
                 setOpen(true);
               }}
             />
-            <div className='h-2 bg-[#F5F3F0] shrink-0' />
+            <div className='h-3 bg-[#F5F3F0] shrink-0' />
             <RetrospectiveCard
               consumption={consumptionEssential}
               retrospective={retrospectives.find(

@@ -9,7 +9,6 @@ import Write from '@/shared/ui/icons/Write';
 import WriteFilled from '@/shared/ui/icons/WriteFilled';
 import { cn } from '@/shared/ui/styles/utils';
 
-import RetrospectiveFilled from '../../../shared/ui/icons/RetrospectiveFilled';
 import { type BottomNavigationType } from '../model/BottomNavigation';
 import { BottomNavigation } from '../model/BottomNavigation';
 

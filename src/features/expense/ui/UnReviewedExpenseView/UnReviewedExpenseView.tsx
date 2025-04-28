@@ -9,11 +9,10 @@ import {
 import { getConsumptionTitle } from '@/features/expense/lib/consumption';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { Expense } from '@/features/expense/model/Expense';
+import ConsumptionKindDrawer from '@/features/expense/ui/ConsumptionKindDrawer';
+import UnReviewedExpenseList from '@/features/expense/ui/UnReviewedExpenseList';
 import useDateRange from '@/shared/lib/useDateRange';
 import { cn } from '@/shared/ui/styles/utils';
-
-import ReviewExpenseDrawer from '../ReviewExpenseDrawer';
-import UnReviewedExpenseList from '../UnReviewedExpenseList';
 
 const TotalExpenseEmptyPlaceholder: React.FC = () => {
   return (
@@ -119,17 +118,13 @@ const UnReviewedExpenseView: React.FC<Props> = ({ onMoveRetrospective }) => {
     );
   };
 
-  const onDrawerOpenChange = (open: boolean) => {
-    if (!open) {
-      setSelectedExpense(null);
-    }
-  };
-
   return (
     <>
-      <ReviewExpenseDrawer
+      <ConsumptionKindDrawer
         isOpen={selectedExpense !== null}
-        onOpenChange={onDrawerOpenChange}
+        onClose={() => {
+          setSelectedExpense(null);
+        }}
         setConsumptionKind={setConsumptionKind}
       />
       <div className='flex flex-col flex-1 bg-[#f5f3f0] pt-8 overflow-y-auto scroll'>

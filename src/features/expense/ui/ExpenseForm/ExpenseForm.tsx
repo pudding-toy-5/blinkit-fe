@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
 
@@ -8,9 +8,12 @@ import {
   EXPENSE_AMOUNT_MAX,
   EXPENSE_MEMO_MAX_LEN,
 } from '@/features/expense/consts';
+import { getConsumptionTitle } from '@/features/expense/lib/consumption';
+import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { Expense } from '@/features/expense/model/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
-import { Button, buttonVariants } from '@/shared/ui/atoms/button';
+import ConsumptionKindDrawer from '@/features/expense/ui/ConsumptionKindDrawer';
+import { Button } from '@/shared/ui/atoms/button';
 import {
   Form,
   FormControl,
@@ -24,14 +27,8 @@ import { cn } from '@/shared/ui/styles/utils';
 
 const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
   return (
-    <div
-      className={cn(
-        buttonVariants({ variant: 'ghost' }),
-        'has-[>svg]:p-0',
-        'flex flex-row items-center h-4 w-auto ml-auto p-0'
-      )}
-    >
-      <span className='inline-flex items-center mr-1 text-[15px] font-normal text-[#28a745] relative top-[1px]'>
+    <div className='flex flex-row items-center gap-1 ml-auto'>
+      <span className='text-[15px] text-[#28a745]'>
         {`${date.getFullYear().toString()}년 ${(date.getMonth() + 1).toString()}월 ${date.getDate().toString()}일`}
       </span>
       <ArrowRight size={16} color='#28a745' />
@@ -45,13 +42,17 @@ export interface ExpenseFormProps {
 }
 
 const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
-  const [open, setOpen] = React.useState<boolean>(false);
+  const [consumptionKindOpen, setConsumptionKindOpen] =
+    useState<boolean>(false);
+  const [categoryOpen, setCategoryOpen] = useState<boolean>(false);
+
   const form = useForm<Omit<Expense, 'uid'>>({
     defaultValues: {
       date: expense.date,
       memo: expense.memo,
       categories: expense.categories,
       amount: expense.amount === 0 ? undefined : expense.amount,
+      consumptionKind: expense.consumptionKind ?? ConsumptionKind.none,
     },
     mode: 'onChange',
   });
@@ -61,8 +62,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
   const memo = watch('memo');
   const categories = watch('categories');
   const amount = watch('amount');
+  const consumptionKind = watch('consumptionKind');
 
-  const disabled = React.useMemo(() => {
+  const disabled = useMemo(() => {
     if (memo.length === 0 || memo.length > 120) {
       return true;
     }
@@ -75,24 +77,28 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
       return true;
     }
 
+    if (!consumptionKind || consumptionKind === ConsumptionKind.none) {
+      return true;
+    }
+
     return false;
-  }, [memo, categories, amount]);
+  }, [memo, categories.length, amount, consumptionKind]);
 
   return (
     <Form {...form}>
-      {open && (
+      {categoryOpen && (
         <CategoriesPopoverPage
           selectedCategories={categories}
           setSelectedCategories={(values) => {
             form.setValue('categories', values);
           }}
           onClose={() => {
-            setOpen(false);
+            setCategoryOpen(false);
           }}
         />
       )}
       <form
-        className='flex flex-col gap-8 h-screen pt-6 px-5'
+        className='flex flex-col gap-6 h-screen pt-6 px-5'
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -103,7 +109,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
             <FormItem className='flex flex-row'>
               <FormLabel
                 htmlFor='date'
-                className='text-[15px] font-semibold text-[#222] p-0'
+                className='text-[15px] font-semibold text-[#222]'
               >
                 날짜
               </FormLabel>
@@ -136,7 +142,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                 <LabeledTextarea
                   label='메모'
                   id='memo'
-                  placeholder={`어디서, 무엇을 결제하셨나요?\r\n그때 기분은 어땠나요?`}
+                  placeholder={`어디서, 무엇을 결제하셨나요?\r\n그때 기분과 소비 이유도 같이 기록해요.`}
                   value={field.value}
                   onChange={(e) => {
                     if (e.length <= EXPENSE_MEMO_MAX_LEN) {
@@ -154,7 +160,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
           control={form.control}
           name='categories'
           render={({ field }) => (
-            <FormItem>
+            <FormItem className='flex flex-col gap-4'>
               <div className='flex flex-row items-center'>
                 <FormLabel
                   htmlFor='categories'
@@ -162,17 +168,18 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
                 >
                   카테고리
                 </FormLabel>
-                <Button
+                <button
                   type='button'
                   id='categories'
                   aria-label='카테고리 설정 버튼'
-                  className='rounded-full bg-[#efefef] hover:bg-accent h-[28px] w-[39px] items-center text-[13px] text-[#555] ml-auto py-1 px-2 shadow-none font-normal'
+                  className='flex flex-row items-center gap-1 ml-auto'
                   onClick={() => {
-                    setOpen(true);
+                    setCategoryOpen(true);
                   }}
                 >
-                  설정
-                </Button>
+                  <span className='text-[15px] text-[#28a745]'>설정</span>
+                  <ArrowRight size={16} color='#28a745' />
+                </button>
               </div>
               <div className='flex flex-row gap-2 flex-wrap'>
                 {field.value.map((category) => (
@@ -191,7 +198,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
           name='amount'
           render={({ field }) => (
             <FormItem className='flex flex-col gap-2'>
-              <FormLabel className='text-[15px] font-semibold'>금액</FormLabel>
+              <FormLabel className='text-[15px] font-semibold text-[#222]'>
+                금액
+              </FormLabel>
               <FormControl>
                 <NumericFormat
                   inputMode='numeric'
@@ -222,10 +231,46 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name='consumptionKind'
+          render={({ field }) => (
+            <FormItem className='flex flex-row'>
+              <FormLabel className='text-[15px] font-semibold text-[#222]'>
+                소비 분류
+              </FormLabel>
+              <FormControl>
+                <button
+                  type='button'
+                  className='flex flex-row items-center gap-1 ml-auto'
+                  onClick={() => {
+                    setConsumptionKindOpen(true);
+                  }}
+                >
+                  <span className='text-[15px] text-[#28a745]'>
+                    {consumptionKind === ConsumptionKind.none ||
+                    consumptionKind === undefined
+                      ? '소비를 리뷰하세요'
+                      : getConsumptionTitle(consumptionKind)}
+                  </span>
+                  <ArrowRight size={16} color='#28a745' />
+                </button>
+              </FormControl>
+              <ConsumptionKindDrawer
+                isOpen={consumptionKindOpen}
+                onClose={() => {
+                  setConsumptionKindOpen(false);
+                }}
+                setConsumptionKind={(kind) => {
+                  field.onChange(kind);
+                }}
+              />
+            </FormItem>
+          )}
+        />
         <div className='fixed bottom-0 left-0 right-0 w-full min-w-[360px] max-w-[430px] mx-auto px-5 py-4 bg-white border-t border-gray-100'>
           <Button
             type='submit'
-            // origin: mt-auto
             className='w-full h-13 text-[15px] font-semibold mt-auto rounded-full'
             disabled={disabled}
           >

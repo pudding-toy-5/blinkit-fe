@@ -18,14 +18,12 @@ import X from '@/shared/ui/icons/X';
 import SubmitButton from '@/shared/ui/SubmitButton';
 
 export interface Props {
-  id: string;
   trigger: React.ReactNode;
   dateRange: DateRange | undefined;
   setDateRange: (dateRange: DateRange | undefined) => void;
 }
 
 const PeriodCalendarDrawer: React.FC<Props> = ({
-  id,
   trigger,
   dateRange,
   setDateRange,
@@ -34,7 +32,7 @@ const PeriodCalendarDrawer: React.FC<Props> = ({
 
   return (
     <Drawer>
-      <DrawerTrigger id={id}>{trigger}</DrawerTrigger>
+      <DrawerTrigger>{trigger}</DrawerTrigger>
       <DrawerContent className='p-6 !rounded-t-[20px]'>
         <DrawerHeader className='flex flex-row items-center justify-between p-0'>
           <div className='flex-1' />

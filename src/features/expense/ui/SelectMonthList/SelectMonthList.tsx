@@ -35,7 +35,7 @@ const SelectMonthList: React.FC<SelectMonthListProps> = ({
   };
 
   return (
-    <ul className='list-none flex flex-col gap-6 max-h-60 overflow-y-auto scroll'>
+    <ul className='list-none flex flex-col gap-6 max-h-60 overflow-y-auto'>
       {periods.reverse().map(({ year, month }) => (
         <SelectMonthListItem
           key={`${year.toString()}-${month.toString()}}`}

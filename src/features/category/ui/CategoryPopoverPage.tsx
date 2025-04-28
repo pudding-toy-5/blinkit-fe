@@ -138,7 +138,7 @@ export default function CategoryPopoverPage({
                 </FormItem>
               )}
             />
-            <div className='flex flex-row w-full gap-2 mt-auto mb-8'>
+            <div className='flex flex-row w-full gap-2 mt-auto'>
               <Drawer>
                 <DrawerTrigger
                   type='button'
@@ -164,12 +164,9 @@ export default function CategoryPopoverPage({
                       삭제
                     </Button>
                     <DrawerClose asChild>
-                      <Button
-                        variant='ghost'
-                        className='w-[26px] h-[18px] mx-auto mt-[25px]'
-                      >
+                      <button className='w-auto h-auto mx-auto mt-[25px]'>
                         취소
-                      </Button>
+                      </button>
                     </DrawerClose>
                   </DrawerFooter>
                 </DrawerContent>

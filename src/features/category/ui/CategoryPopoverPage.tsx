@@ -138,7 +138,7 @@ export default function CategoryPopoverPage({
                 </FormItem>
               )}
             />
-            <div className='flex flex-row w-full gap-2 mt-auto mb-20'>
+            <div className='flex flex-row w-full gap-2 mt-auto mb-8'>
               <Drawer>
                 <DrawerTrigger
                   type='button'

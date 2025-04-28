@@ -34,11 +34,7 @@ function RouteComponent() {
         }}
       />
       {isRetrospective ? (
-        <RetrospectiveView
-          onMoveReview={() => {
-            setIsRetrospective(false);
-          }}
-        />
+        <RetrospectiveView />
       ) : (
         <UnReviewedExpenseView
           onMoveRetrospective={() => {

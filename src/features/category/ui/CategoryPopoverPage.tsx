@@ -138,7 +138,7 @@ export default function CategoryPopoverPage({
                 </FormItem>
               )}
             />
-            <div className='flex flex-row w-full gap-2 mt-auto mb-20'>
+            <div className='flex flex-row w-full gap-2 mt-auto'>
               <Drawer>
                 <DrawerTrigger
                   type='button'
@@ -159,17 +159,14 @@ export default function CategoryPopoverPage({
                       태그도 함께 삭제돼요.
                     </DrawerDescription>
                   </DrawerHeader>
-                  <DrawerFooter className='p-0 mt-8'>
+                  <DrawerFooter className='p-0 mt-8 gap-0'>
                     <Button className='h-13 rounded-full' onClick={onDelete}>
                       삭제
                     </Button>
                     <DrawerClose asChild>
-                      <Button
-                        variant='ghost'
-                        className='w-[26px] h-[18px] mx-auto mt-[25px]'
-                      >
+                      <button className='w-auto h-auto mx-auto mt-[25px] text-[15px] text-[#555] font-semibold'>
                         취소
-                      </Button>
+                      </button>
                     </DrawerClose>
                   </DrawerFooter>
                 </DrawerContent>

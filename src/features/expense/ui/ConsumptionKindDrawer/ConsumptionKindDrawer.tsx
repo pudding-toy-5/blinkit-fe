@@ -114,7 +114,7 @@ const ConsumptionKindDrawer: React.FC<Props> = ({
 
   return (
     <Drawer open={isOpen} onClose={onClose}>
-      <DrawerContent className='px-5 py-6 rounded-t-[20px] bg-white'>
+      <DrawerContent className='px-5 py-6 !rounded-t-[20px] bg-white'>
         <DrawerHeader className='flex flex-col gap-0 p-0'>
           <div className='flex flex-row'>
             <div className='flex-1' />
@@ -130,7 +130,7 @@ const ConsumptionKindDrawer: React.FC<Props> = ({
           <DrawerDescription className='text-[13px] text-[#555] mt-6'>
             지출 내역을 아래 소비 중 하나로 분류해 리뷰하세요.
             <br />
-            리뷰한 결과는 회고 탭에서 확인할 수 있어요.
+            리뷰한 결과는 회고 화면에서 확인할 수 있어요.
           </DrawerDescription>
         </DrawerHeader>
         <div className='flex flex-col gap-2 mt-6'>

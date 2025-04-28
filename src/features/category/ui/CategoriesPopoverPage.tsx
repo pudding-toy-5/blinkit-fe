@@ -146,7 +146,7 @@ export default function CategoriesPopoverPage({
           <div className='flex-1 overflow-hidden'>
             {categories === undefined || categories.length === 0 ? (
               <div className='mt-47.5 mx-auto flex items-center justify-center text-center'>
-                <span className='text-[13px] text-[#999]'>
+                <span className='text-[15px] text-[#999]'>
                   카테고리를 추가해두면
                   <br />
                   다음에도 쉽게 찾을 수 있어요.

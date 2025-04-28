@@ -39,8 +39,9 @@ const LabeledTextarea: React.FC<LabeledTextareaProps> = ({
         }}
         wrap='hard'
         className={cn(
-          'h-30 w-full max-w-full p-4 rounded-xl border',
+          'h-30 w-full max-w-full p-4 rounded-xl border rounded-[8px]',
           'text-left leading-normal text-[15px] break-all',
+          'resize-none',
           'placeholder:whitespace-pre-line placeholder:text-[#999999] shadow-none',
           'focus-visible:border-[#555555]',
           state === 'default' && 'border-[#cccccc]',

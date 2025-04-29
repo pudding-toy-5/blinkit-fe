@@ -12,9 +12,9 @@ import useDateRange from '@/shared/lib/useDateRange';
 
 import RetrospectiveCard, { RetrospectiveCardProps } from './RetrospectiveCard';
 import RetrospectiveDetailPopoverPage from './RetrospectiveDetailPopoverPage';
-// import RetrospectiveSummary, {
-//   RetrospectiveSummaryProps,
-// } from './RetrospectiveSummary';
+import RetrospectiveSummary, {
+  RetrospectiveSummaryProps,
+} from './RetrospectiveSummary';
 
 const RetrospectiveView: React.FC = () => {
   const {
@@ -79,17 +79,17 @@ const RetrospectiveView: React.FC = () => {
     ];
   }, [retrospectives]);
 
-  // const amounts: RetrospectiveSummaryProps = useMemo(() => {
-  //   if (sortedRetrospectiveCards.length === 0) {
-  //     return { essential: 0, conscious: 0, emotional: 0 };
-  //   }
+  const amounts: RetrospectiveSummaryProps = useMemo(() => {
+    if (sortedRetrospectiveCards.length === 0) {
+      return { essential: 0, conscious: 0, emotional: 0 };
+    }
 
-  //   return {
-  //     emotional: sortedRetrospectiveCards[0].retrospective?.totalAmount ?? 0,
-  //     conscious: sortedRetrospectiveCards[1].retrospective?.totalAmount ?? 0,
-  //     essential: sortedRetrospectiveCards[2].retrospective?.totalAmount ?? 0,
-  //   };
-  // }, [retrospectives]);
+    return {
+      emotional: sortedRetrospectiveCards[0].retrospective?.totalAmount ?? 0,
+      conscious: sortedRetrospectiveCards[1].retrospective?.totalAmount ?? 0,
+      essential: sortedRetrospectiveCards[2].retrospective?.totalAmount ?? 0,
+    };
+  }, [retrospectives]);
 
   const isRecordEmpty = useMemo(
     () => retrospectives.reduce((acc, cur) => (acc += cur.totalCount), 0) === 0,
@@ -127,13 +127,13 @@ const RetrospectiveView: React.FC = () => {
         />
       )}
       <div className='flex-1 flex flex-col overflow-y-auto scroll'>
-        {/* <div className='px-5 py-4'>
+        <div className='px-5 py-4'>
           <RetrospectiveSummary
             essential={amounts.essential}
             conscious={amounts.conscious}
             emotional={amounts.emotional}
           />
-        </div> */}
+        </div>
         {sortedRetrospectiveCards.map(
           ({ retrospective, consumption, onClickRetrospectiveDetail }) => (
             <div key={consumption.consumptionKind}>

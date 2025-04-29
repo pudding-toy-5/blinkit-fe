@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
 import {
@@ -29,16 +29,20 @@ export default function CategoriesPopoverPage({
   const addCategory = useAddCategory();
   const { categories } = useCategories();
 
-  const [values, setValues] = React.useState<string[]>(
+  const [values, setValues] = useState<string[]>(
     selectedCategories.map((selectedCategory) => selectedCategory.name)
   );
 
-  const [open, setOpen] = React.useState<boolean>(false);
-  const [category, setCategory] = React.useState<Category | undefined>(
-    undefined
+  const [open, setOpen] = useState<boolean>(false);
+  const [category, setCategory] = useState<Category | undefined>(undefined);
+
+  const submitButtonText = useMemo(
+    () =>
+      values.length === 0 ? '완료' : `${values.length.toString()}개 설정 완료`,
+    [values]
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     setValues(
       selectedCategories.map((selectedCategory) => selectedCategory.name)
     );
@@ -130,20 +134,22 @@ export default function CategoriesPopoverPage({
           <InputCategoryTags
             value={values}
             onChange={handleValues}
-            placeholder='카테고리명을 입력해주세요. (예: 카페)'
+            placeholder='카테고리를 선택하거나 입력해주세요.'
             maxLength={20}
           />
         </div>
 
         <div className='flex flex-col flex-1 overflow-hidden'>
-          <p className='text-[13px] font-semibold text-[#999] my-4 px-5'>
-            카테고리 선택
+          <p className='text-[13px] font-semibold text-[#999] mt-8 mb-4 px-5'>
+            내가 추가한 카테고리
           </p>
           <div className='flex-1 overflow-hidden'>
             {categories === undefined || categories.length === 0 ? (
-              <div className='mt-47.5 mx-auto flex items-center justify-center'>
-                <span className='text-[13px] text-[#999]'>
-                  아직 추가한 카테고리가 없어요.
+              <div className='mt-47.5 mx-auto flex items-center justify-center text-center'>
+                <span className='text-[15px] text-[#999]'>
+                  카테고리를 추가해두면
+                  <br />
+                  다음에도 쉽게 찾을 수 있어요.
                 </span>
               </div>
             ) : (
@@ -181,26 +187,24 @@ export default function CategoriesPopoverPage({
             )}
           </div>
         </div>
-        <div className='fixed bottom-0 left-0 right-0 w-full min-w-[360px] max-w-[430px] mx-auto px-5 py-4 bg-white border-t border-gray-100'>
-          <Button
-            className='h-13 rounded-full text-[15px] w-full'
-            onClick={() => {
-              setSelectedCategories(
-                categories
-                  ? categories.filter((c) =>
-                      values.find((value) => value === c.name)
-                    )
-                  : []
-              );
-              onClose();
-            }}
-            disabled={
-              !categories || categories.length === 0 || values.length === 0
-            }
-          >
-            완료
-          </Button>
-        </div>
+        <button
+          className='h-13 rounded-full text-[15px] text-white mt-auto mb-8 mx-5 disabled:bg-[#ccc] bg-[#222]'
+          onClick={() => {
+            setSelectedCategories(
+              categories
+                ? categories.filter((c) =>
+                    values.find((value) => value === c.name)
+                  )
+                : []
+            );
+            onClose();
+          }}
+          disabled={
+            !categories || categories.length === 0 || values.length === 0
+          }
+        >
+          {submitButtonText}
+        </button>
       </Layout>
     </div>
   );

@@ -98,28 +98,23 @@ const consumptions: Consumption[] = [
 
 export interface Props {
   isOpen: boolean;
+  onClose: () => void;
+  consumptionKind: ConsumptionKind;
   setConsumptionKind: (consumptionKind: ConsumptionKind) => void;
-  onOpenChange: (open: boolean) => void;
 }
 
-const ReviewExpenseDrawer: React.FC<Props> = ({
+const ConsumptionKindDrawer: React.FC<Props> = ({
   isOpen,
+  onClose,
+  consumptionKind,
   setConsumptionKind,
-  onOpenChange,
 }) => {
-  const [selectedKind, setSelectedKind] = useState<ConsumptionKind | null>(
-    null
-  );
+  const [selectedKind, setSelectedKind] =
+    useState<ConsumptionKind>(consumptionKind);
 
   return (
-    <Drawer
-      open={isOpen}
-      onOpenChange={onOpenChange}
-      onClose={() => {
-        setSelectedKind(null);
-      }}
-    >
-      <DrawerContent className='px-5 py-6 rounded-t-[20px] bg-white'>
+    <Drawer open={isOpen} onClose={onClose}>
+      <DrawerContent className='px-5 py-6 !rounded-t-[20px] bg-white'>
         <DrawerHeader className='flex flex-col gap-0 p-0'>
           <div className='flex flex-row'>
             <div className='flex-1' />
@@ -135,7 +130,7 @@ const ReviewExpenseDrawer: React.FC<Props> = ({
           <DrawerDescription className='text-[13px] text-[#555] mt-6'>
             지출 내역을 아래 소비 중 하나로 분류해 리뷰하세요.
             <br />
-            리뷰한 결과는 회고 탭에서 확인할 수 있어요.
+            리뷰한 결과는 회고 화면에서 확인할 수 있어요.
           </DrawerDescription>
         </DrawerHeader>
         <div className='flex flex-col gap-2 mt-6'>
@@ -152,15 +147,16 @@ const ReviewExpenseDrawer: React.FC<Props> = ({
         </div>
         <DrawerFooter className='mt-8 p-0'>
           <Button
+            type='button'
             className='h-13 rounded-full text-white bg-[#222] font-semibold disabled:bg-[#CCC]'
             onClick={() => {
-              if (selectedKind) {
+              if (selectedKind !== ConsumptionKind.none) {
                 setConsumptionKind(selectedKind);
-                setSelectedKind(null);
-                onOpenChange(false);
+                setSelectedKind(ConsumptionKind.none);
+                onClose();
               }
             }}
-            disabled={selectedKind === null}
+            disabled={selectedKind === ConsumptionKind.none}
           >
             완료
           </Button>
@@ -170,4 +166,4 @@ const ReviewExpenseDrawer: React.FC<Props> = ({
   );
 };
 
-export default ReviewExpenseDrawer;
+export default ConsumptionKindDrawer;

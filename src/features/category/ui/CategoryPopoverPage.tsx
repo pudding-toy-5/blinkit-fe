@@ -92,7 +92,7 @@ export default function CategoryPopoverPage({
   const onDelete = () => {
     deleteCategory.mutate(category.uid, {
       onSuccess: () => {
-        toast.success(category.name + '카테고리를 삭제했어요.');
+        toast.success(category.name + ' 카테고리를 삭제했어요.');
         onDeleteCategory(category.uid);
         onClose();
       },
@@ -138,52 +138,49 @@ export default function CategoryPopoverPage({
                 </FormItem>
               )}
             />
-            <div className='flex flex-row w-full gap-2 mt-auto mb-20'>
-              <Drawer>
-                <DrawerTrigger
-                  type='button'
-                  className={cn(
-                    buttonVariants({ variant: 'default' }),
-                    'flex-1 rounded-full h-13 text-[15px] text-[#555555] bg-[#efefef] hover:bg-[#efefef]/80 shadow-none'
-                  )}
-                >
-                  삭제
-                </DrawerTrigger>
-                <DrawerContent className='py-8 px-5 !rounded-t-[20px]'>
-                  <DrawerHeader className='p-0'>
-                    <DrawerTitle className='text-[19px] text-[#222] font-semibold'>
-                      카테고리를 삭제할까요?
-                    </DrawerTitle>
-                    <DrawerDescription className='text-15px text-[#555]'>
-                      카테고리를 삭제하면, 연결된 지출 내역의 {category.name}{' '}
-                      태그도 함께 삭제돼요.
-                    </DrawerDescription>
-                  </DrawerHeader>
-                  <DrawerFooter className='p-0 mt-8'>
-                    <Button className='h-13 rounded-full' onClick={onDelete}>
-                      삭제
-                    </Button>
-                    <DrawerClose asChild>
-                      <Button
-                        variant='ghost'
-                        className='w-[26px] h-[18px] mx-auto mt-[25px]'
-                      >
-                        취소
-                      </Button>
-                    </DrawerClose>
-                  </DrawerFooter>
-                </DrawerContent>
-              </Drawer>
-              <Button
-                type='submit'
-                className='flex-1 rounded-full h-13 text-[15px] text-white bg-[#222] hover:bg-[#222]/80'
-                disabled={disabled}
-              >
-                저장
-              </Button>
-            </div>
           </form>
         </Form>
+        <div className='flex flex-row w-full gap-2 mt-auto px-5 mb-8'>
+          <Drawer>
+            <DrawerTrigger
+              type='button'
+              className={cn(
+                buttonVariants({ variant: 'default' }),
+                'flex-1 rounded-full h-13 text-[15px] text-[#555555] bg-[#efefef] hover:bg-[#efefef]/80 shadow-none'
+              )}
+            >
+              삭제
+            </DrawerTrigger>
+            <DrawerContent className='py-8 px-5 !rounded-t-[20px]'>
+              <DrawerHeader className='p-0'>
+                <DrawerTitle className='text-[19px] text-[#222] font-semibold'>
+                  카테고리를 삭제할까요?
+                </DrawerTitle>
+                <DrawerDescription className='text-15px text-[#555]'>
+                  카테고리를 삭제하면, 연결된 지출 내역의 {category.name} 태그도
+                  함께 삭제돼요.
+                </DrawerDescription>
+              </DrawerHeader>
+              <DrawerFooter className='p-0 mt-8 gap-0'>
+                <Button className='h-13 rounded-full' onClick={onDelete}>
+                  삭제
+                </Button>
+                <DrawerClose asChild>
+                  <button className='w-auto h-auto mx-auto mt-[25px] text-[15px] text-[#555] font-semibold'>
+                    취소
+                  </button>
+                </DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
+          <Button
+            type='submit'
+            className='flex-1 rounded-full h-13 text-[15px] text-white bg-[#222] hover:bg-[#222]/80'
+            disabled={disabled}
+          >
+            저장
+          </Button>
+        </div>
       </Layout>
     </div>
   );

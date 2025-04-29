@@ -135,13 +135,13 @@ const RetrospectiveView: React.FC = () => {
         />
       )}
       <div className='flex-1 flex flex-col overflow-y-auto scroll'>
-        <div className='px-5 py-4'>
+        {/* <div className='px-5 py-4'>
           <RetrospectiveSummary
             essential={amounts.essential}
             conscious={amounts.conscious}
             emotional={amounts.emotional}
           />
-        </div>
+        </div> */}
         {sortedRetrospectiveCards.map(
           ({ retrospective, consumption, onClickRetrospectiveDetail }) => (
             <div key={consumption.consumptionKind}>

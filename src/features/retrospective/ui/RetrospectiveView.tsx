@@ -16,9 +16,9 @@ import ArrowLeft from '@/shared/ui/icons/ArrowLeft';
 import PeriodCalendarDrawer from './PeriodCalendarDrawer';
 import RetrospectiveCard, { RetrospectiveCardProps } from './RetrospectiveCard';
 import RetrospectiveDetailPopoverPage from './RetrospectiveDetailPopoverPage';
-// import RetrospectiveSummary, {
-//   RetrospectiveSummaryProps,
-// } from './RetrospectiveSummary';
+import RetrospectiveSummary, {
+  RetrospectiveSummaryProps,
+} from './RetrospectiveSummary';
 
 const CalendarTrigger: React.FC<{ dateRange: DateRange | undefined }> = ({
   dateRange,
@@ -120,17 +120,17 @@ const RetrospectiveView: React.FC = () => {
     ];
   }, [retrospectives]);
 
-  // const amounts: RetrospectiveSummaryProps = useMemo(() => {
-  //   if (sortedRetrospectiveCards.length === 0) {
-  //     return { essential: 0, conscious: 0, emotional: 0 };
-  //   }
+  const amounts: RetrospectiveSummaryProps = useMemo(() => {
+    if (sortedRetrospectiveCards.length === 0) {
+      return { essential: 0, conscious: 0, emotional: 0 };
+    }
 
-  //   return {
-  //     emotional: sortedRetrospectiveCards[0].retrospective?.totalAmount ?? 0,
-  //     conscious: sortedRetrospectiveCards[1].retrospective?.totalAmount ?? 0,
-  //     essential: sortedRetrospectiveCards[2].retrospective?.totalAmount ?? 0,
-  //   };
-  // }, [retrospectives]);
+    return {
+      emotional: sortedRetrospectiveCards[0].retrospective?.totalAmount ?? 0,
+      conscious: sortedRetrospectiveCards[1].retrospective?.totalAmount ?? 0,
+      essential: sortedRetrospectiveCards[2].retrospective?.totalAmount ?? 0,
+    };
+  }, [retrospectives]);
 
   const isRecordEmpty = useMemo(
     () => retrospectives.reduce((acc, cur) => (acc += cur.totalCount), 0) === 0,
@@ -179,7 +179,7 @@ const RetrospectiveView: React.FC = () => {
             conscious={amounts.conscious}
             emotional={amounts.emotional}
           />
-        </div> */}
+        </div>
         {sortedRetrospectiveCards.map(
           ({ retrospective, consumption, onClickRetrospectiveDetail }) => (
             <div key={consumption.consumptionKind}>

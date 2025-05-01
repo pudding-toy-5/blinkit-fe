@@ -130,7 +130,7 @@ const RetrospectiveView: React.FC = () => {
       conscious: sortedRetrospectiveCards[1].retrospective?.totalAmount ?? 0,
       essential: sortedRetrospectiveCards[2].retrospective?.totalAmount ?? 0,
     };
-  }, [retrospectives]);
+  }, [sortedRetrospectiveCards]);
 
   const isRecordEmpty = useMemo(
     () => retrospectives.reduce((acc, cur) => (acc += cur.totalCount), 0) === 0,

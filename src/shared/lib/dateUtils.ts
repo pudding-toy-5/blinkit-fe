@@ -1,5 +1,4 @@
 import { formatDate } from 'date-fns';
-import { useMemo } from 'react';
 import { DateRange } from 'react-day-picker';
 
 export const isDateRangeCurrentYear = (dateRange: DateRange): boolean => {

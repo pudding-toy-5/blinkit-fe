@@ -5,7 +5,7 @@ import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { CONSUMPTION_COLORS } from '@/shared/consts';
 
 export interface ItemProps {
-  color: '#28a745' | '#e7b60f' | '#ff6b6b';
+  color: (typeof CONSUMPTION_COLORS)[keyof typeof CONSUMPTION_COLORS];
   title: string;
   percentage: number;
   amount: number;

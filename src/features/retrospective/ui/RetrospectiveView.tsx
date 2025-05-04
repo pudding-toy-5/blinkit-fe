@@ -114,12 +114,19 @@ const RetrospectiveView: React.FC = () => {
     };
   }, [sortedRetrospectiveCards]);
 
-  const isRecordEmpty = useMemo(
+  const isRetrospectiveEmpty = useMemo(
     () => retrospectives.reduce((acc, cur) => (acc += cur.totalCount), 0) === 0,
     [retrospectives]
   );
 
-  if (isRecordEmpty) {
+  const isSelectedRangeRecordEmpty = useMemo(
+    () =>
+      rangeRetrospectives.reduce((acc, cur) => (acc += cur.totalCount), 0) ===
+      0,
+    [rangeRetrospectives]
+  );
+
+  if (isRetrospectiveEmpty) {
     return (
       <div className='flex-1 flex flex-col overflow-y-auto scroll'>
         <div className='flex-1 flex flex-col items-center justify-center text-center'>
@@ -133,6 +140,28 @@ const RetrospectiveView: React.FC = () => {
               기록 화면으로 이동하기
             </button>
           </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (dateRange && isSelectedRangeRecordEmpty) {
+    return (
+      <div className='flex-1 flex flex-col overflow-y-auto scroll'>
+        <div className='flex-1 flex flex-col items-center justify-center text-center'>
+          <span className='text-[15px] text-[#555] leading-[150%]'>
+            {formatDateRange(dateRange)}에는
+            <br />
+            리뷰한 소비가 없어요.
+          </span>
+          <button
+            onClick={() => {
+              setDateRange(undefined);
+            }}
+            className='text-[13px] text-[#555] rounded-full px-3 py-2 bg-[#efefef] mt-4'
+          >
+            다시 기간 설정하기
+          </button>
         </div>
       </div>
     );

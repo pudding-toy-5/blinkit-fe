@@ -16,7 +16,6 @@ import {
   DrawerTrigger,
 } from '@/shared/ui/atoms/drawer';
 import X from '@/shared/ui/icons/X';
-import { cn } from '@/shared/ui/styles/utils';
 import SubmitButton from '@/shared/ui/SubmitButton';
 
 export interface Props {

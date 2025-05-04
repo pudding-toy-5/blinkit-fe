@@ -1,5 +1,4 @@
 import { Link } from '@tanstack/react-router';
-import { formatDate } from 'date-fns';
 import { useMemo, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 
@@ -10,6 +9,7 @@ import {
 } from '@/features/expense/consts';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetrospective';
+import { formatDateRange } from '@/shared/lib/dateUtils';
 import useDateRange from '@/shared/lib/useDateRange';
 import ArrowLeft from '@/shared/ui/icons/ArrowLeft';
 
@@ -23,34 +23,10 @@ import RetrospectiveSummary, {
 const CalendarTrigger: React.FC<{ dateRange: DateRange | undefined }> = ({
   dateRange,
 }) => {
-  const getTriggerText = (dateRange: DateRange | undefined) => {
-    if (!dateRange?.from || !dateRange.to) {
-      return '전체 기간';
-    }
-
-    const currentYear = new Date().getFullYear();
-
-    const fromYear = dateRange.from.getFullYear();
-    const toYear = dateRange.to.getFullYear();
-
-    const isCurrentYear = () =>
-      fromYear === currentYear && toYear === currentYear;
-
-    const fromText = isCurrentYear()
-      ? formatDate(dateRange.from, 'M월 d일')
-      : formatDate(dateRange.from, 'yyyy년 M월 d일');
-
-    const toText = isCurrentYear()
-      ? formatDate(dateRange.to, 'M월 d일')
-      : formatDate(dateRange.to, 'yyyy년 M월 d일');
-
-    return `${fromText} - ${toText}`;
-  };
-
   return (
     <div className='flex flex-row gap-1'>
       <span className='text-[15px] text-[#222] font-semibold'>
-        {getTriggerText(dateRange)}
+        {dateRange ? formatDateRange(dateRange) : '전체 기간'}
       </span>
       <div className='rotate-[-90deg]'>
         <ArrowLeft size={16} color='#222' />

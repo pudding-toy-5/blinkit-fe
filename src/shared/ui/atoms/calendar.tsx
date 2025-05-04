@@ -7,6 +7,7 @@ import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import { cn } from '@/shared/ui/styles/utils';
 
 function Calendar({
+  className,
   classNames,
   showOutsideDays = true,
   ...props
@@ -14,7 +15,7 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className='w-full p-0'
+      className={cn('w-full p-0', className)}
       classNames={{
         months: 'flex flex-col gap-2',
         month: 'flex flex-col gap-4',

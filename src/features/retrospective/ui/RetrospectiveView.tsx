@@ -9,7 +9,7 @@ import {
 } from '@/features/expense/consts';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetrospective';
-import { DEFAULT_END_DATE, DEFAULT_START_DATE } from '@/shared/consts/date';
+import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '@/shared/consts/date';
 import { formatDateRange } from '@/shared/lib/dateUtils';
 import useDateRange from '@/shared/lib/useDateRange';
 import ArrowLeft from '@/shared/ui/icons/ArrowLeft';
@@ -40,13 +40,13 @@ const RetrospectiveView: React.FC = () => {
   const { dateRange, setDateRange } = useDateRange();
 
   const { data: retrospectives = [] } = useRetrospectivesByRange({
-    start: DEFAULT_START_DATE,
-    end: DEFAULT_END_DATE,
+    from: DEFAULT_FROM_DATE,
+    to: DEFAULT_TO_DATE,
   });
 
   const { data: rangeRetrospectives = [] } = useRetrospectivesByRange({
-    start: dateRange?.from ?? DEFAULT_START_DATE,
-    end: dateRange?.to ?? DEFAULT_END_DATE,
+    from: dateRange?.from ?? DEFAULT_FROM_DATE,
+    to: dateRange?.to ?? DEFAULT_TO_DATE,
   });
 
   const [consumptionKind, setConsumptionKind] = useState<ConsumptionKind>(

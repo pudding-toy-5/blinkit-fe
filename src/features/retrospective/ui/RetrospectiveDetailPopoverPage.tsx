@@ -5,7 +5,7 @@ import CategoryFilter from '@/features/category/ui/CategoryFilter';
 import { useExpensesByRange } from '@/features/expense/api/useExpenseQuery';
 import { getConsumptionTexts } from '@/features/expense/lib/consumption';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
-import { DEFAULT_END_DATE, DEFAULT_START_DATE } from '@/shared/consts/date';
+import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '@/shared/consts/date';
 import useDateRange from '@/shared/lib/useDateRange';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
@@ -25,8 +25,8 @@ const RetrospectiveDetailPopoverPage: React.FC<Props> = ({
   const { dateRange } = useDateRange();
 
   const { data: expenses = [] } = useExpensesByRange({
-    start: dateRange?.from ?? DEFAULT_START_DATE,
-    end: dateRange?.to ?? DEFAULT_END_DATE,
+    from: dateRange?.from ?? DEFAULT_FROM_DATE,
+    to: dateRange?.to ?? DEFAULT_TO_DATE,
     consumptionKind,
   });
 

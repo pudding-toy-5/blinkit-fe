@@ -64,44 +64,6 @@ const PeriodCalendarDrawer: React.FC<Props> = ({
             onSelect={setSelected}
             locale={ko}
             defaultMonth={selected?.to}
-            className='w-full p-0'
-            classNames={{
-              caption_label: 'font-[17px]',
-              head_cell: 'w-[14.2857143%] font-normal',
-              table: 'w-full',
-              row: 'flex w-full mt-[2px] gap-1',
-              cell: 'w-[14.2857143%] aspect-square first:rounded-l-full last:rounded-r-full overflow-visible',
-              day: 'relative h-full w-full flex items-center justify-center font-[15px]',
-              day_selected: 'bg-[#DAFBC1]',
-              day_range_start: cn(
-                'relative',
-                '!bg-[#89f336] text-[#222] rounded-full',
-                "before:content-['']",
-                'before:absolute before:inset-0',
-                'before:right-[-2px]',
-                'before:h-full before:w-[calc(100% + 4px)] before:-z-10',
-                'before:bg-[#DAFBC1] before:rounded-l-full'
-              ),
-              day_range_end: cn(
-                'relative',
-                '!bg-[#89f336] text-[#222] rounded-full',
-                "before:content-['']",
-                'before:absolute before:inset-0',
-                'before:left-[-2px]',
-                'before:h-full before:w-[calc(100% + 4px)] before:-z-10',
-                'before:bg-[#DAFBC1] before:rounded-r-full'
-              ),
-              day_range_middle: cn(
-                'bg-[#DAFBC1] text-[#222]',
-                "before:content-['']",
-                'before:absolute before:inset-y-0',
-                'before:-z-10',
-                'before:left-[-2px] before:right-[-2px]',
-                'before:bg-[#DAFBC1]'
-              ),
-              day_today: 'text-[#28a745]',
-              day_disabled: 'text-[#999999]',
-            }}
             formatters={{
               formatCaption: (month) =>
                 format(month, 'yyyy년 M월', { locale: ko }),

@@ -3,6 +3,7 @@ import { ko } from 'date-fns/locale';
 import { useState } from 'react';
 import { DateRange } from 'react-day-picker';
 
+import { formatDateRange } from '@/shared/lib/dateUtils';
 import { Button } from '@/shared/ui/atoms/button';
 import { Calendar } from '@/shared/ui/atoms/calendar';
 import {
@@ -45,8 +46,14 @@ const PeriodCalendarDrawer: React.FC<Props> = ({
             <X size={24} />
           </DrawerClose>
         </DrawerHeader>
-        {<span></span>}
-        <div className='flex flex-col w-full mx-auto items-center mt-6'>
+        {selected && (
+          <div className='w-full flex items-center justify-center mt-2'>
+            <span className='text-[15px] text-[#28a745]'>
+              {formatDateRange(selected)}
+            </span>
+          </div>
+        )}
+        <div className='flex flex-col w-full mx-auto items-center mt-4'>
           <Calendar
             mode='range'
             selected={selected}

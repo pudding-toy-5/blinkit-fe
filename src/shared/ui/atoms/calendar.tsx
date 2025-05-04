@@ -7,7 +7,6 @@ import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import { cn } from '@/shared/ui/styles/utils';
 
 function Calendar({
-  className,
   classNames,
   showOutsideDays = true,
   ...props
@@ -15,12 +14,12 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn('p-3', className)}
+      className='w-full p-0'
       classNames={{
         months: 'flex flex-col gap-2',
         month: 'flex flex-col gap-4',
         caption: 'flex justify-center pt-1 relative items-center w-full',
-        caption_label: 'text-sm font-medium',
+        caption_label: 'font-[17px] font-medium',
         nav: 'flex items-center gap-1',
         nav_button: cn(
           buttonVariants({ variant: 'ghost' }),
@@ -28,34 +27,43 @@ function Calendar({
         ),
         nav_button_previous: 'absolute left-1',
         nav_button_next: 'absolute right-1',
-        table: 'w-full border-collapse space-x-1',
+        table: 'w-full',
         head_row: 'flex mb-[16px]',
         head_cell:
-          'text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]',
-        row: 'flex w-full mt-2',
-        cell: cn(
-          'relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected].day-range-end)]:rounded-r-md',
-          props.mode === 'range'
-            ? '[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md'
-            : '[&:has([aria-selected])]:rounded-md'
+          'text-muted-foreground rounded-md w-[14.2857143%] font-normal text-[0.8rem]',
+        row: 'flex w-full mt-[2px] gap-1',
+        cell: 'w-[14.2857143%] aspect-square first:rounded-l-full last:rounded-r-full',
+        day: 'relative size-full flex items-center justify-center font-[15px]',
+        day_range_start: cn(
+          'relative',
+          '!bg-[#89f336] text-[#222] rounded-full',
+          "before:content-['']",
+          'before:absolute before:inset-0',
+          'before:right-[-2px]',
+          'before:h-full before:w-[calc(100% + 4px)] before:-z-10',
+          'before:bg-[#DAFBC1] before:rounded-l-full'
         ),
-        day: cn(
-          buttonVariants({ variant: 'ghost' }),
-          'size-8 p-0 font-normal aria-selected:opacity-100'
+        day_range_end: cn(
+          'relative',
+          '!bg-[#89f336] text-[#222] rounded-full',
+          "before:content-['']",
+          'before:absolute before:inset-0',
+          'before:left-[-2px]',
+          'before:h-full before:w-[calc(100% + 4px)] before:-z-10',
+          'before:bg-[#DAFBC1] before:rounded-r-full'
         ),
-        day_range_start:
-          'day-range-start aria-selected:bg-primary aria-selected:text-primary-foreground',
-        day_range_end:
-          'day-range-end aria-selected:bg-primary aria-selected:text-primary-foreground',
-        day_selected:
-          'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground',
-        day_today: 'bg-accent text-accent-foreground',
-        day_outside:
-          'day-outside text-muted-foreground aria-selected:text-muted-foreground',
-        day_disabled: 'text-muted-foreground opacity-50',
-        day_range_middle:
-          'aria-selected:bg-accent aria-selected:text-accent-foreground',
+        day_range_middle: cn(
+          'bg-[#DAFBC1] text-[#222]',
+          "before:content-['']",
+          'before:absolute before:inset-y-0',
+          'before:-z-10',
+          'before:left-[-2px] before:right-[-2px]',
+          'before:bg-[#DAFBC1]'
+        ),
+        day_today: 'text-[#28a745]',
+        day_disabled: 'text-[#999999]',
         day_hidden: 'invisible',
+        day_selected: 'bg-[#89f336] text-[#222] rounded-full',
         ...classNames,
       }}
       components={{

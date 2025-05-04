@@ -39,6 +39,11 @@ const RetrospectiveView: React.FC = () => {
   const { dateRange, setDateRange } = useDateRange();
 
   const { data: retrospectives = [] } = useRetrospectivesByRange({
+    start: new Date('2025-04-01'),
+    end: new Date('2025-05-31'),
+  });
+
+  const { data: rangeRetrospectives = [] } = useRetrospectivesByRange({
     start: dateRange?.from ?? new Date('2025-04-01'),
     end: dateRange?.to ?? new Date('2025-05-31'),
   });
@@ -49,17 +54,17 @@ const RetrospectiveView: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   const sortedRetrospectiveCards: RetrospectiveCardProps[] = useMemo(() => {
-    const essential = retrospectives.find(
+    const essential = rangeRetrospectives.find(
       (retrospective) =>
         retrospective.consumptionKind === ConsumptionKind.essential
     );
 
-    const conscious = retrospectives.find(
+    const conscious = rangeRetrospectives.find(
       (retrospective) =>
         retrospective.consumptionKind === ConsumptionKind.conscious
     );
 
-    const emotional = retrospectives.find(
+    const emotional = rangeRetrospectives.find(
       (retrospective) =>
         retrospective.consumptionKind === ConsumptionKind.emotional
     );
@@ -94,7 +99,7 @@ const RetrospectiveView: React.FC = () => {
         },
       },
     ];
-  }, [retrospectives]);
+  }, [rangeRetrospectives]);
 
   const amounts: RetrospectiveSummaryProps = useMemo(() => {
     if (sortedRetrospectiveCards.length === 0) {

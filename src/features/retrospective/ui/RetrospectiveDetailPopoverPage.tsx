@@ -46,8 +46,8 @@ const RetrospectiveDetailPopoverPage: React.FC<Props> = ({
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
   const { data: filteredExpenses = [] } = useExpensesByRange({
-    start: dateRange?.from ?? DEFAULT_START_DATE,
-    end: dateRange?.to ?? DEFAULT_END_DATE,
+    from: dateRange?.from ?? DEFAULT_FROM_DATE,
+    to: dateRange?.to ?? DEFAULT_TO_DATE,
     consumptionKind,
     categoryUids: selectedCategories.map((c) => c.uid),
   });

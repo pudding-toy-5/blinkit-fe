@@ -5,6 +5,7 @@ import CategoryFilter from '@/features/category/ui/CategoryFilter';
 import { useExpensesByRange } from '@/features/expense/api/useExpenseQuery';
 import { getConsumptionTexts } from '@/features/expense/lib/consumption';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
+import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '@/shared/consts/date';
 import useDateRange from '@/shared/lib/useDateRange';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
@@ -21,13 +22,11 @@ const RetrospectiveDetailPopoverPage: React.FC<Props> = ({
   consumptionKind,
   onClose,
 }) => {
-  const {
-    dateRange: { start, end },
-  } = useDateRange();
+  const { dateRange } = useDateRange();
 
   const { data: expenses = [] } = useExpensesByRange({
-    start,
-    end,
+    from: dateRange?.from ?? DEFAULT_FROM_DATE,
+    to: dateRange?.to ?? DEFAULT_TO_DATE,
     consumptionKind,
   });
 
@@ -47,8 +46,8 @@ const RetrospectiveDetailPopoverPage: React.FC<Props> = ({
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
   const { data: filteredExpenses = [] } = useExpensesByRange({
-    start,
-    end,
+    from: dateRange?.from ?? DEFAULT_FROM_DATE,
+    to: dateRange?.to ?? DEFAULT_TO_DATE,
     consumptionKind,
     categoryUids: selectedCategories.map((c) => c.uid),
   });

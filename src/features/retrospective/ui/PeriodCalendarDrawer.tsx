@@ -1,6 +1,9 @@
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
+import { useEffect, useState } from 'react';
+import { DateRange } from 'react-day-picker';
 
+import { formatDateRange } from '@/shared/lib/dateUtils';
 import { Button } from '@/shared/ui/atoms/button';
 import { Calendar } from '@/shared/ui/atoms/calendar';
 import {
@@ -15,28 +18,26 @@ import {
 import X from '@/shared/ui/icons/X';
 import SubmitButton from '@/shared/ui/SubmitButton';
 
-export interface CalendarDrawerProps {
-  id: string;
+export interface Props {
   trigger: React.ReactNode;
-  date: Date | undefined;
-  setDate: (newDate: Date | undefined) => void;
+  dateRange: DateRange | undefined;
+  setDateRange: (dateRange: DateRange | undefined) => void;
 }
 
-const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
-  id,
+const PeriodCalendarDrawer: React.FC<Props> = ({
   trigger,
-  date,
-  setDate,
+  dateRange,
+  setDateRange,
 }) => {
-  const _today = new Date();
-  const today = new Date(
-    _today.getFullYear(),
-    _today.getMonth(),
-    _today.getDate()
-  );
+  const [selected, setSelected] = useState<DateRange | undefined>(dateRange);
+
+  useEffect(() => {
+    setSelected(dateRange);
+  }, [dateRange]);
+
   return (
     <Drawer>
-      <DrawerTrigger id={id}>{trigger}</DrawerTrigger>
+      <DrawerTrigger>{trigger}</DrawerTrigger>
       <DrawerContent className='p-6 !rounded-t-[20px]'>
         <DrawerHeader className='flex flex-row items-center justify-between p-0'>
           <div className='flex-1' />
@@ -48,14 +49,20 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
             <X size={24} />
           </DrawerClose>
         </DrawerHeader>
-        <div className='flex flex-col w-full mx-auto items-center mt-6'>
+        {selected && (
+          <div className='w-full flex items-center justify-center mt-2'>
+            <span className='text-[15px] text-[#28a745]'>
+              {formatDateRange(selected)}
+            </span>
+          </div>
+        )}
+        <div className='flex flex-col w-full mx-auto items-center mt-4'>
           <Calendar
-            mode='single'
-            selected={date}
-            onSelect={setDate}
+            mode='range'
+            selected={selected}
+            onSelect={setSelected}
             locale={ko}
-            month={date}
-            onMonthChange={setDate}
+            defaultMonth={selected?.to}
             formatters={{
               formatCaption: (month) =>
                 format(month, 'yyyy년 M월', { locale: ko }),
@@ -63,13 +70,14 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
           />
           <DrawerFooter className='flex flex-row items-center w-full pb-0 pt-4 px-auto'>
             <Button
-              className='text-[15px] text-[#28a745] font-semibold h-13'
+              type='button'
+              className='text-[15px] text-[#555555] font-semibold'
               variant='ghost'
               onClick={() => {
-                setDate(today);
+                setSelected(undefined);
               }}
             >
-              오늘
+              재설정
             </Button>
             <DrawerClose asChild className='flex-1' aria-label='날짜 선택 버튼'>
               <SubmitButton
@@ -77,7 +85,7 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
                 state='default'
                 className='text-[15px]'
                 onClick={() => {
-                  setDate(date);
+                  setDateRange(selected);
                 }}
               />
             </DrawerClose>
@@ -88,4 +96,4 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
   );
 };
 
-export default CalendarDrawer;
+export default PeriodCalendarDrawer;

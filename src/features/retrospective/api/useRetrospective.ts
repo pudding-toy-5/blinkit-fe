@@ -3,6 +3,10 @@ import { AxiosError } from 'axios';
 import { formatDate } from 'date-fns';
 
 import {
+  addLocalTimezoneOffset,
+  getDateOnly,
+} from '@/features/expense/lib/convertExpense';
+import {
   Retrospective,
   ServerRetrospective,
 } from '@/features/retrospective/model/Retrospective';
@@ -12,22 +16,28 @@ import { apiUrl } from '@/shared/consts';
 import { fromServerRetrospective } from '../model/utils';
 
 export const useRetrospectivesByRange = ({
-  start,
-  end,
+  from,
+  to,
 }: {
-  start: Date;
-  end: Date;
+  from: Date;
+  to: Date;
 }) => {
   return useQuery<Retrospective[]>({
-    queryKey: ['retrospective', start.toISOString(), end.toISOString()],
+    queryKey: ['retrospective', from.toISOString(), to.toISOString()],
     queryFn: async () => {
       try {
         const res = await userAxios.get<ServerRetrospective[]>(
           apiUrl + '/expense/expenses/consumption-retrospective',
           {
             params: {
-              start_date: formatDate(start, 'yyyy-MM-dd'),
-              end_date: formatDate(end, 'yyyy-MM-dd'),
+              start_date: formatDate(
+                addLocalTimezoneOffset(getDateOnly(from)),
+                'yyyy-MM-dd'
+              ),
+              end_date: formatDate(
+                addLocalTimezoneOffset(getDateOnly(to)),
+                'yyyy-MM-dd'
+              ),
             },
           }
         );

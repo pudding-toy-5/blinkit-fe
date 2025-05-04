@@ -28,8 +28,8 @@ export function RouteComponent() {
     date: new Date(),
     memo: '',
     categories: [],
-    amount: 0,
     consumptionKind: ConsumptionKind.none,
+    amount: 0,
   };
 
   const handleSubmit = (expense: Omit<Expense, 'uid'>) => {

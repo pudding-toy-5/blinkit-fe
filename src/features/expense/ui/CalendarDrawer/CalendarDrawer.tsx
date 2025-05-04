@@ -56,17 +56,6 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
             locale={ko}
             month={date}
             onMonthChange={setDate}
-            className='w-full p-0'
-            classNames={{
-              caption_label: 'font-[17px]',
-              head_cell: 'w-[14.2857143%] font-normal',
-              row: 'flex w-full gap-1 mt-[2px]',
-              cell: 'w-[14.2857143%] aspect-square',
-              day: 'h-full w-full rounded-full font-[15px] hover:bg-[#89f336]/50',
-              day_selected: 'bg-[#89f336] text-[#222]',
-              day_today: 'text-[#28a745]',
-              day_disabled: 'text-[#999999]',
-            }}
             formatters={{
               formatCaption: (month) =>
                 format(month, 'yyyy년 M월', { locale: ko }),

@@ -60,7 +60,7 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
             classNames={{
               caption_label: 'font-[17px]',
               head_cell: 'w-[14.2857143%] font-normal',
-              row: 'flex w-full gap-[2px] mt-[2px]',
+              row: 'flex w-full gap-1 mt-[2px]',
               cell: 'w-[14.2857143%] aspect-square',
               day: 'h-full w-full rounded-full font-[15px] hover:bg-[#89f336]/50',
               day_selected: 'bg-[#89f336] text-[#222]',

@@ -16,14 +16,14 @@ import { apiUrl } from '@/shared/consts';
 import { fromServerRetrospective } from '../model/utils';
 
 export const useRetrospectivesByRange = ({
-  start,
-  end,
+  from,
+  to,
 }: {
-  start: Date;
-  end: Date;
+  from: Date;
+  to: Date;
 }) => {
   return useQuery<Retrospective[]>({
-    queryKey: ['retrospective', start.toISOString(), end.toISOString()],
+    queryKey: ['retrospective', from.toISOString(), to.toISOString()],
     queryFn: async () => {
       try {
         const res = await userAxios.get<ServerRetrospective[]>(
@@ -31,11 +31,11 @@ export const useRetrospectivesByRange = ({
           {
             params: {
               start_date: formatDate(
-                addLocalTimezoneOffset(getDateOnly(start)),
+                addLocalTimezoneOffset(getDateOnly(from)),
                 'yyyy-MM-dd'
               ),
               end_date: formatDate(
-                addLocalTimezoneOffset(getDateOnly(end)),
+                addLocalTimezoneOffset(getDateOnly(to)),
                 'yyyy-MM-dd'
               ),
             },

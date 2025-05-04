@@ -48,8 +48,9 @@ const RetrospectiveView: React.FC = () => {
     end: dateRange?.to ?? new Date('2025-05-31'),
   });
 
-  const [consumptionKind, setConsumptionKind] =
-    useState<ConsumptionKind | null>(null);
+  const [consumptionKind, setConsumptionKind] = useState<ConsumptionKind>(
+    ConsumptionKind.none
+  );
   const [open, setOpen] = useState<boolean>(false);
 
   const sortedRetrospectiveCards: RetrospectiveCardProps[] = useMemo(() => {
@@ -136,14 +137,6 @@ const RetrospectiveView: React.FC = () => {
     );
   }
 
-  const [reviewedExpenseCount, setReviewedExpenseCount] = useState<number>(0);
-
-  useEffect(() => {
-    setReviewedExpenseCount(
-      retrospectives.reduce((acc, cur) => acc + cur.totalCount, 0)
-    );
-  }, [retrospectives]);
-
   return (
     <>
       {open && consumptionKind && (
@@ -151,7 +144,7 @@ const RetrospectiveView: React.FC = () => {
           consumptionKind={consumptionKind}
           onClose={() => {
             setOpen(false);
-            setConsumptionKind(null);
+            setConsumptionKind(ConsumptionKind.none);
           }}
         />
       )}
@@ -180,6 +173,7 @@ const RetrospectiveView: React.FC = () => {
             </div>
           )
         )}
+        <div className='h-4 w-full bg-white shrink-0' />
       </div>
     </>
   );

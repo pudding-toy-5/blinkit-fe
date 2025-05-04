@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 
 import { formatDateRange } from '@/shared/lib/dateUtils';
@@ -31,6 +31,10 @@ const PeriodCalendarDrawer: React.FC<Props> = ({
   setDateRange,
 }) => {
   const [selected, setSelected] = useState<DateRange | undefined>(dateRange);
+
+  useEffect(() => {
+    setSelected(dateRange);
+  }, [dateRange]);
 
   return (
     <Drawer>

@@ -94,7 +94,7 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
 
   return (
     <header className='flex flex-col'>
-      <span className='text-[22px] text-[#222] font-semibold'>
+      <span className='text-[22px] text-[#222] font-semibold mt-4'>
         {total.toLocaleString()}원
       </span>
       <div className='flex flex-row w-full h-6 shrink-0 rounded-[4px] bg-gray-100 mt-4 mb-8 overflow-hidden'>

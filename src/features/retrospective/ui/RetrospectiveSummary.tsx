@@ -107,29 +107,25 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
         {total.toLocaleString()}원
       </span>
       <div className='flex flex-row w-full h-6 shrink-0 rounded-[4px] bg-gray-100 mt-4 mb-8 overflow-hidden'>
-        {summaries.map(({ color, percentage, title: key }) => (
+        {summaries.map(({ consumptionKind, percentage }) => (
           <div
-            key={key}
+            key={consumptionKind}
             style={{
               width: `${percentage.toString()}%`,
-              backgroundColor: color,
+              backgroundColor: CONSUMPTION_COLORS[consumptionKind],
             }}
           />
         ))}
       </div>
       <ul className='flex flex-col gap-6'>
-        {summaries.map(
-          ({ color, title, percentage, amount, consumptionIndex }) => (
-            <SummaryItem
-              consumptionIndex={consumptionIndex}
-              key={title}
-              color={color}
-              title={title}
-              percentage={percentage}
-              amount={amount}
-            />
-          )
-        )}
+        {summaries.map(({ consumptionKind, percentage, amount }) => (
+          <SummaryItem
+            key={consumptionKind}
+            consumptionKind={consumptionKind}
+            percentage={percentage}
+            amount={amount}
+          />
+        ))}
       </ul>
     </header>
   );

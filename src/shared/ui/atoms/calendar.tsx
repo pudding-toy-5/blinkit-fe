@@ -33,7 +33,7 @@ function Calendar({
         head_cell:
           'text-muted-foreground rounded-md w-[14.2857143%] font-normal text-[0.8rem]',
         row: 'flex w-full mt-[2px] gap-1',
-        cell: 'w-[14.2857143%] aspect-square first:rounded-l-full last:rounded-r-full',
+        cell: 'group relative w-[14.2857143%] aspect-square overflow-visible',
         day: 'relative size-full flex items-center justify-center font-[15px]',
         day_range_start: cn(
           'range-start',
@@ -42,7 +42,7 @@ function Calendar({
           "before:content-['']",
           'before:absolute before:inset-0',
           'before:right-[-2px]',
-          'before:h-full before:w-[calc(100% + 4px)] before:-z-10',
+          'before:-z-10',
           'before:bg-[#DAFBC1] before:rounded-l-full'
         ),
         day_range_end: cn(
@@ -52,7 +52,7 @@ function Calendar({
           "before:content-['']",
           'before:absolute before:inset-0',
           'before:left-[-2px]',
-          'before:h-full before:w-[calc(100% + 4px)] before:-z-10',
+          'before:-z-10',
           'before:bg-[#DAFBC1] before:rounded-r-full'
         ),
         day_range_middle: cn(
@@ -61,7 +61,9 @@ function Calendar({
           'before:absolute before:inset-y-0',
           'before:-z-10',
           'before:left-[-2px] before:right-[-2px]',
-          'before:bg-[#DAFBC1]'
+          'before:bg-[#DAFBC1]',
+          'group-first:rounded-l-full group-first:before:left-0 group-first:before:rounded-l-full',
+          'group-last:rounded-r-full  group-last:before:right-0 group-last:before:rounded-r-full'
         ),
         day_today: 'text-[#28a745]',
         day_disabled: 'text-[#999999]',

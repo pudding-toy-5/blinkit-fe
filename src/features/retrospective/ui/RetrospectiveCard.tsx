@@ -49,7 +49,7 @@ const RetrospectiveCard: React.FC<RetrospectiveCardProps> = ({
   }, [items]);
 
   return (
-    <div className='flex flex-col pb-4 pl-5 pr-4 bg-white pt-8'>
+    <div className='flex flex-col pb-4 px-5 bg-white pt-8'>
       <div className='flex flex-row items-center'>
         <span className='text-[19px] text-[#222] font-semibold'>{title}</span>
         <span

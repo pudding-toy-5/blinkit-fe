@@ -5,24 +5,26 @@ import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { CONSUMPTION_COLORS } from '@/shared/consts';
 
 export interface ItemProps {
-  consumptionIndex: number;
-  color: (typeof CONSUMPTION_COLORS)[keyof typeof CONSUMPTION_COLORS];
-  title: string;
+  consumptionKind: ConsumptionKind;
   percentage: number;
   amount: number;
 }
 
 const SummaryItem: React.FC<ItemProps> = ({
-  color,
-  title,
+  consumptionKind,
   percentage,
   amount,
 }) => {
   return (
     <li className='flex flex-row items-center gap-2'>
-      <div className='size-4 rounded-full' style={{ backgroundColor: color }} />
+      <div
+        className='size-4 rounded-full'
+        style={{ backgroundColor: CONSUMPTION_COLORS[consumptionKind] }}
+      />
       <div className='flex flex-col gap-1'>
-        <span className='text-[17px] text-[#222] font-semibold'>{title}</span>
+        <span className='text-[17px] text-[#222] font-semibold'>
+          {getConsumptionTitle(consumptionKind)}
+        </span>
         <span className='text-[13px] text-[#555]'>{percentage}%</span>
       </div>
       <span className='text-[17px] text-[#222] font-semibold ml-auto'>{`${amount.toLocaleString()}원`}</span>
@@ -59,31 +61,38 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
   const summaries: ItemProps[] = useMemo(() => {
     const unsorted: ItemProps[] = [
       {
-        consumptionIndex: 0,
-        color: CONSUMPTION_COLORS[ConsumptionKind.essential],
-        title: getConsumptionTitle(ConsumptionKind.essential),
+        consumptionKind: ConsumptionKind.essential,
         percentage: calculatePercentage(essential),
         amount: essential,
       },
       {
-        consumptionIndex: 1,
-        color: CONSUMPTION_COLORS[ConsumptionKind.conscious],
-        title: getConsumptionTitle(ConsumptionKind.conscious),
+        consumptionKind: ConsumptionKind.conscious,
         percentage: calculatePercentage(conscious),
         amount: conscious,
       },
       {
-        consumptionIndex: 2,
-        color: CONSUMPTION_COLORS[ConsumptionKind.emotional],
-        title: getConsumptionTitle(ConsumptionKind.emotional),
+        consumptionKind: ConsumptionKind.emotional,
         percentage: calculatePercentage(emotional),
         amount: emotional,
       },
     ];
 
     const compareItems = (a: ItemProps, b: ItemProps) => {
+      const consumptionOrderArray: ConsumptionKind[] = [
+        ConsumptionKind.emotional,
+        ConsumptionKind.conscious,
+        ConsumptionKind.essential,
+      ];
+
+      const compareConsumption = (a: ConsumptionKind, b: ConsumptionKind) => {
+        return (
+          consumptionOrderArray.findIndex((item) => item === a) -
+          consumptionOrderArray.findIndex((item) => item === b)
+        );
+      };
+
       if (a.amount === b.amount) {
-        return b.consumptionIndex - a.consumptionIndex;
+        return compareConsumption(b.consumptionKind, a.consumptionKind);
       }
 
       return b.amount - a.amount;

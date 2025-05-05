@@ -41,7 +41,7 @@ const PeriodCalendarDrawer: React.FC<Props> = ({
       <DrawerContent className='p-6 !rounded-t-[20px]'>
         <DrawerHeader className='flex flex-row items-center justify-between p-0'>
           <div className='flex-1' />
-          <DrawerTitle>날짜 선택</DrawerTitle>
+          <DrawerTitle>기간 설정</DrawerTitle>
           <DrawerClose
             aria-label='close button'
             className='flex-1 flex justify-end'

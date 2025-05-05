@@ -29,7 +29,7 @@ function Calendar({
         nav_button_previous: 'absolute left-1',
         nav_button_next: 'absolute right-1',
         table: 'w-full',
-        head_row: 'flex mb-[16px]',
+        head_row: 'flex mb-[16px] gap-1',
         head_cell: 'w-[14.2857143%] font-normal text-[15px] text-[#222]',
         row: 'flex w-full mt-[2px] gap-1',
         cell: 'group relative w-[14.2857143%] aspect-square overflow-visible',

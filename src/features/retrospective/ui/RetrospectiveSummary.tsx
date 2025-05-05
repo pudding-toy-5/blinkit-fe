@@ -55,8 +55,8 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
     [total]
   );
 
-  const summaries: ItemProps[] = useMemo(
-    () => [
+  const summaries: ItemProps[] = useMemo(() => {
+    const unsorted: ItemProps[] = [
       {
         color: CONSUMPTION_COLORS[ConsumptionKind.essential],
         title: getConsumptionTitle(ConsumptionKind.essential),
@@ -75,16 +75,25 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
         percentage: calculatePercentage(emotional),
         amount: emotional,
       },
-    ],
-    [essential, emotional, conscious, calculatePercentage]
-  );
+    ];
+
+    const compareItems = (a: ItemProps, b: ItemProps) => {
+      if (a.amount === b.amount) {
+        return 0;
+      }
+
+      return b.amount - a.amount;
+    };
+
+    return unsorted.sort(compareItems);
+  }, [essential, emotional, conscious, calculatePercentage]);
 
   return (
     <header className='flex flex-col'>
       <span className='text-[22px] text-[#222] font-semibold'>
         {total.toLocaleString()}원
       </span>
-      <div className='flex flex-row w-full h-6 rounded-[4px] bg-gray-100 mt-4 mb-8 overflow-hidden'>
+      <div className='flex flex-row w-full h-4 rounded-[4px] bg-gray-100 mt-4 mb-8 overflow-hidden'>
         {summaries.map(({ color, percentage, title: key }) => (
           <div
             key={key}

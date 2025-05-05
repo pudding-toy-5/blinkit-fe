@@ -25,7 +25,7 @@ const CalendarTrigger: React.FC<{ dateRange: DateRange | undefined }> = ({
   dateRange,
 }) => {
   return (
-    <div className='flex flex-row gap-1'>
+    <div className='flex flex-row items-center gap-1'>
       <span className='text-[15px] text-[#222] font-semibold'>
         {dateRange ? formatDateRange(dateRange) : '전체 기간'}
       </span>

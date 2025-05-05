@@ -82,7 +82,7 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
         return 0;
       }
 
-      return a.amount - b.amount;
+      return b.amount - a.amount;
     };
 
     return unsorted.sort(compareItems);

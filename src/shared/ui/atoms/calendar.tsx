@@ -33,7 +33,7 @@ function Calendar({
         head_cell: 'w-[14.2857143%] font-normal text-[15px] text-[#222]',
         row: 'flex w-full mt-[2px] gap-1',
         cell: 'group relative w-[14.2857143%] aspect-square overflow-visible',
-        day: 'relative size-full flex items-center justify-center font-[15px]',
+        day: 'relative size-full flex items-center justify-center text-[15px]',
         day_range_start: cn(
           'range-start',
           'relative',

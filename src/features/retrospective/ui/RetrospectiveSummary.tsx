@@ -109,15 +109,18 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
         ))}
       </div>
       <ul className='flex flex-col gap-6'>
-        {summaries.map(({ color, title, percentage, amount }) => (
-          <SummaryItem
-            key={title}
-            color={color}
-            title={title}
-            percentage={percentage}
-            amount={amount}
-          />
-        ))}
+        {summaries.map(
+          ({ color, title, percentage, amount, consumptionIndex }) => (
+            <SummaryItem
+              consumptionIndex={consumptionIndex}
+              key={title}
+              color={color}
+              title={title}
+              percentage={percentage}
+              amount={amount}
+            />
+          )
+        )}
       </ul>
     </header>
   );

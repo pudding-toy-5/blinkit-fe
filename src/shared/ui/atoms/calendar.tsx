@@ -18,8 +18,8 @@ function Calendar({
       className={cn('w-full p-0', className)}
       classNames={{
         months: 'flex flex-col gap-2',
-        month: 'flex flex-col gap-4',
-        caption: 'flex justify-center pt-1 relative items-center w-full',
+        month: 'flex flex-col',
+        caption: 'flex justify-center relative items-center w-full',
         caption_label: 'text-[17px] font-medium',
         nav: 'flex items-center gap-1',
         nav_button: cn(
@@ -29,7 +29,7 @@ function Calendar({
         nav_button_previous: 'absolute left-1',
         nav_button_next: 'absolute right-1',
         table: 'w-full',
-        head_row: 'flex mb-[16px] gap-1',
+        head_row: 'flex py-4 gap-1',
         head_cell: 'w-[14.2857143%] font-normal text-[15px] text-[#222]',
         row: 'flex w-full mt-[2px] gap-1',
         cell: 'group relative w-[14.2857143%] aspect-square overflow-visible',

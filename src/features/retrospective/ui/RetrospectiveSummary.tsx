@@ -5,6 +5,7 @@ import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { CONSUMPTION_COLORS } from '@/shared/consts';
 
 export interface ItemProps {
+  consumptionIndex: number;
   color: (typeof CONSUMPTION_COLORS)[keyof typeof CONSUMPTION_COLORS];
   title: string;
   percentage: number;
@@ -58,18 +59,21 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
   const summaries: ItemProps[] = useMemo(() => {
     const unsorted: ItemProps[] = [
       {
+        consumptionIndex: 0,
         color: CONSUMPTION_COLORS[ConsumptionKind.essential],
         title: getConsumptionTitle(ConsumptionKind.essential),
         percentage: calculatePercentage(essential),
         amount: essential,
       },
       {
+        consumptionIndex: 1,
         color: CONSUMPTION_COLORS[ConsumptionKind.conscious],
         title: getConsumptionTitle(ConsumptionKind.conscious),
         percentage: calculatePercentage(conscious),
         amount: conscious,
       },
       {
+        consumptionIndex: 2,
         color: CONSUMPTION_COLORS[ConsumptionKind.emotional],
         title: getConsumptionTitle(ConsumptionKind.emotional),
         percentage: calculatePercentage(emotional),
@@ -79,7 +83,7 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
 
     const compareItems = (a: ItemProps, b: ItemProps) => {
       if (a.amount === b.amount) {
-        return 0;
+        return b.consumptionIndex - a.consumptionIndex;
       }
 
       return b.amount - a.amount;

@@ -20,7 +20,7 @@ function Calendar({
         months: 'flex flex-col gap-2',
         month: 'flex flex-col',
         caption: 'flex justify-center relative items-center w-full',
-        caption_label: 'text-[17px] font-medium',
+        caption_label: 'text-[17px] text-[#222] font-semibold',
         nav: 'flex items-center gap-1',
         nav_button: cn(
           buttonVariants({ variant: 'ghost' }),

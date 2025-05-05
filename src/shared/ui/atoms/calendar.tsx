@@ -36,6 +36,7 @@ function Calendar({
         cell: 'w-[14.2857143%] aspect-square first:rounded-l-full last:rounded-r-full',
         day: 'relative size-full flex items-center justify-center font-[15px]',
         day_range_start: cn(
+          'range-start',
           'relative',
           '!bg-[#89f336] text-[#222] rounded-full',
           "before:content-['']",
@@ -45,6 +46,7 @@ function Calendar({
           'before:bg-[#DAFBC1] before:rounded-l-full'
         ),
         day_range_end: cn(
+          'range-end',
           'relative',
           '!bg-[#89f336] text-[#222] rounded-full',
           "before:content-['']",

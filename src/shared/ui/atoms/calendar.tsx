@@ -55,6 +55,7 @@ function Calendar({
           'before:bg-[#DAFBC1] before:rounded-r-full'
         ),
         day_range_middle: cn(
+          'relative',
           'bg-[#DAFBC1] text-[#222]',
           "before:content-['']",
           'before:absolute before:inset-y-0',

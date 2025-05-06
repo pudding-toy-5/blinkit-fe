@@ -79,9 +79,9 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
 
     const compareItems = (a: ItemProps, b: ItemProps) => {
       const consumptionOrderArray: ConsumptionKind[] = [
-        ConsumptionKind.emotional,
-        ConsumptionKind.conscious,
         ConsumptionKind.essential,
+        ConsumptionKind.conscious,
+        ConsumptionKind.emotional,
       ];
 
       const compareConsumption = (a: ConsumptionKind, b: ConsumptionKind) => {
@@ -92,13 +92,13 @@ const RetrospectiveSummary: React.FC<RetrospectiveSummaryProps> = ({
       };
 
       if (a.amount === b.amount) {
-        return compareConsumption(b.consumptionKind, a.consumptionKind);
+        return compareConsumption(a.consumptionKind, b.consumptionKind);
       }
 
-      return b.amount - a.amount;
+      return a.amount - b.amount;
     };
 
-    return unsorted.sort(compareItems);
+    return unsorted.sort(compareItems).reverse();
   }, [essential, emotional, conscious, calculatePercentage]);
 
   return (

@@ -214,3 +214,7 @@
   padding-left:   var(--safe-left);
   padding-right:  var(--safe-right);
 }
+
+.range-start.range-end::before {
+  content: none !important;
+}

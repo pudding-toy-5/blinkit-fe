@@ -232,7 +232,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expense, onSubmit }) => {
           render={({ field }) => (
             <FormItem className='flex flex-row'>
               <FormLabel className='text-[15px] font-semibold text-[#222]'>
-                소비 분류
+                소비 리뷰
               </FormLabel>
               <FormControl>
                 <button

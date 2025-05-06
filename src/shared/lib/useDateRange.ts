@@ -1,10 +1,8 @@
 import { useState } from 'react';
+import { DateRange } from 'react-day-picker';
 
 export default function useDateRange() {
-  const [dateRange] = useState<{ start: Date; end: Date }>({
-    start: new Date('2025-04-01'),
-    end: new Date('2025-05-31'),
-  });
+  const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
 
-  return { dateRange };
+  return { dateRange, setDateRange };
 }

@@ -57,21 +57,21 @@ export const useExpenses = ({
 };
 
 export const useExpensesByRange = ({
-  start,
-  end,
+  from,
+  to,
   consumptionKind,
   categoryUids,
 }: {
-  start: Date;
-  end: Date;
+  from: Date;
+  to: Date;
   consumptionKind: ConsumptionKind;
   categoryUids?: string[];
 }) => {
   return useQuery<Expense[]>({
     queryKey: [
       ...queryKeys.expenses,
-      start.toISOString(),
-      end.toISOString(),
+      from.toISOString(),
+      to.toISOString(),
       consumptionKind,
       categoryUids,
     ],
@@ -79,8 +79,8 @@ export const useExpensesByRange = ({
       try {
         const res = await userAxios.get<ServerExpense[]>(baseUrl, {
           params: {
-            start_date: formatDate(start, 'yyyy-MM-dd'),
-            end_date: formatDate(end, 'yyyy-MM-dd'),
+            start_date: formatDate(from, 'yyyy-MM-dd'),
+            end_date: formatDate(to, 'yyyy-MM-dd'),
             consumption_kind: consumptionKind,
             category_uids: categoryUids,
           },
@@ -275,36 +275,4 @@ export const useTotalAmountByPeriod = (period: Period) => {
   );
 
   return { totalAmount, isLoading, error };
-};
-
-export const useExpenseCountByRange = ({
-  start,
-  end,
-}: {
-  start: Date;
-  end: Date;
-}) => {
-  return useQuery<number>({
-    queryKey: ['expense-count', start.toISOString(), end.toISOString()],
-    queryFn: async () => {
-      try {
-        const res = await userAxios.get<{ expense_count: number }>(
-          baseUrl + 'counts',
-          {
-            params: {
-              start_date: formatDate(start, 'yyyy-MM-dd'),
-              end_date: formatDate(end, 'yyyy-MM-dd'),
-            },
-          }
-        );
-
-        return res.data.expense_count;
-      } catch (error) {
-        if (error instanceof AxiosError) {
-          throw new Error('지출 개수 조회 실패' + error.message);
-        }
-        throw error;
-      }
-    },
-  });
 };

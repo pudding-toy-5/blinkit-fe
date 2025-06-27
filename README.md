@@ -6,4 +6,4 @@
 - Vitest
 - ESLint, Prettier
 - GitHub Actions, Vite
-- PNPM, CodeRabbitAI
+- pnpm, CodeRabbitAI

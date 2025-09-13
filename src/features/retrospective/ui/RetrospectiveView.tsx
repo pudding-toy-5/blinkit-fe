@@ -1,6 +1,5 @@
 import { Link } from '@tanstack/react-router';
 import { useMemo, useState } from 'react';
-import { DateRange } from 'react-day-picker';
 
 import {
   consumptionConscious,
@@ -12,7 +11,6 @@ import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetros
 import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '@/shared/consts/date';
 import { formatDateRange } from '@/shared/lib/dateUtils';
 import useDateRange from '@/shared/lib/useDateRange';
-import ArrowLeft from '@/shared/ui/icons/ArrowLeft';
 import DateRangePicker from '@/widgets/DateRangePicker';
 
 import RetrospectiveCard, { RetrospectiveCardProps } from './RetrospectiveCard';
@@ -20,21 +18,6 @@ import RetrospectiveDetailPopoverPage from './RetrospectiveDetailPopoverPage';
 import RetrospectiveSummary, {
   RetrospectiveSummaryProps,
 } from './RetrospectiveSummary';
-
-const CalendarTrigger: React.FC<{ dateRange: DateRange | undefined }> = ({
-  dateRange,
-}) => {
-  return (
-    <div className='flex flex-row items-center gap-1'>
-      <span className='text-[15px] text-[#222] font-semibold'>
-        {dateRange ? formatDateRange(dateRange) : '전체 기간'}
-      </span>
-      <div className='rotate-[-90deg]'>
-        <ArrowLeft size={16} color='#222' />
-      </div>
-    </div>
-  );
-};
 
 const RetrospectiveView: React.FC = () => {
   const { dateRange, setDateRange } = useDateRange();
@@ -145,28 +128,6 @@ const RetrospectiveView: React.FC = () => {
     );
   }
 
-  if (dateRange && isSelectedRangeRecordEmpty) {
-    return (
-      <div className='flex-1 flex flex-col overflow-y-auto scroll'>
-        <div className='flex-1 flex flex-col items-center justify-center text-center'>
-          <span className='text-[15px] text-[#555] leading-[150%]'>
-            {formatDateRange(dateRange)}에는
-            <br />
-            리뷰한 소비가 없어요.
-          </span>
-          <button
-            onClick={() => {
-              setDateRange(undefined);
-            }}
-            className='text-[13px] text-[#555] rounded-full px-3 py-2 bg-[#efefef] mt-4'
-          >
-            다시 기간 설정하기
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <>
       {open && consumptionKind && (
@@ -180,11 +141,7 @@ const RetrospectiveView: React.FC = () => {
       )}
       <div className='flex-1 flex flex-col overflow-y-auto scroll'>
         <div className='px-5 py-4'>
-          <DateRangePicker
-            trigger={<CalendarTrigger dateRange={dateRange} />}
-            dateRange={dateRange}
-            setDateRange={setDateRange}
-          />
+          <DateRangePicker value={dateRange} onChange={setDateRange} />
           <RetrospectiveSummary
             essential={amounts.essential}
             conscious={amounts.conscious}

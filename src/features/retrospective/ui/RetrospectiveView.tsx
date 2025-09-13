@@ -13,8 +13,8 @@ import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '@/shared/consts/date';
 import { formatDateRange } from '@/shared/lib/dateUtils';
 import useDateRange from '@/shared/lib/useDateRange';
 import ArrowLeft from '@/shared/ui/icons/ArrowLeft';
+import DateRangePicker from '@/widgets/DateRangePicker';
 
-import PeriodCalendarDrawer from './PeriodCalendarDrawer';
 import RetrospectiveCard, { RetrospectiveCardProps } from './RetrospectiveCard';
 import RetrospectiveDetailPopoverPage from './RetrospectiveDetailPopoverPage';
 import RetrospectiveSummary, {
@@ -180,7 +180,7 @@ const RetrospectiveView: React.FC = () => {
       )}
       <div className='flex-1 flex flex-col overflow-y-auto scroll'>
         <div className='px-5 py-4'>
-          <PeriodCalendarDrawer
+          <DateRangePicker
             trigger={<CalendarTrigger dateRange={dateRange} />}
             dateRange={dateRange}
             setDateRange={setDateRange}

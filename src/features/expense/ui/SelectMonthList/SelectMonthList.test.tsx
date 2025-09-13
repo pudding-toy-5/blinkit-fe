@@ -1,15 +1,15 @@
 import { render } from '@testing-library/react';
-import { describe, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import SelectMonthList from './SelectMonthList';
 
 describe('SelectMonthList', () => {
   it('renders list.', () => {
-    const onSetPeriod = vi.fn();
+    const onSetYearMonth = vi.fn();
     const { getByRole } = render(
       <SelectMonthList
-        period={{ year: 2025, month: 1 }}
-        onSetPeriod={onSetPeriod}
+        yearMonth={{ year: 2025, month: 1 }}
+        onSetYearMonth={onSetYearMonth}
       />
     );
 

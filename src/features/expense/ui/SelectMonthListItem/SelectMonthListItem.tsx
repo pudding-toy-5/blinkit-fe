@@ -1,11 +1,11 @@
-import Period from '@/features/expense/model/Period';
+import YearMonth from '@/shared/model/YearMonth';
 import { Button } from '@/shared/ui/atoms/button';
 
 export interface SelectMonthListItemProps {
   year: number;
   month: number;
   selected: boolean;
-  handleClick: (period: Period) => void;
+  handleClick: (yearMonth: YearMonth) => void;
 }
 
 const SelectMonthListItem: React.FC<SelectMonthListItemProps> = ({

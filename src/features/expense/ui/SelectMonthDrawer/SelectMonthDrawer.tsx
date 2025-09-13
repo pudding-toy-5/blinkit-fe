@@ -1,6 +1,6 @@
 import { X } from 'lucide-react';
 
-import Period from '@/features/expense/model/Period';
+import YearMonth from '@/shared/model/YearMonth';
 import { Button } from '@/shared/ui/atoms/button';
 import {
   Drawer,
@@ -14,15 +14,15 @@ import {
 import SelectMonthList from '../SelectMonthList';
 
 export interface SelectMonthDrawerProps {
-  period: Period;
-  onSetPeriod: (newPeriod: Period) => void;
+  yearMonth: YearMonth;
+  onSetYearMonth: (newYearMonth: YearMonth) => void;
 }
 
 const SelectMonthDrawer: React.FC<SelectMonthDrawerProps> = ({
-  period,
-  onSetPeriod,
+  yearMonth,
+  onSetYearMonth,
 }) => {
-  const { year, month } = period;
+  const { year, month } = yearMonth;
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -49,7 +49,10 @@ const SelectMonthDrawer: React.FC<SelectMonthDrawerProps> = ({
           </DrawerClose>
         </DrawerHeader>
         <div className='items-center mt-8'>
-          <SelectMonthList period={period} onSetPeriod={onSetPeriod} />
+          <SelectMonthList
+            yearMonth={yearMonth}
+            onSetYearMonth={onSetYearMonth}
+          />
         </div>
       </DrawerContent>
     </Drawer>

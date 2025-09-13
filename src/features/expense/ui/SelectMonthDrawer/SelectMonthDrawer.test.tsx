@@ -1,50 +1,60 @@
 import { fireEvent, render } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
 
-import Period from '@/features/expense/model/Period';
+import YearMonth from '@/shared/model/YearMonth';
 
 import SelectMonthDrawer, { SelectMonthDrawerProps } from './SelectMonthDrawer';
 
 describe('SelectMonthDrawer', () => {
   const current = new Date();
-  const currentPeriod: Period = {
+  const currentYearMonth: YearMonth = {
     year: current.getFullYear(),
     month: current.getMonth() + 1,
   };
 
   const props: SelectMonthDrawerProps = {
-    period: { ...currentPeriod },
-    onSetPeriod: vi.fn(),
+    yearMonth: { ...currentYearMonth },
+    onSetYearMonth: vi.fn(),
   };
 
-  const renderElement = ({ period, onSetPeriod }: SelectMonthDrawerProps) =>
-    render(<SelectMonthDrawer period={period} onSetPeriod={onSetPeriod} />);
+  const renderElement = ({
+    yearMonth,
+    onSetYearMonth,
+  }: SelectMonthDrawerProps) =>
+    render(
+      <SelectMonthDrawer
+        yearMonth={yearMonth}
+        onSetYearMonth={onSetYearMonth}
+      />
+    );
 
   describe('drawer trigger', () => {
-    it('when period year is current year, renders month.', () => {
+    it('when yearMonth year is current year, renders month.', () => {
       const { getByRole } = renderElement({
         ...props,
-      });
-
-      const trigger = getByRole('button');
-      expect(trigger).toBeInTheDocument();
-      expect(trigger).toHaveTextContent(props.period.month.toString() + '월');
-    });
-
-    it('when period year is not current year, renders year + month.', () => {
-      const newPeriod: Period = {
-        ...currentPeriod,
-        year: currentPeriod.year - 1,
-      };
-      const { getByRole } = renderElement({
-        ...props,
-        period: { ...newPeriod },
       });
 
       const trigger = getByRole('button');
       expect(trigger).toBeInTheDocument();
       expect(trigger).toHaveTextContent(
-        `${newPeriod.year.toString()}년 ${props.period.month.toString()}월`
+        props.yearMonth.month.toString() + '월'
+      );
+    });
+
+    it('when yearMonth year is not current year, renders year + month.', () => {
+      const newYearMonth: YearMonth = {
+        ...currentYearMonth,
+        year: currentYearMonth.year - 1,
+      };
+      const { getByRole } = renderElement({
+        ...props,
+        yearMonth: { ...newYearMonth },
+      });
+
+      const trigger = getByRole('button');
+      expect(trigger).toBeInTheDocument();
+      expect(trigger).toHaveTextContent(
+        `${newYearMonth.year.toString()}년 ${props.yearMonth.month.toString()}월`
       );
     });
   });

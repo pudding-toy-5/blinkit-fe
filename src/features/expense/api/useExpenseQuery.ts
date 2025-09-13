@@ -105,7 +105,7 @@ export const useExpensesByRange = ({
   });
 };
 
-export const useExpensesByPeriod = (yearMonth: YearMonth) => {
+export const useExpensesByYearMonth = (yearMonth: YearMonth) => {
   const { year, month } = yearMonth;
   return useQuery<Expense[]>({
     queryKey: [...queryKeys.expenses, yearMonth],
@@ -234,16 +234,16 @@ export const useDeleteExpense = () => {
   });
 };
 
-export const useDailyExpensesByPeriod = (yearMonth: YearMonth) => {
+export const useDailyExpensesByYearMonth = (yearMonth: YearMonth) => {
   const {
     data: expenses = [],
     isLoading,
     isError,
     error,
-  } = useExpensesByPeriod(yearMonth);
+  } = useExpensesByYearMonth(yearMonth);
 
   if (isError) {
-    throw new Error('Failed on useDailyExpensesByPeriod: ' + error.message);
+    throw new Error('Failed on useDailyExpensesByYearMonth: ' + error.message);
   }
 
   const dailyExpenses = useMemo(() => {
@@ -271,12 +271,12 @@ export const useDailyExpensesByPeriod = (yearMonth: YearMonth) => {
   return { dailyExpenses, isLoading, isError, error };
 };
 
-export const useTotalAmountByPeriod = (yearMonth: YearMonth) => {
+export const useTotalAmountByYearMonth = (yearMonth: YearMonth) => {
   const {
     data: expenses = [],
     isLoading,
     error,
-  } = useExpensesByPeriod(yearMonth);
+  } = useExpensesByYearMonth(yearMonth);
 
   const totalAmount = useMemo(
     () => expenses.reduce((sum, expense) => sum + expense.amount, 0),

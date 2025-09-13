@@ -102,13 +102,6 @@ const RetrospectiveView: React.FC = () => {
     [retrospectives]
   );
 
-  const isSelectedRangeRecordEmpty = useMemo(
-    () =>
-      rangeRetrospectives.reduce((acc, cur) => (acc += cur.totalCount), 0) ===
-      0,
-    [rangeRetrospectives]
-  );
-
   if (isRetrospectiveEmpty) {
     return (
       <div className='flex-1 flex flex-col overflow-y-auto scroll'>

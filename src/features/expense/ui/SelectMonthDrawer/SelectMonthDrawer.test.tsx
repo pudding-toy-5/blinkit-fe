@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
-
 import YearMonth from '@/shared/model/YearMonth';
 
 import SelectMonthDrawer, { SelectMonthDrawerProps } from './SelectMonthDrawer';
@@ -79,11 +78,11 @@ describe('SelectMonthDrawer', () => {
     expect(closeButton).toBeInTheDocument();
   });
 
-  it('when month is selected, calls onSetPeriod with selected period.', () => {
-    const onSetPeriod = vi.fn();
+  it('when month is selected, calls onSetYearMonth with selected year and month.', () => {
+    const onSetYearMonth = vi.fn();
     const { getByRole, getByText } = renderElement({
       ...props,
-      onSetPeriod: onSetPeriod,
+      onSetYearMonth: onSetYearMonth,
     });
 
     const trigger = getByRole('button');
@@ -97,7 +96,7 @@ describe('SelectMonthDrawer', () => {
     expect(monthButton).toBeInTheDocument();
     fireEvent.click(monthButton);
 
-    expect(onSetPeriod).toBeCalledWith({
+    expect(onSetYearMonth).toBeCalledWith({
       year: today.getFullYear(),
       month: today.getMonth() + 1,
     });

@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 import AuthGuard from '@/features/auth/ui/AuthGuard';
 import {
-  useDailyExpensesByPeriod,
-  useTotalAmountByPeriod,
+  useDailyExpensesByYearMonth,
+  useTotalAmountByYearMonth,
 } from '@/features/expense/api/useExpenseQuery';
 import AddExpenseButton from '@/features/expense/ui/AddExpenseButton';
 import DailyExpenseList from '@/features/expense/ui/DailyExpenseList';
@@ -28,8 +28,8 @@ export function ExpensesPage() {
     month: current.getMonth() + 1,
   });
 
-  const { dailyExpenses } = useDailyExpensesByPeriod(yearMonth);
-  const { totalAmount } = useTotalAmountByPeriod(yearMonth);
+  const { dailyExpenses } = useDailyExpensesByYearMonth(yearMonth);
+  const { totalAmount } = useTotalAmountByYearMonth(yearMonth);
 
   return (
     <>

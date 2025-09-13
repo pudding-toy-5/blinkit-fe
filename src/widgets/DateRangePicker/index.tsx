@@ -34,14 +34,18 @@ const DateRangePicker: React.FC<Props> = ({ value, onChange }) => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <div className='flex flex-row items-center gap-1'>
+        <button
+          type='button'
+          aria-label='기간 선택 열기'
+          className='flex flex-row items-center gap-1'
+        >
           <span className='text-[15px] text-[#222] font-semibold'>
             {value ? formatDateRange(value) : '전체 기간'}
           </span>
           <div className='rotate-[-90deg]'>
             <ArrowLeft size={16} color='#222' />
           </div>
-        </div>
+        </button>
       </DrawerTrigger>
       <DrawerContent className='p-6 !rounded-t-[20px]'>
         <DrawerHeader className='flex flex-row items-center justify-between p-0'>

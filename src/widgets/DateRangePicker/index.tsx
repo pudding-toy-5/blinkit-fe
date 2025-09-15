@@ -88,7 +88,7 @@ const DateRangePicker: React.FC<Props> = ({ value, onChange }) => {
                 format(month, 'yyyy년 M월', { locale: ko }),
             }}
           />
-          <DrawerFooter className='flex flex-row items-center w-full pb-0 pt-4 px-auto'>
+          <DrawerFooter className='flex flex-row items-center w-full pb-0 pt-4 mx-auto'>
             <Button
               type='button'
               className='text-[15px] text-[#555555] font-semibold'

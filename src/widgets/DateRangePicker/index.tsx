@@ -62,9 +62,7 @@ const DateRangePicker: React.FC<Props> = ({ value, onChange }) => {
           <span className='text-[15px] font-normal text-[#28A745] text-center mt-2'>
             {formatDateRange(dateRange)}
           </span>
-        ) : (
-          <></>
-        )}
+        ) : null}
         <div className='flex flex-col w-full mx-auto items-center mt-4'>
           <Calendar
             mode='range'

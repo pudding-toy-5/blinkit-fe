@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useEffect, useState } from 'react';
-import { DateRange } from 'react-day-picker';
+import type { DateRange } from 'react-day-picker';
 
 import { formatDateRange } from '@/shared/lib/dateUtils';
 import { Button } from '@/shared/ui/atoms/button';

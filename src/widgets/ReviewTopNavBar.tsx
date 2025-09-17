@@ -1,4 +1,4 @@
-import { cn } from '@/shared/ui/styles/utils';
+import { cn } from '@/shared/lib/cn';
 
 interface NavItemProps {
   text: string;

@@ -1,10 +1,9 @@
 import React from 'react';
 
+import { cn } from '@/shared/lib/cn';
 import { Button } from '@/shared/ui/atoms/button';
 import { Input } from '@/shared/ui/atoms/input';
 import Delete from '@/shared/ui/icons/Delete';
-
-import { cn } from '../styles/utils';
 
 export interface UnderlinedTextInputProps {
   value: string;

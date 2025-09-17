@@ -7,7 +7,7 @@ import Settings from '@/shared/ui/icons/Settings';
 import SettingsFilled from '@/shared/ui/icons/SettingsFilled';
 import Write from '@/shared/ui/icons/Write';
 import WriteFilled from '@/shared/ui/icons/WriteFilled';
-import { cn } from '@/shared/ui/styles/utils';
+import { cn } from '@/shared/lib/cn';
 
 import { type BottomNavigationType } from '../model/BottomNavigation';
 import { BottomNavigation } from '../model/BottomNavigation';

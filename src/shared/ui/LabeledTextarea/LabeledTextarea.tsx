@@ -1,6 +1,6 @@
 import { Label } from '@/shared/ui/atoms/label';
 import { Textarea } from '@/shared/ui/atoms/textarea';
-import { cn } from '@/shared/ui/styles/utils';
+import { cn } from '@/shared/lib/cn';
 
 export interface LabeledTextareaProps {
   label: string;

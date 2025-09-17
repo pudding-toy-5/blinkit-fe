@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import { Expense } from '@/features/expense/model/Expense';
 import ArrowLeft from '@/shared/ui/icons/ArrowLeft';
-import { cn } from '@/shared/ui/styles/utils';
+import { cn } from '@/shared/lib/cn';
 
 const ReviewExpenseCard: React.FC<{ expense: Expense }> = ({ expense }) => {
   const memoRef = useRef<HTMLSpanElement>(null);

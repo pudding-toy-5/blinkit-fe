@@ -1,15 +1,25 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx",
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "types": [
+      "vitest/globals",
+      "@testing-library/jest-dom"
+    ]
   },
   "include": [
-    "e2e",
-    "test"
+    "src/**/*",
+    "e2e/**/*",
+    "test/**/*",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "vitest.config.ts",
+    "vitest.setup.ts"
   ]
 }

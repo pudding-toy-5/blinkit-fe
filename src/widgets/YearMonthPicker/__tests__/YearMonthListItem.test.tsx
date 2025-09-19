@@ -1,16 +1,15 @@
 import { fireEvent, render } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
 
-import SelectMonthListItem from './SelectMonthListItem';
+import YearMonthListItem from '../YearMonthListItem';
 
 describe('SelectMonthListItem', () => {
   it('renders button and listitem with year, month.', () => {
     const handleClick = vi.fn();
     const { getByRole } = render(
-      <SelectMonthListItem
-        year={2025}
-        month={1}
-        selected={true}
+      <YearMonthListItem
+        yearMonth={{ year: 2025, month: 1 }}
+        isSelected={true}
         handleClick={handleClick}
       />
     );
@@ -25,10 +24,9 @@ describe('SelectMonthListItem', () => {
   it('when selected, renders selected icon.', () => {
     const handleClick = vi.fn();
     const { getByLabelText } = render(
-      <SelectMonthListItem
-        year={2025}
-        month={1}
-        selected={true}
+      <YearMonthListItem
+        yearMonth={{ year: 2025, month: 1 }}
+        isSelected={true}
         handleClick={handleClick}
       />
     );
@@ -39,10 +37,9 @@ describe('SelectMonthListItem', () => {
   it('when button is clicked, calls handleClick with year and month.', () => {
     const handleClick = vi.fn();
     const { getByRole } = render(
-      <SelectMonthListItem
-        year={2025}
-        month={1}
-        selected={true}
+      <YearMonthListItem
+        yearMonth={{ year: 2025, month: 1 }}
+        isSelected={true}
         handleClick={handleClick}
       />
     );

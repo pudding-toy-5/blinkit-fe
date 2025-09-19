@@ -37,7 +37,7 @@ export function ExpensesPage() {
         <Logo />
       </header>
       <div className='px-5 py-4'>
-        <YearMonthPicker yearMonth={yearMonth} onChange={setYearMonth} />
+        <YearMonthPicker value={yearMonth} onChange={setYearMonth} />
         <div className='flex flex-col mt-4'>
           <span className='text-[15px] text-[#555] font-semibold'>
             총 소비 내역

@@ -14,9 +14,7 @@ const SelectMonthListItem: React.FC<YearMonthListItemProps> = ({
       <Button
         variant='ghost'
         className='flex flex-row w-full h-full p-0 text-[15px] font-normal items-center rounded-none'
-        onClick={() => {
-          handleClick({ year, month });
-        }}
+        onClick={handleClick}
       >
         <p className='mr-auto p-0'>
           {year}년 {month}월

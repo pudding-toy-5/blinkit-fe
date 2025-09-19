@@ -17,5 +17,5 @@ export interface YearMonthListProps {
 export interface YearMonthListItemProps {
   yearMonth: YearMonth;
   isSelected: boolean;
-  handleClick: (yearMonth: YearMonth) => void;
+  handleClick: () => void;
 }

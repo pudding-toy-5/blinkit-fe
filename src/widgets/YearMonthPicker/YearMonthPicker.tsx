@@ -15,10 +15,10 @@ import YearMonthList from './YearMonthList';
 import YearMonthTrigger from './YearMonthTrigger';
 
 const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
-  yearMonth,
+  value,
   onChange,
 }) => {
-  const { year, month } = yearMonth;
+  const { year, month } = value;
 
   const handleClickPrevious = () => {
     if (month === 1) {
@@ -48,7 +48,7 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
         <ArrowLeftFilled size={16} color='#222' />
       </Button>
       <Drawer>
-        <YearMonthTrigger yearMonth={yearMonth} />
+        <YearMonthTrigger yearMonth={value} />
         <DrawerContent
           className='py-6 px-5'
           style={{ borderRadius: '20px 20px 0 0 ' }}
@@ -64,7 +64,7 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
           </DrawerHeader>
           <div className='items-center mt-8'>
             <YearMonthList
-              selected={yearMonth}
+              selected={value}
               onSelect={(value) => {
                 onChange(value);
               }}

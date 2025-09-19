@@ -6,6 +6,8 @@ import type { YearMonthTriggerProps } from './types';
 const YearMonthTrigger = ({ yearMonth }: YearMonthTriggerProps) => {
   const { year, month } = yearMonth;
 
+  const isCurrentYear = year !== new Date().getFullYear();
+
   return (
     <DrawerTrigger asChild>
       <Button
@@ -13,7 +15,7 @@ const YearMonthTrigger = ({ yearMonth }: YearMonthTriggerProps) => {
         className='h-auto p-0 text-[15px] min-w-[22px] rounded-none text-decoration-line: underline decoration-solid decoration-auto underline-offset-auto tabular-nums'
         style={{ textUnderlinePosition: 'from-font' }}
       >
-        {year !== new Date().getFullYear() && `${year.toString()}년 `}
+        {isCurrentYear && `${year.toString()}년 `}
         {month}월
       </Button>
     </DrawerTrigger>

@@ -29,6 +29,7 @@ const SelectMonthList: React.FC<SelectMonthListProps> = ({
   const start = new Date(today.getFullYear() - 5, today.getMonth());
   const end = new Date(today.getFullYear(), today.getMonth());
   const yearMonths: YearMonth[] = getYearMonthRange(start, end);
+  const yearMonths: YearMonth[] = getYearMonthRange(start, end).reverse();
 
   const handleClickMonth = (newYearMonth: YearMonth) => {
     onSetYearMonth(newYearMonth);
@@ -36,7 +37,7 @@ const SelectMonthList: React.FC<SelectMonthListProps> = ({
 
   return (
     <ul className='list-none flex flex-col gap-6 max-h-60 overflow-y-auto scroll'>
-      {yearMonths.reverse().map(({ year, month }) => (
+      {yearMonths.map(({ year, month }) => {
         <SelectMonthListItem
           key={`${year.toString()}-${month.toString()}`}
           year={year}

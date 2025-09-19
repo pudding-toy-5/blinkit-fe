@@ -1,54 +1,76 @@
 import { fireEvent, render } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
 
+import YearMonth from '@/shared/model/YearMonth';
+
+import { YearMonthListItemProps } from '../types';
 import YearMonthListItem from '../YearMonthListItem';
 
-describe('SelectMonthListItem', () => {
-  it('renders button and listitem with year, month.', () => {
-    const handleClick = vi.fn();
-    const { getByRole } = render(
+describe('YearMonthListItem', () => {
+  const handleClick = vi.fn();
+  const current = new Date();
+  const currentYearMonth: YearMonth = {
+    year: current.getFullYear(),
+    month: current.getMonth() + 1,
+  };
+
+  const props: YearMonthListItemProps = {
+    yearMonth: currentYearMonth,
+    isSelected: false,
+    handleClick: handleClick,
+  };
+
+  const renderElement = ({
+    yearMonth,
+    isSelected,
+    handleClick,
+  }: YearMonthListItemProps) => {
+    return render(
       <YearMonthListItem
-        yearMonth={{ year: 2025, month: 1 }}
-        isSelected={true}
+        yearMonth={yearMonth}
+        isSelected={isSelected}
         handleClick={handleClick}
       />
     );
+  };
+
+  it('renders button and listitem with yearMonth.', () => {
+    const { getByRole } = renderElement({ ...props });
+
     const listitem = getByRole('listitem');
     expect(listitem).toBeInTheDocument();
 
     const button = getByRole('button');
     expect(button).toBeInTheDocument();
-    expect(button).toHaveTextContent('2025년 1월');
+    expect(button).toHaveTextContent(`${currentYearMonth.year.toString()}년`);
+    expect(button).toHaveTextContent(`${currentYearMonth.month.toString()}월`);
   });
 
-  it('when selected, renders selected icon.', () => {
-    const handleClick = vi.fn();
-    const { getByLabelText } = render(
-      <YearMonthListItem
-        yearMonth={{ year: 2025, month: 1 }}
-        isSelected={true}
-        handleClick={handleClick}
-      />
-    );
+  describe('selected icon', () => {
+    it('when isSelected is false, does not render selected icon.', () => {
+      const { queryByLabelText } = renderElement({
+        ...props,
+        isSelected: false,
+      });
 
-    expect(getByLabelText('selected icon')).toBeInTheDocument();
+      expect(queryByLabelText('selected icon')).not.toBeInTheDocument();
+    });
+
+    it('when isSelected is true, renders selected icon.', () => {
+      const { getByLabelText } = renderElement({ ...props, isSelected: true });
+
+      expect(getByLabelText('selected icon')).toBeInTheDocument();
+    });
   });
 
   it('when button is clicked, calls handleClick with year and month.', () => {
-    const handleClick = vi.fn();
-    const { getByRole } = render(
-      <YearMonthListItem
-        yearMonth={{ year: 2025, month: 1 }}
-        isSelected={true}
-        handleClick={handleClick}
-      />
-    );
+    const { getByRole } = renderElement({ ...props });
 
     const button = getByRole('button');
     expect(button).toBeInTheDocument();
 
     fireEvent.click(button);
 
-    expect(handleClick).toBeCalledWith({ year: 2025, month: 1 });
+    expect(props.handleClick).toBeCalled();
   });
 });

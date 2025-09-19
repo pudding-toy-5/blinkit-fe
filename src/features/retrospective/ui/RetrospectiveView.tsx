@@ -9,7 +9,6 @@ import {
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetrospective';
 import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '@/shared/consts/date';
-import { formatDateRange } from '@/shared/lib/dateUtils';
 import useDateRange from '@/shared/lib/useDateRange';
 import DateRangePicker from '@/widgets/DateRangePicker';
 

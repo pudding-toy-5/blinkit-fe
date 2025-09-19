@@ -1,19 +1,14 @@
-import YearMonth from '@/shared/model/YearMonth';
 import { Button } from '@/shared/ui/atoms/button';
 
-export interface SelectMonthListItemProps {
-  year: number;
-  month: number;
-  selected: boolean;
-  handleClick: (yearMonth: YearMonth) => void;
-}
+import type { YearMonthListItemProps } from './types';
 
-const SelectMonthListItem: React.FC<SelectMonthListItemProps> = ({
-  year,
-  month,
-  selected,
+const SelectMonthListItem: React.FC<YearMonthListItemProps> = ({
+  yearMonth,
+  isSelected,
   handleClick,
 }) => {
+  const { year, month } = yearMonth;
+
   return (
     <li className='w-full h-6'>
       <Button
@@ -26,7 +21,7 @@ const SelectMonthListItem: React.FC<SelectMonthListItemProps> = ({
         <p className='mr-auto p-0'>
           {year}년 {month}월
         </p>
-        {selected && (
+        {isSelected && (
           <div aria-label='selected icon'>
             <svg
               className='size-6 h-full'

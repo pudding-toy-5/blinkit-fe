@@ -1,15 +1,11 @@
 import YearMonth from '@/shared/model/YearMonth';
 
-import SelectMonthListItem from '../SelectMonthListItem';
+import type { YearMonthListProps } from './types';
+import YearMonthListItem from './YearMonthListItem';
 
-export interface SelectMonthListProps {
-  yearMonth: YearMonth;
-  onSetYearMonth: (newYearMonth: YearMonth) => void;
-}
-
-const SelectMonthList: React.FC<SelectMonthListProps> = ({
-  yearMonth,
-  onSetYearMonth,
+const YearMonthList: React.FC<YearMonthListProps> = ({
+  selected,
+  onSelect,
 }) => {
   const getYearMonthRange = (start: Date, end: Date): YearMonth[] => {
     const result: YearMonth[] = [];
@@ -33,7 +29,7 @@ const SelectMonthList: React.FC<SelectMonthListProps> = ({
   const yearMonths: YearMonth[] = getYearMonthRange(start, end).reverse();
 
   const handleClickMonth = (newYearMonth: YearMonth) => {
-    onSetYearMonth(newYearMonth);
+    onSelect(newYearMonth);
   };
 
   return (
@@ -56,4 +52,4 @@ const SelectMonthList: React.FC<SelectMonthListProps> = ({
   );
 };
 
-export default SelectMonthList;
+export default YearMonthList;

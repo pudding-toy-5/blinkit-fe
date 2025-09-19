@@ -8,10 +8,10 @@ import {
 } from '@/features/expense/api/useExpenseQuery';
 import AddExpenseButton from '@/features/expense/ui/AddExpenseButton';
 import DailyExpenseList from '@/features/expense/ui/DailyExpenseList';
-import MonthSelector from '@/features/expense/ui/MonthSelector';
 import YearMonth from '@/shared/model/YearMonth';
 import Logo from '@/shared/ui/icons/Logo';
 import BottomNavBar from '@/widgets/BottomNavBar';
+import YearMonthPicker from '@/widgets/YearMonthPicker';
 
 export const Route = createFileRoute('/expenses/')({
   component: () => (
@@ -37,7 +37,7 @@ export function ExpensesPage() {
         <Logo />
       </header>
       <div className='px-5 py-4'>
-        <MonthSelector yearMonth={yearMonth} onSetYearMonth={setYearMonth} />
+        <YearMonthPicker yearMonth={yearMonth} onChange={setYearMonth} />
         <div className='flex flex-col mt-4'>
           <span className='text-[15px] text-[#555] font-semibold'>
             총 소비 내역

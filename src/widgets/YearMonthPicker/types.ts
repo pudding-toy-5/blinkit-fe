@@ -1,7 +1,7 @@
 import type YearMonth from '@/shared/model/YearMonth';
 
 export interface YearMonthPickerProps {
-  yearMonth: YearMonth;
+  value: YearMonth;
   onChange: (yearMonth: YearMonth) => void;
 }
 

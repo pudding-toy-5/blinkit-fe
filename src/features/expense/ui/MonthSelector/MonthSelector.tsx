@@ -1,33 +1,33 @@
-import Period from '@/features/expense/model/Period';
 import SelectMonthDrawer from '@/features/expense/ui/SelectMonthDrawer';
+import YearMonth from '@/shared/model/YearMonth';
 import { Button } from '@/shared/ui/atoms/button';
 import ArrowLeftFilled from '@/shared/ui/icons/ArrowLeftFilled';
 import ArrowRightFilled from '@/shared/ui/icons/ArrowRightFilled';
 
 interface MonthSelectorProps {
-  period: Period;
-  onSetPeriod: (period: Period) => void;
+  yearMonth: YearMonth;
+  onSetYearMonth: (yearMonth: YearMonth) => void;
 }
 
 const MonthSelector: React.FC<MonthSelectorProps> = ({
-  period,
-  onSetPeriod,
+  yearMonth,
+  onSetYearMonth,
 }) => {
-  const { year, month } = period;
+  const { year, month } = yearMonth;
 
   const handleClickPrevious = () => {
     if (month === 1) {
-      onSetPeriod({ year: year - 1, month: 12 });
+      onSetYearMonth({ year: year - 1, month: 12 });
     } else {
-      onSetPeriod({ year, month: month - 1 });
+      onSetYearMonth({ year, month: month - 1 });
     }
   };
 
   const handleClickNext = () => {
     if (month === 12) {
-      onSetPeriod({ year: year + 1, month: 1 });
+      onSetYearMonth({ year: year + 1, month: 1 });
     } else {
-      onSetPeriod({ year, month: month + 1 });
+      onSetYearMonth({ year, month: month + 1 });
     }
   };
 
@@ -42,7 +42,10 @@ const MonthSelector: React.FC<MonthSelectorProps> = ({
       >
         <ArrowLeftFilled size={16} color='#222' />
       </Button>
-      <SelectMonthDrawer period={period} onSetPeriod={onSetPeriod} />
+      <SelectMonthDrawer
+        yearMonth={yearMonth}
+        onSetYearMonth={onSetYearMonth}
+      />
       <Button
         variant='ghost'
         size='icon'

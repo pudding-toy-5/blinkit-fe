@@ -1,18 +1,18 @@
-import Period from '@/features/expense/model/Period';
+import YearMonth from '@/shared/model/YearMonth';
 
 import SelectMonthListItem from '../SelectMonthListItem';
 
 export interface SelectMonthListProps {
-  period: Period;
-  onSetPeriod: (newPeriod: Period) => void;
+  yearMonth: YearMonth;
+  onSetYearMonth: (newYearMonth: YearMonth) => void;
 }
 
 const SelectMonthList: React.FC<SelectMonthListProps> = ({
-  period,
-  onSetPeriod,
+  yearMonth,
+  onSetYearMonth,
 }) => {
-  const getPeriodRange = (start: Date, end: Date): Period[] => {
-    const result: Period[] = [];
+  const getYearMonthRange = (start: Date, end: Date): YearMonth[] => {
+    const result: YearMonth[] = [];
     const current = new Date(start.getFullYear(), start.getMonth());
 
     while (current <= end) {
@@ -25,26 +25,33 @@ const SelectMonthList: React.FC<SelectMonthListProps> = ({
 
     return result;
   };
+
   const today = new Date();
   const start = new Date(today.getFullYear() - 5, today.getMonth());
   const end = new Date(today.getFullYear(), today.getMonth());
-  const periods: Period[] = getPeriodRange(start, end);
 
-  const handleClickMonth = (newPeriod: Period) => {
-    onSetPeriod(newPeriod);
+  const yearMonths: YearMonth[] = getYearMonthRange(start, end).reverse();
+
+  const handleClickMonth = (newYearMonth: YearMonth) => {
+    onSetYearMonth(newYearMonth);
   };
 
   return (
     <ul className='list-none flex flex-col gap-6 max-h-60 overflow-y-auto scroll'>
-      {periods.reverse().map(({ year, month }) => (
-        <SelectMonthListItem
-          key={`${year.toString()}-${month.toString()}}`}
-          year={year}
-          month={month}
-          selected={period.year === year && period.month === month}
-          handleClick={handleClickMonth}
-        />
-      ))}
+      {yearMonths.map(({ year, month }) => {
+        const isSameYearMonth =
+          year === yearMonth.year && month === yearMonth.month;
+
+        return (
+          <SelectMonthListItem
+            key={`${year.toString()}-${month.toString()}`}
+            year={year}
+            month={month}
+            selected={isSameYearMonth}
+            handleClick={handleClickMonth}
+          />
+        );
+      })}
     </ul>
   );
 };

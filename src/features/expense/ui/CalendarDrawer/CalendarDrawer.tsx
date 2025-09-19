@@ -61,7 +61,7 @@ const CalendarDrawer: React.FC<CalendarDrawerProps> = ({
                 format(month, 'yyyy년 M월', { locale: ko }),
             }}
           />
-          <DrawerFooter className='flex flex-row items-center w-full pb-0 pt-4 px-auto'>
+          <DrawerFooter className='flex flex-row items-center w-full pb-0 pt-4 mx-auto'>
             <Button
               className='text-[15px] text-[#28a745] font-semibold h-13'
               variant='ghost'

@@ -11,9 +11,9 @@ import {
   Expense,
   ServerExpense,
 } from '@/features/expense/model/Expense';
-import Period from '@/features/expense/model/Period';
 import userAxios from '@/shared/api/userAxios';
 import { apiUrl } from '@/shared/consts';
+import YearMonth from '@/shared/model/YearMonth';
 
 if (!apiUrl) {
   throw new Error('API URL이 설정되지 않았습니다.');
@@ -21,18 +21,23 @@ if (!apiUrl) {
 const baseUrl = apiUrl + '/expense/expenses/';
 
 export const useExpenses = ({
-  period,
+  yearMonth,
   categoryUids: category_uids,
   consumptionKind: consumption_kind,
 }: {
-  period: Period;
+  yearMonth: YearMonth;
   categoryUids?: string[];
   consumptionKind?: ConsumptionKind;
 }) => {
-  const { year, month } = period;
+  const { year, month } = yearMonth;
 
   return useQuery<Expense[]>({
-    queryKey: [...queryKeys.expenses, period, category_uids, consumption_kind],
+    queryKey: [
+      ...queryKeys.expenses,
+      yearMonth,
+      category_uids,
+      consumption_kind,
+    ],
     queryFn: async () => {
       try {
         const res = await userAxios.get<ServerExpense[]>(baseUrl, {
@@ -100,10 +105,10 @@ export const useExpensesByRange = ({
   });
 };
 
-export const useExpensesByPeriod = (period: Period) => {
-  const { year, month } = period;
+export const useExpensesByYearMonth = (yearMonth: YearMonth) => {
+  const { year, month } = yearMonth;
   return useQuery<Expense[]>({
-    queryKey: [...queryKeys.expenses, period],
+    queryKey: [...queryKeys.expenses, yearMonth],
     queryFn: async () => {
       try {
         const res = await userAxios.get<ServerExpense[]>(baseUrl, {
@@ -229,16 +234,16 @@ export const useDeleteExpense = () => {
   });
 };
 
-export const useDailyExpensesByPeriod = (period: Period) => {
+export const useDailyExpensesByYearMonth = (yearMonth: YearMonth) => {
   const {
     data: expenses = [],
     isLoading,
     isError,
     error,
-  } = useExpensesByPeriod(period);
+  } = useExpensesByYearMonth(yearMonth);
 
   if (isError) {
-    throw new Error('Failed on useDailyExpensesByPeriod: ' + error.message);
+    throw new Error('Failed on useDailyExpensesByYearMonth: ' + error.message);
   }
 
   const dailyExpenses = useMemo(() => {
@@ -266,8 +271,12 @@ export const useDailyExpensesByPeriod = (period: Period) => {
   return { dailyExpenses, isLoading, isError, error };
 };
 
-export const useTotalAmountByPeriod = (period: Period) => {
-  const { data: expenses = [], isLoading, error } = useExpensesByPeriod(period);
+export const useTotalAmountByYearMonth = (yearMonth: YearMonth) => {
+  const {
+    data: expenses = [],
+    isLoading,
+    error,
+  } = useExpensesByYearMonth(yearMonth);
 
   const totalAmount = useMemo(
     () => expenses.reduce((sum, expense) => sum + expense.amount, 0),

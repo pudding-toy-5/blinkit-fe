@@ -1,3 +1,4 @@
+import { Dialog } from '@radix-ui/react-dialog';
 import { render } from '@testing-library/react';
 import { describe, it } from 'vitest';
 
@@ -14,7 +15,11 @@ describe('YearMonthTrigger', () => {
   };
 
   const renderElement = ({ yearMonth }: YearMonthTriggerProps) =>
-    render(<YearMonthTrigger yearMonth={yearMonth} />);
+    render(
+      <Dialog open={true}>
+        <YearMonthTrigger yearMonth={yearMonth} />
+      </Dialog>
+    );
 
   it('when yearMonth year is current year, renders only month.', () => {
     const { getByRole } = renderElement({

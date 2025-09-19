@@ -28,23 +28,20 @@ const YearMonthList: React.FC<YearMonthListProps> = ({
 
   const yearMonths: YearMonth[] = getYearMonthRange(start, end).reverse();
 
-  const handleClickMonth = (newYearMonth: YearMonth) => {
-    onSelect(newYearMonth);
-  };
-
   return (
     <ul className='list-none flex flex-col gap-6 max-h-60 overflow-y-auto scroll'>
       {yearMonths.map(({ year, month }) => {
         const isSameYearMonth =
-          year === yearMonth.year && month === yearMonth.month;
+          year === selected.year && month === selected.month;
 
         return (
-          <SelectMonthListItem
+          <YearMonthListItem
             key={`${year.toString()}-${month.toString()}`}
-            year={year}
-            month={month}
-            selected={isSameYearMonth}
-            handleClick={handleClickMonth}
+            yearMonth={{ year, month }}
+            isSelected={isSameYearMonth}
+            handleClick={() => {
+              onSelect({ year, month });
+            }}
           />
         );
       })}

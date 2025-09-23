@@ -2,7 +2,7 @@ import { Button } from '@/shared/ui/atoms/button';
 
 import type { YearMonthListItemProps } from './types';
 
-const SelectMonthListItem: React.FC<YearMonthListItemProps> = ({
+const YearMonthListItem: React.FC<YearMonthListItemProps> = ({
   yearMonth,
   isSelected,
   handleClick,
@@ -41,4 +41,4 @@ const SelectMonthListItem: React.FC<YearMonthListItemProps> = ({
   );
 };
 
-export default SelectMonthListItem;
+export default YearMonthListItem;

@@ -36,13 +36,6 @@
   },
   "include": [
     "src",
-    // vitest
-    "vitest.config.ts",
-    "vitest.setup.ts",
-    // playwright
-    "**.spec.ts",
-    "playwright.config.ts",
-    "src/shared/types/global.d.ts"
   ],
   "exclude": [
     "src/**/*.test.ts",
@@ -51,6 +44,5 @@
     "src/**/*.spec.tsx",
     "e2e",
     "test",
-    "vitest.setup.ts"
   ]
 }

@@ -3,7 +3,6 @@ import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -16,7 +15,6 @@ export default defineConfig({
     }),
     react(),
     tailwindcss(),
-    dts({ tsconfigPath: './tsconfig.app.json' }),
   ],
   server: {
     port: 3000,

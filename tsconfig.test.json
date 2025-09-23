@@ -1,18 +1,10 @@
 {
-  // same as tsconfig.app.json
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    /* Linting */
     "types": [
       "vitest/globals",
       "@testing-library/jest-dom"
     ],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-    }
   },
   "include": [
     "src/**/*.test.ts",

@@ -9,7 +9,7 @@
     },
     {
       "path": "./tsconfig.test.json"
-    },
+    }
   ],
   "compilerOptions": {
     "baseUrl": ".",
@@ -17,6 +17,6 @@
       "@/*": [
         "./src/*"
       ]
-    },
+    }
   }
 }

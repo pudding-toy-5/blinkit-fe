@@ -3,7 +3,7 @@ import { describe, it, vi } from 'vitest';
 
 import YearMonth from '@/shared/model/YearMonth';
 
-import type { YearMonthPickerProps } from '../types';
+import type { YearMonthPickerProps } from '../YearMonthPicker';
 import YearMonthPicker from '../YearMonthPicker';
 
 describe('YearMonthPicker', () => {

@@ -3,7 +3,7 @@ import { describe, it, vi } from 'vitest';
 
 import YearMonth from '@/shared/model/YearMonth';
 
-import { YearMonthListItemProps } from '../types';
+import { YearMonthListItemProps } from '../YearMonthListItem';
 import YearMonthListItem from '../YearMonthListItem';
 
 describe('YearMonthListItem', () => {

@@ -64,7 +64,7 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
         <ArrowLeftFilled size={16} color='#222' />
       </Button>
       <Drawer>
-        <YearMonthTrigger yearMonth={value} />
+        <YearMonthTrigger year={year} month={month} />
         <DrawerContent
           className='py-6 px-5'
           style={{ borderRadius: '20px 20px 0 0 ' }}

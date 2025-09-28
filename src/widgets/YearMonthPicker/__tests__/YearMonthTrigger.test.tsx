@@ -4,7 +4,7 @@ import { describe, it } from 'vitest';
 
 import YearMonth from '@/shared/model/YearMonth';
 
-import type { YearMonthTriggerProps } from '../types';
+import type { YearMonthTriggerProps } from '../YearMonthTrigger';
 import YearMonthTrigger from '../YearMonthTrigger';
 
 describe('YearMonthTrigger', () => {

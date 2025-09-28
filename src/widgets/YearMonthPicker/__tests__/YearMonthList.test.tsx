@@ -29,13 +29,14 @@ describe('YearMonthList', () => {
 
   it('when clicks listitem button, calls onSelect with yearMonth of selected listitem', () => {
     const { getAllByRole } = renderElement({ ...props });
+
     const buttons = getAllByRole('button');
     const targetButton = buttons.find(
       (button) =>
         button.textContent?.includes(`${currentYear.toString()}년`) &&
         button.textContent.includes(`${currentMonth.toString()}월`)
     );
-    expect(targetButton).toBeDefined();
+
     if (targetButton) {
       fireEvent.click(targetButton);
       expect(props.onSelect).toBeCalledWith({

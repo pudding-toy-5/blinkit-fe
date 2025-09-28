@@ -81,8 +81,8 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
           <div className='items-center mt-8'>
             <YearMonthList
               selected={value}
-              onSelect={(selected) => {
-                onChange(selected);
+              onSelect={(selectedYearMonth) => {
+                onChange(selectedYearMonth);
               }}
             />
           </div>

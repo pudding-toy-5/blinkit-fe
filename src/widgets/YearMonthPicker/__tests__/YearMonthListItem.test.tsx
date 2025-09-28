@@ -7,29 +7,30 @@ import { YearMonthListItemProps } from '../YearMonthListItem';
 import YearMonthListItem from '../YearMonthListItem';
 
 describe('YearMonthListItem', () => {
-  const handleClick = vi.fn();
   const current = new Date();
   const currentYearMonth: YearMonth = {
     year: current.getFullYear(),
     month: current.getMonth() + 1,
   };
 
+  const onClick = vi.fn();
+
   const props: YearMonthListItemProps = {
     yearMonth: currentYearMonth,
     isSelected: false,
-    handleClick: handleClick,
+    onClick: onClick,
   };
 
   const renderElement = ({
     yearMonth,
     isSelected,
-    handleClick,
+    onClick,
   }: YearMonthListItemProps) => {
     return render(
       <YearMonthListItem
         yearMonth={yearMonth}
         isSelected={isSelected}
-        handleClick={handleClick}
+        onClick={onClick}
       />
     );
   };
@@ -71,6 +72,6 @@ describe('YearMonthListItem', () => {
 
     fireEvent.click(button);
 
-    expect(props.handleClick).toBeCalled();
+    expect(props.onClick).toBeCalled();
   });
 });

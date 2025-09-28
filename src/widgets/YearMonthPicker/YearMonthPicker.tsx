@@ -30,7 +30,7 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
   const currentMonth = current.getMonth();
 
   const isPreviousButtonDisabled =
-    year === currentYear - 5 && month === currentMonth + 1;
+    year === currentYear - 5 && month === currentMonth - 1;
 
   const isNextButtonDisabled =
     year === currentYear && month === currentMonth + 1;

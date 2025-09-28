@@ -25,6 +25,16 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
 }) => {
   const { year, month } = value;
 
+  const current = new Date();
+  const currentYear = current.getFullYear();
+  const currentMonth = current.getMonth();
+
+  const isPreviousButtonDisabled =
+    year === currentYear - 5 && month === currentMonth + 1;
+
+  const isNextButtonDisabled =
+    year === currentYear && month === currentMonth + 1;
+
   const handleClickPrevious = () => {
     if (month === 1) {
       onChange({ year: year - 1, month: 12 });
@@ -48,6 +58,7 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
         size='icon'
         aria-label='이전 월로 이동'
         onClick={handleClickPrevious}
+        disabled={isPreviousButtonDisabled}
         className='size-4 mr-2'
       >
         <ArrowLeftFilled size={16} color='#222' />
@@ -70,8 +81,8 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
           <div className='items-center mt-8'>
             <YearMonthList
               selected={value}
-              onSelect={(value) => {
-                onChange(value);
+              onSelect={(selected) => {
+                onChange(selected);
               }}
             />
           </div>
@@ -83,10 +94,7 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
         size='icon'
         aria-label='다음 월로 이동'
         onClick={handleClickNext}
-        disabled={
-          year === new Date().getFullYear() &&
-          month === new Date().getMonth() + 1
-        }
+        disabled={isNextButtonDisabled}
         className='size-4 ml-2'
       >
         <ArrowRightFilled size={16} color='#222' />

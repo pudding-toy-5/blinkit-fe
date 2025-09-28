@@ -1,11 +1,12 @@
 import { Button } from '@/shared/ui/atoms/button';
 import { DrawerTrigger } from '@/shared/ui/atoms/drawer';
 
-import type { YearMonthTriggerProps } from './types';
+export interface YearMonthTriggerProps {
+  year: number;
+  month: number;
+}
 
-const YearMonthTrigger = ({ yearMonth }: YearMonthTriggerProps) => {
-  const { year, month } = yearMonth;
-
+const YearMonthTrigger = ({ year, month }: YearMonthTriggerProps) => {
   const isCurrentYear = year !== new Date().getFullYear();
 
   return (

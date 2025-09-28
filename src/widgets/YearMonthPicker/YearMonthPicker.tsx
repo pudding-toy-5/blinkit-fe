@@ -1,3 +1,4 @@
+import YearMonth from '@/shared/model/YearMonth';
 import { Button } from '@/shared/ui/atoms/button';
 import {
   Drawer,
@@ -10,9 +11,13 @@ import ArrowLeftFilled from '@/shared/ui/icons/ArrowLeftFilled';
 import ArrowRightFilled from '@/shared/ui/icons/ArrowRightFilled';
 import X from '@/shared/ui/icons/X';
 
-import type { YearMonthPickerProps } from './types';
 import YearMonthList from './YearMonthList';
 import YearMonthTrigger from './YearMonthTrigger';
+
+export interface YearMonthPickerProps {
+  value: YearMonth;
+  onChange: (yearMonth: YearMonth) => void;
+}
 
 const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
   value,

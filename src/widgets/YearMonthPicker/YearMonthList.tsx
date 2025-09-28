@@ -1,7 +1,11 @@
 import YearMonth from '@/shared/model/YearMonth';
 
-import type { YearMonthListProps } from './types';
 import YearMonthListItem from './YearMonthListItem';
+
+export interface YearMonthListProps {
+  selected: YearMonth;
+  onSelect: (yearMonth: YearMonth) => void;
+}
 
 const YearMonthList: React.FC<YearMonthListProps> = ({
   selected,
@@ -39,7 +43,7 @@ const YearMonthList: React.FC<YearMonthListProps> = ({
             key={`${year.toString()}-${month.toString()}`}
             yearMonth={{ year, month }}
             isSelected={isSameYearMonth}
-            handleClick={() => {
+            onClick={() => {
               onSelect({ year, month });
             }}
           />

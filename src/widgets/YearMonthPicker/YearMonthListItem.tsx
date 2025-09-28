@@ -1,11 +1,16 @@
+import YearMonth from '@/shared/model/YearMonth';
 import { Button } from '@/shared/ui/atoms/button';
 
-import type { YearMonthListItemProps } from './types';
+export interface YearMonthListItemProps {
+  yearMonth: YearMonth;
+  isSelected: boolean;
+  onClick: () => void;
+}
 
 const YearMonthListItem: React.FC<YearMonthListItemProps> = ({
   yearMonth,
   isSelected,
-  handleClick,
+  onClick,
 }) => {
   const { year, month } = yearMonth;
 
@@ -14,7 +19,7 @@ const YearMonthListItem: React.FC<YearMonthListItemProps> = ({
       <Button
         variant='ghost'
         className='flex flex-row w-full h-full p-0 text-[15px] font-normal items-center rounded-none'
-        onClick={handleClick}
+        onClick={onClick}
       >
         <p className='mr-auto p-0'>
           {year}년 {month}월

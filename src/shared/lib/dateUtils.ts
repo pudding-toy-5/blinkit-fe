@@ -46,3 +46,15 @@ export const formatDateRange = (dateRange: DateRange) => {
 
   return `${formatDateWithYear(dateRange.from)} - ${formatDateWithYear(dateRange.to)}`;
 };
+
+export const getMonthList = (minDate: Date, maxDate: Date): Date[] => {
+  const result: Date[] = [];
+  const value = new Date(minDate.getFullYear(), minDate.getMonth());
+
+  while (value < maxDate) {
+    result.push(new Date(value));
+    value.setMonth(value.getMonth() + 1);
+  }
+
+  return result;
+};

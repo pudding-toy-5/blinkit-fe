@@ -9,8 +9,7 @@ import {
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetrospective';
 import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '@/shared/consts/date';
-import useDateRange from '@/shared/lib/useDateRange';
-import DateRangePicker from '@/widgets/DateRangePicker';
+import YearMonthPicker from '@/widgets/YearMonthPicker';
 
 import RetrospectiveCard, { RetrospectiveCardProps } from './RetrospectiveCard';
 import RetrospectiveDetailPopoverPage from './RetrospectiveDetailPopoverPage';
@@ -19,7 +18,7 @@ import RetrospectiveSummary, {
 } from './RetrospectiveSummary';
 
 const RetrospectiveView: React.FC = () => {
-  const { dateRange, setDateRange } = useDateRange();
+  const [yearMonth, setYearMonth] = useState<Date>(new Date());
 
   const { data: retrospectives = [] } = useRetrospectivesByRange({
     from: DEFAULT_FROM_DATE,
@@ -27,8 +26,8 @@ const RetrospectiveView: React.FC = () => {
   });
 
   const { data: rangeRetrospectives = [] } = useRetrospectivesByRange({
-    from: dateRange?.from ?? DEFAULT_FROM_DATE,
-    to: dateRange?.to ?? DEFAULT_TO_DATE,
+    from: new Date(yearMonth.getFullYear(), yearMonth.getMonth(), 1),
+    to: new Date(yearMonth.getFullYear(), yearMonth.getMonth() + 1, 0),
   });
 
   const [consumptionKind, setConsumptionKind] = useState<ConsumptionKind>(
@@ -133,7 +132,7 @@ const RetrospectiveView: React.FC = () => {
       )}
       <div className='flex-1 flex flex-col overflow-y-auto scroll'>
         <div className='px-5 py-4'>
-          <DateRangePicker value={dateRange} onChange={setDateRange} />
+          <YearMonthPicker value={yearMonth} onChange={setYearMonth} />
           <RetrospectiveSummary
             essential={amounts.essential}
             conscious={amounts.conscious}

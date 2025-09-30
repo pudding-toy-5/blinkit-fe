@@ -31,11 +31,18 @@ describe('YearMonthList', () => {
     const { getAllByRole } = renderElement({ ...props });
 
     const buttons = getAllByRole('button');
-    const targetButton = buttons.find(
-      (button) =>
-        button.textContent?.includes(`${currentYear.toString()}년`) &&
-        button.textContent.includes(`${currentMonth.toString()}월`)
-    );
+    const targetButton = buttons.find((button) => {
+      const textContent = button.textContent;
+
+      if (!textContent) {
+        return false;
+      }
+
+      return (
+        textContent.includes(`${currentYear.toString()}년`) &&
+        textContent.includes(`${currentMonth.toString()}월`)
+      );
+    });
 
     if (targetButton) {
       fireEvent.click(targetButton);

@@ -31,38 +31,44 @@ describe('YearMonthPicker', () => {
 
     expect(queryByTitle(titleText)).not.toBeInTheDocument();
 
-    const trigger = getByRole('button');
-    fireEvent.click(trigger);
+    // opening drawer
+    const triggerButton = getByRole('button', {
+      name: `${currentMonth.toString()}월`,
+    });
+    fireEvent.click(triggerButton);
 
+    // checking title
     const title = getByText(titleText);
     expect(title).toBeInTheDocument();
     expect(title.tagName.toLowerCase()).toBe('h2');
 
+    // checking close button
     const closeButton = getByLabelText('close button');
     expect(closeButton).toBeInTheDocument();
   });
 
   it('when listitem is selected, calls onChange with selected yearMonth.', () => {
-    const onSetYearMonth = vi.fn();
+    const onChange = vi.fn();
     const { getByRole, getByText } = renderElement({
       ...props,
-      onChange: onSetYearMonth,
+      onChange: onChange,
     });
 
-    const trigger = getByRole('button');
-    fireEvent.click(trigger);
+    const triggerButton = getByRole('button', {
+      name: `${currentMonth.toString()}월`,
+    });
+    fireEvent.click(triggerButton);
 
-    const today = new Date();
     const monthButton = getByText(
-      `${today.getFullYear().toString()}년 ${(today.getMonth() + 1).toString()}월`
+      `${currentYear.toString()}년 ${currentMonth.toString()}월`
     );
 
     expect(monthButton).toBeInTheDocument();
     fireEvent.click(monthButton);
 
-    expect(onSetYearMonth).toBeCalledWith({
-      year: today.getFullYear(),
-      month: today.getMonth() + 1,
+    expect(onChange).toBeCalledWith({
+      year: currentYear,
+      month: currentMonth,
     });
   });
 });

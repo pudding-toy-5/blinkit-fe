@@ -55,3 +55,23 @@ export const useRetrospectivesByRange = ({
     },
   });
 };
+
+export const useIsRetrospectiveExist = () => {
+  return useQuery<boolean>({
+    queryKey: ['IsRetrospectiveExist'],
+    queryFn: async () => {
+      try {
+        const res = await userAxios.get<boolean>(
+          apiUrl + '/expense/expenses/exists-retrospective'
+        );
+
+        return res.data;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error(error.message);
+        }
+        throw error;
+      }
+    },
+  });
+};

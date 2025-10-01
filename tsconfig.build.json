@@ -6,6 +6,9 @@
     },
     {
       "path": "./tsconfig.node.json"
-    }
-  ]
+    },
+  ],
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.build.tsbuildinfo",
+  },
 }

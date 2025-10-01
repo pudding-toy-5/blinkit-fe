@@ -30,9 +30,5 @@
         "./src/*"
       ],
     },
-    "types": [
-      "vitest/globals",
-      "@testing-library/jest-dom"
-    ]
   }
 }

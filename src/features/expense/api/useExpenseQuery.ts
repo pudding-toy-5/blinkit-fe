@@ -211,9 +211,11 @@ export const useUpdateExpense = () => {
       void queryClient.invalidateQueries({
         queryKey: expenseQueryKeys.expenses,
       });
-      void queryClient.invalidateQueries({ queryKey: ['retrospective'] });
       void queryClient.invalidateQueries({
-        queryKey: ['isRetrospectiveExist'],
+        queryKey: retrospectiveQueryKeys.retrospective,
+      });
+      void queryClient.invalidateQueries({
+        queryKey: retrospectiveQueryKeys.isRetrospectiveExist,
       });
     },
     onError: (error) => {
@@ -241,9 +243,11 @@ export const useDeleteExpense = () => {
       void queryClient.invalidateQueries({
         queryKey: expenseQueryKeys.expenses,
       });
-      void queryClient.invalidateQueries({ queryKey: ['retrospective'] });
       void queryClient.invalidateQueries({
-        queryKey: ['isRetrospectiveExist'],
+        queryKey: retrospectiveQueryKeys.retrospective,
+      });
+      void queryClient.invalidateQueries({
+        queryKey: retrospectiveQueryKeys.isRetrospectiveExist,
       });
     },
     onError: (error) => {

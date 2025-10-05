@@ -24,12 +24,14 @@ import RetrospectiveSummary, {
 const RetrospectiveView: React.FC = () => {
   const { dateRange, setDateRange } = useDateRange();
 
-  const { data: isRetrospectiveExist = false } = useIsRetrospectiveExist();
+  const { data: isRetrospectiveExist = false, isExistLoading } =
+    useIsRetrospectiveExist();
 
-  const { data: rangeRetrospectives = [] } = useRetrospectivesByRange({
-    from: dateRange?.from ?? DEFAULT_FROM_DATE,
-    to: dateRange?.to ?? DEFAULT_TO_DATE,
-  });
+  const { data: rangeRetrospectives = [], isRetrospectivesLoading } =
+    useRetrospectivesByRange({
+      from: dateRange?.from ?? DEFAULT_FROM_DATE,
+      to: dateRange?.to ?? DEFAULT_TO_DATE,
+    });
 
   const [consumptionKind, setConsumptionKind] = useState<ConsumptionKind>(
     ConsumptionKind.none
@@ -95,6 +97,10 @@ const RetrospectiveView: React.FC = () => {
       essential: sortedRetrospectiveCards[2].retrospective?.totalAmount ?? 0,
     };
   }, [sortedRetrospectiveCards]);
+
+  if (isExistLoading || isExistLoading) {
+    return null;
+  }
 
   if (!isRetrospectiveExist) {
     return (

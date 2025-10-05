@@ -98,7 +98,7 @@ const RetrospectiveView: React.FC = () => {
     };
   }, [sortedRetrospectiveCards]);
 
-  if (isExistLoading || isExistLoading) {
+  if (isExistLoading || isRetrospectivesLoading) {
     return null;
   }
 

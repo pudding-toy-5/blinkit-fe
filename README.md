@@ -34,45 +34,39 @@
 
 ### 개발 도구 & 테스트
 
-#### Unit Test
+- Unit Test: **Vitest 3.0.7, React Testing Library**
+- E2E Test: **Playwright 1.50.1** (향후 추가 예정)
 
-**Vitest 3.0.7, React Testing Library**
-
-#### E2E Test
-
-**Playwright 1.50.1**
-(향후 추가 예정)
-
-#### 코드 품질 관리
+### 코드 품질 관리
 
 - **ESLint & Prettier**
 
 ## 폴더 구조
 
-```
+```bash
 blinkit-fe/
-├── .github/workflows/ # GitHub Actions CI/CD
-├── e2e/ # E2E 테스트 (향후 추가 예정)
-├── public/ # 배포 디렉토리
-├── src/ # fsd 패턴에 따라 분류하고자 함
-│ ├── app/ # 애플리케이션 설정 및 라우터
-│ ├── features/ # 기능별 모듈
-│ │ ├── auth/ # 인증 관련
-│ │ ├── category/ # 카테고리 관리
-│ │ ├── expense/ # 지출 관리
-│ │ ├── onboarding/ # 로그인 페이지의 슬라이더 구현
-│ │ └── retrospective/ # 회고 기능
-│ ├── pages/ # 페이지 컴포넌트
-│ ├── shared/ # 공통 모듈
-│ │ ├── api/ # API 관련
-│ │ ├── lib/ # 유틸리티 라이브러리
-│ │ ├── model/ # 데이터 모델
-│ │ ├── types/ # 타입 정의
-│ │ ├── ui/ # 공통 UI 컴포넌트
-│ │ │ ├─ atoms/ # shadcn/ui 컴포넌트
-│ │ │ ├─ icons/ # 프로젝트용 아이콘
-│ └── widgets/ # 공용 컴포넌트
-├── components.json # shadcn/ui 설정
+├── .github/workflows/            # GitHub Actions CI/CD
+├── e2e/                          # E2E 테스트 (향후 추가 예정)
+├── public/                       # 배포 디렉토리
+├── src/                          # fsd 패턴에 따라 분류하고자 함
+│   ├── app/                      # 애플리케이션 설정 및 라우터
+│   ├── features/                 # 기능별 모듈
+│   │   ├── auth/                 # 인증(로그인) 관련
+│   │   ├── category/             # 카테고리 관리
+│   │   ├── expense/              # 지출 관리
+│   │   ├── onboarding/           # 로그인 페이지의 슬라이더 구현
+│   │   └── retrospective/        # 회고 기능
+│   ├── pages/                    # 페이지 컴포넌트
+│   ├── shared/                   # 공통 모듈
+│   │   ├── api/                  # API 관련
+│   │   ├── lib/                  # 유틸리티 라이브러리
+│   │   ├── model/                # 데이터 모델
+│   │   ├── types/                # 타입 정의
+│   │   └── ui/                   # 공통 UI 컴포넌트
+│   │       ├── atoms/            # shadcn/ui 컴포넌트
+│   │       └── icons/            # 프로젝트용 아이콘
+│   └── widgets/                  # 공용 컴포넌트
+├── components.json                # shadcn/ui 설정
 ├── package.json
 ├── tailwind.config.js
 ├── tsconfig.json
@@ -82,8 +76,6 @@ blinkit-fe/
 ├── vitest.config.ts
 └── vitest.setup.ts
 ```
-
-text
 
 ## 설치 및 실행
 
@@ -120,7 +112,7 @@ pnpm test:watch
 # 커버리지 확인
 pnpm test:coverage
 
-# E2E 테스트 (Playwright)
+# E2E 테스트 (Playwright) - 향후 추가 예정
 pnpm playwright test
 ```
 

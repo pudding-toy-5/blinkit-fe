@@ -44,13 +44,13 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
     setIsCurrentYear(value.getFullYear() === current.getFullYear());
 
     setIsPreviousDisabled(
-      value.getFullYear() === minDate.getFullYear() &&
-        value.getMonth() === minDate.getMonth()
+      value.getFullYear() <= minDate.getFullYear() &&
+        value.getMonth() <= minDate.getMonth()
     );
 
     setIsNextDisabled(
-      value.getFullYear() === maxDate.getFullYear() &&
-        value.getMonth() === maxDate.getMonth()
+      value.getFullYear() >= maxDate.getFullYear() &&
+        value.getMonth() >= maxDate.getMonth()
     );
   }, [value, current, minDate, maxDate]);
 

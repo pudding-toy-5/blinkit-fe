@@ -25,11 +25,11 @@ export function ExpensesPage() {
 
   const { dailyExpenses } = useDailyExpensesByYearMonth({
     year: yearMonth.getFullYear(),
-    month: yearMonth.getMonth(),
+    month: yearMonth.getMonth() + 1,
   });
   const { totalAmount } = useTotalAmountByYearMonth({
     year: yearMonth.getFullYear(),
-    month: yearMonth.getMonth(),
+    month: yearMonth.getMonth() + 1,
   });
 
   return (

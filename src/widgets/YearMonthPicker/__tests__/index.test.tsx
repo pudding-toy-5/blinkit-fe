@@ -1,10 +1,32 @@
 import { fireEvent, render } from '@testing-library/react';
 
 import YearMonthPicker, { YearMonthPickerProps } from '../index';
+import { YearMonthListProps } from '../YearMonthList';
+
+const yearMonthListTestId = 'mock-select-btn';
+const selectedDate = new Date(2025, 9, 1);
+
+vi.mock('../YearMonthList', () => {
+  return {
+    default: (props: YearMonthListProps) => (
+      <button
+        data-testid={yearMonthListTestId}
+        onClick={() => {
+          props.onSelect(selectedDate);
+        }}
+      />
+    ),
+  };
+});
 
 describe('YearMonthPicker', () => {
-  const current = new Date();
-  const minDate = new Date();
+  const currentDate = new Date();
+  const current = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    currentDate.getDate()
+  );
+  const minDate = new Date(current);
   minDate.setFullYear(current.getFullYear() - 5);
 
   const props: YearMonthPickerProps = { value: current, onChange: vi.fn() };
@@ -28,14 +50,17 @@ describe('YearMonthPicker', () => {
     });
 
     it('when clicked, calls onChange with date object minus one month', () => {
+      const previousDate = new Date(
+        current.getFullYear(),
+        current.getMonth() - 1,
+        current.getDate()
+      );
       const { getByRole } = renderElement({ ...props });
 
       const previousButton = getByRole('button', { name: '이전 월로 이동' });
 
       fireEvent.click(previousButton);
-      expect(props.onChange).toBeCalledWith(
-        new Date(props.value.getMonth() - 1)
-      );
+      expect(props.onChange).toBeCalledWith(previousDate);
     });
   });
 
@@ -58,7 +83,12 @@ describe('YearMonthPicker', () => {
     });
 
     it('when clicked, calls onChange with nextMonth.', () => {
-      const value = new Date(new Date().getMonth() - 1);
+      const value = new Date(
+        current.getFullYear(),
+        current.getMonth() - 1,
+        current.getDate()
+      );
+
       const { getByRole } = renderElement({
         ...props,
         value,
@@ -66,7 +96,7 @@ describe('YearMonthPicker', () => {
 
       const nextButton = getByRole('button', { name: '다음 월로 이동' });
       fireEvent.click(nextButton);
-      expect(props.onChange).toBeCalledWith(new Date(value.getMonth() + 1));
+      expect(props.onChange).toBeCalledWith(current);
     });
   });
 
@@ -94,10 +124,50 @@ describe('YearMonthPicker', () => {
   });
 
   describe('drawerContent', () => {
-    it('when drawerTrigger is not clicked, does not show drawerContent.', () => {});
+    const drawerContentAltText = '조회 월 선택 드로어';
 
-    it('when drawerTrigger is clicked, shows drawerContent.', () => {});
+    it('when drawerTrigger is not clicked, does not show drawerContent.', () => {
+      const { queryByAltText } = renderElement({ ...props });
 
-    describe('drawerHeader', () => {});
+      expect(queryByAltText(drawerContentAltText)).not.toBeInTheDocument();
+    });
+
+    it('when drawerTrigger is clicked, shows drawerContent.', () => {
+      const { getByRole, getByLabelText } = renderElement({ ...props });
+
+      const trigger = getByRole('button', {
+        name: `${(props.value.getMonth() + 1).toString()}월`,
+      });
+
+      expect(trigger).toBeInTheDocument();
+      fireEvent.click(trigger);
+
+      const drawerContent = getByLabelText(drawerContentAltText);
+      expect(drawerContent).toBeInTheDocument();
+    });
+
+    describe('YearMonthList onSelect', () => {
+      it('when YearMonthList calls onSelect, calls onChange.', () => {
+        const { getByRole, getByLabelText, getByTestId } = renderElement({
+          ...props,
+        });
+
+        const trigger = getByRole('button', {
+          name: `${(props.value.getMonth() + 1).toString()}월`,
+        });
+
+        expect(trigger).toBeInTheDocument();
+        fireEvent.click(trigger);
+
+        const drawerContent = getByLabelText(drawerContentAltText);
+        expect(drawerContent).toBeInTheDocument();
+
+        const yearMonthListBtn = getByTestId(yearMonthListTestId);
+        expect(yearMonthListBtn).toBeInTheDocument();
+        fireEvent.click(yearMonthListBtn);
+
+        expect(props.onChange).toBeCalledWith(selectedDate);
+      });
+    });
   });
 });

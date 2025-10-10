@@ -24,9 +24,12 @@ const YearMonthList: React.FC<YearMonthListProps> = ({
           date.getFullYear() === selected.getFullYear() &&
           date.getMonth() === selected.getMonth();
 
+        const key: string =
+          date.getFullYear().toString() + '-' + date.getMonth().toString();
+
         return (
           <YearMonthListItem
-            key={`${date.getFullYear().toString()}-${date.getMonth().toString()}`}
+            key={key}
             date={date}
             isSelected={isSameYearMonth}
             onClick={() => {

@@ -94,6 +94,7 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
         <DrawerContent
           className='py-6 px-5'
           style={{ borderRadius: '20px 20px 0 0 ' }}
+          aria-label='조회 월 선택 드로어'
         >
           <DrawerHeader className='flex flex-row items-center justify-between p-0'>
             <div className='flex-1' />

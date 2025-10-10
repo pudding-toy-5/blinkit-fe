@@ -28,8 +28,19 @@ describe('YearMonthListItem', () => {
     const { getByText } = renderElement({ ...props });
 
     const dateString = `${props.date.getFullYear().toString()}년 ${(props.date.getMonth() + 1).toString()}월`;
-    const dateText = getByText(dateString);
-    expect(dateText).toBeInTheDocument();
+    const button = getByText(dateString);
+    expect(button).toBeInTheDocument();
+  });
+
+  it('when clicks, calls onClick.', () => {
+    const { getByText } = renderElement({ ...props });
+
+    const dateString = `${props.date.getFullYear().toString()}년 ${(props.date.getMonth() + 1).toString()}월`;
+    const button = getByText(dateString);
+    expect(button).toBeInTheDocument();
+
+    fireEvent.click(button);
+    expect(props.onClick).toBeCalled();
   });
 
   describe('selected', () => {

@@ -22,21 +22,20 @@ const YearMonthListItem: React.FC<YearMonthListItemProps> = ({
           {date.getFullYear()}년 {date.getMonth() + 1}월
         </p>
         {isSelected && (
-          <div aria-label='selected icon'>
-            <svg
-              className='size-6 h-full'
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 24 24'
-              fill='none'
-            >
-              <path
-                fillRule='evenodd'
-                clipRule='evenodd'
-                d='M21 7.28599L10.4319 17.373C10.2483 17.5483 9.99731 17.6471 9.73541 17.6471C9.4735 17.6471 9.22256 17.5483 9.03891 17.373L3 11.609L4.39299 10.323L9.73541 15.4223L19.607 6L21 7.28599Z'
-                fill='#28A745'
-              />
-            </svg>
-          </div>
+          <svg
+            aria-label='selected icon'
+            className='size-6 h-full'
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 24 24'
+            fill='none'
+          >
+            <path
+              fillRule='evenodd'
+              clipRule='evenodd'
+              d='M21 7.28599L10.4319 17.373C10.2483 17.5483 9.99731 17.6471 9.73541 17.6471C9.4735 17.6471 9.22256 17.5483 9.03891 17.373L3 11.609L4.39299 10.323L9.73541 15.4223L19.607 6L21 7.28599Z'
+              fill='#28A745'
+            />
+          </svg>
         )}
       </Button>
     </li>

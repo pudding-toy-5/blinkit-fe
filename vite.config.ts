@@ -18,7 +18,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
     tsconfigPaths(),
-    dts({ tsconfigPath: './tsconfig.app.json' }),
+    dts({
+      tsconfigPath: './tsconfig.build.json',
+    }),
   ],
   server: {
     port: 3000,

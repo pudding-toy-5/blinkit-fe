@@ -25,7 +25,11 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
   onChange,
 }) => {
   const current = useMemo(() => new Date(), []);
-  const maxDate = useMemo(() => new Date(current), [current]);
+  const maxDate = useMemo(
+    () =>
+      new Date(current.getFullYear(), current.getMonth(), current.getDate()),
+    [current]
+  );
   const minDate = useMemo(
     () =>
       new Date(

@@ -35,7 +35,7 @@ describe('YearMonthPicker', () => {
     render(<YearMonthPicker value={value} onChange={onChange} />);
 
   describe('Previous Button', () => {
-    it('is disabled when value date is same minDate year and month.', () => {
+    it('is disabled when value date is same as current date (maxDate) year and month.', () => {
       const { getByRole } = renderElement({ ...props, value: minDate });
 
       const previousButton = getByRole('button', { name: '이전 월로 이동' });
@@ -65,17 +65,21 @@ describe('YearMonthPicker', () => {
   });
 
   describe('Next Button', () => {
-    it('is disabled when value date is same minDate year and month.', () => {
+    it('is disabled when value date is same maxDate year and month.', () => {
       const { getByRole } = renderElement({ ...props });
 
       const nextButton = getByRole('button', { name: '다음 월로 이동' });
       expect(nextButton).toBeDisabled();
     });
 
-    it('is activated when value date is not same minDate year and month.', () => {
+    it('is activated when value date is before current month.', () => {
       const { getByRole } = renderElement({
         ...props,
-        value: new Date(new Date().getMonth() - 1),
+        value: new Date(
+          current.getFullYear(),
+          current.getMonth() - 1,
+          current.getDate()
+        ),
       });
 
       const nextButton = getByRole('button', { name: '다음 월로 이동' });

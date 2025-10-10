@@ -1,6 +1,6 @@
 import { Input } from '@/shared/ui/atoms/input';
 import { Label } from '@/shared/ui/atoms/label';
-import { cn } from '@/shared/ui/styles/utils';
+import { cn } from '@/shared/lib/cn';
 
 export interface LabeledTextInputProps {
   label: string;

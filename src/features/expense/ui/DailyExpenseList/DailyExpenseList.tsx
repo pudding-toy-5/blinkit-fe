@@ -1,6 +1,6 @@
 import { DailyExpense } from '@/features/expense/model/Expense';
 import DailyExpenseItem from '@/features/expense/ui/DailyExpenseListItem';
-import { cn } from '@/shared/ui/styles/utils';
+import { cn } from '@/shared/lib/cn';
 
 export interface DailyExpenseListProps {
   dailyExpenses: DailyExpense[];

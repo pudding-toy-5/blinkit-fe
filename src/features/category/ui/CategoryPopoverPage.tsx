@@ -21,7 +21,7 @@ import {
 } from '@/shared/ui/atoms/drawer';
 import { Form, FormControl, FormField, FormItem } from '@/shared/ui/atoms/form';
 import Layout from '@/shared/ui/layout/Layout';
-import { cn } from '@/shared/ui/styles/utils';
+import { cn } from '@/shared/lib/cn';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
 

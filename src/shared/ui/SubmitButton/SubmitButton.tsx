@@ -1,5 +1,5 @@
 import { Button } from '@/shared/ui/atoms/button';
-import { cn } from '@/shared/ui/styles/utils';
+import { cn } from '@/shared/lib/cn';
 
 export interface SubmitButtonProps extends React.ComponentProps<'button'> {
   text: string;

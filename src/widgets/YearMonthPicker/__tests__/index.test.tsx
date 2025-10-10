@@ -35,27 +35,27 @@ describe('YearMonthPicker', () => {
     render(<YearMonthPicker value={value} onChange={onChange} />);
 
   describe('Previous Button', () => {
-    it('is disabled when value date is same as current date (maxDate) year and month.', () => {
+    it('is disabled when value date is same as current date (minDate) year and month.', () => {
       const { getByRole } = renderElement({ ...props, value: minDate });
 
       const previousButton = getByRole('button', { name: '이전 월로 이동' });
       expect(previousButton).toBeDisabled();
     });
 
-    it('is activated when value date is not same minDate year and month.', () => {
+    it('is activated when value date is after minDate and before maxDate.', () => {
       const { getByRole } = renderElement({ ...props });
 
       const previousButton = getByRole('button', { name: '이전 월로 이동' });
       expect(previousButton).not.toBeDisabled();
     });
 
-    it('when clicked, calls onChange with date object minus one month', () => {
+    it('when clicked, calls onChange with previousMonth', () => {
       const previousDate = new Date(
         current.getFullYear(),
         current.getMonth() - 1,
         current.getDate()
       );
-      const { getByRole } = renderElement({ ...props });
+      const { getByRole } = renderElement({ ...props, value: current });
 
       const previousButton = getByRole('button', { name: '이전 월로 이동' });
 
@@ -65,14 +65,14 @@ describe('YearMonthPicker', () => {
   });
 
   describe('Next Button', () => {
-    it('is disabled when value date is same maxDate year and month.', () => {
+    it('is disabled when value date is same as current date (maxDate) year and month.', () => {
       const { getByRole } = renderElement({ ...props });
 
       const nextButton = getByRole('button', { name: '다음 월로 이동' });
       expect(nextButton).toBeDisabled();
     });
 
-    it('is activated when value date is before current month.', () => {
+    it('is activated when value date is after minDate and before maxDate', () => {
       const { getByRole } = renderElement({
         ...props,
         value: new Date(

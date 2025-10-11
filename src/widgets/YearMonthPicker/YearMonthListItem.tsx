@@ -1,7 +1,5 @@
 import { formatInTimeZone } from 'date-fns-tz';
 
-import { Button } from '@/shared/ui/atoms/button';
-
 export interface YearMonthListItemProps {
   date: Date;
   isSelected: boolean;

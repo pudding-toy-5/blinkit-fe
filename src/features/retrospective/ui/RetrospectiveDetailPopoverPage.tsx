@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Category } from '@/features/category/model/types/Category';
 import CategoryFilter from '@/features/category/ui/CategoryFilter';
 import { useExpensesByRange } from '@/features/expense/api/useExpenseQuery';
 import { getConsumptionTexts } from '@/features/expense/lib/consumption';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
+import { getMonthRange } from '@/shared/lib/dateUtils';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
@@ -22,16 +23,7 @@ const RetrospectiveDetailPopoverPage: React.FC<Props> = ({
   consumptionKind,
   onClose,
 }) => {
-  const [year, setYear] = useState<number>(yearMonth.getFullYear());
-  const [month, setMonth] = useState<number>(yearMonth.getMonth());
-
-  const from = useMemo(() => new Date(year, month, 1), [year, month]);
-  const to = useMemo(() => new Date(year, month + 1, 0), [year, month]);
-
-  useEffect(() => {
-    setYear(yearMonth.getFullYear());
-    setMonth(yearMonth.getMonth());
-  }, [yearMonth]);
+  const { from, to } = useMemo(() => getMonthRange(yearMonth), [yearMonth]);
 
   const { data: expenses = [] } = useExpensesByRange({
     from,

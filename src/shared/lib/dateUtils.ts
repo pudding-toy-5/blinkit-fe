@@ -53,14 +53,18 @@ export const formatDateRange = (dateRange: DateRange) => {
  * @returns minDate 이상 maxDate 이하의 각 월 첫날을 담은 배열
  */
 export const getMonthList = (minDate: Date, maxDate: Date): Date[] => {
+  if (maxDate < minDate) {
+    throw new Error('maxDate must be greater than or equal to minDate');
+  }
+
   const result: Date[] = [];
 
   const years = maxDate.getFullYear() - minDate.getFullYear();
   const months = maxDate.getMonth() - minDate.getMonth();
 
-  const onlyMonths = years * 12 + months;
+  const onlyMonths = years * 12 + months + 1;
 
-  Array.from({ length: onlyMonths }, (_, i) => i + 1).forEach((i) => {
+  Array.from({ length: onlyMonths }, (_, i) => i).forEach((i) => {
     const date = new Date(minDate.getFullYear(), minDate.getMonth() + i, 1);
     result.push(date);
   });

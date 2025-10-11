@@ -24,10 +24,10 @@ import RetrospectiveSummary, {
 const RetrospectiveView: React.FC = () => {
   const { dateRange, setDateRange } = useDateRange();
 
-  const { data: isRetrospectiveExist = false, isExistLoading } =
+  const { data: isRetrospectiveExist = false, isLoading: isExistLoading } =
     useIsRetrospectiveExist();
 
-  const { data: rangeRetrospectives = [], isRetrospectivesLoading } =
+  const { data: rangeRetrospectives = [], isLoading: isRetrospectivesLoading } =
     useRetrospectivesByRange({
       from: dateRange?.from ?? DEFAULT_FROM_DATE,
       to: dateRange?.to ?? DEFAULT_TO_DATE,

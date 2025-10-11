@@ -123,6 +123,7 @@ const RetrospectiveView: React.FC = () => {
     <>
       {open && consumptionKind && (
         <RetrospectiveDetailPopoverPage
+          yearMonth={yearMonth}
           consumptionKind={consumptionKind}
           onClose={() => {
             setOpen(false);

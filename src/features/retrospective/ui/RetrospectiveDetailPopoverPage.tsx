@@ -1,12 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Category } from '@/features/category/model/types/Category';
 import CategoryFilter from '@/features/category/ui/CategoryFilter';
 import { useExpensesByRange } from '@/features/expense/api/useExpenseQuery';
 import { getConsumptionTexts } from '@/features/expense/lib/consumption';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
-import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '@/shared/consts/date';
-import useDateRange from '@/shared/lib/useDateRange';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
@@ -14,19 +12,30 @@ import RetrospectiveCardList from './RetrospectiveCardList';
 import RetrospectiveDetailHeader from './RetrospectiveDetailHeader';
 
 interface Props {
+  yearMonth: Date;
   consumptionKind: ConsumptionKind;
   onClose: () => void;
 }
 
 const RetrospectiveDetailPopoverPage: React.FC<Props> = ({
+  yearMonth,
   consumptionKind,
   onClose,
 }) => {
-  const { dateRange } = useDateRange();
+  const [year, setYear] = useState<number>(yearMonth.getFullYear());
+  const [month, setMonth] = useState<number>(yearMonth.getMonth());
+
+  const from = useMemo(() => new Date(year, month, 1), [year, month]);
+  const to = useMemo(() => new Date(year, month + 1, 0), [year, month]);
+
+  useEffect(() => {
+    setYear(yearMonth.getFullYear());
+    setMonth(yearMonth.getMonth());
+  }, [yearMonth]);
 
   const { data: expenses = [] } = useExpensesByRange({
-    from: dateRange?.from ?? DEFAULT_FROM_DATE,
-    to: dateRange?.to ?? DEFAULT_TO_DATE,
+    from,
+    to,
     consumptionKind,
   });
 
@@ -46,8 +55,8 @@ const RetrospectiveDetailPopoverPage: React.FC<Props> = ({
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
   const { data: filteredExpenses = [] } = useExpensesByRange({
-    from: dateRange?.from ?? DEFAULT_FROM_DATE,
-    to: dateRange?.to ?? DEFAULT_TO_DATE,
+    from,
+    to,
     consumptionKind,
     categoryUids: selectedCategories.map((c) => c.uid),
   });

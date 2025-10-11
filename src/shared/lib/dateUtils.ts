@@ -49,17 +49,16 @@ export const formatDateRange = (dateRange: DateRange) => {
 
 export const getMonthList = (minDate: Date, maxDate: Date): Date[] => {
   const result: Date[] = [];
-  const value = new Date(minDate.getFullYear(), minDate.getMonth());
 
   const years = maxDate.getFullYear() - minDate.getFullYear();
   const months = maxDate.getMonth() - minDate.getMonth();
 
   const onlyMonths = years * 12 + months;
 
-  for (let i = 0; i < onlyMonths; i++) {
-    result.push(new Date(value));
-    value.setMonth(value.getMonth() + 1);
-  }
+  Array.from({ length: onlyMonths }, (_, i) => i + 1).forEach((i) => {
+    const date = new Date(minDate.getFullYear(), minDate.getMonth() + i, 1);
+    result.push(date);
+  });
 
   return result;
 };

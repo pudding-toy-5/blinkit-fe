@@ -11,6 +11,7 @@ import {
   useIsRetrospectiveExist,
   useRetrospectivesByRange,
 } from '@/features/retrospective/api/useRetrospective';
+import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '@/shared/consts/date';
 import YearMonthPicker from '@/widgets/YearMonthPicker';
 
 import RetrospectiveCard, { RetrospectiveCardProps } from './RetrospectiveCard';

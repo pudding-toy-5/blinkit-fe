@@ -7,7 +7,10 @@ import {
   consumptionEssential,
 } from '@/features/expense/consts';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
-import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetrospective';
+import {
+  useIsRetrospectiveExist,
+  useRetrospectivesByRange,
+} from '@/features/retrospective/api/useRetrospective';
 import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '@/shared/consts/date';
 import useDateRange from '@/shared/lib/useDateRange';
 import DateRangePicker from '@/widgets/DateRangePicker';
@@ -21,15 +24,14 @@ import RetrospectiveSummary, {
 const RetrospectiveView: React.FC = () => {
   const { dateRange, setDateRange } = useDateRange();
 
-  const { data: retrospectives = [] } = useRetrospectivesByRange({
-    from: DEFAULT_FROM_DATE,
-    to: DEFAULT_TO_DATE,
-  });
+  const { data: isRetrospectiveExist = false, isExistLoading } =
+    useIsRetrospectiveExist();
 
-  const { data: rangeRetrospectives = [] } = useRetrospectivesByRange({
-    from: dateRange?.from ?? DEFAULT_FROM_DATE,
-    to: dateRange?.to ?? DEFAULT_TO_DATE,
-  });
+  const { data: rangeRetrospectives = [], isRetrospectivesLoading } =
+    useRetrospectivesByRange({
+      from: dateRange?.from ?? DEFAULT_FROM_DATE,
+      to: dateRange?.to ?? DEFAULT_TO_DATE,
+    });
 
   const [consumptionKind, setConsumptionKind] = useState<ConsumptionKind>(
     ConsumptionKind.none
@@ -96,12 +98,11 @@ const RetrospectiveView: React.FC = () => {
     };
   }, [sortedRetrospectiveCards]);
 
-  const isRetrospectiveEmpty = useMemo(
-    () => retrospectives.reduce((acc, cur) => (acc += cur.totalCount), 0) === 0,
-    [retrospectives]
-  );
+  if (isExistLoading || isRetrospectivesLoading) {
+    return null;
+  }
 
-  if (isRetrospectiveEmpty) {
+  if (!isRetrospectiveExist) {
     return (
       <div className='flex-1 flex flex-col overflow-y-auto scroll'>
         <div className='flex-1 flex flex-col items-center justify-center text-center'>

@@ -14,7 +14,7 @@ import {
   DrawerTrigger,
 } from '@/shared/ui/atoms/drawer';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
-import { cn } from '@/shared/ui/styles/utils';
+import { cn } from '@/shared/lib/cn';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 import BottomNavBar from '@/widgets/BottomNavBar';
 

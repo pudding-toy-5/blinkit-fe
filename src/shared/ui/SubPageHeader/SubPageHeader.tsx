@@ -11,7 +11,7 @@ import {
 } from '@/shared/ui/atoms/drawer';
 import ArrowLeft from '@/shared/ui/icons/ArrowLeft';
 import X from '@/shared/ui/icons/X';
-import { cn } from '@/shared/ui/styles/utils';
+import { cn } from '@/shared/lib/cn';
 
 export interface SubPageHeaderProps {
   title?: string;

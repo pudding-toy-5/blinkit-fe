@@ -3,7 +3,7 @@ import { Toaster as Sonner, ToasterProps } from 'sonner';
 
 import FilledExclamation from '@/shared/ui/icons/FilledExclamation';
 import FilledSuccess from '@/shared/ui/icons/FilledSuccess';
-import { cn } from '@/shared/ui/styles/utils';
+import { cn } from '@/shared/lib/cn';
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = 'system' } = useTheme();

@@ -7,7 +7,10 @@ import {
   consumptionEssential,
 } from '@/features/expense/consts';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
-import { useRetrospectivesByRange } from '@/features/retrospective/api/useRetrospective';
+import {
+  useIsRetrospectiveExist,
+  useRetrospectivesByRange,
+} from '@/features/retrospective/api/useRetrospective';
 import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '@/shared/consts/date';
 import YearMonthPicker from '@/widgets/YearMonthPicker';
 
@@ -20,12 +23,10 @@ import RetrospectiveSummary, {
 const RetrospectiveView: React.FC = () => {
   const [yearMonth, setYearMonth] = useState<Date>(new Date());
 
-  const { data: retrospectives = [] } = useRetrospectivesByRange({
-    from: DEFAULT_FROM_DATE,
-    to: DEFAULT_TO_DATE,
-  });
+  const { data: isRetrospectiveExist = false, isLoading: isExistLoading } =
+    useIsRetrospectiveExist();
 
-  const { data: rangeRetrospectives = [] } = useRetrospectivesByRange({
+  const { data: rangeRetrospectives = [], isLoading: isRetrospectiveLoading } = useRetrospectivesByRange({
     from: new Date(yearMonth.getFullYear(), yearMonth.getMonth(), 1),
     to: new Date(yearMonth.getFullYear(), yearMonth.getMonth() + 1, 0),
   });
@@ -95,12 +96,11 @@ const RetrospectiveView: React.FC = () => {
     };
   }, [sortedRetrospectiveCards]);
 
-  const isRetrospectiveEmpty = useMemo(
-    () => retrospectives.reduce((acc, cur) => (acc += cur.totalCount), 0) === 0,
-    [retrospectives]
-  );
+  if (isExistLoading || isRetrospectivesLoading) {
+    return null;
+  }
 
-  if (isRetrospectiveEmpty) {
+  if (!isRetrospectiveExist) {
     return (
       <div className='flex-1 flex flex-col overflow-y-auto scroll'>
         <div className='flex-1 flex flex-col items-center justify-center text-center'>

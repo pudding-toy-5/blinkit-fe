@@ -32,7 +32,7 @@ export const useRetrospectivesByRange = ({
     queryFn: async () => {
       try {
         const res = await userAxios.get<ServerRetrospective[]>(
-          apiUrl + '/expense/expenses/consumption-retrospective',
+          `${apiUrl}'/expense/expenses/consumption-retrospective`,
           {
             params: {
               start_date: formatDate(
@@ -67,7 +67,7 @@ export const useIsRetrospectiveExist = () => {
     queryFn: async () => {
       try {
         const res = await userAxios.get<boolean>(
-          apiUrl + '/expense/expenses/exists-retrospective'
+          `${apiUrl}/expense/expenses/exists-retrospective`
         );
 
         return res.data;

@@ -26,10 +26,11 @@ const RetrospectiveView: React.FC = () => {
   const { data: isRetrospectiveExist = false, isLoading: isExistLoading } =
     useIsRetrospectiveExist();
 
-  const { data: rangeRetrospectives = [], isLoading: isRetrospectiveLoading } = useRetrospectivesByRange({
-    from: new Date(yearMonth.getFullYear(), yearMonth.getMonth(), 1),
-    to: new Date(yearMonth.getFullYear(), yearMonth.getMonth() + 1, 0),
-  });
+  const { data: rangeRetrospectives = [], isLoading: isRetrospectivesLoading } =
+    useRetrospectivesByRange({
+      from: new Date(yearMonth.getFullYear(), yearMonth.getMonth(), 1),
+      to: new Date(yearMonth.getFullYear(), yearMonth.getMonth() + 1, 0),
+    });
 
   const [consumptionKind, setConsumptionKind] = useState<ConsumptionKind>(
     ConsumptionKind.none

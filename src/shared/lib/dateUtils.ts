@@ -51,7 +51,12 @@ export const getMonthList = (minDate: Date, maxDate: Date): Date[] => {
   const result: Date[] = [];
   const value = new Date(minDate.getFullYear(), minDate.getMonth());
 
-  while (value < maxDate) {
+  const years = maxDate.getFullYear() - minDate.getFullYear();
+  const months = maxDate.getMonth() - minDate.getMonth();
+
+  const onlyMonths = years * 12 + months;
+
+  for (let i = 0; i < onlyMonths; i++) {
     result.push(new Date(value));
     value.setMonth(value.getMonth() + 1);
   }

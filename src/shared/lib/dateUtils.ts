@@ -71,3 +71,26 @@ export const getMonthList = (minDate: Date, maxDate: Date): Date[] => {
 
   return result;
 };
+
+/**
+ * 특정 월의 시작일과 마지막 날짜 범위를 반환합니다.
+ *
+ * @param yearMonth - 기준 월을 나타내는 Date 객체
+ *   - 일(day) 값은 무시하고, year와 month 값만 범위 계산에 사용됩니다.
+ * @returns
+ *   - from: 해당 월의 첫 번째 날 (YYYY-MM-01 00:00:00)
+ *   - to: 해당 월의 마지막 날 (YYYY-MM-DD 23:59:59 형태, DD는 월 마지막 날짜)
+ *
+ * 동작 원리:
+ * - from은 해당 월의 1일로 설정합니다.
+ * - to는 다음 달의 0일을 지정하여 해당 월의 마지막 날짜를 계산합니다.
+ *
+ * 예시:
+ *   getMonthRange(new Date(2025, 9, 15))
+ *   => from: 2025-10-01, to: 2025-10-31
+ */
+export const getMonthRange = (yearMonth: Date) => {
+  const from = new Date(yearMonth.getFullYear(), yearMonth.getMonth(), 1);
+  const to = new Date(yearMonth.getFullYear(), yearMonth.getMonth() + 1, 0);
+  return { from, to };
+};

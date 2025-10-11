@@ -1,3 +1,5 @@
+import { formatInTimeZone } from 'date-fns-tz';
+
 import { Button } from '@/shared/ui/atoms/button';
 
 export interface YearMonthListItemProps {
@@ -13,13 +15,12 @@ const YearMonthListItem: React.FC<YearMonthListItemProps> = ({
 }) => {
   return (
     <li className='w-full h-6'>
-      <Button
-        variant='ghost'
+      <button
         className='flex flex-row w-full h-full p-0 text-[15px] font-normal items-center rounded-none'
         onClick={onClick}
       >
         <p className='mr-auto p-0'>
-          {date.getFullYear()}년 {date.getMonth() + 1}월
+          {formatInTimeZone(date, 'Asia/Seoul', 'yyyy년 M월')}
         </p>
         {isSelected && (
           <svg
@@ -37,7 +38,7 @@ const YearMonthListItem: React.FC<YearMonthListItemProps> = ({
             />
           </svg>
         )}
-      </Button>
+      </button>
     </li>
   );
 };

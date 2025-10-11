@@ -47,6 +47,11 @@ export const formatDateRange = (dateRange: DateRange) => {
   return `${formatDateWithYear(dateRange.from)} - ${formatDateWithYear(dateRange.to)}`;
 };
 
+/**
+ * @param minDate - 시작 날짜 (이 달 포함)
+ * @param maxDate - 종료 날짜 (이 달 포함)
+ * @returns minDate 이상 maxDate 이하의 각 월 첫날을 담은 배열
+ */
 export const getMonthList = (minDate: Date, maxDate: Date): Date[] => {
   const result: Date[] = [];
 

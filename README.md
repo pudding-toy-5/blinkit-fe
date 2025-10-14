@@ -43,9 +43,13 @@ flowchart TD
   B --> F[설정 페이지]
 ```
 
+## 페이지 이미지 및 시퀀스 다이어그램
+
+> ⚠️ 썸네일 이미지는 클릭하면 원본 이미지로 이동합니다.
+
 ### 로그인 페이지
 
-![로그인 페이지](./screenshots/login-page.png)
+[![로그인 페이지](./screenshots/thumbnails/login-page.png)](./screenshots/origins/login-page.png)
 
 OAuthProvider: Google, Naver
 
@@ -67,7 +71,7 @@ sequenceDiagram participant User
 
 #### 지출 조회 페이지
 
-![지출 조회 페이지](./screenshots/expenses-page.png)
+[![지출 조회 페이지](./screenshots/thumbnails/expenses-page.png)](./screenshots/origins/expenses-page.png)
 
 ```mermaid
 sequenceDiagram
@@ -97,7 +101,7 @@ sequenceDiagram
 
 #### 지출 추가 페이지
 
-![지출 추가 페이지](./screenshots/add-expense-page.png)
+[![지출 추가 페이지](./screenshots/thumbnails/add-expense-page.png)](./screenshots/origins/add-expense-page.png)
 
 ```mermaid
 sequenceDiagram
@@ -115,11 +119,11 @@ sequenceDiagram
   Frontend->>User: 상세 화면 표시 및 수정/삭제 옵션 제공
 ```
 
-![지출 추가 페이지](./screenshots/add-expense-page.png)
+[![지출 추가 페이지](./screenshots/thumbnails/add-expense-page.png)](./screenshots/origin/add-expense-page.png)
 
 #### 지출 수정 및 삭제 페이지
 
-![지출 수정 및 삭제 페이지](./screenshots/edit-expense-page.png)
+[![지출 수정 및 삭제 페이지](./screenshots/thumbnails/edit-expense-page.png)](./screenshots/origins/edit-expense-page.png)
 
 ```mermaid
 sequenceDiagram
@@ -141,7 +145,7 @@ sequenceDiagram
 
 #### 카테고리 추가 및 선택 페이지
 
-![카테고리 추가 및 선택 페이지](./screenshots/add-select-category-page.png)
+[![카테고리 추가 및 선택 페이지](./screenshots/thumbnails/add-select-category-page.png)](./screenshots/origins/add-select-category-page.png)
 
 ```mermaid
 sequenceDiagram
@@ -168,7 +172,7 @@ sequenceDiagram
 
 #### 카테고리 수정 및 삭제 페이지
 
-![카테고리 수정 및 삭제 페이지](./screenshots/category-detail-page.png)
+[![카테고리 수정 및 삭제 페이지](./screenshots/thumbnails/category-detail-page.png)](./screenshots/origins/category-detail-page.png)
 
 ```mermaid
 sequenceDiagram
@@ -198,11 +202,11 @@ sequenceDiagram
 
 ## 설정 페이지
 
-![설정 페이지](./screenshots/settings.png)
+[![설정 페이지](./screenshots/thumbnails/settings.png)](./screenshots/origins/settings.png)
 
 #### 닉네임 변경 페이지
 
-![닉네임 변경 페이지](./screenshots/edit-nickname-page.png)
+[![닉네임 변경 페이지](./screenshots/thumbnails/edit-nickname-page.png)](./screenshots/origins/edit-nickname-page.png)
 
 ```mermaid
 sequenceDiagram

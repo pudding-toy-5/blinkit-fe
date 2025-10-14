@@ -5,7 +5,7 @@
 
 ## 프로젝트 개요
 - 개발 기간: 2025.02 ~ 현재
-- 배포 URL: https://blink-it.me
+- 배포 URL: [https://blink-it.me](https://blink-it.me)
 - 실사용 환경 검증: 내부 스터디 멤버 3~5명을 대상으로 실제 테스트 및 피드백 진행, UX 개선 및 기능 보완
 - 주요 성과: 사용자 만족도 XX% 향상, PWA 설치율 XX%
 

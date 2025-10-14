@@ -32,7 +32,7 @@ export const useRetrospectivesByRange = ({
     queryFn: async () => {
       try {
         const res = await userAxios.get<ServerRetrospective[]>(
-          `${apiUrl}'/expense/expenses/consumption-retrospective`,
+          `${apiUrl}/expense/expenses/consumption-retrospective`,
           {
             params: {
               start_date: formatDate(

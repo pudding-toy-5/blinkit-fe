@@ -2,6 +2,32 @@
 
 감정적 소비를 줄이고 의식적 소비를 늘리기 위한 PWA 가계부 애플리케이션입니다.
 
+## 기술 스택
+
+### 프론트엔드 프레임워크
+- **React.js 19**
+- **TypeScript 5.7.2**
+- **Vite 6.2.0**
+
+### 상태 관리 및 라우팅
+- **TanStack React Query 5**
+- **TanStack React Router 1**
+
+### UI/UX
+
+- **shadcn/ui**
+- **Tailwind CSS 4.0.9**
+
+### 개발 도구 & 테스트
+
+- Unit Test: **Vitest 3.0.7, React Testing Library**
+- E2E Test: **Playwright 1.50.1** (향후 추가 예정)
+
+### 코드 품질 관리
+
+- **ESLint 9.21.0**
+- **Prettier 3.5.3**
+
 ## 유저 플로우 다이어그램
 
 ```mermaid
@@ -124,30 +150,6 @@ sequenceDiagram
 ### 카테고리 수정 및 삭제 페이지
 
 ### 설정 페이지
-
-
-## 기술 스택
-
-### 프론트엔드 프레임워크
-- **React.js**
-- **TypeScript**
-- **Vite**
-
-### 상태 관리 및 라우팅
-- **TanStack React Query**
-- **TanStack React Router**
-
-### UI/UX
-- **shadcn/ui**
-
-### 개발 도구 & 테스트
-
-- Unit Test: **Vitest 3.0.7, React Testing Library**
-- E2E Test: **Playwright 1.50.1** (향후 추가 예정)
-
-### 코드 품질 관리
-
-- **ESLint & Prettier**
 
 ## 폴더 구조
 

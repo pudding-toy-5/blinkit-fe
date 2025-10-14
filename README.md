@@ -152,7 +152,7 @@ sequenceDiagram
   Frontend->>User: 상세 화면 표시 및 수정/삭제 옵션 제공
 ```
 
-[![지출 추가 페이지](./screenshots/thumbnails/add-expense-page.png)](./screenshots/origin/add-expense-page.png)
+[![지출 추가 페이지](./screenshots/thumbnails/add-expense-page.png)](./screenshots/origins/add-expense-page.png)
 
 #### 지출 수정 및 삭제 페이지
 

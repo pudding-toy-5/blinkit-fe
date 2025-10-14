@@ -102,9 +102,29 @@ sequenceDiagram participant User
 
 ### 지출
 
-#### 지출 조회 페이지
+#### 지출 목록 페이지
 
-[![지출 조회 페이지](./screenshots/thumbnails/expenses-page.png)](./screenshots/origins/expenses-page.png)
+[![지출 목록 페이지](./screenshots/thumbnails/expenses-page.png)](./screenshots/origins/expenses-page.png)
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant Frontend
+  participant Backend
+
+  User->>Frontend: 지출 목록 페이지 접속
+  Frontend->>Backend: 지출 목록 요청
+  Backend-->>Frontend: 지출 데이터 반환
+  Frontend->>User: 지출 내역 화면에 표시
+  User->>Frontend: 지출 상세(수정/삭제) 선택
+  Frontend->>Backend: 해당 지출 상세 데이터 요청
+  Backend-->>Frontend: 상세 지출 데이터 반환
+  Frontend->>User: 상세 화면 표시 및 수정/삭제 옵션 제공
+```
+
+#### 지출 추가 페이지
+
+[![지출 추가 페이지](./screenshots/thumbnails/add-expense-page.png)](./screenshots/origins/add-expense-page.png)
 
 ```mermaid
 sequenceDiagram

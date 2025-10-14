@@ -6,16 +6,16 @@
 ## 프로젝트 개요
 - 개발 기간: 2025.02 ~ 현재
 - 배포 URL: [https://blink-it.me](https://blink-it.me)
-- 실사용 환경 검증: 내부 스터디 멤버 3~5명을 대상으로 실제 테스트 및 피드백 진행, UX 개선 및 기능 보완
-- 주요 성과: 사용자 만족도 XX% 향상, PWA 설치율 XX%
 
-## 기술 스택 (주요 버전 포함)
+## 기술 스택
 
 - **프론트엔드:** React.js 19, TypeScript 5.7.2, Vite 6.2.0
 - **상태 관리 및 라우팅:** TanStack React Query 5, TanStack React Router 1
 - **UI/UX:** shadcn/ui, Tailwind CSS 4.0.9
 - **테스트:** Vitest 3.0.7, React Testing Library, Playwright 1.50.1 (향후 예정)
 - **코드 품질:** ESLint 9.21.0, Prettier 3.5.3
+- **분석 도구:** Microsoft Clarity (사용자 행동, 히트맵 분석)
+
 
 ## 경험
 

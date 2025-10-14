@@ -233,7 +233,7 @@ sequenceDiagram
   Frontend->>User: 목록 갱신 및 삭제 결과 표시
 ```
 
-## 설정 페이지
+### 설정 페이지
 
 [![설정 페이지](./screenshots/thumbnails/settings.png)](./screenshots/origins/settings.png)
 

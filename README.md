@@ -61,7 +61,10 @@ sequenceDiagram participant User
   Frontend->>User: 로그인 성공 화면 표시
 ```
 
-### 지출 조회 페이지
+### 지출
+
+#### 지출 조회 페이지
+
 ```mermaid
 sequenceDiagram
   participant User
@@ -89,7 +92,8 @@ sequenceDiagram
 ```
 
 
-#### 지출 추가
+#### 지출 추가 페이지
+
 ```mermaid
 sequenceDiagram
   participant User
@@ -106,7 +110,8 @@ sequenceDiagram
   Frontend->>User: 상세 화면 표시 및 수정/삭제 옵션 제공
 ```
 
-### 지출 수정 및 삭제 페이지
+#### 지출 수정 및 삭제 페이지
+
 ```mermaid
 sequenceDiagram
   participant User
@@ -123,7 +128,10 @@ sequenceDiagram
   Frontend->>User: 상세 화면 표시 및 수정/삭제 옵션 제공
 ```
 
-### 카테고리 추가 및 선택 페이지
+### 카테고리
+
+#### 카테고리 추가 및 선택 페이지
+
 ```mermaid
 sequenceDiagram
   participant User
@@ -146,89 +154,85 @@ sequenceDiagram
   Frontend->>User: 최신 카테고리 목록 갱신 표시
 ```
 
+#### 카테고리 수정 및 삭제 페이지
 
-### 카테고리 수정 및 삭제 페이지
+```mermaid
+sequenceDiagram
+  participant User
+  participant Frontend
+  participant Backend
+
+  User->>Frontend: 카테고리 관리 페이지 접속
+  Frontend->>Backend: 카테고리 목록 요청
+  Backend-->>Frontend: 카테고리 목록 반환
+  Frontend->>User: 카테고리 목록 및 수정/삭제 UI 표시
+
+  User->>Frontend: 수정 버튼 클릭
+  Frontend->>User: 수정 입력 폼 표시
+  User->>Frontend: 수정내용 저장 요청
+  Frontend->>Backend: 카테고리명 수정 API 호출
+  Backend-->>Frontend: 수정 완료 응답
+  Frontend->>User: 변경 결과 반영
+
+  User->>Frontend: 삭제 버튼 클릭
+  Frontend->>User: 삭제 확인 팝업 표시
+  User->>Frontend: 삭제 확정
+  Frontend->>Backend: 카테고리 삭제 API 호출
+  Backend-->>Frontend: 삭제 완료 응답
+  Frontend->>User: 목록 갱신 및 삭제 결과 표시
+```
+
 
 ### 설정 페이지
+
+#### 닉네임 변경 페이지
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant Frontend
+  participant Backend
+
+  User->>Frontend: 설정 페이지의 내 정보 수정 페이지 접속
+  Frontend->>User: UI 표시
+  User->>Frontend: 새 닉네임 입력 및 저장 요청
+  Frontend->>Backend: 닉네임 변경 API 호출
+  Backend-->>Frontend: 변경 결과 응답
+  Frontend->>User: 성공/실패 알림 및 닉네임 갱신
+```
 
 ## 폴더 구조
 
 ```bash
 blinkit-fe/
-├── .github/workflows/            # GitHub Actions CI/CD
-├── e2e/                          # E2E 테스트 (향후 추가 예정)
-├── public/                       # 배포 디렉토리
-├── src/                          # fsd 패턴에 따라 분류하고자 함
-│   ├── app/                      # 애플리케이션 설정 및 라우터
-│   ├── features/                 # 기능별 모듈
-│   │   ├── auth/                 # 인증(로그인) 관련
+├── .github/workflows/            # GitHub Actions CI/CD 파이프라인 설정 파일
+├── e2e/                          # E2E 테스트 코드 디렉토리 (향후 추가 예정)
+├── public/                       # 빌드 시 배포되는 정적 파일 디렉토리
+├── src/                          # FSD 패턴에 따라 분류한 소스 코드
+│   ├── app/                      # 애플리케이션 설정 및 라우터 관리
+│   ├── features/                 # 기능별 모듈 (인증, 카테고리, 지출, 회고 등)
+│   │   ├── auth/                 # 인증(로그인) 기능
 │   │   ├── category/             # 카테고리 관리
-│   │   ├── expense/              # 지출 관리
-│   │   ├── onboarding/           # 로그인 페이지의 슬라이더 구현
+│   │   ├── expense/              # 지출 관리 기능
+│   │   ├── onboarding/           # 로그인 온보딩 슬라이더 구현
 │   │   └── retrospective/        # 회고 기능
 │   ├── pages/                    # 페이지 컴포넌트
-│   ├── shared/                   # 공통 모듈
-│   │   ├── api/                  # API 관련
-│   │   ├── lib/                  # 유틸리티 라이브러리
-│   │   ├── model/                # 데이터 모델
-│   │   ├── types/                # 타입 정의
+│   ├── shared/                   # 공통 모듈 (API, 유틸, 타입, UI 등)
+│   │   ├── api/                  # API 호출 및 클라이언트 설정
+│   │   ├── lib/                  # 유틸리티 함수 및 라이브러리
+│   │   ├── model/                # 데이터 모델 정의
+│   │   ├── types/                # 전역 타입 정의
 │   │   └── ui/                   # 공통 UI 컴포넌트
-│   │       ├── atoms/            # shadcn/ui 컴포넌트
-│   │       └── icons/            # 프로젝트용 아이콘
-│   └── widgets/                  # 공용 컴포넌트
-├── components.json                # shadcn/ui 설정
-├── package.json
-├── tailwind.config.js
-├── tsconfig.json
-├── tsconfig.app.json
-├── tsconfig.test.json
-├── vite.config.ts
-├── vitest.config.ts
-└── vitest.setup.ts
-```
-
-## 설치 및 실행
-
-```bash
-# 저장소 클론
-git clone https://github.com/pudding-toy-5/blinkit-fe.git
-cd blinkit-fe
-
-# 의존성 설치
-pnpm install
-
-# 개발 서버 실행
-pnpm dev
-
-# 빌드
-pnpm build
-
-# 프리뷰
-pnpm preview
-```
-
-## 테스트
-
-```bash
-# 단위 테스트 실행
-pnpm test
-
-# 테스트 UI 모드
-pnpm test:ui
-
-# 테스트 감시 모드
-pnpm test:watch
-
-# 커버리지 확인
-pnpm test:coverage
-
-# E2E 테스트 (Playwright) - 향후 추가 예정
-pnpm playwright test
-```
-
-## 코드 품질 관리
-
-```bash
-# ESLint 검사
-pnpm lint
+│   │       ├── atoms/            # shadcn/ui 기반 컴포넌트
+│   │       └── icons/            # 커스텀 아이콘 모음
+│   └── widgets/                  # 재사용 가능한 복합 UI 컴포넌트
+├── components.json               # shadcn/ui 컴포넌트 설정 파일
+├── package.json                 # 프로젝트 의존성 및 스크립트 정의
+├── tailwind.config.js           # Tailwind CSS 커스터마이징 설정
+├── tsconfig.json                # 전역 TypeScript 설정
+├── tsconfig.app.json            # 앱 빌드 전용 TypeScript 설정
+├── tsconfig.test.json           # Vitest 테스트 환경용 TypeScript 설정
+├── vite.config.ts               # Vite 개발 서버 및 빌드 설정
+├── vitest.config.ts             # Vitest 테스트 환경 설정
+└── vitest.setup.ts              # Vitest 테스트 실행 전 초기화 스크립트
 ```

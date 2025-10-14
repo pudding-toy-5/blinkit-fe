@@ -45,6 +45,8 @@ flowchart TD
 
 ### 로그인 페이지
 
+![로그인 페이지](./screenshots/login-page.png)
+
 OAuthProvider: Google, Naver
 
 ```mermaid
@@ -64,6 +66,8 @@ sequenceDiagram participant User
 ### 지출
 
 #### 지출 조회 페이지
+
+![지출 조회 페이지](./screenshots/expenses-page.png)
 
 ```mermaid
 sequenceDiagram
@@ -91,8 +95,9 @@ sequenceDiagram
   Frontend->>User: 추가 성공 시 알림 및 조회 페이지로 이동
 ```
 
-
 #### 지출 추가 페이지
+
+![지출 추가 페이지](./screenshots/add-expense-page.png)
 
 ```mermaid
 sequenceDiagram
@@ -110,7 +115,11 @@ sequenceDiagram
   Frontend->>User: 상세 화면 표시 및 수정/삭제 옵션 제공
 ```
 
+![지출 추가 페이지](./screenshots/add-expense-page.png)
+
 #### 지출 수정 및 삭제 페이지
+
+![지출 수정 및 삭제 페이지](./screenshots/edit-expense-page.png)
 
 ```mermaid
 sequenceDiagram
@@ -131,6 +140,8 @@ sequenceDiagram
 ### 카테고리
 
 #### 카테고리 추가 및 선택 페이지
+
+![카테고리 추가 및 선택 페이지](./screenshots/add-select-category-page.png)
 
 ```mermaid
 sequenceDiagram
@@ -154,7 +165,10 @@ sequenceDiagram
   Frontend->>User: 최신 카테고리 목록 갱신 표시
 ```
 
+
 #### 카테고리 수정 및 삭제 페이지
+
+![카테고리 수정 및 삭제 페이지](./screenshots/category-detail-page.png)
 
 ```mermaid
 sequenceDiagram
@@ -182,10 +196,13 @@ sequenceDiagram
   Frontend->>User: 목록 갱신 및 삭제 결과 표시
 ```
 
+## 설정 페이지
 
-### 설정 페이지
+![설정 페이지](./screenshots/settings.png)
 
 #### 닉네임 변경 페이지
+
+![닉네임 변경 페이지](./screenshots/edit-nickname-page.png)
 
 ```mermaid
 sequenceDiagram
@@ -226,13 +243,13 @@ blinkit-fe/
 │   │       ├── atoms/            # shadcn/ui 기반 컴포넌트
 │   │       └── icons/            # 커스텀 아이콘 모음
 │   └── widgets/                  # 재사용 가능한 복합 UI 컴포넌트
-├── components.json               # shadcn/ui 컴포넌트 설정 파일
-├── package.json                 # 프로젝트 의존성 및 스크립트 정의
-├── tailwind.config.js           # Tailwind CSS 커스터마이징 설정
-├── tsconfig.json                # 전역 TypeScript 설정
-├── tsconfig.app.json            # 앱 빌드 전용 TypeScript 설정
-├── tsconfig.test.json           # Vitest 테스트 환경용 TypeScript 설정
-├── vite.config.ts               # Vite 개발 서버 및 빌드 설정
-├── vitest.config.ts             # Vitest 테스트 환경 설정
-└── vitest.setup.ts              # Vitest 테스트 실행 전 초기화 스크립트
+├── components.json
+├── package.json
+├── tailwind.config.js
+├── tsconfig.json
+├── tsconfig.app.json
+├── tsconfig.test.json
+├── vite.config.ts
+├── vitest.config.ts
+└── vitest.setup.ts
 ```

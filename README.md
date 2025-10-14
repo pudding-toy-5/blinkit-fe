@@ -87,7 +87,8 @@ flowchart TD
 OAuthProvider: Google, Naver
 
 ```mermaid
-sequenceDiagram participant User
+sequenceDiagram
+  participant User
   participant Frontend
   participant OAuthProvider
 
@@ -138,41 +139,11 @@ sequenceDiagram
   User->>Frontend: 지출 정보 입력(금액, 메모 등)
   User->>Frontend: 카테고리 선택 or 새 카테고리 추가 선택
 
-  alt 새 카테고리 추가
-    Frontend->>User: 새 카테고리명 입력 폼 표시
-    User->>Frontend: 카테고리명 입력 및 저장 요청
-    Frontend->>Backend: 카테고리 추가 API 호출
-    Backend-->>Frontend: 카테고리 추가 완료 응답
-    Frontend->>User: 카테고리 선택 목록 갱신
-  end
-
   User->>Frontend: 입력 완료 후 저장 요청
   Frontend->>Backend: 지출 추가 API 호출
   Backend-->>Frontend: 지출 추가 결과 응답
   Frontend->>User: 추가 성공 시 알림 및 조회 페이지로 이동
 ```
-
-#### 지출 추가 페이지
-
-[![지출 추가 페이지](./screenshots/thumbnails/add-expense-page.png)](./screenshots/origins/add-expense-page.png)
-
-```mermaid
-sequenceDiagram
-  participant User
-  participant Frontend
-  participant Backend
-
-  User->>Frontend: 지출 조회 페이지 접속
-  Frontend->>Backend: 지출 목록 요청 (필터/정렬 포함 가능)
-  Backend-->>Frontend: 지출 데이터 반환
-  Frontend->>User: 지출 내역 화면에 표시
-  User->>Frontend: 지출 상세(수정/삭제) 선택
-  Frontend->>Backend: 해당 지출 상세 데이터 요청
-  Backend-->>Frontend: 상세 지출 데이터 반환
-  Frontend->>User: 상세 화면 표시 및 수정/삭제 옵션 제공
-```
-
-[![지출 추가 페이지](./screenshots/thumbnails/add-expense-page.png)](./screenshots/origins/add-expense-page.png)
 
 #### 지출 수정 및 삭제 페이지
 
@@ -184,14 +155,26 @@ sequenceDiagram
   participant Frontend
   participant Backend
 
-  User->>Frontend: 지출 조회 페이지 접속
-  Frontend->>Backend: 지출 목록 요청 (필터/정렬 포함 가능)
+  User->>Frontend: 지출 목록 페이지 접속
+  Frontend->>Backend: 지출 데이터 요청
   Backend-->>Frontend: 지출 데이터 반환
-  Frontend->>User: 지출 내역 화면에 표시
-  User->>Frontend: 지출 상세(수정/삭제) 선택
-  Frontend->>Backend: 해당 지출 상세 데이터 요청
+  Frontend->>User: 지출 내역 목록 화면에 표시
+  User->>Frontend: 수정/삭제할 지출 항목 선택
+  Frontend->>Frontend: 지출 수정 및 삭제 페이지로 이동
+  Frontend->>Backend: 선택한 지출 상세 데이터 요청
   Backend-->>Frontend: 상세 지출 데이터 반환
   Frontend->>User: 상세 화면 표시 및 수정/삭제 옵션 제공
+
+  User->>Frontend: 지출 정보 수정 또는 삭제 요청
+  alt 수정 요청
+    Frontend->>Backend: 지출 수정 API 호출 (수정 데이터 포함)
+    Backend-->>Frontend: 수정 결과 반환
+    Frontend->>User: 수정 성공 메시지 및 화면 갱신
+  else 삭제 요청
+    Frontend->>Backend: 지출 삭제 API 호출
+    Backend-->>Frontend: 삭제 결과 반환
+    Frontend->>User: 삭제 성공 메시지 및 화면 갱신
+  end
 ```
 
 ### 카테고리

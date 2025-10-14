@@ -17,19 +17,114 @@ flowchart TD
   B --> F[설정 페이지]
 ```
 
-- **로그인 페이지**
-  - 네이버/구글 소셜 로그인 기능
-- **메인 페이지(지출 목록)**
-  - 월별 지출목록 조회 가능
-- **지출 추가/수정/삭제 페이지**
-  - 지출 내역 등록, 수정, 삭제 및 조회
-  - 지출
-    - 날짜, 메모, 금액, 지출 카테고리, 소비 분류(감정적/의식적/필수)
-- **지출 카테고리 관리 페이지**
-  - 지출 항목의 카테고리별 분류 및 관리
-  - 지출 카테고리 등록/수정/삭제
-- **회고 기능**
-  - 감정적/의식적/필수 소비로 분류한 지출내역을 분류하여 조회.
+### 로그인 페이지
+
+OAuthProvider: Google, Naver
+
+```mermaid
+sequenceDiagram participant User
+  participant Frontend
+  participant OAuthProvider
+
+  User->>Frontend: 로그인 페이지 접속
+  Frontend->>User: 로그인 버튼 제공 (구글 또는 네이버 선택)
+  User->>OAuthProvider: 로그인 요청 및 인증 창 오픈
+  OAuthProvider-->>User: 인증 완료 및 토큰 전달
+  User->>Frontend: 인증 토큰 전달
+  Frontend->>Frontend: 토큰 저장 및 로그인 상태 처리
+  Frontend->>User: 로그인 성공 화면 표시
+```
+
+### 지출 조회 페이지
+```mermaid
+sequenceDiagram
+  participant User
+  participant Frontend
+  participant Backend
+
+  User->>Frontend: 지출 추가 페이지 접속
+  Frontend->>User: 지출 입력 폼 표시
+
+  User->>Frontend: 지출 정보 입력(금액, 메모 등)
+  User->>Frontend: 카테고리 선택 or 새 카테고리 추가 선택
+
+  alt 새 카테고리 추가
+    Frontend->>User: 새 카테고리명 입력 폼 표시
+    User->>Frontend: 카테고리명 입력 및 저장 요청
+    Frontend->>Backend: 카테고리 추가 API 호출
+    Backend-->>Frontend: 카테고리 추가 완료 응답
+    Frontend->>User: 카테고리 선택 목록 갱신
+  end
+
+  User->>Frontend: 입력 완료 후 저장 요청
+  Frontend->>Backend: 지출 추가 API 호출
+  Backend-->>Frontend: 지출 추가 결과 응답
+  Frontend->>User: 추가 성공 시 알림 및 조회 페이지로 이동
+```
+
+
+#### 지출 추가
+```mermaid
+sequenceDiagram
+  participant User
+  participant Frontend
+  participant Backend
+
+  User->>Frontend: 지출 조회 페이지 접속
+  Frontend->>Backend: 지출 목록 요청 (필터/정렬 포함 가능)
+  Backend-->>Frontend: 지출 데이터 반환
+  Frontend->>User: 지출 내역 화면에 표시
+  User->>Frontend: 지출 상세(수정/삭제) 선택
+  Frontend->>Backend: 해당 지출 상세 데이터 요청
+  Backend-->>Frontend: 상세 지출 데이터 반환
+  Frontend->>User: 상세 화면 표시 및 수정/삭제 옵션 제공
+```
+
+### 지출 수정 및 삭제 페이지
+```mermaid
+sequenceDiagram
+  participant User
+  participant Frontend
+  participant Backend
+
+  User->>Frontend: 지출 조회 페이지 접속
+  Frontend->>Backend: 지출 목록 요청 (필터/정렬 포함 가능)
+  Backend-->>Frontend: 지출 데이터 반환
+  Frontend->>User: 지출 내역 화면에 표시
+  User->>Frontend: 지출 상세(수정/삭제) 선택
+  Frontend->>Backend: 해당 지출 상세 데이터 요청
+  Backend-->>Frontend: 상세 지출 데이터 반환
+  Frontend->>User: 상세 화면 표시 및 수정/삭제 옵션 제공
+```
+
+### 카테고리 추가 및 선택 페이지
+```mermaid
+sequenceDiagram
+  participant User
+  participant Frontend
+  participant Backend
+
+  User->>Frontend: 카테고리 선택/추가 페이지 접속
+  Frontend->>Backend: 기존 카테고리 목록 요청
+  Backend-->>Frontend: 카테고리 목록 반환
+  Frontend->>User: 카테고리 목록 표시
+
+  User->>Frontend: 카테고리 선택
+  Frontend->>User: 선택된 카테고리 반영 및 이전 화면 복귀
+
+  User->>Frontend: "카테고리 추가" 버튼 클릭
+  Frontend->>User: 카테고리명 입력 폼 표시
+  User->>Frontend: 카테고리명 입력 및 저장 요청
+  Frontend->>Backend: 카테고리 추가 API 호출
+  Backend-->>Frontend: 카테고리 추가 성공 응답
+  Frontend->>User: 최신 카테고리 목록 갱신 표시
+```
+
+
+### 카테고리 수정 및 삭제 페이지
+
+### 설정 페이지
+
 
 ## 기술 스택
 

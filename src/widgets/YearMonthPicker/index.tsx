@@ -86,7 +86,7 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
         <DrawerTrigger asChild>
           <Button
             variant='ghost'
-            className='h-auto p-0 text-[15px] min-w-[22px] rounded-none text-decoration-line: underline decoration-solid decoration-auto underline-offset-auto tabular-nums'
+            className='h-auto p-0 text-[15px] min-w-[22px] rounded-none underline tabular-nums'
             style={{ textUnderlinePosition: 'from-font' }}
           >
             {!isCurrentYear && `${value.getFullYear().toString()}년` + ' '}

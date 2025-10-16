@@ -1,4 +1,4 @@
-import { fireEvent, queryByLabelText, render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import YearMonthListItem, {
   YearMonthListItemProps,

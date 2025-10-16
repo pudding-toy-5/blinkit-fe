@@ -236,6 +236,44 @@ sequenceDiagram
   Frontend->>User: 목록 갱신 및 삭제 결과 표시
 ```
 
+### 회고 페이지
+
+[![회고 페이지](./screenshots/thumbnails/retrospective-page.png)](./screenshots/origins/retrospective-page.png)
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant Frontend
+  participant Backend
+
+  User->>Frontend: 회고 페이지 접속 요청
+  Frontend->>Backend: 회고 데이터 요청 API 호출
+  Backend-->>Frontend: 회고 데이터 응답
+  Frontend->>User: 회고 페이지 렌더링 및 데이터 표시
+```
+
+### 상세 회고 페이지
+
+[![상세 회고 페이지](./screenshots/thumbnails/retrospective-detail-page.png)](./screenshots/origins/retrospective-detail-page.png)
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant Frontend
+  participant Backend
+
+  User->>Frontend: 상세 회고 페이지 접속 요청 (기간 설정 포함)
+  Frontend->>Backend: 필터링된 지출 데이터 요청 (소비분류 및 카테고리 포함)
+  Backend-->>Frontend: 필터링된 지출 데이터 응답
+
+  Frontend->>User: 필터링된 지출 목록 표시
+
+  User->>Frontend: 소비분류 또는 카테고리 변경
+  Frontend->>Backend: 변경된 조건으로 지출 데이터 재요청
+  Backend-->>Frontend: 갱신된 지출 데이터 응답
+  Frontend->>User: 갱신된 지출 목록 표시
+```
+
 ### 설정 페이지
 
 [![설정 페이지](./screenshots/thumbnails/settings.png)](./screenshots/origins/settings.png)

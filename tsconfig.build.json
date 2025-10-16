@@ -7,6 +7,7 @@
     // tsconfig.app.json
     "src/**/*.ts",
     "src/**/*.tsx",
+    "src/vite-env.d.ts",
     // tsconfig.node.json
     "vite.config.ts"
   ],

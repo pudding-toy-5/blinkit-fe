@@ -59,15 +59,13 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
   }, [value, current, minDate, maxDate]);
 
   const handleClickPrevious = () => {
-    const previous = new Date(value);
-    previous.setMonth(value.getMonth() - 1);
+    const previous = new Date(value.getFullYear(), value.getMonth() - 1, 1);
 
     onChange(previous);
   };
 
   const handleClickNext = () => {
-    const next = new Date(value);
-    next.setMonth(next.getMonth() + 1);
+    const next = new Date(value.getFullYear(), value.getMonth() + 1, 1);
 
     onChange(next);
   };

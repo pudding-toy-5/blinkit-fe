@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import { TOKEN_KEY } from '@/constants';
-import { Button } from '@/shared/ui/atoms/button';
 import { cn } from '@/shared/lib/cn';
+import { Button } from '@/shared/ui/atoms/button';
 
 import { Google, Naver } from './Icons';
 

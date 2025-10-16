@@ -8,6 +8,7 @@ import {
   useUpdateCategory,
 } from '@/features/category/api/useCategoryQuery';
 import { Category } from '@/features/category/model/types/Category';
+import { cn } from '@/shared/lib/cn';
 import { Button, buttonVariants } from '@/shared/ui/atoms/button';
 import {
   Drawer,
@@ -21,7 +22,6 @@ import {
 } from '@/shared/ui/atoms/drawer';
 import { Form, FormControl, FormField, FormItem } from '@/shared/ui/atoms/form';
 import Layout from '@/shared/ui/layout/Layout';
-import { cn } from '@/shared/lib/cn';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 import UnderlinedTextInput from '@/shared/ui/UnderlinedTextInput';
 

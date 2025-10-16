@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 
 import { TOKEN_KEY } from '@/constants';
 import AuthGuard from '@/features/auth/ui/AuthGuard';
+import { cn } from '@/shared/lib/cn';
 import { Button, buttonVariants } from '@/shared/ui/atoms/button';
 import {
   Drawer,
@@ -14,7 +15,6 @@ import {
   DrawerTrigger,
 } from '@/shared/ui/atoms/drawer';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
-import { cn } from '@/shared/lib/cn';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 import BottomNavBar from '@/widgets/BottomNavBar';
 

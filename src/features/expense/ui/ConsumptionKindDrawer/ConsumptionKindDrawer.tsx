@@ -10,6 +10,7 @@ import {
   Consumption,
   ConsumptionKind,
 } from '@/features/expense/model/ConsumptionKind';
+import { cn } from '@/shared/lib/cn';
 import { Button } from '@/shared/ui/atoms/button';
 import {
   Drawer,
@@ -28,7 +29,6 @@ import {
 import Check from '@/shared/ui/icons/Check';
 import Exclamation from '@/shared/ui/icons/Exclamation';
 import X from '@/shared/ui/icons/X';
-import { cn } from '@/shared/ui/styles/utils';
 
 interface RadioItemProps {
   isSelected: boolean;

@@ -9,8 +9,8 @@ import {
   Retrospective,
   RetrospectiveCategory,
 } from '@/features/retrospective/model/Retrospective';
+import { cn } from '@/shared/lib/cn';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
-import { cn } from '@/shared/ui/styles/utils';
 
 export interface RetrospectiveCardProps {
   retrospective?: Retrospective;

@@ -29,7 +29,7 @@ export interface Expense {
 
 // expenseFormStore
 export interface ExpenseFormActions {
-  setPeriod: (value: Date) => void;
+  setYearMonth: (value: Date) => void;
   setCategories: (value: Category[]) => void;
   setCategory: (value: Category) => void;
   setMemo: (value: string) => void;

@@ -13,6 +13,7 @@ import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { Expense } from '@/features/expense/model/Expense';
 import CalendarDrawer from '@/features/expense/ui/CalendarDrawer';
 import ConsumptionKindDrawer from '@/features/expense/ui/ConsumptionKindDrawer';
+import { cn } from '@/shared/lib/cn';
 import {
   Form,
   FormControl,
@@ -22,7 +23,6 @@ import {
 } from '@/shared/ui/atoms/form';
 import ArrowRight from '@/shared/ui/icons/ArrowRight';
 import LabeledTextarea from '@/shared/ui/LabeledTextarea';
-import { cn } from '@/shared/ui/styles/utils';
 
 const CalendarDrawerTrigger = ({ date }: { date: Date }) => {
   return (

@@ -6,6 +6,7 @@ import {
   addLocalTimezoneOffset,
   getDateOnly,
 } from '@/features/expense/lib/convertExpense';
+import { queryKeys as retrospectiveQueryKeys } from '@/features/retrospective/consts';
 import {
   Retrospective,
   ServerRetrospective,
@@ -23,11 +24,15 @@ export const useRetrospectivesByRange = ({
   to: Date;
 }) => {
   return useQuery<Retrospective[]>({
-    queryKey: ['retrospective', from.toISOString(), to.toISOString()],
+    queryKey: [
+      ...retrospectiveQueryKeys.retrospective,
+      from.toISOString(),
+      to.toISOString(),
+    ],
     queryFn: async () => {
       try {
         const res = await userAxios.get<ServerRetrospective[]>(
-          apiUrl + '/expense/expenses/consumption-retrospective',
+          `${apiUrl}/expense/expenses/consumption-retrospective`,
           {
             params: {
               start_date: formatDate(
@@ -46,6 +51,26 @@ export const useRetrospectivesByRange = ({
           fromServerRetrospective(serverRetrospective)
         );
         return retrospectives;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error(error.message);
+        }
+        throw error;
+      }
+    },
+  });
+};
+
+export const useIsRetrospectiveExist = () => {
+  return useQuery<boolean>({
+    queryKey: retrospectiveQueryKeys.isRetrospectiveExist,
+    queryFn: async () => {
+      try {
+        const res = await userAxios.get<boolean>(
+          `${apiUrl}/expense/expenses/exists-retrospective`
+        );
+
+        return res.data;
       } catch (error) {
         if (error instanceof AxiosError) {
           throw new Error(error.message);

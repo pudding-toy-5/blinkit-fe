@@ -40,11 +40,13 @@ export default defineConfig({
         'tailwind.config.js',
         'src/vite-env.d.ts',
         // routes
-        'src/app/routeTree.gen.ts',
+        'src/app/router/index.tsx',
+        'src/app/router/routeTree.gen.ts',
         'src/app/main.tsx',
-        'src/app/routes/__root.tsx',
         // @shadcn/ui
-        'src/components/ui/**',
+        'src/shared/ui/atoms/**',
+        // @shared/ui/icons
+        'src/shared/ui/icons/**',
         // types
         '**/*.d.ts',
         '**/types.ts',

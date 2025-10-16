@@ -1,5 +1,5 @@
 import { Category } from '@/features/category/model/types/Category';
-import { cn } from '@/shared/ui/styles/utils';
+import { cn } from '@/shared/lib/cn';
 
 const CategoryButton: React.FC<{
   text: string;

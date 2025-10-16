@@ -1,9 +1,9 @@
 import { useTheme } from 'next-themes';
 import { Toaster as Sonner, ToasterProps } from 'sonner';
 
+import { cn } from '@/shared/lib/cn';
 import FilledExclamation from '@/shared/ui/icons/FilledExclamation';
 import FilledSuccess from '@/shared/ui/icons/FilledSuccess';
-import { cn } from '@/shared/ui/styles/utils';
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = 'system' } = useTheme();

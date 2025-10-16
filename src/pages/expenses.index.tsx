@@ -3,15 +3,14 @@ import { useState } from 'react';
 
 import AuthGuard from '@/features/auth/ui/AuthGuard';
 import {
-  useDailyExpensesByPeriod,
-  useTotalAmountByPeriod,
+  useDailyExpensesByYearMonth,
+  useTotalAmountByYearMonth,
 } from '@/features/expense/api/useExpenseQuery';
-import Period from '@/features/expense/model/Period';
 import AddExpenseButton from '@/features/expense/ui/AddExpenseButton';
 import DailyExpenseList from '@/features/expense/ui/DailyExpenseList';
-import MonthSelector from '@/features/expense/ui/MonthSelector';
 import Logo from '@/shared/ui/icons/Logo';
 import BottomNavBar from '@/widgets/BottomNavBar';
+import YearMonthPicker from '@/widgets/YearMonthPicker';
 
 export const Route = createFileRoute('/expenses/')({
   component: () => (
@@ -22,14 +21,20 @@ export const Route = createFileRoute('/expenses/')({
 });
 
 export function ExpensesPage() {
-  const current = new Date();
-  const [period, setPeriod] = useState<Period>({
-    year: current.getFullYear(),
-    month: current.getMonth() + 1,
+  const [yearMonth, setYearMonth] = useState<Date>(new Date());
+
+  const { dailyExpenses } = useDailyExpensesByYearMonth({
+    year: yearMonth.getFullYear(),
+    month: yearMonth.getMonth() + 1,
+  });
+  const { totalAmount } = useTotalAmountByYearMonth({
+    year: yearMonth.getFullYear(),
+    month: yearMonth.getMonth() + 1,
   });
 
-  const { dailyExpenses } = useDailyExpensesByPeriod(period);
-  const { totalAmount } = useTotalAmountByPeriod(period);
+  const handleChangeYearMonth = (date: Date) => {
+    setYearMonth(date);
+  };
 
   return (
     <>
@@ -37,7 +42,7 @@ export function ExpensesPage() {
         <Logo />
       </header>
       <div className='px-5 py-4'>
-        <MonthSelector period={period} onSetPeriod={setPeriod} />
+        <YearMonthPicker value={yearMonth} onChange={handleChangeYearMonth} />
         <div className='flex flex-col mt-4'>
           <span className='text-[15px] text-[#555] font-semibold'>
             총 소비 내역

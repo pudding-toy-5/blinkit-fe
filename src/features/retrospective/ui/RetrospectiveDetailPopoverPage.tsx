@@ -5,8 +5,7 @@ import CategoryFilter from '@/features/category/ui/CategoryFilter';
 import { useExpensesByRange } from '@/features/expense/api/useExpenseQuery';
 import { getConsumptionTexts } from '@/features/expense/lib/consumption';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
-import { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } from '@/shared/consts/date';
-import useDateRange from '@/shared/lib/useDateRange';
+import { getMonthRange } from '@/shared/lib/dateUtils';
 import Layout from '@/shared/ui/layout/Layout';
 import SubPageHeader from '@/shared/ui/SubPageHeader';
 
@@ -14,19 +13,21 @@ import RetrospectiveCardList from './RetrospectiveCardList';
 import RetrospectiveDetailHeader from './RetrospectiveDetailHeader';
 
 interface Props {
+  yearMonth: Date;
   consumptionKind: ConsumptionKind;
   onClose: () => void;
 }
 
 const RetrospectiveDetailPopoverPage: React.FC<Props> = ({
+  yearMonth,
   consumptionKind,
   onClose,
 }) => {
-  const { dateRange } = useDateRange();
+  const { from, to } = useMemo(() => getMonthRange(yearMonth), [yearMonth]);
 
   const { data: expenses = [] } = useExpensesByRange({
-    from: dateRange?.from ?? DEFAULT_FROM_DATE,
-    to: dateRange?.to ?? DEFAULT_TO_DATE,
+    from,
+    to,
     consumptionKind,
   });
 
@@ -46,8 +47,8 @@ const RetrospectiveDetailPopoverPage: React.FC<Props> = ({
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
   const { data: filteredExpenses = [] } = useExpensesByRange({
-    from: dateRange?.from ?? DEFAULT_FROM_DATE,
-    to: dateRange?.to ?? DEFAULT_TO_DATE,
+    from,
+    to,
     consumptionKind,
     categoryUids: selectedCategories.map((c) => c.uid),
   });

@@ -1,15 +1,20 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "strictNullChecks": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
+    "types": [
+      "vitest/globals",
+      "@testing-library/jest-dom"
+    ],
   },
   "include": [
+    // configs
+    "vitest.config.ts",
+    // setup files
+    "vitest.setup.ts",
+    // test files
     "e2e",
-    "test"
+    "test",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
   ]
 }

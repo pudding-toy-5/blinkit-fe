@@ -1,13 +1,13 @@
 import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 
+import { cn } from '@/shared/lib/cn';
 import Retrospective from '@/shared/ui/icons/Retrospective';
 import RetrospectiveFilled from '@/shared/ui/icons/RetrospectiveFilled';
 import Settings from '@/shared/ui/icons/Settings';
 import SettingsFilled from '@/shared/ui/icons/SettingsFilled';
 import Write from '@/shared/ui/icons/Write';
 import WriteFilled from '@/shared/ui/icons/WriteFilled';
-import { cn } from '@/shared/ui/styles/utils';
 
 import { type BottomNavigationType } from '../model/BottomNavigation';
 import { BottomNavigation } from '../model/BottomNavigation';

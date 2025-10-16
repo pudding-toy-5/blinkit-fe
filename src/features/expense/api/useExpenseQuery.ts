@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import { formatDate } from 'date-fns';
 import { useMemo } from 'react';
 
-import { queryKeys } from '@/features/expense/consts';
+import { queryKeys as expenseQueryKeys } from '@/features/expense/consts';
 import { fromExpense, toExpense } from '@/features/expense/lib/convertExpense';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import {
@@ -11,9 +11,10 @@ import {
   Expense,
   ServerExpense,
 } from '@/features/expense/model/Expense';
-import Period from '@/features/expense/model/Period';
+import { queryKeys as retrospectiveQueryKeys } from '@/features/retrospective/consts';
 import userAxios from '@/shared/api/userAxios';
 import { apiUrl } from '@/shared/consts';
+import YearMonth from '@/shared/model/YearMonth';
 
 if (!apiUrl) {
   throw new Error('API URL이 설정되지 않았습니다.');
@@ -21,18 +22,23 @@ if (!apiUrl) {
 const baseUrl = apiUrl + '/expense/expenses/';
 
 export const useExpenses = ({
-  period,
+  yearMonth,
   categoryUids: category_uids,
   consumptionKind: consumption_kind,
 }: {
-  period: Period;
+  yearMonth: YearMonth;
   categoryUids?: string[];
   consumptionKind?: ConsumptionKind;
 }) => {
-  const { year, month } = period;
+  const { year, month } = yearMonth;
 
   return useQuery<Expense[]>({
-    queryKey: [...queryKeys.expenses, period, category_uids, consumption_kind],
+    queryKey: [
+      ...expenseQueryKeys.expenses,
+      yearMonth,
+      category_uids,
+      consumption_kind,
+    ],
     queryFn: async () => {
       try {
         const res = await userAxios.get<ServerExpense[]>(baseUrl, {
@@ -69,7 +75,7 @@ export const useExpensesByRange = ({
 }) => {
   return useQuery<Expense[]>({
     queryKey: [
-      ...queryKeys.expenses,
+      ...expenseQueryKeys.expenses,
       from.toISOString(),
       to.toISOString(),
       consumptionKind,
@@ -100,10 +106,10 @@ export const useExpensesByRange = ({
   });
 };
 
-export const useExpensesByPeriod = (period: Period) => {
-  const { year, month } = period;
+export const useExpensesByYearMonth = (yearMonth: YearMonth) => {
+  const { year, month } = yearMonth;
   return useQuery<Expense[]>({
-    queryKey: [...queryKeys.expenses, period],
+    queryKey: [...expenseQueryKeys.expenses, yearMonth],
     queryFn: async () => {
       try {
         const res = await userAxios.get<ServerExpense[]>(baseUrl, {
@@ -126,7 +132,7 @@ export const useExpensesByPeriod = (period: Period) => {
 
 export const useExpenseByUid = (uid: string) => {
   return useQuery<Expense>({
-    queryKey: [...queryKeys.expenses, uid],
+    queryKey: [...expenseQueryKeys.expenses, uid],
     queryFn: async () => {
       try {
         const res = await userAxios.get<ServerExpense>(`${baseUrl}${uid}`);
@@ -162,8 +168,15 @@ export const useAddExpense = () => {
       }
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: queryKeys.expenses });
-      void queryClient.invalidateQueries({ queryKey: ['retrospective'] });
+      void queryClient.invalidateQueries({
+        queryKey: expenseQueryKeys.expenses,
+      });
+      void queryClient.invalidateQueries({
+        queryKey: retrospectiveQueryKeys.retrospective,
+      });
+      void queryClient.invalidateQueries({
+        queryKey: retrospectiveQueryKeys.isRetrospectiveExist,
+      });
     },
     onError: (error) => {
       console.error('지출 추가 실패: ', error);
@@ -195,8 +208,15 @@ export const useUpdateExpense = () => {
       }
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: queryKeys.expenses });
-      void queryClient.invalidateQueries({ queryKey: ['retrospective'] });
+      void queryClient.invalidateQueries({
+        queryKey: expenseQueryKeys.expenses,
+      });
+      void queryClient.invalidateQueries({
+        queryKey: retrospectiveQueryKeys.retrospective,
+      });
+      void queryClient.invalidateQueries({
+        queryKey: retrospectiveQueryKeys.isRetrospectiveExist,
+      });
     },
     onError: (error) => {
       console.error('지출 내역 업데이트 실패: ', error);
@@ -220,8 +240,15 @@ export const useDeleteExpense = () => {
       }
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: queryKeys.expenses });
-      void queryClient.invalidateQueries({ queryKey: ['retrospective'] });
+      void queryClient.invalidateQueries({
+        queryKey: expenseQueryKeys.expenses,
+      });
+      void queryClient.invalidateQueries({
+        queryKey: retrospectiveQueryKeys.retrospective,
+      });
+      void queryClient.invalidateQueries({
+        queryKey: retrospectiveQueryKeys.isRetrospectiveExist,
+      });
     },
     onError: (error) => {
       console.error('지출 내역 삭제 실패: ', error);
@@ -229,16 +256,16 @@ export const useDeleteExpense = () => {
   });
 };
 
-export const useDailyExpensesByPeriod = (period: Period) => {
+export const useDailyExpensesByYearMonth = (yearMonth: YearMonth) => {
   const {
     data: expenses = [],
     isLoading,
     isError,
     error,
-  } = useExpensesByPeriod(period);
+  } = useExpensesByYearMonth(yearMonth);
 
   if (isError) {
-    throw new Error('Failed on useDailyExpensesByPeriod: ' + error.message);
+    throw new Error('Failed on useDailyExpensesByYearMonth: ' + error.message);
   }
 
   const dailyExpenses = useMemo(() => {
@@ -266,8 +293,12 @@ export const useDailyExpensesByPeriod = (period: Period) => {
   return { dailyExpenses, isLoading, isError, error };
 };
 
-export const useTotalAmountByPeriod = (period: Period) => {
-  const { data: expenses = [], isLoading, error } = useExpensesByPeriod(period);
+export const useTotalAmountByYearMonth = (yearMonth: YearMonth) => {
+  const {
+    data: expenses = [],
+    isLoading,
+    error,
+  } = useExpensesByYearMonth(yearMonth);
 
   const totalAmount = useMemo(
     () => expenses.reduce((sum, expense) => sum + expense.amount, 0),

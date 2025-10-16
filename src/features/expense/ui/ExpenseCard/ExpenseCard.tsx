@@ -3,7 +3,7 @@ import { useNavigate } from '@tanstack/react-router';
 import CategoryTag from '@/features/category/ui/CategoryTag';
 import { ConsumptionKind } from '@/features/expense/model/ConsumptionKind';
 import { Expense } from '@/features/expense/model/Expense';
-import { cn } from '@/shared/ui/styles/utils';
+import { cn } from '@/shared/lib/cn';
 
 const ExpenseCard: React.FC<Omit<Expense, 'date'>> = ({
   uid,

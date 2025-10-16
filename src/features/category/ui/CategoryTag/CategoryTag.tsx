@@ -1,7 +1,7 @@
+import { cn } from '@/shared/lib/cn';
 import { Badge } from '@/shared/ui/atoms/badge';
 import { Button } from '@/shared/ui/atoms/button';
 import X from '@/shared/ui/icons/X';
-import { cn } from '@/shared/ui/styles/utils';
 
 export interface CategoryTagProps {
   tagName: string;

@@ -63,18 +63,8 @@ blinkit-fe/
 
 ## 유저 플로우 다이어그램
 
-```mermaid
-flowchart TD
-  A[로그인 페이지] --> B[지출 조회 페이지]
-  B --> C[지출 추가 페이지]
-  C --> C1[카테고리 추가 및 선택 페이지]
-  C1 --> C1_1[카테고리명 수정 및 삭제 페이지]
-  B --> D[지출 수정 및 삭제 페이지]
-  D --> C1
-  B --> E[회고 페이지]
-  E --> E1[회고 디테일 페이지]
-  B --> F[설정 페이지]
-```
+<img src="./images/01-user-flow-diagram.svg" width="400"/>
+
 
 ## 페이지 이미지 및 시퀀스 다이어그램
 
@@ -86,20 +76,7 @@ flowchart TD
 
 OAuthProvider: Google, Naver
 
-```mermaid
-sequenceDiagram
-  participant User
-  participant Frontend
-  participant OAuthProvider
-
-  User->>Frontend: 로그인 페이지 접속
-  Frontend->>User: 로그인 버튼 제공 (구글 또는 네이버 선택)
-  User->>OAuthProvider: 로그인 요청 및 인증 창 오픈
-  OAuthProvider-->>User: 인증 완료 및 토큰 전달
-  User->>Frontend: 인증 토큰 전달
-  Frontend->>Frontend: 토큰 저장 및 로그인 상태 처리
-  Frontend->>User: 로그인 성공 화면 표시
-```
+<img src="./images/02-login-page.svg" width="400"/>
 
 ### 지출
 
@@ -107,75 +84,19 @@ sequenceDiagram
 
 [![지출 목록 페이지](./screenshots/thumbnails/expenses-page.png)](./screenshots/origins/expenses-page.png)
 
-```mermaid
-sequenceDiagram
-  participant User
-  participant Frontend
-  participant Backend
-
-  User->>Frontend: 지출 목록 페이지 접속
-  Frontend->>Backend: 지출 목록 요청
-  Backend-->>Frontend: 지출 데이터 반환
-  Frontend->>User: 지출 내역 화면에 표시
-  User->>Frontend: 지출 상세(수정/삭제) 선택
-  Frontend->>Backend: 해당 지출 상세 데이터 요청
-  Backend-->>Frontend: 상세 지출 데이터 반환
-  Frontend->>User: 상세 화면 표시 및 수정/삭제 옵션 제공
-```
+<img src="./images/03-expenses-page.svg" width="400"/>
 
 #### 지출 추가 페이지
 
 [![지출 추가 페이지](./screenshots/thumbnails/add-expense-page.png)](./screenshots/origins/add-expense-page.png)
 
-```mermaid
-sequenceDiagram
-  participant User
-  participant Frontend
-  participant Backend
-
-  User->>Frontend: 지출 추가 페이지 접속
-  Frontend->>User: 지출 입력 폼 표시
-
-  User->>Frontend: 지출 정보 입력(금액, 메모 등)
-  User->>Frontend: 카테고리 선택 or 새 카테고리 추가 선택
-
-  User->>Frontend: 입력 완료 후 저장 요청
-  Frontend->>Backend: 지출 추가 API 호출
-  Backend-->>Frontend: 지출 추가 결과 응답
-  Frontend->>User: 추가 성공 시 알림 및 조회 페이지로 이동
-```
+<img src="./images/04-expense-add-page.svg" width="400"/>
 
 #### 지출 수정 및 삭제 페이지
 
 [![지출 수정 및 삭제 페이지](./screenshots/thumbnails/edit-expense-page.png)](./screenshots/origins/edit-expense-page.png)
 
-```mermaid
-sequenceDiagram
-  participant User
-  participant Frontend
-  participant Backend
-
-  User->>Frontend: 지출 목록 페이지 접속
-  Frontend->>Backend: 지출 데이터 요청
-  Backend-->>Frontend: 지출 데이터 반환
-  Frontend->>User: 지출 내역 목록 화면에 표시
-  User->>Frontend: 수정/삭제할 지출 항목 선택
-  Frontend->>Frontend: 지출 수정 및 삭제 페이지로 이동
-  Frontend->>Backend: 선택한 지출 상세 데이터 요청
-  Backend-->>Frontend: 상세 지출 데이터 반환
-  Frontend->>User: 상세 화면 표시 및 수정/삭제 옵션 제공
-
-  User->>Frontend: 지출 정보 수정 또는 삭제 요청
-  alt 수정 요청
-    Frontend->>Backend: 지출 수정 API 호출 (수정 데이터 포함)
-    Backend-->>Frontend: 수정 결과 반환
-    Frontend->>User: 수정 성공 메시지 및 화면 갱신
-  else 삭제 요청
-    Frontend->>Backend: 지출 삭제 API 호출
-    Backend-->>Frontend: 삭제 결과 반환
-    Frontend->>User: 삭제 성공 메시지 및 화면 갱신
-  end
-```
+<img src="./images/05-edit-expense-page.svg" width="400"/>
 
 ### 카테고리
 
@@ -183,96 +104,25 @@ sequenceDiagram
 
 [![카테고리 추가 및 선택 페이지](./screenshots/thumbnails/add-select-category-page.png)](./screenshots/origins/add-select-category-page.png)
 
-```mermaid
-sequenceDiagram
-  participant User
-  participant Frontend
-  participant Backend
-
-  User->>Frontend: 카테고리 선택/추가 페이지 접속
-  Frontend->>Backend: 기존 카테고리 목록 요청
-  Backend-->>Frontend: 카테고리 목록 반환
-  Frontend->>User: 카테고리 목록 표시
-
-  User->>Frontend: 카테고리 선택
-  Frontend->>User: 선택된 카테고리 반영 및 이전 화면 복귀
-
-  User->>Frontend: "카테고리 추가" 버튼 클릭
-  Frontend->>User: 카테고리명 입력 폼 표시
-  User->>Frontend: 카테고리명 입력 및 저장 요청
-  Frontend->>Backend: 카테고리 추가 API 호출
-  Backend-->>Frontend: 카테고리 추가 성공 응답
-  Frontend->>User: 최신 카테고리 목록 갱신 표시
-```
-
+<img src="./images/06-add-select-category-page.svg" width="400"/>
 
 #### 카테고리 수정 및 삭제 페이지
 
 [![카테고리 수정 및 삭제 페이지](./screenshots/thumbnails/category-detail-page.png)](./screenshots/origins/category-detail-page.png)
 
-```mermaid
-sequenceDiagram
-  participant User
-  participant Frontend
-  participant Backend
-
-  User->>Frontend: 카테고리 관리 페이지 접속
-  Frontend->>Backend: 카테고리 목록 요청
-  Backend-->>Frontend: 카테고리 목록 반환
-  Frontend->>User: 카테고리 목록 및 수정/삭제 UI 표시
-
-  User->>Frontend: 수정 버튼 클릭
-  Frontend->>User: 수정 입력 폼 표시
-  User->>Frontend: 수정내용 저장 요청
-  Frontend->>Backend: 카테고리명 수정 API 호출
-  Backend-->>Frontend: 수정 완료 응답
-  Frontend->>User: 변경 결과 반영
-
-  User->>Frontend: 삭제 버튼 클릭
-  Frontend->>User: 삭제 확인 팝업 표시
-  User->>Frontend: 삭제 확정
-  Frontend->>Backend: 카테고리 삭제 API 호출
-  Backend-->>Frontend: 삭제 완료 응답
-  Frontend->>User: 목록 갱신 및 삭제 결과 표시
-```
+<img src="./images/07-category-detail-page.svg" width="400"/>
 
 ### 회고 페이지
 
 [![회고 페이지](./screenshots/thumbnails/retrospective-page.png)](./screenshots/origins/retrospective-page.png)
 
-```mermaid
-sequenceDiagram
-  participant User
-  participant Frontend
-  participant Backend
-
-  User->>Frontend: 회고 페이지 접속 요청
-  Frontend->>Backend: 회고 데이터 요청 API 호출
-  Backend-->>Frontend: 회고 데이터 응답
-  Frontend->>User: 회고 페이지 렌더링 및 데이터 표시
-```
+<img src="./images/08-retrospective-page.svg" width="400"/>
 
 ### 상세 회고 페이지
 
 [![상세 회고 페이지](./screenshots/thumbnails/retrospective-detail-page.png)](./screenshots/origins/retrospective-detail-page.png)
 
-```mermaid
-sequenceDiagram
-  participant User
-  participant Frontend
-  participant Backend
-
-  User->>Frontend: 상세 회고 페이지 접속 요청 (기간 설정 포함)
-  Frontend->>Backend: 필터링된 지출 데이터 요청 (소비분류 및 카테고리 포함)
-  Backend-->>Frontend: 필터링된 지출 데이터 응답
-
-  Frontend->>User: 필터링된 지출 목록 표시
-
-  User->>Frontend: 소비분류 또는 카테고리 변경
-  Frontend->>Backend: 변경된 조건으로 지출 데이터 재요청
-  Backend-->>Frontend: 갱신된 지출 데이터 응답
-  Frontend->>User: 갱신된 지출 목록 표시
-```
+<img src="./images/09-retrospective-detail-page.svg" width="400"/>
 
 ### 설정 페이지
 
@@ -282,16 +132,4 @@ sequenceDiagram
 
 [![닉네임 변경 페이지](./screenshots/thumbnails/edit-nickname-page.png)](./screenshots/origins/edit-nickname-page.png)
 
-```mermaid
-sequenceDiagram
-  participant User
-  participant Frontend
-  participant Backend
-
-  User->>Frontend: 설정 페이지의 내 정보 수정 페이지 접속
-  Frontend->>User: UI 표시
-  User->>Frontend: 새 닉네임 입력 및 저장 요청
-  Frontend->>Backend: 닉네임 변경 API 호출
-  Backend-->>Frontend: 변경 결과 응답
-  Frontend->>User: 성공/실패 알림 및 닉네임 갱신
-```
+<img src="./images/10-edit-nickname-page.svg" width="400"/>

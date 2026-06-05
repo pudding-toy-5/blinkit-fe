@@ -1,0 +1,48 @@
+# .github/workflows/dependabot-automerge.yml
+name: Dependabot Auto Merge
+
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    steps:
+      - name: Dependabot 메타데이터 가져오기
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      # patch 업데이트 → 자동 승인 + 머지
+      - name: patch 업데이트 자동 승인 및 머지
+        if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
+        run: |
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # minor 업데이트 → 자동 승인만 (머지는 수동)
+      - name: minor 업데이트 자동 승인
+        if: steps.metadata.outputs.update-type == 'version-update:semver-minor'
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # major 업데이트 → PR 코멘트로 알림
+      - name: major 업데이트 코멘트 알림
+        if: steps.metadata.outputs.update-type == 'version-update:semver-major'
+        run: |
+          gh pr comment "$PR_URL" --body "⚠️ **Major 업데이트입니다.** 수동 검토 후 머지해주세요.
+          - 의존성: ${{ steps.metadata.outputs.dependency-names }}
+          - 업데이트 유형: ${{ steps.metadata.outputs.update-type }}"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

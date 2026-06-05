@@ -50,7 +50,7 @@ jobs:
 
       # 직접 서버에 디렉토리를 생성하고 소스 코드를 전송
       - name: Deploy to Server via SSH
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.BLINKIT_SERVER_HOST }}
           username: hannal
@@ -79,7 +79,7 @@ jobs:
 
       # 서버에서 설치 및 빌드 수행
       - name: Setup and Build on Server
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.BLINKIT_SERVER_HOST }}
           username: hannal

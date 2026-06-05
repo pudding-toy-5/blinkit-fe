@@ -19,7 +19,7 @@ jobs:
           version: 9 # Adjust if needed, check your project's pnpm version
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20' # Adjust if needed, align with your project's Node version
           cache: 'pnpm'

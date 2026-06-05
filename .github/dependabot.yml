@@ -1,0 +1,21 @@
+# .github/dependabot.yml
+version: 2
+updates:
+  # npm / pnpm / yarn 프로젝트
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"     # daily | weekly | monthly
+    open-pull-requests-limit: 10
+    groups:
+      # 패치/마이너 업데이트는 하나의 PR로 묶기
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+
+  # GitHub Actions 자체도 업데이트 관리
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

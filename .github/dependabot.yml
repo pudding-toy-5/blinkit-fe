@@ -1,7 +1,6 @@
 version: 2
 updates:
-  # 1. 기존 프로젝트 라이브러리 설정 (예: npm)
-  - package-ecosystem: "pnpm"
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "monthly"
@@ -13,11 +12,10 @@ updates:
         patterns:
           - "*"
 
-  # 2. 💡 Copilot이 지적한 GitHub Actions 설정 추가
-  - package-ecosystem: "github-actions" # 지워졌던 항목을 다시 추가!
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"                 # 이것도 매일 받으면 귀찮으니 monthly로 설정
+      interval: "monthly"
       day: "1"
       time: "09:00"
       timezone: "Asia/Seoul"

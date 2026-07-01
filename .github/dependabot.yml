@@ -1,21 +1,16 @@
-# .github/dependabot.yml
 version: 2
 updates:
-  # npm / pnpm / yarn 프로젝트
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"     # daily | weekly | monthly
-    open-pull-requests-limit: 10
-    groups:
-      # 패치/마이너 업데이트는 하나의 PR로 묶기
-      minor-and-patch:
-        update-types:
-          - "minor"
-          - "patch"
+      interval: "weekly" # 매주 체크 (daily, monthly 변경 가능)
+    open-pull-requests-limit: 5 # 동시에 열어둘 최대 PR 개수
+    labels:
+      - "dependencies" # PR에 자동으로 붙을 라벨 지정
 
-  # GitHub Actions 자체도 업데이트 관리
+  # GitHub Actions 라이브러리 자동 PR 설정 (선택 사항)
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 3

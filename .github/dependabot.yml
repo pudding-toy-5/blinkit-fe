@@ -1,14 +1,27 @@
 version: 2
 updates:
-  - package-ecosystem: "npm" # 사용하는 패키지 매니저로 변경 (예: maven, gradle 등)
+  # 1. 기존 프로젝트 라이브러리 설정 (예: npm)
+  - package-ecosystem: "pnpm"
     directory: "/"
     schedule:
-      interval: "weekly"      # 매주(weekly) 실행으로 설정
-      time: "09:00"          # 오전 9시에 실행
+      interval: "monthly"
+      day: "1"
+      time: "09:00"
       timezone: "Asia/Seoul"
-
-    # 💡 핵심: 여러 업데이트를 하나의 PR로 묶기
     groups:
-      dependencies-group:
+      npm-dependencies:
         patterns:
-          - "*"              # 모든 라이브러리 업데이트를 하나의 PR로 묶음
+          - "*"
+
+  # 2. 💡 Copilot이 지적한 GitHub Actions 설정 추가
+  - package-ecosystem: "github-actions" # 지워졌던 항목을 다시 추가!
+    directory: "/"
+    schedule:
+      interval: "monthly"                 # 이것도 매일 받으면 귀찮으니 monthly로 설정
+      day: "1"
+      time: "09:00"
+      timezone: "Asia/Seoul"
+    groups:
+      actions-dependencies:
+        patterns:
+          - "*"

@@ -3,8 +3,7 @@ updates:
   - package-ecosystem: "npm" # 사용하는 패키지 매니저로 변경 (예: maven, gradle 등)
     directory: "/"
     schedule:
-      interval: "monthly"     # daily(매일) 대신 weekly(매주) 또는 monthly(매달)로 설정
-      day: "monday"          # 매주 월요일에만 확인
+      interval: "weekly"      # 매주(weekly) 실행으로 설정
       time: "09:00"          # 오전 9시에 실행
       timezone: "Asia/Seoul"
 

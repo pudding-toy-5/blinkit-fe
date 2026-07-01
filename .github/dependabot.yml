@@ -1,7 +1,6 @@
 version: 2
 updates:
-  # pnpm 패키지 자동 PR 설정
-  - package-ecosystem: "pnpm"
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly" # 매주 체크 (daily, monthly 변경 가능)

@@ -67,7 +67,7 @@ jobs:
 
       # 파일 전송을 위해 rsync 사용
       - name: Deploy files with rsync
-        uses: burnett01/rsync-deployments@8.0.5
+        uses: burnett01/rsync-deployments@9.0.1
         with:
           switches: -avz --delete --exclude=".git" --exclude="node_modules"
           path: ./

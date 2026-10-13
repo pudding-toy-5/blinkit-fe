@@ -19,7 +19,7 @@ export const useCategories = () => {
     queryKey: queryKeys.categories,
     queryFn: async () => {
       try {
-        const res = await userAxios.get<Category[]>(baseUrl);
+        const res = await userAxios.get<Category[]>(`${baseUrl}/`);
         return res.data;
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -64,7 +64,7 @@ export const useAddCategory = () => {
   return useMutation<Category, Error, Omit<Category, 'uid'>>({
     mutationFn: async (category: Omit<Category, 'uid'>) => {
       try {
-        const res = await userAxios.post<Category>(baseUrl, category);
+        const res = await userAxios.post<Category>(`${baseUrl}/`, category);
         return res.data;
       } catch (error) {
         if (error instanceof AxiosError) {

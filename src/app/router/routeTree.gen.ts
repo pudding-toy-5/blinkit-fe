@@ -8,176 +8,82 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './../../pages/__root'
+import { Route as IndexRouteImport } from './../../pages/index'
+import { Route as PrivacyRouteImport } from './../../pages/privacy'
+import { Route as ExpensesIndexRouteImport } from './../../pages/expenses.index'
+import { Route as LoginIndexRouteImport } from './../../pages/login.index'
+import { Route as SettingsIndexRouteImport } from './../../pages/settings.index'
+import { Route as SettingsAccountRouteImport } from './../../pages/settings.account'
+import { Route as ExpensesUidIndexRouteImport } from './../../pages/expenses.$uid.index'
+import { Route as ExpensesNewIndexRouteImport } from './../../pages/expenses.new.index'
+import { Route as ExpensesRetrospectiveIndexRouteImport } from './../../pages/expenses.retrospective.index'
+import { Route as LoginServiceIndexRouteImport } from './../../pages/login.$service.index'
 
-import { Route as rootRoute } from './../../pages/__root'
-import { Route as PrivacyImport } from './../../pages/privacy'
-import { Route as IndexImport } from './../../pages/index'
-import { Route as SettingsIndexImport } from './../../pages/settings.index'
-import { Route as LoginIndexImport } from './../../pages/login.index'
-import { Route as ExpensesIndexImport } from './../../pages/expenses.index'
-import { Route as SettingsAccountImport } from './../../pages/settings.account'
-import { Route as LoginServiceIndexImport } from './../../pages/login.$service.index'
-import { Route as ExpensesRetrospectiveIndexImport } from './../../pages/expenses.retrospective.index'
-import { Route as ExpensesNewIndexImport } from './../../pages/expenses.new.index'
-import { Route as ExpensesUidIndexImport } from './../../pages/expenses.$uid.index'
-
-// Create/Update Routes
-
-const PrivacyRoute = PrivacyImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const IndexRoute = IndexImport.update({
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const SettingsIndexRoute = SettingsIndexImport.update({
-  id: '/settings/',
-  path: '/settings/',
-  getParentRoute: () => rootRoute,
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const LoginIndexRoute = LoginIndexImport.update({
-  id: '/login/',
-  path: '/login/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ExpensesIndexRoute = ExpensesIndexImport.update({
+const ExpensesIndexRoute = ExpensesIndexRouteImport.update({
   id: '/expenses/',
   path: '/expenses/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const SettingsAccountRoute = SettingsAccountImport.update({
+const LoginIndexRoute = LoginIndexRouteImport.update({
+  id: '/login/',
+  path: '/login/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsIndexRoute = SettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsAccountRoute = SettingsAccountRouteImport.update({
   id: '/settings/account',
   path: '/settings/account',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const LoginServiceIndexRoute = LoginServiceIndexImport.update({
-  id: '/login/$service/',
-  path: '/login/$service/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ExpensesRetrospectiveIndexRoute = ExpensesRetrospectiveIndexImport.update(
-  {
-    id: '/expenses/retrospective/',
-    path: '/expenses/retrospective/',
-    getParentRoute: () => rootRoute,
-  } as any,
-)
-
-const ExpensesNewIndexRoute = ExpensesNewIndexImport.update({
-  id: '/expenses/new/',
-  path: '/expenses/new/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ExpensesUidIndexRoute = ExpensesUidIndexImport.update({
+const ExpensesUidIndexRoute = ExpensesUidIndexRouteImport.update({
   id: '/expenses/$uid/',
   path: '/expenses/$uid/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-// Populate the FileRoutesByPath interface
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyImport
-      parentRoute: typeof rootRoute
-    }
-    '/settings/account': {
-      id: '/settings/account'
-      path: '/settings/account'
-      fullPath: '/settings/account'
-      preLoaderRoute: typeof SettingsAccountImport
-      parentRoute: typeof rootRoute
-    }
-    '/expenses/': {
-      id: '/expenses/'
-      path: '/expenses'
-      fullPath: '/expenses'
-      preLoaderRoute: typeof ExpensesIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/login/': {
-      id: '/login/'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/settings/': {
-      id: '/settings/'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/expenses/$uid/': {
-      id: '/expenses/$uid/'
-      path: '/expenses/$uid'
-      fullPath: '/expenses/$uid'
-      preLoaderRoute: typeof ExpensesUidIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/expenses/new/': {
-      id: '/expenses/new/'
-      path: '/expenses/new'
-      fullPath: '/expenses/new'
-      preLoaderRoute: typeof ExpensesNewIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/expenses/retrospective/': {
-      id: '/expenses/retrospective/'
-      path: '/expenses/retrospective'
-      fullPath: '/expenses/retrospective'
-      preLoaderRoute: typeof ExpensesRetrospectiveIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/login/$service/': {
-      id: '/login/$service/'
-      path: '/login/$service'
-      fullPath: '/login/$service'
-      preLoaderRoute: typeof LoginServiceIndexImport
-      parentRoute: typeof rootRoute
-    }
-  }
-}
-
-// Create and export the route tree
+const ExpensesNewIndexRoute = ExpensesNewIndexRouteImport.update({
+  id: '/expenses/new/',
+  path: '/expenses/new/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExpensesRetrospectiveIndexRoute =
+  ExpensesRetrospectiveIndexRouteImport.update({
+    id: '/expenses/retrospective/',
+    path: '/expenses/retrospective/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LoginServiceIndexRoute = LoginServiceIndexRouteImport.update({
+  id: '/login/$service/',
+  path: '/login/$service/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
   '/settings/account': typeof SettingsAccountRoute
-  '/expenses': typeof ExpensesIndexRoute
-  '/login': typeof LoginIndexRoute
-  '/settings': typeof SettingsIndexRoute
-  '/expenses/$uid': typeof ExpensesUidIndexRoute
-  '/expenses/new': typeof ExpensesNewIndexRoute
-  '/expenses/retrospective': typeof ExpensesRetrospectiveIndexRoute
-  '/login/$service': typeof LoginServiceIndexRoute
+  '/expenses/': typeof ExpensesIndexRoute
+  '/login/': typeof LoginIndexRoute
+  '/settings/': typeof SettingsIndexRoute
+  '/expenses/$uid/': typeof ExpensesUidIndexRoute
+  '/expenses/new/': typeof ExpensesNewIndexRoute
+  '/expenses/retrospective/': typeof ExpensesRetrospectiveIndexRoute
+  '/login/$service/': typeof LoginServiceIndexRoute
 }
-
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
@@ -190,9 +96,8 @@ export interface FileRoutesByTo {
   '/expenses/retrospective': typeof ExpensesRetrospectiveIndexRoute
   '/login/$service': typeof LoginServiceIndexRoute
 }
-
 export interface FileRoutesById {
-  __root__: typeof rootRoute
+  __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
   '/settings/account': typeof SettingsAccountRoute
@@ -204,20 +109,19 @@ export interface FileRoutesById {
   '/expenses/retrospective/': typeof ExpensesRetrospectiveIndexRoute
   '/login/$service/': typeof LoginServiceIndexRoute
 }
-
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/privacy'
     | '/settings/account'
-    | '/expenses'
-    | '/login'
-    | '/settings'
-    | '/expenses/$uid'
-    | '/expenses/new'
-    | '/expenses/retrospective'
-    | '/login/$service'
+    | '/expenses/'
+    | '/login/'
+    | '/settings/'
+    | '/expenses/$uid/'
+    | '/expenses/new/'
+    | '/expenses/retrospective/'
+    | '/login/$service/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -244,7 +148,6 @@ export interface FileRouteTypes {
     | '/login/$service/'
   fileRoutesById: FileRoutesById
 }
-
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -256,6 +159,81 @@ export interface RootRouteChildren {
   ExpensesNewIndexRoute: typeof ExpensesNewIndexRoute
   ExpensesRetrospectiveIndexRoute: typeof ExpensesRetrospectiveIndexRoute
   LoginServiceIndexRoute: typeof LoginServiceIndexRoute
+}
+
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/expenses/': {
+      id: '/expenses/'
+      path: '/expenses'
+      fullPath: '/expenses/'
+      preLoaderRoute: typeof ExpensesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login/': {
+      id: '/login/'
+      path: '/login'
+      fullPath: '/login/'
+      preLoaderRoute: typeof LoginIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings/': {
+      id: '/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof SettingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings/account': {
+      id: '/settings/account'
+      path: '/settings/account'
+      fullPath: '/settings/account'
+      preLoaderRoute: typeof SettingsAccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/expenses/$uid/': {
+      id: '/expenses/$uid/'
+      path: '/expenses/$uid'
+      fullPath: '/expenses/$uid/'
+      preLoaderRoute: typeof ExpensesUidIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/expenses/new/': {
+      id: '/expenses/new/'
+      path: '/expenses/new'
+      fullPath: '/expenses/new/'
+      preLoaderRoute: typeof ExpensesNewIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/expenses/retrospective/': {
+      id: '/expenses/retrospective/'
+      path: '/expenses/retrospective'
+      fullPath: '/expenses/retrospective/'
+      preLoaderRoute: typeof ExpensesRetrospectiveIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login/$service/': {
+      id: '/login/$service/'
+      path: '/login/$service'
+      fullPath: '/login/$service/'
+      preLoaderRoute: typeof LoginServiceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -270,59 +248,6 @@ const rootRouteChildren: RootRouteChildren = {
   ExpensesRetrospectiveIndexRoute: ExpensesRetrospectiveIndexRoute,
   LoginServiceIndexRoute: LoginServiceIndexRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/",
-        "/privacy",
-        "/settings/account",
-        "/expenses/",
-        "/login/",
-        "/settings/",
-        "/expenses/$uid/",
-        "/expenses/new/",
-        "/expenses/retrospective/",
-        "/login/$service/"
-      ]
-    },
-    "/": {
-      "filePath": "index.tsx"
-    },
-    "/privacy": {
-      "filePath": "privacy.tsx"
-    },
-    "/settings/account": {
-      "filePath": "settings.account.tsx"
-    },
-    "/expenses/": {
-      "filePath": "expenses.index.tsx"
-    },
-    "/login/": {
-      "filePath": "login.index.tsx"
-    },
-    "/settings/": {
-      "filePath": "settings.index.tsx"
-    },
-    "/expenses/$uid/": {
-      "filePath": "expenses.$uid.index.tsx"
-    },
-    "/expenses/new/": {
-      "filePath": "expenses.new.index.tsx"
-    },
-    "/expenses/retrospective/": {
-      "filePath": "expenses.retrospective.index.tsx"
-    },
-    "/login/$service/": {
-      "filePath": "login.$service.index.tsx"
-    }
-  }
-}
-ROUTE_MANIFEST_END */
